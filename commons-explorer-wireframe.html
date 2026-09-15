@@ -3805,6 +3805,7 @@ const GNC_RES=[
   ["Sacred groves atlas","map","Community conserved areas of the Khasi hills…","kmenon","#/gallery-item/g-08"]
 ];
 function gncIcon(k){return k==='map'?'<svg class=svgi><use href=#i-map /></svg>':k==='dash'?'◔':k==='story'?'<svg class=svgi><use href=#i-book /></svg>':'<svg class=svgi><use href=#i-db /></svg>';}
+function gncSource(k){return k==='dash'?'Apache Superset':k==='story'?'Commons Stories':'GeoNode';}
 /* reusable GeoNode-style resource catalogue grid (Filter · N found · Order by · cards) */
 function resCatalog(count){
   return `<div class="gnv">
@@ -3856,7 +3857,7 @@ screens.gallery=(p)=>{
           <div class="big">${gncIcon(r[1])}</div>
           <div class="t"><span>${gncIcon(r[1])}</span>${r[0]}</div>
           <div class="ab">${r[2]}</div>
-          <div class="f"><span>◎ ${r[3]}</span><span class="btn sm primary" onclick="event.stopPropagation();go('${r[4]}')">View</span></div>
+          <div class="f"><span class="tag">${gncSource(r[1])}</span><span>◎ ${r[3]}</span><span class="btn sm primary" onclick="event.stopPropagation();go('${r[4]}')">View</span></div>
         </div>`).join("")}
       </div>
       <div class="gnv-links"><span>geonode.org</span><span>Developers</span><span>About</span></div>
