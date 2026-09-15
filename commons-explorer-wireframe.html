@@ -1777,7 +1777,10 @@ footer.site{margin-top:0}
 .hstats{position:relative;z-index:2;display:grid;grid-template-columns:repeat(3,1fr);gap:1.25rem;max-width:64rem;margin:-3.6rem auto 0;padding:0}
 .hstat{position:relative;overflow:hidden;background:#fff;border:1px solid var(--line);border-radius:16px;padding:1.35rem 1.5rem;display:flex;align-items:center;gap:1.1rem;box-shadow:0 24px 44px -26px rgba(0,0,0,.45);transition:transform .18s ease,box-shadow .2s ease}
 .hstat::after{content:'';position:absolute;left:0;right:0;bottom:0;height:3px;background:var(--green);transform:scaleX(0);transform-origin:left;transition:transform .3s ease}
+.hstat{cursor:pointer}
 .hstat:hover{transform:translateY(-3px);box-shadow:0 30px 50px -26px rgba(0,0,0,.5)}
+.lens-grid3.flash{animation:hstatFlash 1s ease}
+@keyframes hstatFlash{0%{box-shadow:0 0 0 4px var(--green-line) inset}100%{box-shadow:0 0 0 0 transparent inset}}
 .hstat:hover::after{transform:scaleX(1)}
 .hstat .ic-tile{display:grid;place-items:center;flex:none;width:3.4rem;height:3.4rem;border-radius:14px;background:linear-gradient(135deg,#eef5ef,#dcebdf);color:var(--green-d);box-shadow:inset 0 0 0 1px rgba(78,124,89,.14)}
 .hstat .ic-tile .svgi{width:1.55rem;height:1.55rem;stroke-width:1.8}
@@ -1992,7 +1995,7 @@ let curLang="English";
 /* SRS §2.1.4 — the four homepage modules */
 const MODULES=[
   {id:"dss",ic:"<svg class=svgi><use href=#i-puzzle /></svg>",name:"Decision Support System",sub:"",href:"#/dss",
-   desc:"Get conservation action plans based on status, needs and potential interventions.",
+   desc:"Turn commons data into a starting point for a decision — which sites to repair first, or how one Panchayat compares with its neighbours.",
    links:[["Panchayat Atlas","#/atlas"],["Village Explorer","#/village"],["+ 2 planned (V2)","#/dss"]]},
   {id:"thematic",ic:"<svg class=svgi><use href=#i-compass /></svg>",name:"Thematic Datasets",sub:"",href:"#/thematic",
    desc:"Explore curated data layers across key themes like water, biodiversity, land and governance.",
@@ -2001,7 +2004,7 @@ const MODULES=[
    desc:"Access spatial and non-spatial datasets across geographies and common types.",
    links:[["Browse datasets","#/repository"],["Upload","#/upload"]]},
   {id:"insights",ic:"<svg class=svgi><use href=#i-barchart /></svg>",name:"Analytical Engine",sub:"",href:"#/insights",
-   desc:"Analyse commons using built-in tools or upload your data and share insights.",
+   desc:"Build your own analysis with Map Studio and Data Analytics, or browse maps, dashboards and stories already published in the Gallery.",
    links:[["Map Studio","#/mapstudio"],["Data Analytics","#/analytics"],["Gallery","#/gallery"]]}
 ];
 
@@ -2704,13 +2707,13 @@ screens.thematic=()=>shell("#/thematic",[{label:"Home",href:"#/home"},{label:"Th
   </div>
   <div class="page-photo"><img src="assets/ill-types.jpg" alt=""></div>
   <div class="hstats">
-    <div class="hstat"><span class="ic-tile"><svg class=svgi><use href=#i-layers /></svg></span><div><b>3</b><span>curated themes</span></div></div>
-    <div class="hstat" title="A data layer is one curated map layer surfaced inside a theme — for example “Groundwater — well observations” under Water."><span class="ic-tile"><svg class=svgi><use href=#i-map /></svg></span><div><b>20<em>+</em></b><span>data layers</span></div></div>
-    <div class="hstat" title="A dataset is the full downloadable record in the Data Repository catalogue — the file(s) a data layer is drawn from."><span class="ic-tile"><svg class=svgi><use href=#i-db /></svg></span><div><b>${DATASETS.length}</b><span>datasets in the catalogue</span></div></div>
+    <div class="hstat" onclick="jumpToThemeCards()"><span class="ic-tile"><svg class=svgi><use href=#i-layers /></svg></span><div><b>3</b><span>curated themes</span></div></div>
+    <div class="hstat" title="A data layer is one curated map layer surfaced inside a theme — for example “Groundwater — well observations” under Water." onclick="jumpToThemeCards('20+ data layers are listed inside the 3 themes below')"><span class="ic-tile"><svg class=svgi><use href=#i-map /></svg></span><div><b>20<em>+</em></b><span>data layers</span></div></div>
+    <div class="hstat" title="A dataset is the full downloadable record in the Data Repository catalogue — the file(s) a data layer is drawn from." onclick="go('#/repository')"><span class="ic-tile"><svg class=svgi><use href=#i-db /></svg></span><div><b>${DATASETS.length}</b><span>datasets in the catalogue</span></div></div>
   </div>
   <p class="muted" style="text-align:center;max-width:620px;margin:.6rem auto 0;font-size:12.5px;line-height:1.5">A <b>data layer</b> is one curated map layer shown inside a theme. A <b>dataset</b> is the underlying data record in the Data Repository catalogue — a layer may be built from one or more datasets.</p>
   <section class="section" style="padding-top:.5rem">
-    <div class="grid g3 mod-grid lens-grid3">
+    <div class="grid g3 mod-grid lens-grid3" id="theme-cards">
       ${THEMES.map(t=>lensCard({tc:LENS_TC[t.id],img:LENS_IMG[t.id],href:'#/theme/'+t.id,tag:'',ic:t.ic,name:t.name,meta:t.tag,desc:t.desc,chips:t.layers.slice(0,3),cta:'Open the '+t.name+' theme'})).join("")}
     </div>
     <div class="lens-cta"><a class="btn primary" onclick="go('#/repository')">Explore Other Layers →</a></div>
@@ -3104,11 +3107,11 @@ function submitUpload(){
 screens.insights=()=>shell("#/insights",[{label:"Home",href:"#/home"},{label:"Analytical Engine"}],`
   <section class="section">
     <h2 style="font-size:26px">Analytical Engine</h2>
-    <p class="sub">Perform spatial and non-spatial analysis on commons data, then publish the outputs and share insights with the platform community.</p>
+    <p class="sub">Two ways to work with analysis on commons data: build your own with Map Studio or Data Analytics, or browse maps, dashboards and stories the community has already published in the Gallery.</p>
     <div class="grid g3 mt16">
-      ${[["<svg class=svgi><use href=#i-map /></svg>","Map Studio","","Geo-spatial analysis","Create, style, manage and publish geospatial data and maps — filters, area calculation, thematic comparison, zonal statistics and AI-assisted reports.","#/mapstudio","Sign-in needed for AI reports"],
-         ["<svg class=svgi><use href=#i-trend /></svg>","Data Analytics","","Non-spatial analytics","Explore tabular, indicator-based and time-series data through Superset dashboards, charts and comparative metrics.","#/analytics","Coming soon"],
-         ["<svg class=svgi><use href=#i-image /></svg>","Gallery of User generated Content","","Collaborative gallery","Browse and publish maps, dashboards and narrative stories contributed by the community, in one interpretable format.","#/gallery","Open to all"]
+      ${[["<svg class=svgi><use href=#i-map /></svg>","Map Studio","","Build · geo-spatial analysis","Create, style, manage and publish geospatial data and maps — filters, area calculation, thematic comparison, zonal statistics and AI-assisted reports.","#/mapstudio","Sign-in needed for AI reports"],
+         ["<svg class=svgi><use href=#i-trend /></svg>","Data Analytics","","Build · non-spatial analytics","Explore tabular, indicator-based and time-series data through Superset dashboards, charts and comparative metrics.","#/analytics","Coming soon"],
+         ["<svg class=svgi><use href=#i-image /></svg>","Gallery of User generated Content","","Browse · already published","Browse and publish maps, dashboards and narrative stories contributed by the community, in one interpretable format.","#/gallery","Open to all"]
         ].map(c=>`<div class="mod-tile lg ${c[6]==='Coming soon'?'tile-soon':''}" onclick="${c[6]==='Coming soon'?`toast('${c[1]} is not live yet — more work is needed before this module is ready.')`:(c[6]==='Open to all'?`go('${c[5]}')`:`goGated('${c[5]}','${c[1]}')`)}">
           <div class="mod-ic">${c[0]}</div>
           <div class="wf-note">${c[3]}</div>
@@ -3474,6 +3477,7 @@ screens.dss=()=>shell("#/dss",[{label:"Home",href:"#/home"},{label:"Decision Sup
   <section class="section">
     <h2 style="font-size:26px">Decision Support System</h2>
     <p class="sub">Conservation and planning support built on the status of commons, local needs and potential interventions — four sub-modules, released across V1 and V2.</p>
+    <p class="muted" style="max-width:760px;margin:0 0 4px">In practice, this is where a decision gets a starting point: which water bodies or check dams to repair first, where to prioritise spring rehabilitation, how one Gram Panchayat's commons compare with its neighbours before a planning meeting, or whether a village's grazing pressure and common land are improving or declining year on year.</p>
     <div class="grid g4 mt24">
       ${[["<svg class=svgi><use href=#i-map /></svg>","Landscape conservation action plan","Landscape-scale action plans — a single embedded GeoNode map and the 14-step LCAP tracker.","V2","#/lcap","","Embedded map · tracker"],
          ["<svg class=svgi><use href=#i-droplet /></svg>","Spring-shed DSS","Spring inventory, hydrogeological mapping and recharge-intervention planning — the ten-step springshed management flow.","V2","#/springshed","","Flow · ODK · figures"],
@@ -4451,6 +4455,14 @@ function render(){
   carBootAll();
 }
 function go(hash){if(location.hash===hash){render();}else{location.hash=hash;}}
+/* hstat on the Thematic Datasets page — jumps to the theme cards and flashes them, so clicking a count visibly does something */
+function jumpToThemeCards(note){
+  const el=document.getElementById('theme-cards');
+  if(!el){return;}
+  el.scrollIntoView({behavior:'smooth',block:'start'});
+  el.classList.remove('flash');void el.offsetWidth;el.classList.add('flash');
+  if(note)toast(note);
+}
 window.addEventListener("hashchange",render);
 
 /* ---- HELPERS ---- */
