@@ -1079,6 +1079,9 @@ footer .bar{border-top:1px solid var(--line-2);padding:1.35rem 0 1.75rem;font-si
 .chip-lock.pub{background:var(--green-soft);color:var(--green-d);border-color:var(--green-line)}
 .chip-lock.priv{background:var(--amber-soft);color:var(--amber-d);border-color:var(--amber-line)}
 .chip-lock.solid{background:var(--green);color:#fff;border-color:var(--green)}
+.chip-lock.soon{background:var(--fill);color:var(--ink-3);border-color:var(--line-2)}
+.mod-tile.tile-soon{opacity:.62;filter:grayscale(.3)}
+.mod-tile.tile-soon:hover{opacity:.8}
 
 /* dataset row (repository list view) */
 .ds-row{position:relative;display:grid;grid-template-columns:44px 1fr auto;gap:.75rem;align-items:center;padding:.9rem .75rem .9rem .85rem;border-top:1px solid var(--line);cursor:pointer;transition:background .15s}
@@ -1988,15 +1991,15 @@ let curLang="English";
 
 /* SRS §2.1.4 — the four homepage modules */
 const MODULES=[
-  {id:"thematic",ic:"<svg class=svgi><use href=#i-compass /></svg>",name:"Thematic Datasets",sub:"(DP data lens)",href:"#/thematic",
-   desc:"Explore curated data layers across key themes like water, biodiversity, land and governance.",
-   links:[["Water","#/theme/water"],["Forest / Land","#/theme/forest"],["Biodiversity","#/theme/biodiversity"],["Explore Other Layers","#/repository"]]},
-  {id:"repository",ic:"<svg class=svgi><use href=#i-db /></svg>",name:"Data Repository",sub:"",href:"#/repository",
-   desc:"Access spatial and non-spatial datasets across geographies and common types.",
-   links:[["Browse datasets","#/repository"],["Upload","#/upload"]]},
   {id:"dss",ic:"<svg class=svgi><use href=#i-puzzle /></svg>",name:"Decision Support System",sub:"",href:"#/dss",
    desc:"Get conservation action plans based on status, needs and potential interventions.",
    links:[["Panchayat Atlas","#/atlas"],["Village Explorer","#/village"],["+ 2 planned (V2)","#/dss"]]},
+  {id:"thematic",ic:"<svg class=svgi><use href=#i-compass /></svg>",name:"Thematic Datasets",sub:"",href:"#/thematic",
+   desc:"Explore curated data layers across key themes like water, biodiversity, land and governance.",
+   links:[["Water","#/theme/water"],["Land","#/theme/forest"],["Biodiversity","#/theme/biodiversity"],["Explore Other Layers","#/repository"]]},
+  {id:"repository",ic:"<svg class=svgi><use href=#i-db /></svg>",name:"Data Repository",sub:"",href:"#/repository",
+   desc:"Access spatial and non-spatial datasets across geographies and common types.",
+   links:[["Browse datasets","#/repository"],["Upload","#/upload"]]},
   {id:"insights",ic:"<svg class=svgi><use href=#i-barchart /></svg>",name:"Analytical Engine",sub:"",href:"#/insights",
    desc:"Analyse commons using built-in tools or upload your data and share insights.",
    links:[["Map Studio","#/mapstudio"],["Data Analytics","#/analytics"],["Gallery","#/gallery"]]}
@@ -2008,7 +2011,7 @@ const THEMES=[
    desc:"Well observations and depth to water, the performance of water bodies, and water conservation interventions planned with CLART.",
    layers:["Groundwater — well observations","Water body performance","CLART interventions (Amrit Sarovar · check dam · farm pond)","Surface water bodies","Watershed boundaries","Water harvesting structures"],
    maps:[["Groundwater","Well observation data · depth to water · state → village"],["Water Body Performance","Vector · good / moderate / poor performance · Maharashtra"],["Water Conservation Planning with CLART","Point interventions · Design Estimate tool (CLART), FES · Andhra Pradesh"]]},
-  {id:"forest",num:"02",ic:"<svg class=svgi><use href=#i-tree /></svg>",name:"Forest / Land",tag:"Biomass, commons potential & land-cover change",
+  {id:"forest",num:"02",ic:"<svg class=svgi><use href=#i-tree /></svg>",name:"Land",tag:"Biomass, commons potential & land-cover change",
    desc:"Above-ground biomass, the social value and potential of common lands, and land-use / land-cover change across forests and revenue lands.",
    layers:["Biomass (above-ground)","Commons potential — social value of land","LULC classes (Level II)","LULC change detection (Forest)","Forest cover & density","CFR / IFR claim status","Mapped common lands","Revenue land categories"],
    maps:[["Biomass Estimation","Raster · above-ground biomass · well observations · 2023"],["Commons Potential Map","Vector · social value of land — India · 0–1 index"],["LULC Change","Raster · LULC change detection (Forest) · Landcover 2022"]]},
@@ -2021,21 +2024,21 @@ function themeById(id){return THEMES.find(t=>t.id===id)||THEMES[0];}
 
 /* SRS §2.2.2 — data repository */
 const DATASETS=[
-  {id:"ds-01",t:"Common lands of Bhilwara district — parcel boundaries",theme:"Forest / Land",kind:"Spatial",fmt:"SHP",geo:"Rajasthan · Bhilwara",yr:"2024",org:"FES — Land Vertical",access:"Public",dl:"1,284",feat:"12,340 polygons"},
+  {id:"ds-01",t:"Common lands of Bhilwara district — parcel boundaries",theme:"Land",kind:"Spatial",fmt:"SHP",geo:"Rajasthan · Bhilwara",yr:"2024",org:"FES — Land Vertical",access:"Public",dl:"1,284",feat:"12,340 polygons"},
   {id:"ds-02",t:"Surface water bodies — village-level inventory",theme:"Water",kind:"Spatial",fmt:"GeoJSON",geo:"Madhya Pradesh",yr:"2024",org:"FES — Water Vertical",access:"Public",dl:"962",feat:"8,776 polygons"},
-  {id:"ds-03",t:"Community Forest Rights claims — status tracker",theme:"Forest / Land",kind:"Tabular",fmt:"CSV",geo:"Odisha",yr:"2023",org:"Partner CSO",access:"Restricted",dl:"431",feat:"5,102 rows"},
-  {id:"ds-04",t:"Land use / land cover mosaic (Level II)",theme:"Forest / Land",kind:"Spatial",fmt:"GeoTIFF",geo:"PAN-India",yr:"2023",org:"National dataset",access:"Public",dl:"3,051",feat:"30 m raster"},
+  {id:"ds-03",t:"Community Forest Rights claims — status tracker",theme:"Land",kind:"Tabular",fmt:"CSV",geo:"Odisha",yr:"2023",org:"Partner CSO",access:"Restricted",dl:"431",feat:"5,102 rows"},
+  {id:"ds-04",t:"Land use / land cover mosaic (Level II)",theme:"Land",kind:"Spatial",fmt:"GeoTIFF",geo:"PAN-India",yr:"2023",org:"National dataset",access:"Public",dl:"3,051",feat:"30 m raster"},
   {id:"ds-05",t:"Sacred groves & community conserved areas",theme:"Biodiversity",kind:"Spatial",fmt:"KML",geo:"Meghalaya",yr:"2022",org:"Academic partner",access:"Public",dl:"612",feat:"1,894 points"},
   {id:"ds-06",t:"Groundwater recharge potential",theme:"Water",kind:"Spatial",fmt:"GeoTIFF",geo:"Andhra Pradesh",yr:"2023",org:"FES — GIS Team",access:"Public",dl:"1,109",feat:"250 m raster"},
   {id:"ds-07",t:"Grazing routes & seasonal pastures",theme:"Other layers",kind:"Spatial",fmt:"SHP",geo:"Gujarat · Kutch",yr:"2023",org:"Partner CSO",access:"Restricted",dl:"288",feat:"742 lines"},
   {id:"ds-08",t:"Gram Panchayat boundaries (admin hierarchy)",theme:"Other layers",kind:"Spatial",fmt:"GeoJSON",geo:"PAN-India",yr:"2024",org:"Commons Platform",access:"Public",dl:"4,760",feat:"2.6 L polygons"},
   {id:"ds-09",t:"Village socio-economic indicators (Census-derived)",theme:"Other layers",kind:"Tabular",fmt:"CSV",geo:"PAN-India",yr:"2011",org:"National dataset",access:"Public",dl:"2,203",feat:"6.4 L rows"},
-  {id:"ds-10",t:"Forest cover change 2015–2023",theme:"Forest / Land",kind:"Spatial",fmt:"GeoTIFF",geo:"PAN-India",yr:"2023",org:"National dataset",access:"Public",dl:"1,845",feat:"30 m raster"},
+  {id:"ds-10",t:"Forest cover change 2015–2023",theme:"Land",kind:"Spatial",fmt:"GeoTIFF",geo:"PAN-India",yr:"2023",org:"National dataset",access:"Public",dl:"1,845",feat:"30 m raster"},
   {id:"ds-11",t:"Species occurrence records — grassland birds",theme:"Biodiversity",kind:"Tabular",fmt:"CSV",geo:"Maharashtra",yr:"2024",org:"Academic partner",access:"Restricted",dl:"176",feat:"22,410 rows"},
   {id:"ds-12",t:"Water harvesting structures — treatment status",theme:"Water",kind:"Spatial",fmt:"SHP",geo:"Rajasthan",yr:"2024",org:"FES — Water Vertical",access:"Public",dl:"803",feat:"9,215 points"}
 ];
 function dsById(id){return DATASETS.find(d=>d.id===id)||DATASETS[0];}
-const DS_THEMES=["Water","Forest / Land","Biodiversity","Other layers"];
+const DS_THEMES=["Water","Land","Biodiversity","Other layers"];
 const DS_FORMATS=["SHP","GeoJSON","KML","CSV","GeoTIFF"];
 
 /* SRS §2.2.3.2.3 — gallery of user-generated content */
@@ -2107,11 +2110,11 @@ const BOOKMARKS=[
 
 const BLOG_CATS=["All","Platform","Data & methods","Field notes","Policy","Community"];
 const BLOGS=[
-  ["Reading the commons through three lenses","Why Water, Forest / Land and Biodiversity became the entry points, and what sits behind each one.","18 Aug 2025","Platform","Pratiti Deshpande","6 min"],
+  ["Reading the commons through three themes","Why Water, Land and Biodiversity became the entry points, and what sits behind each one.","18 Aug 2025","Platform","Pratiti Deshpande","6 min"],
   ["From GeoNode to the Gallery: publishing a map","A walkthrough of the contribution flow — upload, moderation, publication and credit.","06 Aug 2025","Platform","Manish Patel","8 min"],
   ["What a Panchayat Atlas can and cannot tell you","On the limits of secondary data at Gram Panchayat scale, and how to read the sheets honestly.","24 Jul 2025","Data & methods","Kavita Menon","7 min"],
   ["Counting common land is harder than it looks","Revenue categories, mapped parcels and the gaps between them.","11 Jul 2025","Data & methods","Aditi Joshi","9 min"],
-  ["Jaldoot observations, one monsoon later","What a year of community well readings changed in the water lens.","28 Jun 2025","Field notes","Alkesh Rawat","5 min"],
+  ["Jaldoot observations, one monsoon later","What a year of community well readings changed in the water theme.","28 Jun 2025","Field notes","Alkesh Rawat","5 min"],
   ["Springs, and the people who map them","Notes from the springshed protocol in the Garo hills.","14 Jun 2025","Field notes","Sarah Johnson","10 min"],
   ["Who gets to publish? Roles on an open platform","Designing moderation that protects quality without shutting people out.","30 May 2025","Policy","Krishnan Iyer","6 min"],
   ["The case for unique URLs on every output","Why each map, dashboard and story gets an address of its own.","16 May 2025","Platform","Priya Sharma","4 min"],
@@ -2134,12 +2137,10 @@ function loginSubmit(){loginAs(loginRole);}
 
 /* ============ NAV / SHELL ============ */
 const NAV=[
+  {id:"#/dss",label:"Decision Support"},
   {id:"#/thematic",label:"Thematic Datasets"},
-  {id:"#/repository",label:"Data Repository",soon:1},
-  {id:"#/insights",label:"Analytical Engine",soon:1},
-  {id:"#/dss",label:"Decision Support",soon:1},
-  {id:"#/blogs",label:"Blogs",soon:1},
-  {id:"#/about",label:"About",soon:1}
+  {id:"#/repository",label:"Data Repository"},
+  {id:"#/insights",label:"Analytical Engine"}
 ];
 function appsMenu(){
   const grid=`<svg width="15" height="15" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><circle cx="3" cy="3" r="1.5"/><circle cx="8" cy="3" r="1.5"/><circle cx="13" cy="3" r="1.5"/><circle cx="3" cy="8" r="1.5"/><circle cx="8" cy="8" r="1.5"/><circle cx="13" cy="8" r="1.5"/><circle cx="3" cy="13" r="1.5"/><circle cx="8" cy="13" r="1.5"/><circle cx="13" cy="13" r="1.5"/></svg>`;
@@ -2159,7 +2160,7 @@ function langMenu(){
 }
 function header(active){
   let authArea;
-  if(currentRole==null){authArea=`<button class="nav-ic nav-user soon" title="Sign in — coming soon" aria-label="Sign in" aria-disabled="true"><svg class=svgi><use href=#i-usersolid /></svg></button>`;}
+  if(currentRole==null){authArea=`<button class="nav-ic nav-user" title="Sign in to GeoNode" aria-label="Sign in" onclick="openLoginModal(null,'Commons Explorer')"><svg class=svgi><use href=#i-usersolid /></svg></button>`;}
   else{
     const nm=ROLES[currentRole][0];
     const ini=nm.split(' ').map(w=>w[0]).join('').slice(0,2).toUpperCase();
@@ -2201,7 +2202,7 @@ function footer(){
         <p class="muted mt12" style="max-width:280px">An open-access module of the Commons Platform for exploring spatial and non-spatial data on natural commons.</p></div>
       <div><h5>Modules</h5><ul><li onclick="go('#/thematic')">Thematic Datasets</li><li onclick="go('#/repository')">Data Repository</li><li onclick="go('#/insights')">Analytical Engine</li><li onclick="go('#/dss')">Decision Support System</li></ul></div>
       <div><h5>Participate</h5><ul><li onclick="go('#/upload')">Upload a dataset</li><li onclick="go('#/story-create')">Create a story</li><li onclick="go('#/gallery')">Gallery</li><li onclick="go('#/bookmarks')">Bookmarks</li><li onclick="go('#/approvals')">Moderation</li></ul></div>
-      <div><h5>Platform</h5><ul><li onclick="go('#/about')">About Commons Explorer</li><li onclick="go('#/roles')">Roles &amp; access</li><li onclick="go('#/sitemap')">Site map</li><li onclick="go('#/architecture')">Architecture</li><li onclick="toast('Accessibility statement')">Accessibility (WCAG)</li><li onclick="toast('Privacy &amp; terms')">Privacy &amp; Terms</li></ul></div>
+      <div><h5>Platform</h5><ul><li onclick="go('#/roles')">Roles &amp; access</li><li onclick="go('#/sitemap')">Site map</li><li onclick="go('#/architecture')">Architecture</li><li onclick="toast('Accessibility statement')">Accessibility (WCAG)</li><li onclick="toast('Privacy &amp; terms')">Privacy &amp; Terms</li></ul></div>
     </div>
     <div class="bar"><span>CC-BY 4.0 License. Commons Platform. <span class="credit-note">Check dam photograph by Kavali Chandrakanth KCK, Wikimedia Commons, CC BY-SA 4.0.</span></span><span class="wf-note">Design prototype</span></div>
   </div></footer>`;
@@ -2322,7 +2323,7 @@ const GN_AUTHORS=[["FES \u2014 GIS Team","12 Aug 2025","3,140","4"],["Partner CS
 function themeResources(t){
   const out=[];
   t.layers.forEach((l,i)=>out.push({t:l,kind:"Vector Layer",act:"View Map",
-    desc:`${l} under the ${t.name} lens \u2014 coverage, source and method of preparation, attribute schema and known limitations.`,a:GN_AUTHORS[i%GN_AUTHORS.length]}));
+    desc:`${l} under the ${t.name} theme \u2014 coverage, source and method of preparation, attribute schema and known limitations.`,a:GN_AUTHORS[i%GN_AUTHORS.length]}));
   t.maps.forEach((m,i)=>out.push({t:m[0],kind:"Map",act:"Create a Map",
     desc:`${m[1]} description of what the map shows, the datasets behind it and how it should be read.`,a:GN_AUTHORS[(i+2)%GN_AUTHORS.length]}));
   out.push({t:`${t.name} \u2014 status and trends, 2019\u20132024`,kind:"Document",act:"Open document",
@@ -2387,7 +2388,7 @@ function openLoginModal(back,what){
     <div class="lm-card">
       <button class="lm-x" onclick="closeLoginModal()" aria-label="Close"><svg class=svgi><use href=#i-x /></svg></button>
       <h3>Sign in</h3>
-      <p class="lm-sub">Commons Platform single sign-on.</p>
+      <p class="lm-sub">Commons Platform single sign-on — signs you in to the underlying GeoNode instance.</p>
       ${what?`<div class="lm-why"><span><svg class=svgi><use href=#i-lock /></svg></span><span>${what} requires an account. Sign in to continue — you'll be taken straight there.</span></div>`:''}
       <div class="field-block"><label class="wf-label">Email</label><input class="wf-in" placeholder="you@organisation.org"></div>
       <div class="field-block"><label class="wf-label">Password</label><input class="wf-in" type="password" placeholder="••••••••"></div>
@@ -2517,7 +2518,7 @@ function statusPill(s){const solid=(s==='Approved'||s==='Published');return `<sp
 /* module tiles — SRS §2.1.4 */
 /* one colour per tag — the same tag is the same colour everywhere it appears */
 const CHIP_TC={
-  "Water":"var(--c-water)","Forest / Land":"var(--c-forest)","Biodiversity":"var(--c-bio)","Explore Other Layers":"var(--c-other)",
+  "Water":"var(--c-water)","Land":"var(--c-forest)","Biodiversity":"var(--c-bio)","Explore Other Layers":"var(--c-other)",
   "Browse datasets":"var(--c-browse)","Upload":"var(--c-upload)",
   "Panchayat Atlas":"var(--c-atlas)","Village Explorer":"var(--c-village)","+ 2 planned (V2)":"var(--c-planned)",
   "Map Studio":"var(--c-mapstudio)","Data Analytics":"var(--c-analytics)","Gallery":"var(--c-gallery)",
@@ -2527,10 +2528,10 @@ const CHIP_TC={
   "Species occurrence records":"var(--c-species)","Protected areas":"var(--c-protected)","Habitat classes":"var(--c-habitat)"
 };
 const MOD_TC={thematic:"var(--green)",repository:"var(--t-water)",dss:"var(--t-cultural)",insights:"var(--t-pasture)"};
-const MOD_TAG={thematic:"Curated lenses",repository:"Open data",dss:"Planning tools",insights:"Build & share"};
+const MOD_TAG={thematic:"Curated themes",repository:"Open data",dss:"Planning tools",insights:"Build & share"};
 const MOD_IMG={thematic:"assets/photo-8.jpg",repository:"assets/photo-3.jpg",dss:"assets/photo-1.jpg",insights:"assets/photo-9.jpg"};
 const MOD_FIT={};
-const MOD_STAT={thematic:"3 lenses · 20+ layers",repository:"12 datasets · 5 formats",dss:"2 tools live · 2 planned",insights:"Map Studio · Superset"};
+const MOD_STAT={thematic:"3 themes · 20+ layers",repository:"12 datasets · 5 formats",dss:"2 tools live · 2 planned",insights:"Map Studio · Superset"};
 function moduleTiles(){
   return `<div class="grid g2 mod-grid">${MODULES.map(m=>`
     <article class="mod-tile comp" style="--tc:${MOD_TC[m.id]||'var(--green)'}">
@@ -2657,18 +2658,8 @@ screens.home=()=>shell("#/home",null,`
   <div class="hero-photo"><img src="assets/photo-3.jpg" alt=""><span class="photo-credit">Reading the village maps together · Foundation for Ecological Security</span></div>
   <div class="ehero-after"><div class="container">
 
-  <section class="section need"><div class="need-top">
-    <figure class="need-photo"><img src="assets/photo-7.jpg" alt=""></figure>
-    <div class="need-copy">
-      <h2>Shared resources, collectively used and managed</h2>
-      <p>Commons are natural, cultural and social resources that are collectively accessed, used and managed by communities — forests, pastures, water bodies, and the institutions and rules that govern them.</p>
-      <p>Commons Explorer brings spatial and non-spatial data on these resources into one open-access place, so that communities, practitioners and planners can see them, map them and act on them together.</p>
-      <div class="row need-acts"><a class="btn primary" onclick="toast('Opens the “Our Commons” explainer module')">Learn more →</a></div>
-    </div>
-  </div></section>
-
   <section class="section">
-    <h2>Four ways into the data</h2>
+    <h2>Four pathways to explore</h2>
     <p class="sub">Each module opens an intermediate navigation page before its detailed views.</p>
     ${moduleTiles()}
   </section>
@@ -2701,18 +2692,19 @@ screens.thematic=()=>shell("#/thematic",[{label:"Home",href:"#/home"},{label:"Th
   <div class="pagehero bare">
     <div class="ph-copy">
       <h1>Thematic <em>Datasets</em></h1>
-      <p>Curated datasets and visualisations organised around key themes relevant to India's commons - water, forests and land, and biodiversity. Select a lens to open its thematic dashboard and data viewer.</p>
+      <p>Curated datasets and visualisations organised around key themes relevant to India's commons - water, forests and land, and biodiversity. Select a theme to open its thematic dashboard and data viewer.</p>
     </div>
   </div>
   <div class="page-photo"><img src="assets/ill-types.jpg" alt=""></div>
   <div class="hstats">
-    <div class="hstat"><span class="ic-tile"><svg class=svgi><use href=#i-layers /></svg></span><div><b>3</b><span>curated lenses</span></div></div>
-    <div class="hstat"><span class="ic-tile"><svg class=svgi><use href=#i-map /></svg></span><div><b>20<em>+</em></b><span>data layers</span></div></div>
-    <div class="hstat"><span class="ic-tile"><svg class=svgi><use href=#i-db /></svg></span><div><b>${DATASETS.length}</b><span>datasets in the catalogue</span></div></div>
+    <div class="hstat"><span class="ic-tile"><svg class=svgi><use href=#i-layers /></svg></span><div><b>3</b><span>curated themes</span></div></div>
+    <div class="hstat" title="A data layer is one curated map layer surfaced inside a theme — for example “Groundwater — well observations” under Water."><span class="ic-tile"><svg class=svgi><use href=#i-map /></svg></span><div><b>20<em>+</em></b><span>data layers</span></div></div>
+    <div class="hstat" title="A dataset is the full downloadable record in the Data Repository catalogue — the file(s) a data layer is drawn from."><span class="ic-tile"><svg class=svgi><use href=#i-db /></svg></span><div><b>${DATASETS.length}</b><span>datasets in the catalogue</span></div></div>
   </div>
+  <p class="muted" style="text-align:center;max-width:620px;margin:.6rem auto 0;font-size:12.5px;line-height:1.5">A <b>data layer</b> is one curated map layer shown inside a theme. A <b>dataset</b> is the underlying data record in the Data Repository catalogue — a layer may be built from one or more datasets.</p>
   <section class="section" style="padding-top:.5rem">
     <div class="grid g3 mod-grid lens-grid3">
-      ${THEMES.map(t=>lensCard({tc:LENS_TC[t.id],img:LENS_IMG[t.id],href:'#/theme/'+t.id,tag:'',ic:t.ic,name:t.name,meta:t.tag,desc:t.desc,chips:t.layers.slice(0,3),cta:'Open the '+t.name+' lens'})).join("")}
+      ${THEMES.map(t=>lensCard({tc:LENS_TC[t.id],img:LENS_IMG[t.id],href:'#/theme/'+t.id,tag:'',ic:t.ic,name:t.name,meta:t.tag,desc:t.desc,chips:t.layers.slice(0,3),cta:'Open the '+t.name+' theme'})).join("")}
     </div>
     <div class="lens-cta"><a class="btn primary" onclick="go('#/repository')">Explore Other Layers →</a></div>
   </section>
@@ -2789,7 +2781,7 @@ screens.mapview=(p)=>{
     <div class="car-map" data-seed="${i+1}" data-label="${m[0].replace(/"/g,'')}" data-kind="${mapKindFor(m[0],m[1])}" data-img="${mapImgFor(m[0],m[1])}"></div>
     <div class="mf-bar">
       <button class="mf-back" onclick="go('#/theme/${t.id}')" title="Back to ${t.name}"><svg class=svgi><use href=#i-chevdown /></svg></button>
-      <div class="mf-tx"><span class="mf-kicker">${t.name} lens · map ${i+1} of ${t.maps.length}</span><b>${m[0]}</b><span class="mf-sub">${m[1]}</span></div>
+      <div class="mf-tx"><span class="mf-kicker">${t.name} theme · map ${i+1} of ${t.maps.length}</span><b>${m[0]}</b><span class="mf-sub">${m[1]}</span></div>
       <div class="mf-acts"><button class="nav-ic" title="Bookmark" onclick="bookmarkIt('${m[0].replace(/'/g,'')}')"><svg class=svgi><use href=#i-bookmark /></svg></button><button class="nav-ic" title="Share" onclick="toast('Share link')"><svg class=svgi><use href=#i-external /></svg></button><button class="nav-ic" title="Print" onclick="toast('Print map')"><svg class=svgi><use href=#i-print /></svg></button></div>
     </div>
     <div class="mf-nav">${t.maps.map((mm,j)=>`<a class="mf-dot ${j===i?'on':''}" onclick="go('#/mapview/${t.id}/${j}')" title="${mm[0].replace(/"/g,'')}"></a>`).join("")}</div>
@@ -2901,8 +2893,11 @@ screens.explore=(p)=>shell("#/thematic",[{label:"Home",href:"#/home"},{label:"Th
 /* ---- SRS §2.2.2 Data Repository ---- */
 screens.repository=(p)=>shell("#/repository",[{label:"Home",href:"#/home"},{label:"Data Repository"}],`
   <section class="section" style="padding-bottom:14px">
-    <h2 style="font-size:24px;margin:0 0 6px">Data Repository</h2>
-    <p class="sub">A centralised hub for storing, organising and accessing datasets on natural and socio-ecological commons — spatial and non-spatial, across geographies and common types.</p>
+    <div class="between" style="align-items:flex-start;gap:16px;flex-wrap:wrap">
+      <div><h2 style="font-size:24px;margin:0 0 6px">Data Repository</h2>
+      <p class="sub" style="margin:0">A centralised hub for storing, organising and accessing datasets on natural and socio-ecological commons — spatial and non-spatial, across geographies and common types. Commons Explorer is the entry point into the platform's GeoNode instance.</p></div>
+      <a class="btn primary" style="flex:0 0 auto" onclick="openLoginModal(null,'GeoNode')"><svg class=svgi><use href=#i-usersolid /></svg> Sign in to GeoNode →</a>
+    </div>
     ${gxCatalogue(p.tab,{hideTabs:true})}
   </section>
 
@@ -2940,6 +2935,7 @@ screens.dataset=(p)=>{
           </div>
           <div class="row mt12" style="gap:8px;flex-wrap:wrap">
             <a class="btn sm" onclick="downloadDs('${d.id}')"><svg class=svgi><use href=#i-download /></svg> Download ${d.fmt}</a>
+            <a class="btn sm" onclick="bookmarkIt('${d.t.replace(/'/g,'')}')"><svg class=svgi><use href=#i-bookmark /></svg> Bookmark</a>
             <a class="btn sm" onclick="toast('Share dialog')"><svg class=svgi><use href=#i-external /></svg> Share</a>
             <a class="btn sm" onclick="toast('API endpoint / WMS link')"><svg class=svgi><use href=#i-globe /></svg> API &amp; WMS</a>
           </div>
@@ -2992,7 +2988,7 @@ screens.resource=(p)=>{
   const attrs=[["gid","N/A","N/A"],["objectid","N/A","N/A"],["shape_leng","N/A","N/A"],["shape_area","N/A","N/A"],["area_ha","Area in Hectare","N/A"],["area_sqkm","Area in Square Kilometer","N/A"],["district","District name","N/A"],["state","State name","N/A"],["year","Reference year","N/A"],["source","Source dataset","N/A"]];
   const bbox=[["Min Lat","16.469154"],["Min Lon","73.178459"],["Max Lat","19.641401"],["Max Lon","76.883209"]];
   const centre=[["Lat","18.055278"],["Lon","75.030834"]];
-  return shell("#/thematic",[{label:"Home",href:"#/home"},{label:"Thematic Datasets",href:"#/thematic"},{label:t.name+" lens",href:"#/theme/"+t.id},{label:r.t}],`
+  return shell("#/thematic",[{label:"Home",href:"#/home"},{label:"Thematic Datasets",href:"#/thematic"},{label:t.name+" theme",href:"#/theme/"+t.id},{label:r.t}],`
   <section class="section">
     <div class="grid" style="grid-template-columns:minmax(0,1fr) 380px;gap:24px;align-items:start">
       <!-- LEFT: map -->
@@ -3012,6 +3008,7 @@ screens.resource=(p)=>{
           </div>
           <div class="row mt12" style="gap:8px;flex-wrap:wrap">
             <a class="btn sm" onclick="downloadDsNote()"><svg class=svgi><use href=#i-download /></svg> Download</a>
+            <a class="btn sm" onclick="bookmarkIt('${r.t.replace(/'/g,'')}')"><svg class=svgi><use href=#i-bookmark /></svg> Bookmark</a>
             <a class="btn sm" onclick="toast('Share dialog — public link / send to a Commons Platform user')"><svg class=svgi><use href=#i-external /></svg> Share</a>
             <a class="btn sm" onclick="toast('Open on web / metadata')"><svg class=svgi><use href=#i-globe /></svg> Web</a>
           </div>
@@ -3102,14 +3099,14 @@ screens.insights=()=>shell("#/insights",[{label:"Home",href:"#/home"},{label:"An
     <h2 style="font-size:26px">Analytical Engine</h2>
     <p class="sub">Perform spatial and non-spatial analysis on commons data, then publish the outputs and share insights with the platform community.</p>
     <div class="grid g3 mt16">
-      ${[["<svg class=svgi><use href=#i-map /></svg>","Map Studio","(Geo node, Geo-server based tools)","Geo-spatial analysis","Create, style, manage and publish geospatial data and maps — filters, area calculation, thematic comparison, zonal statistics and AI-assisted reports.","#/mapstudio","Sign-in needed for AI reports"],
-         ["<svg class=svgi><use href=#i-trend /></svg>","Data Analytics","(Non Spatial: Apache Superset)","Non-spatial analytics","Explore tabular, indicator-based and time-series data through Superset dashboards, charts and comparative metrics.","#/analytics","Sign-in required"],
+      ${[["<svg class=svgi><use href=#i-map /></svg>","Map Studio","","Geo-spatial analysis","Create, style, manage and publish geospatial data and maps — filters, area calculation, thematic comparison, zonal statistics and AI-assisted reports.","#/mapstudio","Sign-in needed for AI reports"],
+         ["<svg class=svgi><use href=#i-trend /></svg>","Data Analytics","","Non-spatial analytics","Explore tabular, indicator-based and time-series data through Superset dashboards, charts and comparative metrics.","#/analytics","Coming soon"],
          ["<svg class=svgi><use href=#i-image /></svg>","Gallery of User generated Content","","Collaborative gallery","Browse and publish maps, dashboards and narrative stories contributed by the community, in one interpretable format.","#/gallery","Open to all"]
-        ].map(c=>`<div class="mod-tile lg" onclick="${c[6]==='Open to all'?`go('${c[5]}')`:`goGated('${c[5]}','${c[1]}')`}">
+        ].map(c=>`<div class="mod-tile lg ${c[6]==='Coming soon'?'tile-soon':''}" onclick="${c[6]==='Coming soon'?`toast('${c[1]} is not live yet — more work is needed before this module is ready.')`:(c[6]==='Open to all'?`go('${c[5]}')`:`goGated('${c[5]}','${c[1]}')`)}">
           <div class="mod-ic">${c[0]}</div>
           <div class="wf-note">${c[3]}</div>
           <h3>${c[1]}${c[2]?`<span class="mod-sub">${c[2]}</span>`:''}</h3><p>${c[4]}</p>
-          <div class="sub-links"><span class="chip-lock">${c[6]}</span></div>
+          <div class="sub-links"><span class="chip-lock ${c[6]==='Coming soon'?'soon':''}">${c[6]}</span></div>
         </div>`).join("")}
     </div>
   </section>
@@ -3171,7 +3168,7 @@ function regionCarousel(id,regions,ms){
 screens.mapstudio=()=>shell("#/insights",[{label:"Home",href:"#/home"},{label:"Analytical Engine",href:"#/insights"},{label:"Map Studio"}],`
   <section class="section" style="padding-bottom:14px">
     <div class="between">
-      <div><h2 class="mb0" style="font-size:24px">Map Studio<span class="mod-sub" style="font-size:15px;font-weight:500;color:var(--ink-2)">(Geo node, Geo-server based tools)</span></h2></div>
+      <div><h2 class="mb0" style="font-size:24px">Map Studio</h2></div>
     </div>
     <p class="sub">A technical workspace for creating, styling, managing and publishing geospatial data and maps, built on GeoNode and GeoServer. Datasets are prepared here before appearing in atlases, dashboards and the gallery.</p>
   </section>
@@ -3281,7 +3278,7 @@ screens.analytics=()=>shell("#/insights",[{label:"Home",href:"#/home"},{label:"A
   <section class="section" style="padding-bottom:14px">
     ${signinNotice('Non-spatial analytics','#/analytics','SRS §2.2.3.2.2')}
     <div class="between">
-      <div><div class="eyebrow">Analytical Engine · non-spatial analytics</div><h2 class="mb0" style="font-size:24px">Data Analytics<span class="mod-sub" style="font-size:15px;font-weight:500;color:var(--ink-2)">(Non Spatial: Apache Superset)</span></h2></div>
+      <div><div class="eyebrow">Analytical Engine · non-spatial analytics</div><h2 class="mb0" style="font-size:24px">Data Analytics</h2></div>
       <div class="row" style="gap:8px"><a class="btn sm" onclick="toast('My dashboards')">My dashboards</a><a class="btn sm primary" onclick="go('#/gallery')">Publish dashboard</a></div>
     </div>
     <p class="sub">Analysis and visualisation of tabular, indicator-based and time-series data through Apache Superset, integrated via APIs — complementing the spatial insights from Map Studio and the atlases.</p>
@@ -3373,6 +3370,7 @@ const GNC_RES=[
   ["Sacred groves atlas","map","Community conserved areas of the Khasi hills…","kmenon","#/gallery-item/g-08"]
 ];
 function gncIcon(k){return k==='map'?'<svg class=svgi><use href=#i-map /></svg>':k==='dash'?'◔':k==='story'?'<svg class=svgi><use href=#i-book /></svg>':'<svg class=svgi><use href=#i-db /></svg>';}
+function gncSource(k){return k==='dash'?'Apache Superset':k==='story'?'Commons Stories':'GeoNode';}
 /* reusable GeoNode-style resource catalogue grid (Filter · N found · Order by · cards) */
 function resCatalog(count){
   return `<div class="gnv">
@@ -3407,9 +3405,9 @@ screens.gallery=(p)=>{
   <section class="section" style="padding-bottom:14px">
     <div class="between">
       <div><div class="eyebrow">Analytical Engine · user-generated content</div><h2 class="mb0" style="font-size:24px">Gallery of User generated Content</h2></div>
-      <div class="row" style="gap:8px"><a class="btn sm" onclick="go('#/story-create')"><svg class=svgi><use href=#i-book /></svg> Create a story</a><a class="btn sm primary" onclick="publishToGallery()">＋ Publish an output</a></div>
+      <div class="row" style="gap:8px"><a class="btn sm" onclick="go('#/story-create')"><svg class=svgi><use href=#i-book /></svg> Create a story</a><a class="btn sm" onclick="go('#/mapstudio')"><svg class=svgi><use href=#i-map /></svg> Open Map Studio</a><a class="btn sm primary" onclick="toast('Data Analytics is not live yet — more work is needed before this module is ready.')"><svg class=svgi><use href=#i-trend /></svg> Open Data Analytics</a></div>
     </div>
-    <p class="sub">A collaborative gallery bringing together maps from GeoNode, dashboards from Apache Superset and narrative stories in one interpretable format. Every item has a unique URL and is searchable.</p>
+    <p class="sub">A collaborative gallery bringing together maps, layers and geo-stories published from GeoNode, and — once integrated — dashboards published from Apache Superset, in one interpretable format. Every item has a unique URL and is searchable.</p>
   </section>
 
   <section class="section" style="padding-top:6px">
@@ -3424,7 +3422,7 @@ screens.gallery=(p)=>{
           <div class="big">${gncIcon(r[1])}</div>
           <div class="t"><span>${gncIcon(r[1])}</span>${r[0]}</div>
           <div class="ab">${r[2]}</div>
-          <div class="f"><span>◎ ${r[3]}</span><span class="btn sm primary" onclick="event.stopPropagation();go('${r[4]}')">View</span></div>
+          <div class="f"><span class="tag">${gncSource(r[1])}</span><span>◎ ${r[3]}</span><span class="btn sm primary" onclick="event.stopPropagation();go('${r[4]}')">View</span></div>
         </div>`).join("")}
       </div>
       <div class="gnv-links"><span>geonode.org</span><span>Developers</span><span>About</span></div>
@@ -3470,7 +3468,7 @@ screens.dss=()=>shell("#/dss",[{label:"Home",href:"#/home"},{label:"Decision Sup
     <h2 style="font-size:26px">Decision Support System</h2>
     <p class="sub">Conservation and planning support built on the status of commons, local needs and potential interventions — four sub-modules, released across V1 and V2.</p>
     <div class="grid g4 mt24">
-      ${[["<svg class=svgi><use href=#i-map /></svg>","Landscape conservation action plan","Landscape-scale action plans — map workspace, a 14-step LCAP tracker and the resources behind the initiative.","V2","#/lcap","","Map · tracker · resources"],
+      ${[["<svg class=svgi><use href=#i-map /></svg>","Landscape conservation action plan","Landscape-scale action plans — a single embedded GeoNode map and the 14-step LCAP tracker.","V2","#/lcap","","Embedded map · tracker"],
          ["<svg class=svgi><use href=#i-droplet /></svg>","Spring-shed DSS","Spring inventory, hydrogeological mapping and recharge-intervention planning — the ten-step springshed management flow.","V2","#/springshed","","Flow · ODK · figures"],
          ["<svg class=svgi><use href=#i-landmark /></svg>","Panchayat Atlas<span class=\"mod-sub\">(Decision Support Module)</span>","Map-based decision support at Gram Panchayat level — administrative boundaries with multi-sectoral layers, indicator dashboards and temporal comparison.","V1","#/atlas","","Sign-in required"],
          ["<svg class=svgi><use href=#i-home /></svg>","Village Explorer<span class=\"mod-sub\">(Dashboard)</span>","Tools Data + selected DP layers + study data, brought together as a holistic village view with an at-a-glance report.","V1","#/village","","Open to all"]
@@ -3507,12 +3505,23 @@ const LCAP_LAYERS=["Jaldootdata Post Monsoon 2023","Jaldootdata Pre Monsoon 2023
 screens.lcap=()=>shell("#/dss",[{label:"Home",href:"#/home"},{label:"Decision Support System",href:"#/dss"},{label:"Landscape conservation action plan"}],`
   <section class="section" style="padding-bottom:14px">
     <h2 class="mb0" style="font-size:24px">Landscape conservation action plan</h2>
-    <p class="sub">Landscape-scale conservation planning — the datasets, maps and stories behind the initiative.</p>
+    <p class="sub">A single landscape-scale conservation map maintained in GeoNode, embedded below, together with the fourteen-step planning tracker that runs alongside it.</p>
   </section>
 
   <section class="section" style="padding-top:6px">
-    ${resCatalog(147)}
-    <div class="row mt16" style="justify-content:center"><a class="btn" onclick="toast('Load more resources')">Load more</a></div>
+    <div class="car-shot" style="cursor:default;box-shadow:var(--shadow-md)">
+      <div class="cs-bar"><i></i><i></i><i></i><span>GeoNode map viewer — embedded</span></div>
+      <div class="car-map" data-seed="21" data-label="Landscape conservation action plan" data-kind="" data-img=""></div>
+    </div>
+    <div class="grid" style="grid-template-columns:1fr 320px;gap:24px;align-items:start;margin-top:20px">
+      <div class="panel">
+        <div class="eyebrow">14-step LCAP tracker</div>
+        <div class="grid g3 mt12">
+          ${LCAP_STAGES.map(s=>`<div class="detail-blk"><div class="k">${s[0]}</div><ul class="dul">${s[1].map(st=>`<li><b>${st[0]}</b> · ${st[1]}</li>`).join("")}</ul></div>`).join("")}
+        </div>
+      </div>
+      <div class="panel">${urlRow('/dss/lcap','Landscape conservation action plan')}</div>
+    </div>
   </section>
 `);
 
@@ -3831,6 +3840,10 @@ screens['story-create']=()=>{
     <div class="eyebrow">Commons Stories integration</div>
     <h2 style="font-size:22px">Create a story from your resources</h2>
     <p class="sub">Pull in map views, dashboards and analytical outputs, then add narrative around them. Stories publish to the gallery with a unique URL, after moderation.</p>
+    <div class="callout" style="margin:14px 0 18px">
+      <div class="txt"><strong>How this relates to GeoNode's GeoStories</strong><span>This builder publishes narrative stories into the Commons Explorer gallery under Commons Stories. GeoNode also ships its own GeoStories tool for a map-led narrative built directly from a single GeoNode layer — use that when the story is really just one annotated map. Whether the two stay separate or Commons Stories becomes the single narrative path for the platform is still to be confirmed with the product team.</span></div>
+      <a class="btn sm" onclick="toast('Opens GeoNode GeoStories for this layer')">Try GeoStories in GeoNode →</a>
+    </div>
     <div class="stepbar"><i class="on"></i><i class="on"></i><i></i></div>
     <div class="grid" style="grid-template-columns:1fr 320px;gap:24px;align-items:start">
       <div class="panel">
@@ -4098,7 +4111,7 @@ screens.admin=()=>{
     ${roleCan('platform')?`
     <div class="grid g2 mt16">
       <div class="panel"><div class="eyebrow">Platform configuration</div>
-        <div class="stack mt8">${[["Site structure &amp; navigation","Menus, module order, landing content"],["Content templates","Thematic lens, DSS view and report templates"],["Data standards","Metadata schema, formats, licences"],["Moderation policy","Queues, escalation and SLAs"]].map(r=>`<div class="ctx-row" style="cursor:pointer" onclick="toast('${r[0].replace(/&amp;/g,'and')}')"><h5>${r[0]}</h5><p>${r[1]}</p></div>`).join("")}</div></div>
+        <div class="stack mt8">${[["Site structure &amp; navigation","Menus, module order, landing content"],["Content templates","Theme pages, DSS view and report templates"],["Data standards","Metadata schema, formats, licences"],["Moderation policy","Queues, escalation and SLAs"]].map(r=>`<div class="ctx-row" style="cursor:pointer" onclick="toast('${r[0].replace(/&amp;/g,'and')}')"><h5>${r[0]}</h5><p>${r[1]}</p></div>`).join("")}</div></div>
       <div class="panel"><div class="eyebrow">Integrations</div>
         <div class="mt8">${[["GeoNode / GeoServer","Connected"],["GeoNetwork (metadata)","Connected"],["Apache Superset","Connected"],["AI services","Connected"],["SSO / identity","Connected"],["Commons Stories","Connected"],["Admin Hierarchy · Organisations · Programs","Connected"],["Feedback · Telemetry","Connected"]].map(r=>`<div class="detail-f"><span class="k">${r[0]}</span><span class="v">● ${r[1]}</span></div>`).join("")}</div></div>
     </div>`:''}
