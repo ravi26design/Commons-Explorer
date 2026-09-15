@@ -547,7 +547,8 @@ footer .bar{border-top:1px solid var(--line-2);padding:1.35rem 0 1.75rem;font-si
 /* staged carousel (thematic lens — carousel view) */
 .car-stage3{display:flex;gap:1.25rem;align-items:flex-end;justify-content:center;padding:1.6rem 1.9rem .5rem;background:var(--bg-soft)}
 .car-pane{flex:1 1 0;min-width:0;display:flex;flex-direction:column;align-items:center}
-.car-shot{width:100%;border:1px solid var(--line-2);border-radius:0;background:#fff;overflow:hidden;cursor:pointer;box-shadow:var(--shadow-card);transition:transform .15s,box-shadow .15s}
+.car-shot{width:100%;border:1px solid var(--line-2);border-radius:0;background:#fff;overflow:hidden;cursor:pointer;box-shadow:var(--shadow-card);transition:transform .15s,box-shadow .15s;position:relative}
+.car-shot .car-open{position:absolute;right:.6rem;bottom:.6rem;z-index:2;cursor:pointer}
 .car-shot:hover{transform:translateY(-3px);box-shadow:var(--shadow-lift)}
 .car-shot .cs-bar{display:flex;align-items:center;gap:5px;padding:.4rem .6rem;border-bottom:1px solid var(--line);background:var(--bg-soft)}
 .car-shot .cs-bar i{width:7px;height:7px;border-radius:50%;background:var(--line-2);display:block}
@@ -1863,6 +1864,10 @@ footer.site .fname{font-size:1.15rem;font-weight:800;letter-spacing:-.02em;color
 
 /* ---------- maps: live basemap chrome + CLART thematic map ---------- */
 .car-map{position:relative;min-height:330px;background:#eef0ea;overflow:hidden}
+.geo-embed{position:relative;min-height:330px;background:#eef0ea;overflow:hidden}
+.geo-embed iframe{position:absolute;inset:0;width:100%;height:100%;border:0;display:block}
+.mapfull .geo-embed{position:absolute;inset:0;min-height:0}
+.car-shot .geo-embed{min-height:330px}
 .car-shot .car-map{min-height:330px}
 .ph-img.has-map>.car-map{position:absolute;inset:0;min-height:0}
 .car-map .lm-canvas{position:absolute;inset:0;z-index:0}
@@ -2435,7 +2440,7 @@ const THEMES=[
   {id:"water",num:"01",ic:"<svg class=svgi><use href=#i-droplet /></svg>",name:"Water",tag:"Groundwater, water body performance & conservation planning",
    desc:"Well observations and depth to water, the performance of water bodies, and water conservation interventions planned with CLART.",
    layers:["Groundwater — well observations","Water body performance","CLART interventions (Amrit Sarovar · check dam · farm pond)","Surface water bodies","Watershed boundaries","Water harvesting structures"],
-   maps:[["Groundwater","Well observation data · depth to water · state → village"],["Water Body Performance","Vector · good / moderate / poor performance · Maharashtra"],["Water Conservation Planning with CLART","Point interventions · Design Estimate tool (CLART), FES · Andhra Pradesh"]]},
+   maps:[["Groundwater","Well observation data · depth to water · state → village","https://geonode.indiaobservatory.org.in/catalogue/#/map/198"],["Water Body Performance","Vector · good / moderate / poor performance · Maharashtra"],["Water Conservation Planning with CLART","Point interventions · Design Estimate tool (CLART), FES · Andhra Pradesh"]]},
   {id:"forest",num:"02",ic:"<svg class=svgi><use href=#i-tree /></svg>",name:"Land",tag:"Biomass, commons potential & land-cover change",
    desc:"Above-ground biomass, the social value and potential of common lands, and land-use / land-cover change across forests and revenue lands.",
    layers:["Biomass (above-ground)","Commons potential — social value of land","LULC classes (Level II)","LULC change detection (Forest)","Forest cover & density","CFR / IFR claim status","Mapped common lands","Revenue land categories"],
@@ -2760,9 +2765,11 @@ function stageCarousel(id,items,ms){
     <div class="car-track" id="${id}-track">
       ${groups.map(g=>`<div class="car-slide"><div class="car-stage3">
         ${g.map((it,gi)=>`<div class="car-pane">
-          <div class="car-shot" onclick="${it[2]}">
-            <div class="cs-bar"><i></i><i></i><i></i><span>GeoNode map viewer</span></div>
-            <div class="car-map" data-seed="${gi+1+groups.indexOf(g)*3}" data-label="${it[0].replace(/"/g,'')}" data-kind="${/clart/i.test(it[0]+' '+it[1])?'clart':/groundwater/i.test(it[0])?'wells':/water body/i.test(it[0])?'villages':''}" data-img="${/clart/i.test(it[0]+' '+it[1])?'assets/water-clart':/groundwater/i.test(it[0])?'assets/water-groundwater':/water body/i.test(it[0])?'assets/water-bodies':''}"></div>
+          <div class="car-shot" ${it[3]?'':`onclick="${it[2]}"`}>
+            <div class="cs-bar"><i></i><i></i><i></i><span>${it[3]?'GeoNode map viewer — live':'GeoNode map viewer'}</span></div>
+            ${it[3]
+              ? `<div class="geo-embed"><iframe src="${it[3]}" title="${it[0].replace(/"/g,'')}" loading="lazy"></iframe></div><a class="btn sm primary car-open" onclick="${it[2]}">Open full view ⤢</a>`
+              : `<div class="car-map" data-seed="${gi+1+groups.indexOf(g)*3}" data-label="${it[0].replace(/"/g,'')}" data-kind="${/clart/i.test(it[0]+' '+it[1])?'clart':/groundwater/i.test(it[0])?'wells':/water body/i.test(it[0])?'villages':''}" data-img="${/clart/i.test(it[0]+' '+it[1])?'assets/water-clart':/groundwater/i.test(it[0])?'assets/water-groundwater':/water body/i.test(it[0])?'assets/water-bodies':''}"></div>`}
           </div>
           <div class="car-pill">${it[0]}</div>
           <div class="car-sub">${it[1]}</div>
@@ -3186,7 +3193,7 @@ screens.theme=(p)=>{
   </section>
 
   <section class="section" style="padding-top:18px">
-    ${stageCarousel('theme-car',t.maps.map((m,i)=>[m[0],m[1],`go('#/mapview/${t.id}/${i}')`]))}
+    ${stageCarousel('theme-car',t.maps.map((m,i)=>[m[0],m[1],`go('#/mapview/${t.id}/${i}')`,m[2]]))}
   </section>
 
   <section class="section">
@@ -3244,7 +3251,9 @@ screens.mapview=(p)=>{
   const t=themeById(p.id); const i=Math.min(+(p.i||0),t.maps.length-1); const m=t.maps[i];
   return shell("#/thematic",null,`
   <div class="mapfull">
-    <div class="car-map" data-seed="${i+1}" data-label="${m[0].replace(/"/g,'')}" data-kind="${mapKindFor(m[0],m[1])}" data-img="${mapImgFor(m[0],m[1])}"></div>
+    ${m[2]
+      ? `<div class="geo-embed"><iframe src="${m[2]}" title="${m[0].replace(/"/g,'')}" loading="lazy"></iframe></div>`
+      : `<div class="car-map" data-seed="${i+1}" data-label="${m[0].replace(/"/g,'')}" data-kind="${mapKindFor(m[0],m[1])}" data-img="${mapImgFor(m[0],m[1])}"></div>`}
     <div class="mf-bar">
       <button class="mf-back" onclick="go('#/theme/${t.id}')" title="Back to ${t.name}"><svg class=svgi><use href=#i-chevdown /></svg></button>
       <div class="mf-tx"><span class="mf-kicker">${t.name} theme · map ${i+1} of ${t.maps.length}</span><b>${m[0]}</b><span class="mf-sub">${m[1]}</span></div>
