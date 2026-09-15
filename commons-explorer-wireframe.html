@@ -2142,15 +2142,22 @@ const NAV=[
   {id:"#/repository",label:"Data Repository"},
   {id:"#/insights",label:"Analytical Engine"}
 ];
+/* Commons Platform — the same seven sections, in the same order, from every module's apps switcher */
+const PLATFORM_SECTIONS=[
+  ["Commons Explorer","<svg class=svgi><use href=#i-compass /></svg>","go('#/home')"],
+  ["Understanding Commons","<svg class=svgi><use href=#i-users /></svg>","toast('Opens introduction.commonsplatform.in')"],
+  ["Commons Stories","<svg class=svgi><use href=#i-book /></svg>","toast('Opens stories.commonsplatform.in')"],
+  ["Village Institutions","<svg class=svgi><use href=#i-landmark /></svg>","toast('Opens villageinstitutions.commonsplatform.in')"],
+  ["Facilitating Commoning","<svg class=svgi><use href=#i-hand /></svg>","toast('Opens learning.commonsplatform.in')"],
+  ["Legal Repository","<svg class=svgi><use href=#i-clipboard /></svg>","toast('Opens legalrepository.commonsplatform.in')"],
+  ["Making Expertise Visible","<svg class=svgi><use href=#i-usercircle /></svg>","toast('Opens skills.commonsplatform.in')"]
+];
 function appsMenu(){
   const grid=`<svg width="15" height="15" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><circle cx="3" cy="3" r="1.5"/><circle cx="8" cy="3" r="1.5"/><circle cx="13" cy="3" r="1.5"/><circle cx="3" cy="8" r="1.5"/><circle cx="8" cy="8" r="1.5"/><circle cx="13" cy="8" r="1.5"/><circle cx="3" cy="13" r="1.5"/><circle cx="8" cy="13" r="1.5"/><circle cx="13" cy="13" r="1.5"/></svg>`;
-  const products=[["Commons Explorer","<svg class=svgi><use href=#i-compass /></svg>","go('#/home')"],["Understanding Commons","<svg class=svgi><use href=#i-users /></svg>","toast('Understanding Commons (separate module)')"],["Commons Stories","<svg class=svgi><use href=#i-book /></svg>","toast('Commons Stories (integration — SRS §5)')"],["GeoNode","<svg class=svgi><use href=#i-map /></svg>","toast('GeoNode (backend GIS — SRS §5)')"],["Superset","<svg class=svgi><use href=#i-trend /></svg>","toast('Apache Superset (analytics — SRS §5)')"],["Admin Hierarchy","<svg class=svgi><use href=#i-landmark /></svg>","toast('Admin Hierarchy microservice')"]];
-  const quick=[["Organisations","<svg class=svgi><use href=#i-building /></svg>","toast('Organisations microservice')"],["Feedback","<svg class=svgi><use href=#i-message /></svg>","toast('Feedback microservice')"],["Telemetry","<svg class=svgi><use href=#i-radio /></svg>","toast('Telemetry microservice')"]];
   const tile=a=>`<div class="app-tile" onclick="appsClose();${a[2]}"><div class="app-ic">${a[1]}</div><div class="app-nm">${a[0]}</div></div>`;
   return `<div class="appsw" id="appsw"><button class="btn sm btn-icon" onclick="toggleAppsW(event)" title="Apps" aria-label="Apps">${grid}</button>
-    <div class="appsw-menu"><div class="appsw-cols">
-      <div><div class="appsw-h">Commons Platform</div><div class="app-grid2">${products.map(tile).join("")}</div></div>
-      <div><div class="appsw-h">Microservices</div><div class="app-grid1">${quick.map(tile).join("")}</div></div>
+    <div class="appsw-menu"><div class="appsw-cols" style="grid-template-columns:1fr">
+      <div><div class="appsw-h">Commons Platform</div><div class="app-grid2">${PLATFORM_SECTIONS.map(tile).join("")}</div></div>
     </div></div></div>`;
 }
 function langMenu(){
@@ -2498,7 +2505,7 @@ function signinNotice(what,back,ref){
 function urlRow(path,label){
   return `<div>
     <div class="wf-note" style="margin-bottom:6px">Unique resource URL · discoverable in search &amp; gallery</div>
-    <div class="urlbar"><span><svg class=svgi><use href=#i-link /></svg></span><span>https://commons.fes.org.in/explorer${path}</span>
+    <div class="urlbar"><span><svg class=svgi><use href=#i-link /></svg></span><span>https://explorer.commonsplatform.in${path}</span>
       <a class="btn sm" style="margin-left:auto" onclick="toast('Link copied')">Copy</a></div>
     <div class="row mt12" style="gap:8px">
       <a class="btn sm" onclick="bookmarkIt('${(label||'').replace(/'/g,'')}')"><svg class=svgi><use href=#i-bookmark /></svg> Bookmark</a>
