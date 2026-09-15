@@ -707,7 +707,8 @@ footer .bar{border-top:1px solid var(--line-2);padding:1.35rem 0 1.75rem;font-si
 .gnv-mini{position:absolute;bottom:.9rem;left:.9rem;width:70px;height:52px;border:1px solid var(--line-2);background:var(--bg-soft);border-radius:2px}
 .gnv-foot{display:flex;align-items:center;justify-content:space-between;gap:.75rem;padding:.5rem .9rem;border-top:1px solid var(--line);font-size:.68rem;color:var(--muted-2)}
 .gnv-links{display:flex;gap:1.25rem;justify-content:center;padding:.65rem;font-size:.72rem;font-weight:600;color:var(--muted-2);border-top:1px solid var(--line)}
-.lcap-viewer{height:calc(100vh - 5rem);height:calc(100dvh - 5rem);min-height:32rem;display:flex;flex-direction:column;border:0;border-radius:0;box-shadow:none}
+.lcap-head{margin-bottom:.9rem;flex-wrap:wrap;gap:.5rem}
+.lcap-viewer{height:calc(100vh - 12rem);height:calc(100dvh - 12rem);min-height:30rem;display:flex;flex-direction:column;border:1px solid var(--line);border-radius:0;box-shadow:var(--shadow-card)}
 .lcap-viewer .gnv-top{gap:.75rem}
 .lcap-viewer .gnv-logo{flex-direction:column;align-items:flex-start;gap:.1rem;font-size:.82rem}
 .lcap-viewer .gnv-logo small{font-size:.62rem;font-weight:700;letter-spacing:.05em;color:var(--muted-2)}
@@ -1884,7 +1885,7 @@ footer.site .fname{font-size:1.15rem;font-weight:800;letter-spacing:-.02em;color
 /* ---------- maps: live basemap chrome + CLART thematic map ---------- */
 .car-map{position:relative;min-height:330px;background:#eef0ea;overflow:hidden}
 .geo-embed{position:relative;min-height:330px;background:#eef0ea;overflow:hidden}
-.geo-embed iframe{position:absolute;inset:0;width:100%;height:100%;border:0;display:block}
+.geo-embed iframe{position:absolute;left:0;right:0;top:-104px;width:100%;height:calc(100% + 104px);border:0;display:block}
 .mapfull .geo-embed{position:absolute;inset:0;min-height:0}
 .car-shot .geo-embed{min-height:330px}
 .car-shot .car-map{min-height:330px}
@@ -1944,7 +1945,7 @@ footer.site .fname{font-size:1.15rem;font-weight:800;letter-spacing:-.02em;color
 
 /* map slides — identical frame for every image */
 .car-pane:only-child{max-width:960px}
-.car-shot .car-map,.car-shot .car-map.is-image,.car-shot .car-map.is-live,.car-shot .car-map.is-clart{height:30rem;min-height:0;max-height:none}
+.car-shot .car-map,.car-shot .car-map.is-image,.car-shot .car-map.is-live,.car-shot .car-map.is-clart,.car-shot .geo-embed{height:30rem;min-height:0;max-height:none}
 .car-map.is-image{background-size:cover;background-position:center center}
 .car-map.is-clart{padding:0}
 /* map carousel: no outline box or window chrome — the map runs edge to edge */
@@ -1955,10 +1956,10 @@ footer.site .fname{font-size:1.15rem;font-weight:800;letter-spacing:-.02em;color
 .car-shot:hover{transform:none;box-shadow:none}
 .car-shot .cs-bar{display:none}
 .car-dots{border-top:0;background:transparent}
-.car-shot .car-map,.car-shot .car-map.is-image,.car-shot .car-map.is-live,.car-shot .car-map.is-clart{height:42rem}
-@media(max-width:900px){.car-shot .car-map,.car-shot .car-map.is-image,.car-shot .car-map.is-live,.car-shot .car-map.is-clart{height:30rem}}
-@media(max-width:1000px){.car-shot .car-map,.car-shot .car-map.is-image,.car-shot .car-map.is-live,.car-shot .car-map.is-clart{height:22rem}}
-@media(max-width:640px){.car-shot .car-map,.car-shot .car-map.is-image,.car-shot .car-map.is-live,.car-shot .car-map.is-clart{height:15rem}}
+.car-shot .car-map,.car-shot .car-map.is-image,.car-shot .car-map.is-live,.car-shot .car-map.is-clart,.car-shot .geo-embed{height:42rem}
+@media(max-width:900px){.car-shot .car-map,.car-shot .car-map.is-image,.car-shot .car-map.is-live,.car-shot .car-map.is-clart,.car-shot .geo-embed{height:30rem}}
+@media(max-width:1000px){.car-shot .car-map,.car-shot .car-map.is-image,.car-shot .car-map.is-live,.car-shot .car-map.is-clart,.car-shot .geo-embed{height:22rem}}
+@media(max-width:640px){.car-shot .car-map,.car-shot .car-map.is-image,.car-shot .car-map.is-live,.car-shot .car-map.is-clart,.car-shot .geo-embed{height:15rem}}
 
 /* ---------- map-only view ---------- */
 .mapfull{position:relative;height:calc(100vh - 5rem);height:calc(100dvh - 5rem);min-height:32rem;overflow:hidden;background:#e9eef2;
@@ -3953,21 +3954,16 @@ screens['lcap-resources']=()=>shell("#/dss",[{label:"Home",href:"#/home"},{label
     <div class="row mt16" style="justify-content:center"><a class="btn" onclick="toast('Load more resources')">Load more</a></div>
   </section>
 `);
-screens.lcap=()=>shell("#/dss",null,`
+screens.lcap=()=>shell("#/dss",[{label:"Home",href:"#/home"},{label:"Decision Support System",href:"#/dss"},{label:"Landscape conservation action plan",href:"#/lcap-resources"},{label:"Map"}],`
+  <div class="between lcap-head">
+    <span class="wf-note" style="text-transform:none;letter-spacing:0;font-size:13px">Single GeoNode map</span>
+    <div class="row" style="gap:8px">
+      <a class="btn sm" onclick="bookmarkIt('Landscape conservation action plan')"><svg class=svgi><use href=#i-bookmark /></svg> Bookmark</a>
+      <a class="btn sm" onclick="toast('Share link')"><svg class=svgi><use href=#i-external /></svg> Share</a>
+      <a class="btn sm" onclick="window.open('${GEONODE_URL}','_blank')">Open in GeoNode</a>
+    </div>
+  </div>
   <div class="gnv lcap-viewer">
-    <div class="gnv-top">
-      <button class="lcap-x" onclick="go('#/lcap-resources')" title="Close — back to resources"><svg class=svgi><use href=#i-x /></svg></button>
-      <div class="gnv-logo"><span class="dot">●</span><span>Landscape conservation action plan<small>DECISION SUPPORT · SINGLE GEONODE MAP</small></span></div>
-      <div class="gnv-auth">
-        <span onclick="bookmarkIt('Landscape conservation action plan')"><svg class=svgi><use href=#i-bookmark /></svg> Bookmark</span>
-        <span onclick="toast('Share link')"><svg class=svgi><use href=#i-external /></svg> Share</span>
-        <span onclick="window.open('${GEONODE_URL}','_blank')">Open in GeoNode</span>
-      </div>
-    </div>
-    <div class="gnv-nav">
-      <a onclick="toast('Info')">ℹ</a><a class="on" onclick="toast('View menu')">View <svg class=svgi><use href=#i-chevdown /></svg></a><a onclick="toast('Share map')">Share</a><a onclick="toast('Print map')">Print</a><a onclick="toast('Measure')">Measure</a>
-      <div class="r"><a onclick="toast('Full screen')">⤢</a></div>
-    </div>
     <div class="gnv-body">
       <div class="gnv-side">
         <div class="gnv-sh"><span>⛛</span><span style="cursor:pointer" onclick="toast('Close layer panel')"><svg class=svgi><use href=#i-x /></svg></span></div>
