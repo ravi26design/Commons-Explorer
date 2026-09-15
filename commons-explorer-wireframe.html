@@ -3814,7 +3814,7 @@ const GNC_RES=[
 function gncIcon(k){return k==='map'?'<svg class=svgi><use href=#i-map /></svg>':k==='dash'?'◔':k==='story'?'<svg class=svgi><use href=#i-book /></svg>':'<svg class=svgi><use href=#i-db /></svg>';}
 function gncSource(k){return k==='dash'?'Apache Superset':k==='story'?'Commons Stories':'GeoNode';}
 /* reusable GeoNode-style resource catalogue grid (Filter · N found · Order by · cards) */
-function resCatalog(count){
+function resCatalog(count,target){
   return `<div class="gnv">
     <div class="gnc-bar">
       <a class="btn sm primary" onclick="toast('Toggle filter panel')">Filter</a>
@@ -3822,12 +3822,12 @@ function resCatalog(count){
       <div class="r"><span style="cursor:pointer" onclick="toast('List view')"><svg class=svgi><use href=#i-list /></svg></span><span style="cursor:pointer" onclick="toast('Order by')">Order by</span></div>
     </div>
     <div class="gnc-grid">
-      ${GNC_RES.map((r,i)=>`<div class="gnc" onclick="go('#/lcapmap/${i}')">
+      ${GNC_RES.map((r,i)=>{const go_to=target||`#/lcapmap/${i}`;return `<div class="gnc" onclick="go('${go_to}')">
         <div class="big">${gncIcon(r[1])}</div>
         <div class="t"><span>${gncIcon(r[1])}</span>${r[0]}</div>
         <div class="ab">${r[2]}</div>
-        <div class="f"><span>◎ ${r[3]}</span><span class="btn sm primary" onclick="event.stopPropagation();go('#/lcapmap/${i}')">View</span></div>
-      </div>`).join("")}
+        <div class="f"><span>◎ ${r[3]}</span><span class="btn sm primary" onclick="event.stopPropagation();go('${go_to}')">View</span></div>
+      </div>`;}).join("")}
     </div>
   </div>`;
 }
@@ -3916,7 +3916,7 @@ screens.dss=()=>shell("#/dss",[{label:"Home",href:"#/home"},{label:"Decision Sup
     <div class="grid g2 mod-grid">
       ${lensCard({tc:"var(--c-atlas)",img:"assets/photo-3.jpg",tag:"V1 · live",name:"Panchayat Atlas",meta:"Decision support module · sign-in required",desc:"Map-based decision support at Gram Panchayat level — administrative boundaries with multi-sectoral layers, indicator dashboards and temporal comparison.",chips:["Admin boundaries","Sectoral layers","Indicator dashboards"],cta:"Open the Panchayat Atlas",href:"#/atlas"})}
       ${lensCard({tc:"var(--c-village)",img:"assets/photo-1.jpg",tag:"V1 · live",name:"Village Explorer",meta:"Dashboard · open to all",desc:"Tools data, selected DP layers and study data, brought together as a holistic village view with an at-a-glance report.",chips:["Village view","DP layers","At-a-glance report"],cta:"Open Village Explorer",href:"#/village"})}
-      ${lensCard({tc:"var(--c-forest)",img:"assets/photo-8.jpg",tag:"V2 · planned",name:"Landscape conservation action plan",meta:"Map · tracker · resources",desc:"Landscape-scale action plans — a map workspace, a 14-step LCAP tracker and the resources behind the initiative.",chips:["Map workspace","14-step tracker","Resources"],cta:"Preview the LCAP module",href:"#/lcap"})}
+      ${lensCard({tc:"var(--c-forest)",img:"assets/photo-8.jpg",tag:"V2 · planned",name:"Landscape conservation action plan",meta:"Map · tracker · resources",desc:"Landscape-scale action plans — a map workspace, a 14-step LCAP tracker and the resources behind the initiative.",chips:["Map workspace","14-step tracker","Resources"],cta:"Preview the LCAP module",href:"#/lcap-resources"})}
       ${lensCard({tc:"var(--c-water)",img:"assets/photo-11.jpg",tag:"V2 · planned",name:"Spring-shed DSS",meta:"Flow · ODK · figures",desc:"Spring inventory, hydrogeological mapping and recharge-intervention planning — the ten-step springshed management flow.",chips:["Spring inventory","Hydrogeology","Recharge planning"],cta:"Preview the Spring-shed DSS",href:"#/springshed"})}
     </div>
   </section>
@@ -3943,11 +3943,21 @@ const LCAP_STAGES=[
     ["14","Consolidating evidence and knowledge sharing"]]]
 ];
 const LCAP_LAYERS=["Jaldootdata Post Monsoon 2023","Jaldootdata Pre Monsoon 2023","Micro watershed of India","Rivers of India","Lakes of India","Tanks of India","Reservoirs of India","Drains of India","Springs of India","Waterbodies of India"];
+screens['lcap-resources']=()=>shell("#/dss",[{label:"Home",href:"#/home"},{label:"Decision Support System",href:"#/dss"},{label:"Landscape conservation action plan"}],`
+  <section class="section" style="padding-bottom:14px">
+    <h2 class="mb0" style="font-size:24px">Landscape conservation action plan</h2>
+    <p class="sub">Documents, studies and supporting resources behind the initiative. Open any resource below to view the landscape conservation map.</p>
+  </section>
+  <section class="section" style="padding-top:6px">
+    ${resCatalog(147,'#/lcap')}
+    <div class="row mt16" style="justify-content:center"><a class="btn" onclick="toast('Load more resources')">Load more</a></div>
+  </section>
+`);
 screens.lcap=()=>shell("#/dss",null,`
   <div class="gnv lcap-viewer">
     <div class="gnv-top">
-      <button class="lcap-x" onclick="go('#/dss')" title="Close — back to Decision Support"><svg class=svgi><use href=#i-x /></svg></button>
-      <div class="gnv-logo"><span class="dot">●</span><span>Landscape conservation action plan<small>DECISION SUPPORT · SINGLE GEONODE MAP — NOT A DATA CATALOGUE</small></span></div>
+      <button class="lcap-x" onclick="go('#/lcap-resources')" title="Close — back to resources"><svg class=svgi><use href=#i-x /></svg></button>
+      <div class="gnv-logo"><span class="dot">●</span><span>Landscape conservation action plan<small>DECISION SUPPORT · SINGLE GEONODE MAP</small></span></div>
       <div class="gnv-auth">
         <span onclick="bookmarkIt('Landscape conservation action plan')"><svg class=svgi><use href=#i-bookmark /></svg> Bookmark</span>
         <span onclick="toast('Share link')"><svg class=svgi><use href=#i-external /></svg> Share</span>
@@ -4181,7 +4191,6 @@ screens.atlas=()=>{
           <span class="wf-note">${ATLAS_SHEETS.length} map sheets · Dolpura GP</span>
           <div class="row" style="gap:8px">
             <select class="wf-in" style="max-width:170px;font-size:12.5px;padding:7px 10px"><option>All themes</option><option>Land &amp; commons</option><option>Water &amp; irrigation</option><option>Social</option></select>
-            <a class="btn sm" onclick="toast('Print all sheets')"><svg class=svgi><use href=#i-print /></svg> Print all</a>
           </div>
         </div>
         <div class="grid g2">${ATLAS_SHEETS.map(atlasSheet).join("")}</div>
@@ -4865,7 +4874,8 @@ screens.sitemap=()=>shell("",[{label:"Home",href:"#/home"},{label:"Site map"}],`
 │   └── Gallery  <a onclick="go('#/gallery')">#/gallery</a>
 │       └── Gallery item  <a onclick="go('#/gallery-item/g-01')">#/gallery-item/:id</a>
 ├── Decision Support  <a onclick="go('#/dss')">#/dss</a>
-│   ├── Landscape conservation action plan  <a onclick="go('#/lcap')">#/lcap</a>   V2
+│   ├── Landscape conservation action plan  <a onclick="go('#/lcap-resources')">#/lcap-resources</a>   V2
+│   │       └── Map  <a onclick="go('#/lcap')">#/lcap</a>
 │   ├── Spring-shed DSS  <a onclick="go('#/springshed')">#/springshed</a>   V2
 │   ├── Panchayat Atlas  <a onclick="go('#/atlas')">#/atlas</a>   <svg class=svgi><use href=#i-lock /></svg>
 │   └── Village Explorer  <a onclick="go('#/village')">#/village</a>
