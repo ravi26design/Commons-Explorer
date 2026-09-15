@@ -2711,7 +2711,7 @@ screens.thematic=()=>shell("#/thematic",[{label:"Home",href:"#/home"},{label:"Th
     <div class="hstat" title="A data layer is one curated map layer surfaced inside a theme — for example “Groundwater — well observations” under Water." onclick="jumpToThemeCards('20+ data layers are listed inside the 3 themes below')"><span class="ic-tile"><svg class=svgi><use href=#i-map /></svg></span><div><b>20<em>+</em></b><span>data layers</span></div></div>
     <div class="hstat" title="A dataset is the full downloadable record in the Data Repository catalogue — the file(s) a data layer is drawn from." onclick="go('#/repository')"><span class="ic-tile"><svg class=svgi><use href=#i-db /></svg></span><div><b>${DATASETS.length}</b><span>datasets in the catalogue</span></div></div>
   </div>
-  <p class="muted" style="text-align:center;max-width:620px;margin:.6rem auto 0;font-size:12.5px;line-height:1.5">A <b>data layer</b> is one curated map layer shown inside a theme. A <b>dataset</b> is the underlying data record in the Data Repository catalogue — a layer may be built from one or more datasets.</p>
+  <p class="muted" style="text-align:center;max-width:700px;margin:.9rem auto 0;font-size:16px;line-height:1.6">A <b>data layer</b> is one curated map layer shown inside a theme. A <b>dataset</b> is the underlying data record in the Data Repository catalogue — a layer may be built from one or more datasets.</p>
   <section class="section" style="padding-top:.5rem">
     <div class="grid g3 mod-grid lens-grid3" id="theme-cards">
       ${THEMES.map(t=>lensCard({tc:LENS_TC[t.id],img:LENS_IMG[t.id],href:'#/theme/'+t.id,tag:'',ic:t.ic,name:t.name,meta:t.tag,desc:t.desc,chips:t.layers.slice(0,3),cta:'Open the '+t.name+' theme'})).join("")}
