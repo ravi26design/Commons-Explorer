@@ -707,6 +707,15 @@ footer .bar{border-top:1px solid var(--line-2);padding:1.35rem 0 1.75rem;font-si
 .gnv-mini{position:absolute;bottom:.9rem;left:.9rem;width:70px;height:52px;border:1px solid var(--line-2);background:var(--bg-soft);border-radius:2px}
 .gnv-foot{display:flex;align-items:center;justify-content:space-between;gap:.75rem;padding:.5rem .9rem;border-top:1px solid var(--line);font-size:.68rem;color:var(--muted-2)}
 .gnv-links{display:flex;gap:1.25rem;justify-content:center;padding:.65rem;font-size:.72rem;font-weight:600;color:var(--muted-2);border-top:1px solid var(--line)}
+.lcap-viewer{height:calc(100vh - 5rem);height:calc(100dvh - 5rem);min-height:32rem;display:flex;flex-direction:column;border:0;border-radius:0;box-shadow:none}
+.lcap-viewer .gnv-top{gap:.75rem}
+.lcap-viewer .gnv-logo{flex-direction:column;align-items:flex-start;gap:.1rem;font-size:.82rem}
+.lcap-viewer .gnv-logo small{font-size:.62rem;font-weight:700;letter-spacing:.05em;color:var(--muted-2)}
+.lcap-viewer .gnv-auth span{display:flex;align-items:center;gap:.35rem;cursor:pointer}
+.lcap-viewer .gnv-body{flex:1;min-height:0}
+.lcap-viewer .gnv-canvas{min-height:0}
+.lcap-x{border:1px solid var(--line-2);background:#fff;border-radius:999px;width:2.2rem;height:2.2rem;display:grid;place-items:center;cursor:pointer;color:var(--ink);flex:none;transition:background .15s}
+.lcap-x:hover{background:var(--bg-soft)}
 .gnv-form{max-width:640px;margin:0 auto;padding:2.25rem 1.25rem 2.75rem}
 .gnv-form h3{margin:0 0 .9rem;font-size:1.5rem}
 .gnv-form .rule{border-top:1px solid var(--line);margin-bottom:1rem}
@@ -791,6 +800,16 @@ footer .bar{border-top:1px solid var(--line-2);padding:1.35rem 0 1.75rem;font-si
 .gl.clickable:hover{border-color:var(--green-line);box-shadow:var(--shadow-card)}
 .gl .gl-open{font-size:.7rem;font-weight:700;color:var(--green-d);margin-top:.4rem;opacity:0;transition:opacity .12s}
 .gl.clickable:hover .gl-open{opacity:1}
+.gl.veland{border-top:3px solid var(--tc);padding-top:1rem}
+.gl.veland:hover{border-color:var(--line);border-top-color:var(--tc)}
+.ve-ring-wrap{position:relative;width:5.2rem;height:5.2rem;margin:.35rem auto .5rem}
+.ve-ring{width:100%;height:100%;transform:rotate(-90deg)}
+.ve-ring-bg{fill:none;stroke:var(--line);stroke-width:2.6}
+.ve-ring-fg{fill:none;stroke:var(--tc);stroke-width:2.6;stroke-linecap:round}
+.ve-ring-pct{position:absolute;inset:0;display:grid;place-items:center;font-size:1.05rem;font-weight:800;color:var(--ink)}
+.gl .ve-ic{display:grid;place-items:center;width:2.1rem;height:2.1rem;margin:0 auto;background:color-mix(in srgb, var(--tc) 14%, #fff);color:var(--tc);flex:none}
+.gl .ve-ic .svgi{width:1.05rem;height:1.05rem}
+.gl.vesp{border-top:3px solid var(--tc);padding-top:1rem}
 /* Village Explorer — layer map (full view) */
 .vemap{position:relative;min-height:600px;border:1px solid var(--line);border-radius:0;overflow:hidden;background:#eef2ea;
   background-image:linear-gradient(rgba(0,0,0,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(0,0,0,.03) 1px,transparent 1px);background-size:46px 46px;box-shadow:var(--shadow-card)}
@@ -2331,8 +2350,6 @@ body.ds-mapfull{overflow:hidden}
 .pg.off{color:var(--faint);pointer-events:none;background:var(--bg-soft)}
 
 /* ---------- GeoNode entry point (Map Studio) ---------- */
-.geonode-entry{display:block;background:var(--bg-soft)}
-.geonode-entry .ge-tx{max-width:42rem}
 .ge-frame{margin-top:1.25rem;border:1px solid var(--line-2);background:#fff}
 .ge-frame iframe{display:block;width:100%;height:26rem;border:0}
 .ge-frame-fallback{padding:.65rem .9rem;font-size:.78rem;color:var(--muted-2);border-top:1px solid var(--line-2);background:var(--bg-soft)}
@@ -3660,26 +3677,7 @@ screens.mapstudio=()=>shell("#/insights",[{label:"Home",href:"#/home"},{label:"A
     <p class="sub">A technical workspace for creating, styling, managing and publishing geospatial data and maps, built on GeoNode and GeoServer. Datasets are prepared here before appearing in atlases, dashboards and the gallery.</p>
   </section>
 
-  <section class="section" style="padding-top:0;padding-bottom:6px">
-    <div class="panel geonode-entry">
-      <div class="ge-tx">
-        <div class="eyebrow">Powered by GeoNode</div>
-        <h3 style="margin:.5rem 0 .5rem;font-size:1.1rem">Map Studio is the entry point into the GeoNode instance</h3>
-        <p class="muted" style="margin:0 0 1rem">Layers, styles and permissions are managed in GeoNode itself. Sign in there directly to work on the underlying data.</p>
-        <div class="row" style="gap:.6rem">
-          <a class="btn primary" href="${GEONODE_URL}" target="_blank" rel="noopener">Sign in to GeoNode <svg class=svgi><use href=#i-external /></svg></a>
-          <a class="btn" onclick="toggleGeonodeFrame()">Preview sign-in here</a>
-        </div>
-        <div class="wf-note mt8">Placeholder link — to be replaced with the live GeoNode login URL.</div>
-      </div>
-      <div class="ge-frame" id="geonodeFrame" hidden>
-        <iframe src="${GEONODE_URL}" title="GeoNode sign-in" loading="lazy"></iframe>
-        <div class="ge-frame-fallback">If the sign-in page doesn't appear above — some sites block being shown inside another page — use the "Sign in to GeoNode" button instead.</div>
-      </div>
-    </div>
-  </section>
-
-  <section class="section" style="padding-top:6px">
+  <section class="section" style="padding-top:0">
     ${regionCarousel('mapstudio-car',['NE','Papagani','Upper Bhima Basin'])}
   </section>
 
@@ -3946,17 +3944,38 @@ const LCAP_STAGES=[
 ];
 const LCAP_LAYERS=["Jaldootdata Post Monsoon 2023","Jaldootdata Pre Monsoon 2023","Micro watershed of India","Rivers of India","Lakes of India","Tanks of India","Reservoirs of India","Drains of India","Springs of India","Waterbodies of India"];
 screens.lcap=()=>shell("#/dss",null,`
-  <div class="mapfull">
-    <div class="car-map" data-seed="21" data-label="Landscape conservation action plan" data-kind="villages"></div>
-    <div class="mf-bar">
-      <button class="mf-back" onclick="go('#/dss')" title="Back to Decision Support"><svg class=svgi><use href=#i-chevdown /></svg></button>
-      <div class="mf-tx"><span class="mf-kicker">Decision Support · single GeoNode map</span><b>Landscape conservation action plan</b><span class="mf-sub">Landscape-scale conservation planning, embedded directly from GeoNode — not a data catalogue.</span></div>
-      <div class="mf-acts">
-        <button class="nav-ic" title="Bookmark" onclick="bookmarkIt('Landscape conservation action plan')"><svg class=svgi><use href=#i-bookmark /></svg></button>
-        <button class="nav-ic" title="Share" onclick="toast('Share link')"><svg class=svgi><use href=#i-external /></svg></button>
-        <button class="nav-ic" title="Open in GeoNode" onclick="window.open('${GEONODE_URL}','_blank')"><svg class=svgi><use href=#i-external /></svg></button>
+  <div class="gnv lcap-viewer">
+    <div class="gnv-top">
+      <button class="lcap-x" onclick="go('#/dss')" title="Close — back to Decision Support"><svg class=svgi><use href=#i-x /></svg></button>
+      <div class="gnv-logo"><span class="dot">●</span><span>Landscape conservation action plan<small>DECISION SUPPORT · SINGLE GEONODE MAP — NOT A DATA CATALOGUE</small></span></div>
+      <div class="gnv-auth">
+        <span onclick="bookmarkIt('Landscape conservation action plan')"><svg class=svgi><use href=#i-bookmark /></svg> Bookmark</span>
+        <span onclick="toast('Share link')"><svg class=svgi><use href=#i-external /></svg> Share</span>
+        <span onclick="window.open('${GEONODE_URL}','_blank')">Open in GeoNode</span>
       </div>
     </div>
+    <div class="gnv-nav">
+      <a onclick="toast('Info')">ℹ</a><a class="on" onclick="toast('View menu')">View <svg class=svgi><use href=#i-chevdown /></svg></a><a onclick="toast('Share map')">Share</a><a onclick="toast('Print map')">Print</a><a onclick="toast('Measure')">Measure</a>
+      <div class="r"><a onclick="toast('Full screen')">⤢</a></div>
+    </div>
+    <div class="gnv-body">
+      <div class="gnv-side">
+        <div class="gnv-sh"><span>⛛</span><span style="cursor:pointer" onclick="toast('Close layer panel')"><svg class=svgi><use href=#i-x /></svg></span></div>
+        <div class="gnv-sf"><input class="wf-in" style="font-size:12px;padding:7px 9px" placeholder="Filter layers"><span style="color:var(--ink-3)"><svg class=svgi><use href=#i-chevdown /></svg></span></div>
+        <div class="gnv-add"><button onclick="toast('Add layer to map')"><svg class=svgi><use href=#i-plus /></svg></button></div>
+        <div style="overflow:auto">
+          ${LCAP_LAYERS.map(l=>`<div class="gnv-lyr ${l==='Micro watershed of India'?'on':''}" onclick="this.classList.toggle('on');toast('Layer toggled: ${l}')">
+            <span class="gr">☰</span><span class="eye">${l==='Micro watershed of India'?'<svg class=svgi><use href=#i-eye /></svg>':'⊘'}</span><span class="nm">${l}</span></div>`).join("")}
+        </div>
+      </div>
+      <div class="gnv-canvas" onclick="toast('Pan / zoom the map')">
+        <div class="car-map" style="position:absolute;inset:0" data-seed="21" data-label="Landscape conservation action plan" data-kind="villages"></div>
+        <div class="gnv-loc" onclick="event.stopPropagation()"><span style="flex:1">Search by location name</span><span><svg class=svgi><use href=#i-settings /></svg></span><span><svg class=svgi><use href=#i-search /></svg></span><span><svg class=svgi><use href=#i-menu /></svg></span></div>
+        <div class="gnv-mini"></div>
+        <div class="gnv-zoom"><button onclick="event.stopPropagation();toast('Zoom in')">＋</button><button onclick="event.stopPropagation();toast('Zoom out')">−</button><button onclick="event.stopPropagation();toast('More')">⋯</button></div>
+      </div>
+    </div>
+    <div class="gnv-foot"><span>© OpenStreetMap contributors.</span><span><svg class=svgi><use href=#i-pointer /></svg> Scale 1 : 577,792</span></div>
   </div>
 `);
 
@@ -4039,17 +4058,15 @@ const SPRING_STEPS=[
 screens.springshed=()=>shell("#/dss",[{label:"Home",href:"#/home"},{label:"Decision Support System",href:"#/dss"},{label:"Spring-shed DSS"}],`
   <section class="section" style="padding-bottom:14px">
     <div class="between">
-      <div><div class="eyebrow">Decision support · V2 sub-module</div><h2 class="mb0" style="font-size:24px">Spring-shed DSS</h2></div>
-      <div class="row" style="gap:8px"><a class="btn sm" onclick="bookmarkIt('Spring-shed DSS')"><svg class=svgi><use href=#i-bookmark /></svg> Save</a><a class="btn sm" onclick="toast('Share')"><svg class=svgi><use href=#i-external /></svg> Share</a><a class="btn sm primary" onclick="go('#/report')"><svg class=svgi><use href=#i-download /></svg> Download protocol</a></div>
+      <div><h2 class="mb0" style="font-size:24px">Spring-shed DSS</h2></div>
     </div>
     <p class="sub">Spring inventory, hydrogeological mapping and recharge-intervention planning — the ten-step springshed management flow, from ODK questionnaire to impact evaluation.</p>
   </section>
 
   <section class="section" style="padding-top:6px">
-    <div class="eyebrow">Springshed Management Flow</div>
-    <div class="grid" style="grid-template-columns:1.35fr 1fr;gap:26px;align-items:start;margin-top:12px">
+    <div class="grid" style="grid-template-columns:1.35fr 1fr;gap:26px;align-items:start">
       <div>
-        <div class="odk-chip"><span class="dot"></span>ODK-based data flow · 10 steps</div>
+        <div class="odk-chip"><span class="dot"></span>Springshed management flow · ODK-based · 10 steps</div>
         <div class="stimeline">
           ${SPRING_STEPS.map(st=>`<div class="stl-item">
             <div class="stl-num">${st[0]}</div>
@@ -4134,7 +4151,6 @@ function atlasSheet(sh){
 screens.atlas=()=>{
   return shell("#/dss",[{label:"Home",href:"#/home"},{label:"Decision Support System",href:"#/dss"},{label:"Panchayat Atlas"}],`
   <section class="section" style="padding-bottom:14px">
-    ${signinNotice('The Panchayat Atlas','#/atlas','SRS §2.2.4.1.1')}
     <div class="between">
       <div><h2 class="mb0" style="font-size:24px">Panchayat Atlas</h2></div>
     </div>
@@ -4175,7 +4191,11 @@ screens.atlas=()=>{
 `);};
 
 /* ---- SRS §2.2.4.1.2 Village Explorer ---- */
-const VE_LANDUSE=[["Cultivable Area","3","59%","<svg class=svgi><use href=#i-sprout /></svg>"],["Forest Area","3","0%","<svg class=svgi><use href=#i-tree /></svg>"],["Area Unavailable for Cultivation","3","20%","<svg class=svgi><use href=#i-factory /></svg>"],["Culturable Wasteland","3","5%","<svg class=svgi><use href=#i-sprout /></svg>"]];
+const VE_LANDUSE=[["Cultivable Area","3","59%","<svg class=svgi><use href=#i-sprout /></svg>","var(--green-d)"],["Forest Area","3","0%","<svg class=svgi><use href=#i-tree /></svg>","var(--c-water)"],["Area Unavailable for Cultivation","3","20%","<svg class=svgi><use href=#i-factory /></svg>","var(--amber-d)"],["Culturable Wasteland","3","5%","<svg class=svgi><use href=#i-sprout /></svg>","var(--t-cultural)"]];
+function veRing(pctStr,color){
+  const pct=Math.max(0,Math.min(100,parseInt(pctStr,10)||0));
+  return `<div class="ve-ring-wrap" style="--tc:${color}"><svg class="ve-ring" viewBox="0 0 36 36" aria-hidden="true"><circle class="ve-ring-bg" cx="18" cy="18" r="15.9155"/><circle class="ve-ring-fg" cx="18" cy="18" r="15.9155" stroke-dasharray="${pct},100"/></svg><span class="ve-ring-pct">${pctStr}</span></div>`;
+}
 const VE_SPECIES=[
   ["Critically Endangered Birds","6","4","Gyps bengalensis, Gyps indicus, Sarcogyps calvus, Vanellus gregarius"],
   ["Critically Endangered Mammals","6","0",""],
@@ -4211,17 +4231,17 @@ screens.village=()=>shell("#/dss",[{label:"Home",href:"#/home"},{label:"Decision
           <span class="ve-tab" style="margin-left:auto" onclick="go('#/report')"><svg class=svgi><use href=#i-download /></svg> Export</span>
         </div>
         <div class="ve-glance">
-          ${VE_LANDUSE.map((g,i)=>`<div class="gl clickable" onclick="go('#/vemap/${i}')">
-            <div class="glt">${g[0]} <sup onclick="event.stopPropagation();toast('Source #${g[1]} — see Sources below')">#${g[1]}</sup></div>
-            <div class="pct">${g[2]}</div>
-            <div class="glimg">${g[3]}</div>
+          ${VE_LANDUSE.map((g,i)=>`<div class="gl veland clickable" style="--tc:${g[4]}" onclick="go('#/vemap/${i}')">
+            <div class="glt">${g[0]} <sup onclick="event.stopPropagation();toast('Source #${g[1]} — see Sources below')">${g[1]}</sup></div>
+            ${veRing(g[2],g[4])}
+            <span class="ic-tile ve-ic">${g[3]}</span>
             <div class="gl-open">Open map →</div>
           </div>`).join("")}
         </div>
         <div class="ve-sec"><span class="h">Species of conservation concern</span><span class="n">recorded in the district · source #6</span></div>
         <div class="ve-glance">
-          ${VE_SPECIES.map(g=>`<div class="gl">
-            <div class="glt">${g[0]} <sup onclick="toast('Source #${g[1]} — see Sources below')">#${g[1]}</sup></div>
+          ${VE_SPECIES.map(g=>`<div class="gl vesp" style="--tc:${/critically/i.test(g[0])?'var(--c-bio)':'var(--t-pasture)'}">
+            <div class="glt">${g[0]} <sup onclick="toast('Source #${g[1]} — see Sources below')">${g[1]}</sup></div>
             <div class="big ${g[2]==='0'?'zero':''}">${g[2]}</div>
             <div class="spp ${g[3]?'':'none'}">${g[3]||'— none recorded'}</div>
           </div>`).join("")}
