@@ -479,10 +479,6 @@ footer.site ul{list-style:none;margin:0;padding:0}
 footer.site li{padding:.42rem 0;color:var(--muted);font-size:.92rem;cursor:pointer;transition:color .15s}
 footer.site li:hover{color:var(--cta);text-decoration:none}
 footer .bar{border-top:1px solid var(--line-2);padding:1.35rem 0 1.75rem;font-size:.85rem;color:var(--muted-2);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:.75rem}
-.social-icons{display:flex;align-items:center;gap:.55rem}
-.social-ic{width:2.15rem;height:2.15rem;border-radius:999px;border:1.5px solid var(--green-line);color:var(--green-d);display:grid;place-items:center;flex:none;transition:background .15s ease,color .15s ease,border-color .15s ease,transform .15s ease}
-.social-ic .svgi{width:1rem;height:1rem}
-.social-ic:hover{background:var(--green);border-color:var(--green);color:#fff;transform:translateY(-2px)}
 
 .overlay{position:fixed;inset:0;background:rgba(20,28,60,.55);backdrop-filter:blur(2px);z-index:60;display:none;align-items:flex-start;justify-content:center;padding-top:9vh}
 .modal-back{position:fixed;inset:0;background:rgba(20,28,60,.58);backdrop-filter:blur(2px);z-index:90;display:flex;align-items:center;justify-content:center;padding:1.5rem}
@@ -1083,9 +1079,6 @@ footer .bar{border-top:1px solid var(--line-2);padding:1.35rem 0 1.75rem;font-si
 .chip-lock.pub{background:var(--green-soft);color:var(--green-d);border-color:var(--green-line)}
 .chip-lock.priv{background:var(--amber-soft);color:var(--amber-d);border-color:var(--amber-line)}
 .chip-lock.solid{background:var(--green);color:#fff;border-color:var(--green)}
-.chip-lock.soon{background:var(--fill);color:var(--ink-3);border-color:var(--line-2)}
-.mod-tile.tile-soon{opacity:.62;filter:grayscale(.3)}
-.mod-tile.tile-soon:hover{opacity:.8}
 
 /* dataset row (repository list view) */
 .ds-row{position:relative;display:grid;grid-template-columns:44px 1fr auto;gap:.75rem;align-items:center;padding:.9rem .75rem .9rem .85rem;border-top:1px solid var(--line);cursor:pointer;transition:background .15s}
@@ -1779,12 +1772,11 @@ footer.site{margin-top:0}
 .page-photo{position:relative;height:22rem;overflow:hidden;background:#efe9df;width:calc(100vw - var(--sbw));margin-left:calc(50% - 50vw + var(--sbw)/2);margin-right:calc(50% - 50vw + var(--sbw)/2)}
 .page-photo img{width:100%;height:100%;object-fit:cover;object-position:center 45%;display:block}
 .hstats{position:relative;z-index:2;display:grid;grid-template-columns:repeat(3,1fr);gap:1.25rem;max-width:64rem;margin:-3.6rem auto 0;padding:0}
+.hstats-note{max-width:48rem;margin:1.25rem auto 0;text-align:center;font-size:1.02rem;line-height:1.65;color:var(--ink-2)}
+.hstats-note b{color:var(--ink);font-weight:700}
 .hstat{position:relative;overflow:hidden;background:#fff;border:1px solid var(--line);border-radius:16px;padding:1.35rem 1.5rem;display:flex;align-items:center;gap:1.1rem;box-shadow:0 24px 44px -26px rgba(0,0,0,.45);transition:transform .18s ease,box-shadow .2s ease}
 .hstat::after{content:'';position:absolute;left:0;right:0;bottom:0;height:3px;background:var(--green);transform:scaleX(0);transform-origin:left;transition:transform .3s ease}
-.hstat{cursor:pointer}
 .hstat:hover{transform:translateY(-3px);box-shadow:0 30px 50px -26px rgba(0,0,0,.5)}
-.lens-grid3.flash{animation:hstatFlash 1s ease}
-@keyframes hstatFlash{0%{box-shadow:0 0 0 4px var(--green-line) inset}100%{box-shadow:0 0 0 0 transparent inset}}
 .hstat:hover::after{transform:scaleX(1)}
 .hstat .ic-tile{display:grid;place-items:center;flex:none;width:3.4rem;height:3.4rem;border-radius:14px;background:linear-gradient(135deg,#eef5ef,#dcebdf);color:var(--green-d);box-shadow:inset 0 0 0 1px rgba(78,124,89,.14)}
 .hstat .ic-tile .svgi{width:1.55rem;height:1.55rem;stroke-width:1.8}
@@ -1931,6 +1923,16 @@ footer.site .fname{font-size:1.15rem;font-weight:800;letter-spacing:-.02em;color
 .car-shot .car-map,.car-shot .car-map.is-image,.car-shot .car-map.is-live,.car-shot .car-map.is-clart{height:30rem;min-height:0;max-height:none}
 .car-map.is-image{background-size:cover;background-position:center center}
 .car-map.is-clart{padding:0}
+/* map carousel: no outline box or window chrome — the map runs edge to edge */
+.carousel{border:0;border-radius:0;box-shadow:none;background:transparent}
+.car-stage3{padding:0;background:transparent}
+.car-pane:only-child{max-width:none}
+.car-shot{border:0;border-radius:0;box-shadow:none}
+.car-shot:hover{transform:none;box-shadow:none}
+.car-shot .cs-bar{display:none}
+.car-dots{border-top:0;background:transparent}
+.car-shot .car-map,.car-shot .car-map.is-image,.car-shot .car-map.is-live,.car-shot .car-map.is-clart{height:42rem}
+@media(max-width:900px){.car-shot .car-map,.car-shot .car-map.is-image,.car-shot .car-map.is-live,.car-shot .car-map.is-clart{height:30rem}}
 @media(max-width:1000px){.car-shot .car-map,.car-shot .car-map.is-image,.car-shot .car-map.is-live,.car-shot .car-map.is-clart{height:22rem}}
 @media(max-width:640px){.car-shot .car-map,.car-shot .car-map.is-image,.car-shot .car-map.is-live,.car-shot .car-map.is-clart{height:15rem}}
 
@@ -1960,10 +1962,422 @@ footer.site .fname{font-size:1.15rem;font-weight:800;letter-spacing:-.02em;color
 .mf-dot:hover{background:var(--faint)}
 .mf-dot.on{background:var(--green);width:24px;border-radius:5px}
 @media(max-width:700px){.mf-bar{left:.6rem;right:.6rem;bottom:3rem;max-width:none}.mf-acts{display:none}.mapfull .lm-search{width:60%}.mf-tx b{font-size:1rem}}
+
+/* ---------- data repository ---------- */
+.hstats.hstats4{grid-template-columns:repeat(4,1fr);max-width:86rem}
+@media(max-width:980px){.hstats.hstats4{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:560px){.hstats.hstats4{grid-template-columns:1fr}}
+.gx-hero{border:0;padding:0;box-shadow:none;background:none}
+.gx-search{background:#fff;border:1px solid var(--line-2);padding:.6rem .6rem .6rem 1.1rem;gap:.75rem}
+.gx-search input{font-size:1rem}
+.gx-search .ic{width:1.6rem;height:1.6rem}
+.gx-search .btn.sm.primary{padding:.6rem 1.2rem;font-size:.88rem}
+.gx-body{margin-top:1.5rem!important;border-top:1px solid var(--line-2)!important}
+.gx-filters{padding:1.25rem 1.15rem;background:var(--bg-soft)}
+.gx-fh b{font-size:.72rem;font-weight:800;letter-spacing:.09em;text-transform:uppercase;color:var(--faint)}
+.gx-fh b .svgi{display:none}
+.gx-fh .acts span:last-child{display:none}
+.gx-group{font-size:.68rem;font-weight:800;letter-spacing:.09em;text-transform:uppercase;color:var(--faint);margin:1.25rem 0 .5rem;padding-top:1rem;border-top:1px solid var(--line)}
+.gx-chk{font-size:.87rem;color:var(--ink);padding:.28rem 0}
+.gx-chk.sub{color:var(--muted)}
+.gx-lab{font-size:.68rem;font-weight:800;letter-spacing:.09em;text-transform:uppercase;color:var(--faint);margin:.9rem 0 .35rem}
+.gx-date{background:#fff}
+.gx-filters .wrapline{display:none}
+/* latest additions — four cards above the catalogue */
+.gx-latest .rescard{border:0;border-radius:16px;box-shadow:0 10px 30px -18px rgba(30,41,59,.22),0 1px 2px rgba(30,41,59,.06);overflow:hidden}
+.gx-latest .rescard:hover{transform:translateY(-3px);box-shadow:0 24px 44px -26px rgba(30,41,59,.35),0 1px 2px rgba(30,41,59,.06)}
+.gx-latest .rescard .rth{min-height:0;aspect-ratio:16/10;border-bottom:0;background-size:cover;background-position:center}
+.gx-latest .rescard .rb{padding:1rem 1.1rem 1.05rem;gap:.5rem}
+.gx-latest .rescard .gn-kind{align-self:flex-start;font-size:.66rem;letter-spacing:.08em;padding:.22rem .6rem}
+.gx-latest .rescard h4{font-family:var(--sans);font-size:1.02rem;font-weight:700;line-height:1.3;letter-spacing:-.005em;margin-top:.1rem}
+.gx-latest .rescard p{font-size:.86rem;line-height:1.5;color:var(--muted)}
+.gx-latest .rescard .rf{margin-top:auto;padding-top:.75rem;border-top:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;gap:.5rem}
+.gx-latest .gx-owner{display:inline-flex;align-items:center;gap:.45rem;font-size:.78rem;color:var(--muted-2);min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.gx-latest .gx-owner .pw-av{width:1.5rem;height:1.5rem;font-size:.6rem;flex:none}
+.gx-latest .rescard .rf .btn{border:0;background:none;padding:0;font-size:.86rem;font-weight:700;color:var(--green-d);box-shadow:none;white-space:nowrap}
+.gx-latest .rescard .rf .btn:hover{color:var(--green);text-decoration:underline;text-underline-offset:3px;transform:none}
+.gx-latest{margin-top:1.75rem}
+.gx-latest-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1.25rem}
+.gx-latest .rescard .rth{min-height:140px}
+.gx-latest .gx-owner{font-size:.78rem}
+@media(max-width:1100px){.gx-latest-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:600px){.gx-latest-grid{grid-template-columns:1fr}}
+.gx-grid .rescard{border:0;border-radius:16px;box-shadow:0 10px 30px -18px rgba(30,41,59,.22),0 1px 2px rgba(30,41,59,.06);overflow:hidden}
+.gx-grid .rescard:hover{transform:translateY(-3px);box-shadow:0 24px 44px -26px rgba(30,41,59,.35),0 1px 2px rgba(30,41,59,.06)}
+.gx-grid .rescard .rth{min-height:0;aspect-ratio:16/10;border-bottom:0;background-size:cover;background-position:center}
+.gx-grid .rescard .rb{padding:1rem 1.1rem 1.05rem;gap:.5rem}
+.gx-grid .rescard .gn-kind{align-self:flex-start;font-size:.66rem;letter-spacing:.08em;padding:.22rem .6rem}
+.gx-grid .rescard h4{font-family:var(--sans);font-size:1.02rem;font-weight:700;line-height:1.3;letter-spacing:-.005em;margin-top:.1rem}
+.gx-grid .rescard p{font-size:.86rem;line-height:1.5;color:var(--muted)}
+.gx-grid .rescard .rf{margin-top:auto;padding-top:.75rem;border-top:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;gap:.5rem}
+.gx-grid .gx-owner{display:inline-flex;align-items:center;gap:.45rem;font-size:.78rem;color:var(--muted-2);min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.gx-grid .gx-owner .pw-av{width:1.5rem;height:1.5rem;font-size:.6rem;flex:none}
+.gx-grid .rescard .rf .btn{border:0;background:none;padding:0;font-size:.86rem;font-weight:700;color:var(--green-d);box-shadow:none;white-space:nowrap}
+.gx-grid .rescard .rf .btn:hover{color:var(--green);text-decoration:underline;text-underline-offset:3px;transform:none}
+.gx-grid .rescard .rth{min-height:140px}
+.gx-grid .gx-owner{font-size:.78rem}
+/* --- repository refinements --- */
+.gx-latest{background:#f2e9dc;margin:1.75rem calc(50% - 50vw) 0;padding:2.25rem calc(50vw - 50%) 2.5rem}
+.gx-latest .rescard,.gx-grid .rescard{box-shadow:0 12px 30px -22px rgba(74,66,62,.4),0 1px 2px rgba(74,66,62,.05)}
+.gx-body{border:0!important;box-shadow:none;background:transparent;gap:1.5rem;margin-top:2rem!important;grid-template-columns:290px 1fr}
+.gx-filters{border:1px solid var(--line-2);border-radius:20px;align-self:start;padding:1.2rem 1.05rem 1.3rem;background:#fff}
+.gx-fh{margin-bottom:.9rem}
+.gx-fh b{font-size:1.12rem}
+.gx-fh .acts{font-size:.88rem}
+.gx-srch input{height:2.7rem;border-radius:12px;font-size:.9rem}
+.gx-feat{padding:.55rem .85rem;border-radius:12px;font-size:.86rem}
+.gx-group{margin:1.35rem 0 .5rem;font-size:.7rem;color:var(--faint)}
+.gx-types,.gx-sub{gap:.2rem}
+.gx-type{padding:.58rem .75rem;border-radius:12px;font-size:.92rem;border-color:transparent;background:transparent}
+.gx-type .svgi{width:1.1rem;height:1.1rem}
+.gx-type em{font-size:.72rem;padding:.1rem .48rem;background:var(--bg-soft);color:var(--muted)}
+.gx-type:hover{background:var(--green-soft);border-color:transparent}
+.gx-type.on{box-shadow:none}
+.gx-sub{margin:.1rem 0 .35rem .85rem;padding:.05rem 0 .05rem .55rem;border-left:2px solid var(--line-2)}
+.gx-sub .gx-type{font-size:.86rem;font-weight:600;padding:.45rem .7rem;color:var(--ink-2)}
+.gx-sub .gx-type .svgi{width:.95rem;height:.95rem;color:var(--muted)}
+.gx-sub .gx-type.on{background:var(--green-soft);color:var(--green-d);border-color:transparent}
+.gx-sub .gx-type.on .svgi{color:var(--green-d)}
+.gx-dates{gap:.5rem}
+.gx-date{border-radius:12px;padding:.55rem .6rem;font-size:.78rem;white-space:nowrap}
+.gx-ext{padding:.65rem .85rem;border-radius:12px}
+.gx-ext b{font-size:.86rem}
+.gx-ext small{font-size:.75rem}
+.gx-acc{margin-top:1rem}
+.gx-acc summary{padding:.7rem 0;font-size:.7rem;color:var(--faint)}
+.gx-chk{font-size:.88rem;padding:.35rem 0}
+.gx-apply{margin-top:1.1rem;padding:.72rem 1rem;border-radius:12px}
+.gx-results{padding:.15rem 0 .5rem}
+.gx-bar{gap:.9rem;padding-bottom:1.1rem;border-bottom:1px solid var(--line-2);margin-bottom:1.35rem}
+.gx-count{font-size:1.25rem;white-space:nowrap}
+.gx-chips{display:flex;gap:.4rem;flex-wrap:wrap}
+.gx-chips .mc-chip.on{background:var(--tc);color:#fff;border-color:var(--tc)}
+.viewtog,.gn-sort{border-radius:10px}
+.viewtog button{border-radius:8px}
+.gx-results .gx-grid{grid-template-columns:repeat(3,1fr);gap:1.25rem}
+.gx-grid .rescard .rth{min-height:0}
+.gx-results .row.mt16 .btn{border-radius:999px;padding:.7rem 1.5rem}
+@media(max-width:1200px){.gx-results .gx-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:900px){.gx-body{grid-template-columns:1fr}.gx-filters{align-self:stretch}}
+@media(max-width:600px){.gx-results .gx-grid{grid-template-columns:1fr}}
+/* --- card outline --- */
+.gx-latest .rescard,.gx-grid .rescard{border:1px solid var(--line-2);box-shadow:none}
+.gx-latest .rescard:hover,.gx-grid .rescard:hover{border-color:var(--green-line);box-shadow:0 14px 30px -22px rgba(74,66,62,.35)}
+/* --- sidebar v4: plain checkbox list --- */
+.gx-filters.gx-f2{padding:1.1rem 1.15rem 1.35rem;border-radius:0}
+.gx-f2s input,.gx-f2d input,.gx-f2h .gx-clear,.gx-f2map{border-radius:0}
+.gx-f2h{display:flex;align-items:center;justify-content:space-between;margin-bottom:.9rem}
+.gx-f2h b{display:inline-flex;align-items:center;gap:.4rem;font-size:1.05rem;font-weight:800;color:var(--ink)}
+.gx-f2h b .svgi{width:.95rem;height:.95rem;color:var(--ink)}
+.gx-f2h .acts{display:flex;align-items:center;gap:.6rem}
+.gx-f2h .gx-clear{display:none;font-size:.82rem;font-weight:600;color:var(--muted);background:var(--bg-soft);padding:.4rem .75rem;border-radius:8px;cursor:pointer}
+.gx-f2h .gx-clear:hover{color:var(--ink);background:var(--green-soft)}
+.gx-f2.has .gx-clear{display:inline-block}
+.gx-f2h .gx-close .svgi{width:1.15rem;height:1.15rem}
+.gx-f2s input{width:100%;height:2.6rem;padding:0 .8rem;border:1px solid var(--line-2);border-radius:8px;background:#fff;font:inherit;font-size:.92rem;color:var(--ink);outline:none}
+.gx-f2s input::placeholder{color:var(--faint)}
+.gx-f2s input:focus{border-color:var(--green);box-shadow:0 0 0 3px rgba(78,124,89,.12)}
+.gx-f2l{font-size:.95rem;font-weight:800;color:var(--ink);margin:1.1rem 0 .55rem}
+.gx-f2list{display:flex;flex-direction:column}
+.gx-cb{display:flex;align-items:center;gap:.6rem;padding:.42rem 0;font-size:.95rem;color:var(--ink);cursor:pointer}
+.gx-cb input{width:1rem;height:1rem;margin:0;accent-color:var(--green);flex:none}
+.gx-cb.gx-cbs{padding:.36rem 0 .36rem 1.85rem;font-size:.92rem;margin:0}
+.gx-f2sub{display:flex;flex-direction:column}
+.gx-f2d{position:relative;display:flex}
+.gx-f2d input{width:100%;height:2.6rem;padding:0 2.6rem 0 .8rem;border:1px solid var(--line-2);border-radius:8px;background:#fff;font:inherit;font-size:.92rem;color:var(--ink);outline:none}
+.gx-f2d input:focus{border-color:var(--green)}
+.gx-f2d .svgi{position:absolute;right:0;top:0;width:2.5rem;height:2.6rem;padding:.8rem;box-sizing:border-box;color:var(--muted);border-left:1px solid var(--line-2);pointer-events:none}
+.gx-f2 > .gx-cb{margin-top:1rem}
+.gx-f2map{height:4rem;margin-top:.5rem;border:1px solid var(--line-2);border-radius:6px;background:#e9f0f5 center/cover no-repeat;opacity:.85}
+.ds-mapcol{position:relative}
+.ds-expand{position:absolute;right:.9rem;bottom:.9rem;z-index:5;display:inline-flex;align-items:center;gap:.45rem;height:2.4rem;padding:0 .95rem 0 .8rem;border:0;border-radius:999px;background:#fff;color:var(--ink);font:inherit;font-size:.82rem;font-weight:700;cursor:pointer;box-shadow:0 6px 18px -8px rgba(0,0,0,.45)}
+.ds-expand:hover{background:var(--green);color:#fff}
+.ds-expand .svgi{width:1rem;height:1rem}
+.ds-expand .ic-min{display:none}
+.ds-mapcol.full{position:fixed;inset:0;z-index:2000;border:0;border-radius:0;min-height:0}
+.ds-mapcol.full .ph-img{min-height:0}
+.ds-mapcol.full .ds-expand{right:1.25rem;bottom:1.25rem}
+.ds-mapcol.full .ds-expand .ic-max{display:none}
+.ds-mapcol.full .ds-expand .ic-min{display:inline-block}
+body.ds-mapfull{overflow:hidden}
+.ds-mapcol .ph-img,.ds-mapcol .car-map{height:100%!important;min-height:560px}
+@media(max-width:900px){.ds-mapcol{min-height:22rem}.ds-mapcol .ph-img{min-height:22rem}}
+.gx-empty{padding:2.5rem 1rem;text-align:center;color:var(--muted);font-size:.95rem;border:1px dashed var(--line-2)}
+.lm-search input{flex:1;min-width:0;border:0;background:transparent;font:inherit;font-size:.85rem;color:var(--ink);outline:none;padding:0}
+.lm-search input::placeholder{color:var(--muted)}
+.lm-search .svgi{cursor:pointer}
+.lm-sugg{display:none;position:absolute;top:calc(100% + 4px);left:0;right:0;background:#fff;border:1px solid var(--line-2);box-shadow:0 12px 28px -14px rgba(0,0,0,.35);z-index:10;max-height:16rem;overflow:auto}
+.lm-sugg.open{display:block}
+.lm-opt{display:flex;align-items:center;gap:.5rem;padding:.55rem .75rem;font-size:.85rem;color:var(--ink);cursor:pointer}
+.lm-opt:hover{background:var(--green-soft)}
+.lm-opt .svgi{width:.9rem;height:.9rem;color:var(--muted);cursor:pointer}
+.lm-opt small{margin-left:auto;font-size:.68rem;color:var(--faint);text-transform:uppercase;letter-spacing:.06em}
+.lm-search{position:absolute}
+/* --- sidebar v3 --- */
+.gx-filters{padding:1.35rem 1.15rem 1.4rem;border-color:var(--line);box-shadow:0 10px 30px -24px rgba(74,66,62,.35)}
+.gx-filters .gx-fh{margin-bottom:1rem}
+.gx-filters .gx-fh b{font-size:1.2rem;gap:.5rem}
+.gx-filters .gx-fh b .svgi{width:1.05rem;height:1.05rem;color:var(--muted)}
+.gx-filters .gx-fh .acts span{font-size:.82rem;font-weight:700;color:var(--green-d);padding:.3rem .7rem;border-radius:999px;background:var(--green-soft)}
+.gx-filters .gx-fh .acts span:hover{text-decoration:none;background:var(--green-line)}
+.gx-filters .gx-srch{margin-bottom:.55rem}
+.gx-filters .gx-srch input{height:2.75rem;border-radius:999px;background:var(--bg-soft);border-color:var(--bg-soft);font-size:.9rem}
+.gx-filters .gx-srch input:focus{background:#fff;border-color:var(--green)}
+.gx-filters .gx-feat{border:0;background:var(--bg-soft);border-radius:999px;padding:.55rem .9rem .55rem .95rem;font-size:.86rem;font-weight:600}
+.gx-filters .gx-feat .svgi{width:.95rem;height:.95rem}
+.gx-filters .gx-group{font-size:.66rem;letter-spacing:.14em;color:var(--muted-2);margin:1.6rem 0 .6rem}
+.gx-filters .gx-types,.gx-filters .gx-sub{gap:.15rem}
+.gx-filters .gx-type{border:0;background:transparent;box-shadow:none;padding:.42rem .7rem .42rem .45rem;border-radius:12px;gap:.7rem;font-size:.93rem;font-weight:600;color:var(--ink)}
+.gx-filters .gx-type .svgi{width:2.05rem;height:2.05rem;padding:.5rem;box-sizing:border-box;border-radius:10px;background:var(--bg-soft);color:var(--ink-2);transition:background .15s,color .15s}
+.gx-filters .gx-type em{background:transparent;color:var(--muted);font-size:.8rem;font-weight:600;padding:0}
+.gx-filters .gx-type:hover{background:var(--bg-soft)}
+.gx-filters .gx-type:hover .svgi{background:#fff}
+.gx-filters .gx-type.on{background:var(--green);color:#fff}
+.gx-filters .gx-type.on .svgi{background:rgba(255,255,255,.18);color:#fff}
+.gx-filters .gx-type.on em{color:rgba(255,255,255,.85)}
+.gx-filters .gx-sub{margin:.3rem 0 .55rem 1.35rem;padding:0 0 0 .8rem;border-left:2px solid var(--line)}
+.gx-filters .gx-sub .gx-type{padding:.32rem .6rem .32rem .35rem;font-size:.86rem;color:var(--ink-2);gap:.5rem;border-radius:10px}
+.gx-filters .gx-sub .gx-type .svgi{width:1.55rem;height:1.55rem;padding:.36rem;border-radius:7px;background:transparent;color:var(--muted)}
+.gx-filters .gx-sub .gx-type:hover .svgi{background:transparent}
+.gx-filters .gx-sub .gx-type.on{background:var(--green-soft);color:var(--green-d)}
+.gx-filters .gx-sub .gx-type.on .svgi{background:#fff;color:var(--green-d)}
+.gx-filters .gx-sub .gx-type.on::after{content:'✓';margin-left:auto;font-size:.78rem;font-weight:800}
+.gx-filters .gx-dates{gap:.55rem}
+.gx-filters .gx-dates label{font-size:.64rem;letter-spacing:.1em;color:var(--muted-2)}
+.gx-filters .gx-date{border-radius:10px;background:var(--bg-soft);border-color:var(--bg-soft);padding:.6rem .7rem}
+.gx-filters .gx-ext{border:0;background:var(--bg-soft);border-radius:14px;padding:.75rem .9rem}
+.gx-filters .gx-acc{border-top:1px solid var(--line);margin-top:1.25rem}
+.gx-filters .gx-acc summary{font-size:.66rem;letter-spacing:.14em;color:var(--muted-2)}
+.gx-filters .gx-chk{padding:.38rem 0;font-size:.88rem;font-weight:600}
+.gx-filters .gx-apply{border-radius:999px;margin-top:1.25rem;padding:.78rem 1rem;box-shadow:0 10px 22px -14px rgba(212,162,76,.8)}
+/* filter sidebar — pill-list style */
+.gx-filters{padding:1.35rem 1.15rem 1.5rem;background:#fff}
+.gx-fh{margin-bottom:1rem}
+.gx-fh b{display:inline-flex;align-items:center;gap:.55rem;font-size:1.25rem;font-weight:900;letter-spacing:-.01em;text-transform:none;color:var(--ink)}
+.gx-fh b .svgi{display:inline-block;width:1.15rem;height:1.15rem;color:var(--ink-2)}
+.gx-fh .acts{font-size:.95rem;color:var(--green-d)}
+.gx-fh .acts span:hover{text-decoration:underline;text-underline-offset:3px}
+.gx-srch{position:relative;margin-bottom:.7rem}
+.gx-srch .svgi{position:absolute;left:.9rem;top:50%;transform:translateY(-50%);width:1.05rem;height:1.05rem;color:var(--faint);pointer-events:none}
+.gx-srch input{width:100%;height:2.9rem;padding:0 .9rem 0 2.6rem;border:1px solid var(--line-2);border-radius:14px;background:#fff;font:inherit;font-size:.95rem;color:var(--ink);outline:none;transition:border-color .15s,box-shadow .15s}
+.gx-srch input::placeholder{color:var(--faint)}
+.gx-srch input:focus{border-color:var(--green);box-shadow:0 0 0 3px rgba(78,124,89,.12)}
+.gx-feat{display:flex;align-items:center;gap:.6rem;padding:.65rem .9rem;border:1px solid var(--line-2);border-radius:14px;cursor:pointer;font-size:.9rem;font-weight:700;color:var(--ink-2)}
+.gx-feat input{accent-color:var(--green);width:1.05rem;height:1.05rem;margin:0}
+.gx-feat span{display:inline-flex;align-items:center;gap:.45rem}
+.gx-feat .svgi{width:1rem;height:1rem;color:var(--cta)}
+.gx-group{font-size:.74rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--muted-2);margin:1.25rem 0 .6rem;padding:0;border:0}
+.gx-types,.gx-sub{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:.45rem}
+.gx-type{display:flex;align-items:center;gap:.7rem;width:100%;padding:.75rem .9rem;border:1px solid var(--line-2);border-radius:14px;background:#fff;font:inherit;font-size:.98rem;font-weight:700;color:var(--ink);text-align:left;cursor:pointer;transition:background .15s,border-color .15s,color .15s,box-shadow .2s}
+.gx-type .svgi{width:1.2rem;height:1.2rem;color:var(--ink-2);flex:none}
+.gx-type i{font-style:normal;color:var(--muted-2)}
+.gx-type em{margin-left:auto;font-style:normal;font-size:.76rem;font-weight:700;color:var(--muted-2);background:var(--bg-soft);padding:.12rem .5rem;border-radius:999px}
+.gx-type:hover{border-color:var(--green-line);background:var(--green-soft)}
+.gx-type.on{background:var(--green);border-color:var(--green);color:#fff;box-shadow:0 10px 22px -12px rgba(78,124,89,.7)}
+.gx-type.on .svgi,.gx-type.on i{color:#fff}
+.gx-type.on em{background:rgba(255,255,255,.2);color:#fff}
+.gx-sub{margin:.15rem 0 .2rem 1.2rem;padding:.15rem 0 .15rem 1.1rem;border-left:3px solid var(--line-2)}
+.gx-sub .gx-type{font-size:.9rem;padding:.6rem .85rem}
+.gx-dates{display:grid;grid-template-columns:1fr 1fr;gap:.6rem}
+.gx-dates label{display:flex;flex-direction:column;gap:.3rem;font-size:.7rem;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--muted-2)}
+.gx-date{border-radius:12px;padding:.6rem .75rem;justify-content:space-between;color:var(--muted);font-size:.85rem;text-transform:none;letter-spacing:0;font-weight:500}
+.gx-date .svgi{width:1rem;height:1rem;color:var(--faint)}
+.gx-ext{display:flex;align-items:center;justify-content:space-between;gap:.8rem;padding:.7rem .9rem;border:1px solid var(--line-2);border-radius:14px;cursor:pointer}
+.gx-ext b{font-size:.9rem;display:block}
+.gx-ext small{display:block;color:var(--muted);font-size:.78rem;line-height:1.35}
+.gx-sw{position:relative;width:2.7rem;height:1.55rem;flex:none}
+.gx-sw input{opacity:0;width:0;height:0;position:absolute}
+.gx-sw i{position:absolute;inset:0;background:var(--line-2);border-radius:999px;transition:background .2s}
+.gx-sw i::after{content:'';position:absolute;top:.18rem;left:.18rem;width:1.2rem;height:1.2rem;border-radius:50%;background:#fff;box-shadow:0 1px 3px rgba(0,0,0,.25);transition:transform .2s}
+.gx-sw input:checked+i{background:var(--green)}
+.gx-sw input:checked+i::after{transform:translateX(1.15rem)}
+.gx-acc{border-top:1px solid var(--line);margin-top:1.1rem;padding-top:.15rem}
+.gx-acc summary{list-style:none;display:flex;align-items:center;justify-content:space-between;padding:.8rem 0;font-size:.74rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-2);cursor:pointer}
+.gx-acc summary::-webkit-details-marker{display:none}
+.gx-acc summary .svgi{width:1rem;height:1rem;color:var(--faint);transition:transform .2s}
+.gx-acc[open] summary .svgi{transform:rotate(180deg)}
+.gx-accb{padding-bottom:.6rem}
+.gx-chk{gap:.6rem;padding:.4rem 0;font-size:.92rem;font-weight:600;color:var(--ink-2)}
+.gx-chk .svgi{width:1rem;height:1rem;color:var(--green)}
+.gx-chk input{width:1.05rem;height:1.05rem;margin:0}
+.gx-apply{display:flex;justify-content:center;width:100%;margin-top:1.25rem;padding:.8rem 1rem;border-radius:14px;font-weight:700}
+.gx-results{padding:1.25rem 1.5rem 1.5rem}
+.gx-bar{display:flex;align-items:center;gap:1rem;flex-wrap:wrap;padding-bottom:1rem;border-bottom:1px solid var(--line);margin-bottom:1.25rem}
+.gx-count{font-family:var(--serif);font-size:1.3rem;color:var(--ink)}
+.gx-count b{font-weight:400}
+.gx-types{display:flex;gap:.4rem;flex-wrap:wrap}
+.gx-types .mc-chip.on{background:var(--tc);color:#fff;border-color:var(--tc)}
+.gx-bar .gn-tools{margin-left:auto}
+.gx-grid{gap:1.25rem}
+.rescard{border-color:var(--line-2)}
+.rescard .rth{min-height:12rem}
+.rescard .rb{padding:1rem 1.15rem 1.1rem;gap:.5rem}
+.rescard .gn-kind{align-self:flex-start;font-size:.62rem}
+.rescard h4{font-family:var(--serif);font-weight:400;font-size:1.15rem;line-height:1.3}
+.rescard p{font-size:.88rem;line-height:1.6}
+.rescard .rf{padding-top:.75rem;font-size:.8rem}
+.gx-owner{display:inline-flex;align-items:center;gap:.5rem;font-weight:600;color:var(--ink-2)}
+.gx-owner .pw-av{width:1.5rem;height:1.5rem;font-size:.55rem}
+.gx-results .row.mt16{margin-top:1.5rem}
+/* ---------- blogs ---------- */
+.blog-cats{display:flex;gap:.45rem;flex-wrap:wrap;justify-content:center;margin:.25rem 0 2rem}
+.blog-cats .mc-chip.on{background:var(--tc);color:#fff;border-color:var(--tc)}
+.blog-feature{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);background:#fff;border:1px solid var(--line-2);overflow:hidden;cursor:pointer;transition:transform .18s ease,box-shadow .2s ease,border-color .15s}
+.blog-feature:hover{transform:translateY(-3px);box-shadow:0 22px 40px -26px rgba(74,66,62,.5);border-color:var(--green-line)}
+.blog-feature:hover h2{color:var(--green-d)}
+.bf-media{position:relative;min-height:22rem;background-size:cover;background-position:center}
+.bf-media .wn-kind{background:var(--cta)}
+.bf-body{padding:2.25rem 2.5rem;display:flex;flex-direction:column;justify-content:center;gap:.8rem}
+.bf-cat{font-size:.66rem;font-weight:800;letter-spacing:.09em;text-transform:uppercase;color:var(--tc)}
+.blog-feature h2{font-size:clamp(1.5rem,2.4vw,2rem);line-height:1.2;transition:color .15s}
+.bf-body p{color:var(--muted);font-size:1rem;line-height:1.7}
+.bf-body .wn-meta{border-top:0;padding-top:.25rem;font-size:.82rem}
+.bf-btn{align-self:flex-start;margin-top:.5rem}
+.blog-card .wn-media{aspect-ratio:16/9}
+@media(max-width:900px){.blog-feature{grid-template-columns:1fr}.bf-media{min-height:14rem}.bf-body{padding:1.5rem}}
+
+/* ---------- blog article ---------- */
+.art-hero{max-width:60rem;margin:0 auto;padding:2.75rem 0 1.75rem;text-align:center}
+.art-hero-tags{justify-content:center;gap:.5rem;margin-bottom:1.1rem}
+.art-hero .wn-kind{position:static;background:color-mix(in srgb,var(--tc) 82%,#000)}
+.art-hero h1{font-size:clamp(2rem,3.6vw,2.9rem);line-height:1.12;letter-spacing:-.02em;margin:0 0 1rem}
+.art-hero .art-lead{font-size:1.12rem;line-height:1.7;color:var(--muted);max-width:44rem;margin:0 auto 1.5rem}
+.art-hero .art-meta{justify-content:center;border:0;padding:0;margin:0}
+.art-hero .art-meta>.row{margin-left:1.5rem!important}
+.art-cover{position:relative;margin:0 0 .5rem;margin-left:calc(50% - 50vw + var(--sbw)/2);margin-right:calc(50% - 50vw + var(--sbw)/2);width:calc(100vw - var(--sbw))}
+.art-cover img{width:100%;height:clamp(20rem,52vh,34rem);object-fit:cover;display:block}
+.art-cover figcaption{max-width:90rem;margin:0 auto;padding:.7rem 2rem 0;font-size:.78rem;color:var(--muted-2)}
+.art-wrap{padding-top:1.5rem}
+.art-grid{display:grid;grid-template-columns:minmax(0,1fr) 17rem;gap:3rem;align-items:start;max-width:78rem;margin:0 auto}
+.art{max-width:46rem}
+.art-open{font-size:1.1rem;line-height:1.75;color:var(--ink)}
+.art-open::first-letter{font-family:var(--serif);font-size:3.4em;line-height:.8;float:left;padding:.15em .12em 0 0;color:var(--green-d)}
+.art p a{color:var(--green-d);font-weight:600;text-decoration:underline;text-underline-offset:3px;cursor:pointer}
+.art h3{font-size:1.5rem;margin:2.25rem 0 .75rem}
+.art-fig{margin:1.5rem 0}
+.art-fig img{width:100%;max-height:28rem;object-fit:contain;background:var(--bg-soft);border:1px solid var(--line-2);display:block;padding:1rem}
+.art-fig figcaption{font-size:.78rem;color:var(--muted-2);margin-top:.55rem;line-height:1.55}
+.art-author{display:flex;gap:1rem;align-items:flex-start;background:var(--bg-soft);border:1px solid var(--line);padding:1.35rem 1.5rem;margin-top:2rem}
+.art-author b{font-size:1rem;color:var(--ink)}
+.art-author p{font-size:.88rem;line-height:1.6;color:var(--muted);margin:.35rem 0 .75rem}
+.art-nav{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-top:1.5rem}
+.art-navcard{display:flex;flex-direction:column;gap:.35rem;padding:1.1rem 1.25rem;background:#fff;border:1px solid var(--line-2);cursor:pointer;transition:border-color .15s,box-shadow .2s,transform .18s ease}
+.art-navcard:hover{transform:translateY(-3px);box-shadow:0 22px 40px -26px rgba(74,66,62,.5);border-color:var(--green-line)}
+.art-navcard.next{text-align:right;align-items:flex-end}
+.art-navcard .k{font-size:.66rem;font-weight:800;letter-spacing:.09em;text-transform:uppercase;color:var(--faint)}
+.art-navcard b{font-family:var(--serif);font-weight:400;font-size:1.05rem;line-height:1.3;color:var(--ink)}
+.art-side{position:sticky;top:6rem}
+.art-toc{position:static}
+.art-toc .h{font-size:.66rem}
+.art-rel{display:flex;flex-direction:column;gap:.6rem}
+.art-relrow{display:grid;grid-template-columns:4rem 1fr;gap:.7rem;align-items:center;cursor:pointer}
+.art-relrow .th{width:4rem;height:3rem;background-size:cover;background-position:center;border:1px solid var(--line-2);display:block}
+.art-relrow b{display:block;font-size:.85rem;font-weight:700;line-height:1.3;color:var(--ink);transition:color .15s}
+.art-relrow:hover b{color:var(--green-d)}
+.art-relrow small{display:block;font-size:.72rem;color:var(--muted-2);margin-top:.15rem}
+@media(max-width:900px){.art-grid{grid-template-columns:1fr;gap:2rem}.art-side{position:static}.art-hero{padding:2rem 0 1.25rem}.art-nav{grid-template-columns:1fr}.art-navcard.next{text-align:left;align-items:flex-start}}
+/* ---------- about ---------- */
+.band-soft{position:relative;margin-left:calc(50% - 50vw + var(--sbw)/2);margin-right:calc(50% - 50vw + var(--sbw)/2);width:calc(100vw - var(--sbw));background:var(--bg-soft);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.sechead.mid{display:flex;justify-content:center;text-align:center;margin-bottom:2rem}
+.sechead.mid h2{font-size:2rem}
+.about-scope{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem}
+.about-scope .pillar-row{background:#fff}
+.hstat b em{font-style:normal;font-size:.55em;color:var(--green);margin-left:.1em}
+.nf-grid{gap:1.25rem}
+.nf-tile{background:#fff;border:1px solid var(--line-2);padding:1.5rem 1.4rem;display:flex;flex-direction:column;gap:.6rem;transition:transform .18s ease,box-shadow .2s ease,border-color .15s}
+.nf-tile:hover{transform:translateY(-3px);box-shadow:0 22px 40px -26px rgba(74,66,62,.5);border-color:var(--green-line)}
+.nf-tile .ic-tile{width:3rem;height:3rem;border-radius:.8rem;background:color-mix(in srgb,var(--tc) 12%,#fff);color:var(--tc);box-shadow:inset 0 0 0 1px color-mix(in srgb,var(--tc) 22%,#fff);display:grid;place-items:center}
+.nf-tile .ic-tile .svgi{width:1.35rem;height:1.35rem}
+.nf-tile h3{font-size:1.15rem;margin-top:.35rem}
+.nf-tile p{color:var(--muted);font-size:.9rem;line-height:1.6}
+.about-gateway{margin:1rem 0 0;margin-left:calc(50% - 50vw + var(--sbw)/2);margin-right:calc(50% - 50vw + var(--sbw)/2);width:calc(100vw - var(--sbw))}
+.gateway{position:relative;overflow:hidden;padding:3.6rem 2rem 3.4rem;text-align:center;color:#fff;background:var(--green)}
+.gateway::before{content:'';position:absolute;inset:0;pointer-events:none;background-image:radial-gradient(rgba(255,255,255,.10) 1px,transparent 1px);background-size:22px 22px;-webkit-mask-image:radial-gradient(ellipse at 50% 45%,#000 25%,transparent 75%);mask-image:radial-gradient(ellipse at 50% 45%,#000 25%,transparent 75%)}
+.gateway>*{position:relative;z-index:1}
+.gateway h2{color:#fff;font-size:clamp(1.7rem,2.8vw,2.2rem);margin:0 0 .8rem}
+.gateway p{color:rgba(255,255,255,.82);max-width:44rem;margin:0 auto 1.6rem;line-height:1.7}
+.gateway .row{justify-content:center}
+.gateway .btn-white{background:var(--cta);color:#fff;border:0;padding:.8rem 1.6rem;box-shadow:0 14px 30px -12px rgba(0,0,0,.55)}
+.gateway .btn-white:hover{background:#c8963f;transform:translateY(-2px)}
+.gateway .btn-outline{background:transparent;color:#fff;border:1px solid rgba(255,255,255,.4);padding:.8rem 1.6rem}
+.gateway .btn-outline:hover{background:rgba(255,255,255,.12);border-color:#fff}
+@media(max-width:980px){.about-scope{grid-template-columns:1fr 1fr}}
+@media(max-width:640px){.about-scope{grid-template-columns:1fr}.sechead.mid h2{font-size:1.6rem}}
+
+/* ---------- blogs: newsletter band ---------- */
+.blog-nl{margin:1rem 0 0;margin-left:calc(50% - 50vw + var(--sbw)/2);margin-right:calc(50% - 50vw + var(--sbw)/2);width:calc(100vw - var(--sbw));display:flex;flex-direction:column;align-items:center;gap:.6rem}
+.blog-nl .nl-ic{display:grid;place-items:center;width:3rem;height:3rem;border-radius:.9rem;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.28);color:#fff;margin-bottom:.4rem}
+.blog-nl .nl-ic .svgi{width:1.4rem;height:1.4rem}
+.blog-nl h2{margin-bottom:.4rem}
+.blog-nl p{margin-bottom:1.4rem;max-width:36rem}
+.blog-nl .nl-form{display:flex;gap:.5rem;width:min(34rem,100%);background:#fff;padding:.4rem;box-shadow:0 20px 40px -24px rgba(0,0,0,.6)}
+.blog-nl .nl-form input{flex:1;min-width:0;border:0;background:transparent;padding:.7rem .9rem;font:inherit;font-size:.95rem;color:var(--ink);outline:none}
+.blog-nl .nl-form input::placeholder{color:var(--faint)}
+.blog-nl .nl-form .btn{padding:.7rem 1.5rem;box-shadow:none}
+.blog-nl .nl-note{margin-top:.9rem;font-size:.76rem;color:rgba(255,255,255,.7)}
+@media(max-width:560px){.blog-nl .nl-form{flex-direction:column;background:none;padding:0;box-shadow:none}.blog-nl .nl-form input{background:#fff}.blog-nl .nl-form .btn{width:100%}}
+
+/* ---------- pagination ---------- */
+.pager{display:flex;justify-content:center;align-items:center;gap:.35rem;margin-top:2rem;flex-wrap:wrap}
+.pg{display:inline-flex;align-items:center;justify-content:center;min-width:2.5rem;height:2.5rem;padding:0 .9rem;border:1px solid var(--line-2);background:#fff;font-size:.88rem;font-weight:700;color:var(--ink);cursor:pointer;transition:background .15s,color .15s,border-color .15s}
+.pg:hover{border-color:var(--green);color:var(--green-d)}
+.pg.num{padding:0}
+.pg.on{background:var(--green);border-color:var(--green);color:#fff}
+.pg.off{color:var(--faint);pointer-events:none;background:var(--bg-soft)}
+
+/* ---------- GeoNode entry point (Map Studio) ---------- */
+.geonode-entry{display:block;background:var(--bg-soft)}
+.geonode-entry .ge-tx{max-width:42rem}
+.ge-frame{margin-top:1.25rem;border:1px solid var(--line-2);background:#fff}
+.ge-frame iframe{display:block;width:100%;height:26rem;border:0}
+.ge-frame-fallback{padding:.65rem .9rem;font-size:.78rem;color:var(--muted-2);border-top:1px solid var(--line-2);background:var(--bg-soft)}
+
+/* ---------- bookmark quick-action on data-layer / resource listings ---------- */
+.gn-bk{position:absolute;top:.9rem;right:calc(.9rem + 2.3rem);width:2rem;height:2rem;border:1px solid var(--line-2);background:#fff;border-radius:0;cursor:pointer;color:var(--muted);display:grid;place-items:center;transition:.15s}
+.gn-bk:hover{border-color:var(--green);color:var(--green-d);background:var(--green-soft)}
+.gn-bk .svgi{width:.9rem;height:.9rem}
+.rf-bk{flex:none;width:2rem;height:2rem;border:1px solid var(--line-2);background:#fff;color:var(--muted);display:grid;place-items:center;cursor:pointer;transition:.15s}
+.rf-bk:hover{border-color:var(--green);color:var(--green-d);background:var(--green-soft)}
+.rf-bk .svgi{width:.9rem;height:.9rem}
+
+/* ---------- apps launcher: one shared list, current section marked ---------- */
+.appsw-menu .appsw-cols.one{grid-template-columns:1fr}
+.app-tile.here{background:var(--green-soft);cursor:default}
+.app-tile.here:hover{background:var(--green-soft)}
+.app-tile.here .app-ic{background:var(--green);color:#fff;box-shadow:none}
+.app-here{display:block;font-size:.66rem;font-weight:700;color:var(--green-d);text-transform:uppercase;letter-spacing:.04em;margin-top:.1rem}
+
+/* ---------- Thematic Datasets: clickable stat tiles + the layers panel they open ---------- */
+.hstat.hstat-click{border:1px solid var(--line);background:#fff;cursor:pointer;font:inherit;text-align:left;position:relative;transition:box-shadow .2s,border-color .15s,transform .15s}
+.hstat.hstat-click:hover{transform:translateY(-2px);box-shadow:0 18px 34px -22px rgba(74,66,62,.4);border-color:var(--green-line)}
+.hstat.hstat-click .hstat-go{margin-left:auto;color:var(--faint);transition:color .15s}
+.hstat.hstat-click:hover .hstat-go{color:var(--green-d)}
+.hstat.hstat-click.open .hstat-go .svgi{transform:rotate(180deg)}
+#hstat-layers .hstat-go .svgi{transition:transform .15s}
+.layers-panel{max-width:64rem;margin:0 auto 2rem}
+.layers-panel-in{border:1px solid var(--line-2);background:var(--bg-soft);padding:1.5rem 1.75rem;display:grid;gap:1.25rem}
+.lp-group+.lp-group{border-top:1px solid var(--line);padding-top:1.1rem}
+.lp-h{display:flex;align-items:center;gap:.5rem;font-weight:700;font-size:.95rem;color:var(--ink);margin-bottom:.65rem}
+.lp-dot{width:.6rem;height:.6rem;border-radius:50%;background:var(--tc)}
+.lp-n{margin-left:auto;font-size:.76rem;font-weight:600;color:var(--muted-2)}
+.lp-chips{display:flex;flex-wrap:wrap;gap:.45rem}
+@media(max-width:700px){.layers-panel-in{padding:1.15rem}}
+
+/* ---------- footer: brand mark + social icons ---------- */
+.f-brand{display:flex;align-items:center;gap:.65rem}
+.f-brand .mk{width:2.4rem;height:2.4rem;border-radius:.65rem;background:var(--green);color:#fff;display:grid;place-items:center;flex:none;box-shadow:0 8px 16px -8px rgba(78,124,89,.6)}
+.f-brand .mk .svgi{width:1.15rem;height:1.15rem}
+.f-brand .fname{margin:0;line-height:1.25}
+footer.site .bar{display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap}
+.f-social{display:flex;align-items:center;gap:.6rem}
+.f-social a{width:2.2rem;height:2.2rem;border-radius:50%;background:var(--green);color:#fff;display:grid;place-items:center;transition:background .15s,transform .15s}
+.f-social a:hover{background:var(--green-d);transform:translateY(-2px)}
+.f-social .svgi{width:1.05rem;height:1.05rem}
+@media(max-width:560px){footer.site .bar{justify-content:center;text-align:center}}
 </style>
 </head>
 <body>
-<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs><symbol id="i-lock" viewBox="0 0 24 24"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></symbol><symbol id="i-map" viewBox="0 0 24 24"><path d="M14.106 5.553a2 2 0 0 0 1.788 0l3.659-1.83A1 1 0 0 1 21 4.619v12.764a1 1 0 0 1-.553.894l-4.553 2.277a2 2 0 0 1-1.788 0l-4.212-2.106a2 2 0 0 0-1.788 0l-3.659 1.83A1 1 0 0 1 3 19.381V6.618a1 1 0 0 1 .553-.894l4.553-2.277a2 2 0 0 1 1.788 0z"/><path d="M15 5.764v15"/><path d="M9 3.236v15"/></symbol><symbol id="i-download" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/></symbol><symbol id="i-bookmark" viewBox="0 0 24 24"><path d="m19 21-7-4-7 4V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16z"/></symbol><symbol id="i-book" viewBox="0 0 24 24"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></symbol><symbol id="i-trend" viewBox="0 0 24 24"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></symbol><symbol id="i-trenddown" viewBox="0 0 24 24"><polyline points="22 17 13.5 8.5 8.5 13.5 2 7"/><polyline points="16 17 22 17 22 11"/></symbol><symbol id="i-globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></symbol><symbol id="i-x" viewBox="0 0 24 24"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></symbol><symbol id="i-print" viewBox="0 0 24 24"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect width="12" height="8" x="6" y="14"/></symbol><symbol id="i-db" viewBox="0 0 24 24"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5v14a9 3 0 0 0 18 0V5"/><path d="M3 12a9 3 0 0 0 18 0"/></symbol><symbol id="i-upload" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" x2="12" y1="3" y2="15"/></symbol><symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></symbol><symbol id="i-ruler" viewBox="0 0 24 24"><path d="M21.3 15.3a2.4 2.4 0 0 1 0 3.4l-2.6 2.6a2.4 2.4 0 0 1-3.4 0L2.7 8.7a2.41 2.41 0 0 1 0-3.4l2.6-2.6a2.41 2.41 0 0 1 3.4 0Z"/><path d="m14.5 12.5 2-2"/><path d="m11.5 9.5 2-2"/><path d="m8.5 6.5 2-2"/><path d="m17.5 15.5 2-2"/></symbol><symbol id="i-check" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></symbol><symbol id="i-maximize" viewBox="0 0 24 24"><path d="M8 3H5a2 2 0 0 0-2 2v3"/><path d="M21 8V5a2 2 0 0 0-2-2h-3"/><path d="M3 16v3a2 2 0 0 0 2 2h3"/><path d="M16 21h3a2 2 0 0 0 2-2v-3"/></symbol><symbol id="i-settings" viewBox="0 0 24 24"><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/><circle cx="12" cy="12" r="3"/></symbol><symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h16"/></symbol><symbol id="i-eye" viewBox="0 0 24 24"><path d="M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0"/><circle cx="12" cy="12" r="3"/></symbol><symbol id="i-shield" viewBox="0 0 24 24"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/></symbol><symbol id="i-wrench" viewBox="0 0 24 24"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></symbol><symbol id="i-image" viewBox="0 0 24 24"><rect width="18" height="18" x="3" y="3" rx="2" ry="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/></symbol><symbol id="i-key" viewBox="0 0 24 24"><path d="m15.5 7.5 2.3 2.3a1 1 0 0 0 1.4 0l2.1-2.1a1 1 0 0 0 0-1.4L19 4"/><path d="m21 2-9.6 9.6"/><circle cx="7.5" cy="15.5" r="5.5"/></symbol><symbol id="i-pin" viewBox="0 0 24 24"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></symbol><symbol id="i-clipboard" viewBox="0 0 24 24"><rect width="8" height="4" x="8" y="2" rx="1" ry="1"/><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/></symbol><symbol id="i-calendar" viewBox="0 0 24 24"><path d="M8 2v4"/><path d="M16 2v4"/><rect width="18" height="18" x="3" y="4" rx="2"/><path d="M3 10h18"/></symbol><symbol id="i-droplet" viewBox="0 0 24 24"><path d="M12 22a7 7 0 0 0 7-7c0-2-1-3.9-3-5.5s-3.5-4-4-6.5c-.5 2.5-2 4.9-4 6.5C6 11.1 5 13 5 15a7 7 0 0 0 7 7z"/></symbol><symbol id="i-usersolid" viewBox="0 0 24 24"><circle cx="12" cy="12" r="11" fill="currentColor" stroke="none"/><circle cx="12" cy="9.3" r="3.5" fill="#fff" stroke="none"/><path d="M5 18.7c1.4-2.9 4-4.5 7-4.5s5.6 1.6 7 4.5A9.6 9.6 0 0 1 12 21.6 9.6 9.6 0 0 1 5 18.7z" fill="#fff" stroke="none"/></symbol><symbol id="i-usercircle" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="10" r="3"/><path d="M7 20.662V19a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v1.662"/></symbol><symbol id="i-eyeoff" viewBox="0 0 24 24"><path d="M10.733 5.076a10.744 10.744 0 0 1 11.205 6.575 1 1 0 0 1 0 .696 10.747 10.747 0 0 1-1.444 2.49"/><path d="M14.084 14.158a3 3 0 0 1-4.242-4.242"/><path d="M17.479 17.499a10.75 10.75 0 0 1-15.417-5.151 1 1 0 0 1 0-.696 10.75 10.75 0 0 1 4.446-5.143"/><path d="m2 2 20 20"/></symbol><symbol id="i-user" viewBox="0 0 24 24"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></symbol><symbol id="i-users" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></symbol><symbol id="i-landmark" viewBox="0 0 24 24"><line x1="3" x2="21" y1="22" y2="22"/><line x1="6" x2="6" y1="18" y2="11"/><line x1="10" x2="10" y1="18" y2="11"/><line x1="14" x2="14" y1="18" y2="11"/><line x1="18" x2="18" y1="18" y2="11"/><polygon points="12 2 20 7 4 7"/></symbol><symbol id="i-tree" viewBox="0 0 24 24"><path d="M10 10v.2A3 3 0 0 1 8.9 16H5a3 3 0 0 1-1-5.8V10a3 3 0 0 1 6 0Z"/><path d="M7 16v6"/><path d="M13 19v3"/><path d="M12 19h8.3a1 1 0 0 0 .7-1.7L18 14h.3a1 1 0 0 0 .7-1.7L16 9h.2a1 1 0 0 0 .8-1.7L13 3l-1.4 1.5"/></symbol><symbol id="i-checkcircle" viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="m9 11 3 3L22 4"/></symbol><symbol id="i-compass" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></symbol><symbol id="i-leaf" viewBox="0 0 24 24"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z"/><path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/></symbol><symbol id="i-sprout" viewBox="0 0 24 24"><path d="M7 20h10"/><path d="M10 20c5.5-2.5.8-6.4 3-10"/><path d="M9.5 9.4c1.1.8 1.8 2.2 2.3 3.7-2 .4-3.5.4-4.8-.3-1.2-.6-2.3-1.9-3-4.2 2.8-.5 4.4 0 5.5.8z"/><path d="M14.1 6a7 7 0 0 0-1.1 4c1.9-.1 3.3-.6 4.3-1.4 1-1 1.6-2.3 1.7-4.6-2.7.1-4 1-4.9 2z"/></symbol><symbol id="i-trash" viewBox="0 0 24 24"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/></symbol><symbol id="i-hand" viewBox="0 0 24 24"><path d="M18 11V6a2 2 0 0 0-4 0v5"/><path d="M14 10V4a2 2 0 0 0-4 0v2"/><path d="M10 10.5V6a2 2 0 0 0-4 0v8"/><path d="M18 8a2 2 0 1 1 4 0v6a8 8 0 0 1-8 8h-2c-2.8 0-4.5-.86-5.99-2.34l-3.6-3.6a2 2 0 0 1 2.83-2.82L7 15"/></symbol><symbol id="i-link" viewBox="0 0 24 24"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></symbol><symbol id="i-radio" viewBox="0 0 24 24"><path d="M4.9 19.1C1 15.2 1 8.8 4.9 4.9"/><path d="M7.8 16.2c-2.3-2.3-2.3-6.1 0-8.5"/><circle cx="12" cy="12" r="2"/><path d="M16.2 7.8c2.3 2.3 2.3 6.1 0 8.5"/><path d="M19.1 4.9C23 8.8 23 15.1 19.1 19"/></symbol><symbol id="i-paperclip" viewBox="0 0 24 24"><path d="m21.44 11.05-9.19 9.19a6 6 0 0 1-8.49-8.49l8.57-8.57A4 4 0 1 1 18 8.84l-8.59 8.57a2 2 0 0 1-2.83-2.83l8.49-8.48"/></symbol><symbol id="i-barchart" viewBox="0 0 24 24"><line x1="12" x2="12" y1="20" y2="10"/><line x1="18" x2="18" y1="20" y2="4"/><line x1="6" x2="6" y1="20" y2="16"/></symbol><symbol id="i-save" viewBox="0 0 24 24"><path d="M15.2 3a2 2 0 0 1 1.4.6l3.8 3.8a2 2 0 0 1 .6 1.4V19a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2z"/><path d="M17 21v-7a1 1 0 0 0-1-1H8a1 1 0 0 0-1 1v7"/><path d="M7 3v4a1 1 0 0 0 1 1h7"/></symbol><symbol id="i-message" viewBox="0 0 24 24"><path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"/></symbol><symbol id="i-factory" viewBox="0 0 24 24"><path d="M2 20a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8l-7 5V8l-7 5V4a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2Z"/><path d="M17 18h1"/><path d="M12 18h1"/><path d="M7 18h1"/></symbol><symbol id="i-building" viewBox="0 0 24 24"><rect width="16" height="20" x="4" y="2" rx="2" ry="2"/><path d="M9 22v-4h6v4"/><path d="M8 6h.01"/><path d="M16 6h.01"/><path d="M12 6h.01"/><path d="M12 10h.01"/><path d="M12 14h.01"/><path d="M16 10h.01"/><path d="M16 14h.01"/><path d="M8 10h.01"/><path d="M8 14h.01"/></symbol><symbol id="i-home" viewBox="0 0 24 24"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></symbol><symbol id="i-puzzle" viewBox="0 0 24 24"><path d="M19.439 7.85c-.049.322.059.648.289.878l1.568 1.568c.47.47.706 1.087.706 1.704s-.235 1.233-.706 1.704l-1.611 1.611a.98.98 0 0 1-.837.276c-.47-.07-.802-.48-.968-.925a2.501 2.501 0 1 0-3.214 3.214c.446.166.855.497.925.968a.979.979 0 0 1-.276.837l-1.61 1.61a2.404 2.404 0 0 1-1.705.707 2.402 2.402 0 0 1-1.704-.706l-1.568-1.568a1.026 1.026 0 0 0-.877-.29c-.493.074-.84.504-1.02.968a2.5 2.5 0 1 1-3.237-3.237c.464-.18.894-.527.967-1.02a1.026 1.026 0 0 0-.289-.877l-1.568-1.568A2.402 2.402 0 0 1 1.998 12c0-.617.236-1.234.706-1.704L4.23 8.77c.24-.24.581-.353.917-.303.515.077.877.528 1.073 1.01a2.5 2.5 0 1 0 3.259-3.259c-.482-.196-.933-.558-1.01-1.073-.05-.336.062-.676.303-.917l1.525-1.525A2.402 2.402 0 0 1 12 1.998c.617 0 1.234.236 1.704.706l1.568 1.568c.23.23.556.338.877.29.493-.074.84-.504 1.02-.968a2.5 2.5 0 1 1 3.237 3.237c-.464.18-.894.527-.967 1.02Z"/></symbol><symbol id="i-folder" viewBox="0 0 24 24"><path d="M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2Z"/></symbol><symbol id="i-pointer" viewBox="0 0 24 24"><path d="M12.586 12.586 19 19"/><path d="M3.688 3.037a.497.497 0 0 0-.651.651l6.5 15.999a.501.501 0 0 0 .947-.062l1.569-6.083a2 2 0 0 1 1.448-1.479l6.124-1.579a.5.5 0 0 0 .063-.947z"/></symbol><symbol id="i-sparkles" viewBox="0 0 24 24"><path d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .963 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.581a.5.5 0 0 1 0 .964L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.963 0z"/></symbol><symbol id="i-plus" viewBox="0 0 24 24"><path d="M5 12h14"/><path d="M12 5v14"/></symbol><symbol id="i-logout" viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" x2="9" y1="12" y2="12"/></symbol><symbol id="i-pencil" viewBox="0 0 24 24"><path d="M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z"/></symbol><symbol id="i-mail" viewBox="0 0 24 24"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></symbol><symbol id="i-scissors" viewBox="0 0 24 24"><circle cx="6" cy="6" r="3"/><path d="M8.12 8.12 12 12"/><path d="M20 4 8.12 15.88"/><circle cx="6" cy="18" r="3"/><path d="M14.8 14.8 20 20"/></symbol><symbol id="i-star" viewBox="0 0 24 24"><path d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z"/></symbol><symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></symbol><symbol id="i-checksquare" viewBox="0 0 24 24"><path d="m9 11 3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></symbol><symbol id="i-refresh" viewBox="0 0 24 24"><path d="M21 12a9 9 0 0 0-9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/><path d="M3 12a9 9 0 0 0 9 9 9.75 9.75 0 0 0 6.74-2.74L21 16"/><path d="M16 16h5v5"/></symbol><symbol id="i-external" viewBox="0 0 24 24"><path d="M15 3h6v6"/><path d="M10 14 21 3"/><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></symbol><symbol id="i-grid" viewBox="0 0 24 24"><rect width="7" height="7" x="3" y="3" rx="1"/><rect width="7" height="7" x="14" y="3" rx="1"/><rect width="7" height="7" x="14" y="14" rx="1"/><rect width="7" height="7" x="3" y="14" rx="1"/></symbol><symbol id="i-list" viewBox="0 0 24 24"><line x1="8" x2="21" y1="6" y2="6"/><line x1="8" x2="21" y1="12" y2="12"/><line x1="8" x2="21" y1="18" y2="18"/><line x1="3" x2="3.01" y1="6" y2="6"/><line x1="3" x2="3.01" y1="12" y2="12"/><line x1="3" x2="3.01" y1="18" y2="18"/></symbol><symbol id="i-chevdown" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></symbol><symbol id="i-chevup" viewBox="0 0 24 24"><path d="m18 15-6-6-6 6"/></symbol><symbol id="i-move" viewBox="0 0 24 24"><polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" x2="14" y1="3" y2="10"/><line x1="3" x2="10" y1="21" y2="14"/></symbol><symbol id="i-layers" viewBox="0 0 24 24"><path d="m12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83z"/><path d="m22 17.65-9.17 4.16a2 2 0 0 1-1.66 0L2 17.65"/><path d="m22 12.65-9.17 4.16a2 2 0 0 1-1.66 0L2 12.65"/></symbol><symbol id="i-facebook" viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></symbol><symbol id="i-instagram" viewBox="0 0 24 24"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/></symbol><symbol id="i-linkedin" viewBox="0 0 24 24"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect width="4" height="12" x="2" y="9"/><circle cx="4" cy="4" r="2"/></symbol></defs></svg>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs><symbol id="i-lock" viewBox="0 0 24 24"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></symbol><symbol id="i-map" viewBox="0 0 24 24"><path d="M14.106 5.553a2 2 0 0 0 1.788 0l3.659-1.83A1 1 0 0 1 21 4.619v12.764a1 1 0 0 1-.553.894l-4.553 2.277a2 2 0 0 1-1.788 0l-4.212-2.106a2 2 0 0 0-1.788 0l-3.659 1.83A1 1 0 0 1 3 19.381V6.618a1 1 0 0 1 .553-.894l4.553-2.277a2 2 0 0 1 1.788 0z"/><path d="M15 5.764v15"/><path d="M9 3.236v15"/></symbol><symbol id="i-download" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/></symbol><symbol id="i-bookmark" viewBox="0 0 24 24"><path d="m19 21-7-4-7 4V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16z"/></symbol><symbol id="i-book" viewBox="0 0 24 24"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></symbol><symbol id="i-trend" viewBox="0 0 24 24"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></symbol><symbol id="i-trenddown" viewBox="0 0 24 24"><polyline points="22 17 13.5 8.5 8.5 13.5 2 7"/><polyline points="16 17 22 17 22 11"/></symbol><symbol id="i-globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></symbol><symbol id="i-x" viewBox="0 0 24 24"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></symbol><symbol id="i-print" viewBox="0 0 24 24"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect width="12" height="8" x="6" y="14"/></symbol><symbol id="i-db" viewBox="0 0 24 24"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5v14a9 3 0 0 0 18 0V5"/><path d="M3 12a9 3 0 0 0 18 0"/></symbol><symbol id="i-upload" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" x2="12" y1="3" y2="15"/></symbol><symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></symbol><symbol id="i-ruler" viewBox="0 0 24 24"><path d="M21.3 15.3a2.4 2.4 0 0 1 0 3.4l-2.6 2.6a2.4 2.4 0 0 1-3.4 0L2.7 8.7a2.41 2.41 0 0 1 0-3.4l2.6-2.6a2.41 2.41 0 0 1 3.4 0Z"/><path d="m14.5 12.5 2-2"/><path d="m11.5 9.5 2-2"/><path d="m8.5 6.5 2-2"/><path d="m17.5 15.5 2-2"/></symbol><symbol id="i-check" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></symbol><symbol id="i-maximize" viewBox="0 0 24 24"><path d="M8 3H5a2 2 0 0 0-2 2v3"/><path d="M21 8V5a2 2 0 0 0-2-2h-3"/><path d="M3 16v3a2 2 0 0 0 2 2h3"/><path d="M16 21h3a2 2 0 0 0 2-2v-3"/></symbol><symbol id="i-settings" viewBox="0 0 24 24"><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/><circle cx="12" cy="12" r="3"/></symbol><symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h16"/></symbol><symbol id="i-eye" viewBox="0 0 24 24"><path d="M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0"/><circle cx="12" cy="12" r="3"/></symbol><symbol id="i-shield" viewBox="0 0 24 24"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/></symbol><symbol id="i-wrench" viewBox="0 0 24 24"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></symbol><symbol id="i-image" viewBox="0 0 24 24"><rect width="18" height="18" x="3" y="3" rx="2" ry="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/></symbol><symbol id="i-key" viewBox="0 0 24 24"><path d="m15.5 7.5 2.3 2.3a1 1 0 0 0 1.4 0l2.1-2.1a1 1 0 0 0 0-1.4L19 4"/><path d="m21 2-9.6 9.6"/><circle cx="7.5" cy="15.5" r="5.5"/></symbol><symbol id="i-pin" viewBox="0 0 24 24"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></symbol><symbol id="i-clipboard" viewBox="0 0 24 24"><rect width="8" height="4" x="8" y="2" rx="1" ry="1"/><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/></symbol><symbol id="i-calendar" viewBox="0 0 24 24"><path d="M8 2v4"/><path d="M16 2v4"/><rect width="18" height="18" x="3" y="4" rx="2"/><path d="M3 10h18"/></symbol><symbol id="i-droplet" viewBox="0 0 24 24"><path d="M12 22a7 7 0 0 0 7-7c0-2-1-3.9-3-5.5s-3.5-4-4-6.5c-.5 2.5-2 4.9-4 6.5C6 11.1 5 13 5 15a7 7 0 0 0 7 7z"/></symbol><symbol id="i-usersolid" viewBox="0 0 24 24"><circle cx="12" cy="12" r="11" fill="currentColor" stroke="none"/><circle cx="12" cy="9.3" r="3.5" fill="#fff" stroke="none"/><path d="M5 18.7c1.4-2.9 4-4.5 7-4.5s5.6 1.6 7 4.5A9.6 9.6 0 0 1 12 21.6 9.6 9.6 0 0 1 5 18.7z" fill="#fff" stroke="none"/></symbol><symbol id="i-usercircle" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="10" r="3"/><path d="M7 20.662V19a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v1.662"/></symbol><symbol id="i-eyeoff" viewBox="0 0 24 24"><path d="M10.733 5.076a10.744 10.744 0 0 1 11.205 6.575 1 1 0 0 1 0 .696 10.747 10.747 0 0 1-1.444 2.49"/><path d="M14.084 14.158a3 3 0 0 1-4.242-4.242"/><path d="M17.479 17.499a10.75 10.75 0 0 1-15.417-5.151 1 1 0 0 1 0-.696 10.75 10.75 0 0 1 4.446-5.143"/><path d="m2 2 20 20"/></symbol><symbol id="i-user" viewBox="0 0 24 24"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></symbol><symbol id="i-users" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></symbol><symbol id="i-landmark" viewBox="0 0 24 24"><line x1="3" x2="21" y1="22" y2="22"/><line x1="6" x2="6" y1="18" y2="11"/><line x1="10" x2="10" y1="18" y2="11"/><line x1="14" x2="14" y1="18" y2="11"/><line x1="18" x2="18" y1="18" y2="11"/><polygon points="12 2 20 7 4 7"/></symbol><symbol id="i-tree" viewBox="0 0 24 24"><path d="M10 10v.2A3 3 0 0 1 8.9 16H5a3 3 0 0 1-1-5.8V10a3 3 0 0 1 6 0Z"/><path d="M7 16v6"/><path d="M13 19v3"/><path d="M12 19h8.3a1 1 0 0 0 .7-1.7L18 14h.3a1 1 0 0 0 .7-1.7L16 9h.2a1 1 0 0 0 .8-1.7L13 3l-1.4 1.5"/></symbol><symbol id="i-checkcircle" viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="m9 11 3 3L22 4"/></symbol><symbol id="i-compass" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></symbol><symbol id="i-leaf" viewBox="0 0 24 24"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z"/><path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/></symbol><symbol id="i-sprout" viewBox="0 0 24 24"><path d="M7 20h10"/><path d="M10 20c5.5-2.5.8-6.4 3-10"/><path d="M9.5 9.4c1.1.8 1.8 2.2 2.3 3.7-2 .4-3.5.4-4.8-.3-1.2-.6-2.3-1.9-3-4.2 2.8-.5 4.4 0 5.5.8z"/><path d="M14.1 6a7 7 0 0 0-1.1 4c1.9-.1 3.3-.6 4.3-1.4 1-1 1.6-2.3 1.7-4.6-2.7.1-4 1-4.9 2z"/></symbol><symbol id="i-trash" viewBox="0 0 24 24"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/></symbol><symbol id="i-hand" viewBox="0 0 24 24"><path d="M18 11V6a2 2 0 0 0-4 0v5"/><path d="M14 10V4a2 2 0 0 0-4 0v2"/><path d="M10 10.5V6a2 2 0 0 0-4 0v8"/><path d="M18 8a2 2 0 1 1 4 0v6a8 8 0 0 1-8 8h-2c-2.8 0-4.5-.86-5.99-2.34l-3.6-3.6a2 2 0 0 1 2.83-2.82L7 15"/></symbol><symbol id="i-link" viewBox="0 0 24 24"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></symbol><symbol id="i-radio" viewBox="0 0 24 24"><path d="M4.9 19.1C1 15.2 1 8.8 4.9 4.9"/><path d="M7.8 16.2c-2.3-2.3-2.3-6.1 0-8.5"/><circle cx="12" cy="12" r="2"/><path d="M16.2 7.8c2.3 2.3 2.3 6.1 0 8.5"/><path d="M19.1 4.9C23 8.8 23 15.1 19.1 19"/></symbol><symbol id="i-paperclip" viewBox="0 0 24 24"><path d="m21.44 11.05-9.19 9.19a6 6 0 0 1-8.49-8.49l8.57-8.57A4 4 0 1 1 18 8.84l-8.59 8.57a2 2 0 0 1-2.83-2.83l8.49-8.48"/></symbol><symbol id="i-barchart" viewBox="0 0 24 24"><line x1="12" x2="12" y1="20" y2="10"/><line x1="18" x2="18" y1="20" y2="4"/><line x1="6" x2="6" y1="20" y2="16"/></symbol><symbol id="i-save" viewBox="0 0 24 24"><path d="M15.2 3a2 2 0 0 1 1.4.6l3.8 3.8a2 2 0 0 1 .6 1.4V19a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2z"/><path d="M17 21v-7a1 1 0 0 0-1-1H8a1 1 0 0 0-1 1v7"/><path d="M7 3v4a1 1 0 0 0 1 1h7"/></symbol><symbol id="i-message" viewBox="0 0 24 24"><path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"/></symbol><symbol id="i-factory" viewBox="0 0 24 24"><path d="M2 20a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8l-7 5V8l-7 5V4a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2Z"/><path d="M17 18h1"/><path d="M12 18h1"/><path d="M7 18h1"/></symbol><symbol id="i-building" viewBox="0 0 24 24"><rect width="16" height="20" x="4" y="2" rx="2" ry="2"/><path d="M9 22v-4h6v4"/><path d="M8 6h.01"/><path d="M16 6h.01"/><path d="M12 6h.01"/><path d="M12 10h.01"/><path d="M12 14h.01"/><path d="M16 10h.01"/><path d="M16 14h.01"/><path d="M8 10h.01"/><path d="M8 14h.01"/></symbol><symbol id="i-home" viewBox="0 0 24 24"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></symbol><symbol id="i-puzzle" viewBox="0 0 24 24"><path d="M19.439 7.85c-.049.322.059.648.289.878l1.568 1.568c.47.47.706 1.087.706 1.704s-.235 1.233-.706 1.704l-1.611 1.611a.98.98 0 0 1-.837.276c-.47-.07-.802-.48-.968-.925a2.501 2.501 0 1 0-3.214 3.214c.446.166.855.497.925.968a.979.979 0 0 1-.276.837l-1.61 1.61a2.404 2.404 0 0 1-1.705.707 2.402 2.402 0 0 1-1.704-.706l-1.568-1.568a1.026 1.026 0 0 0-.877-.29c-.493.074-.84.504-1.02.968a2.5 2.5 0 1 1-3.237-3.237c.464-.18.894-.527.967-1.02a1.026 1.026 0 0 0-.289-.877l-1.568-1.568A2.402 2.402 0 0 1 1.998 12c0-.617.236-1.234.706-1.704L4.23 8.77c.24-.24.581-.353.917-.303.515.077.877.528 1.073 1.01a2.5 2.5 0 1 0 3.259-3.259c-.482-.196-.933-.558-1.01-1.073-.05-.336.062-.676.303-.917l1.525-1.525A2.402 2.402 0 0 1 12 1.998c.617 0 1.234.236 1.704.706l1.568 1.568c.23.23.556.338.877.29.493-.074.84-.504 1.02-.968a2.5 2.5 0 1 1 3.237 3.237c-.464.18-.894.527-.967 1.02Z"/></symbol><symbol id="i-folder" viewBox="0 0 24 24"><path d="M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2Z"/></symbol><symbol id="i-pointer" viewBox="0 0 24 24"><path d="M12.586 12.586 19 19"/><path d="M3.688 3.037a.497.497 0 0 0-.651.651l6.5 15.999a.501.501 0 0 0 .947-.062l1.569-6.083a2 2 0 0 1 1.448-1.479l6.124-1.579a.5.5 0 0 0 .063-.947z"/></symbol><symbol id="i-sparkles" viewBox="0 0 24 24"><path d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .963 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.581a.5.5 0 0 1 0 .964L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.963 0z"/></symbol><symbol id="i-plus" viewBox="0 0 24 24"><path d="M5 12h14"/><path d="M12 5v14"/></symbol><symbol id="i-logout" viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" x2="9" y1="12" y2="12"/></symbol><symbol id="i-pencil" viewBox="0 0 24 24"><path d="M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z"/></symbol><symbol id="i-mail" viewBox="0 0 24 24"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></symbol><symbol id="i-scissors" viewBox="0 0 24 24"><circle cx="6" cy="6" r="3"/><path d="M8.12 8.12 12 12"/><path d="M20 4 8.12 15.88"/><circle cx="6" cy="18" r="3"/><path d="M14.8 14.8 20 20"/></symbol><symbol id="i-star" viewBox="0 0 24 24"><path d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z"/></symbol><symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></symbol><symbol id="i-checksquare" viewBox="0 0 24 24"><path d="m9 11 3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></symbol><symbol id="i-refresh" viewBox="0 0 24 24"><path d="M21 12a9 9 0 0 0-9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/><path d="M3 12a9 9 0 0 0 9 9 9.75 9.75 0 0 0 6.74-2.74L21 16"/><path d="M16 16h5v5"/></symbol><symbol id="i-external" viewBox="0 0 24 24"><path d="M15 3h6v6"/><path d="M10 14 21 3"/><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></symbol><symbol id="i-grid" viewBox="0 0 24 24"><rect width="7" height="7" x="3" y="3" rx="1"/><rect width="7" height="7" x="14" y="3" rx="1"/><rect width="7" height="7" x="14" y="14" rx="1"/><rect width="7" height="7" x="3" y="14" rx="1"/></symbol><symbol id="i-list" viewBox="0 0 24 24"><line x1="8" x2="21" y1="6" y2="6"/><line x1="8" x2="21" y1="12" y2="12"/><line x1="8" x2="21" y1="18" y2="18"/><line x1="3" x2="3.01" y1="6" y2="6"/><line x1="3" x2="3.01" y1="12" y2="12"/><line x1="3" x2="3.01" y1="18" y2="18"/></symbol><symbol id="i-chevdown" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></symbol><symbol id="i-chevup" viewBox="0 0 24 24"><path d="m18 15-6-6-6 6"/></symbol><symbol id="i-move" viewBox="0 0 24 24"><polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" x2="14" y1="3" y2="10"/><line x1="3" x2="10" y1="21" y2="14"/></symbol><symbol id="i-layers" viewBox="0 0 24 24"><path d="m12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83z"/><path d="m22 17.65-9.17 4.16a2 2 0 0 1-1.66 0L2 17.65"/><path d="m22 12.65-9.17 4.16a2 2 0 0 1-1.66 0L2 12.65"/></symbol><symbol id="i-facebook" viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></symbol><symbol id="i-instagram" viewBox="0 0 24 24"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/></symbol><symbol id="i-social-x" viewBox="0 0 24 24"><path d="m4 4 16 16"/><path d="M20 4 4 20"/></symbol><symbol id="i-linkedin" viewBox="0 0 24 24"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect width="4" height="12" x="2" y="9"/><circle cx="4" cy="4" r="2"/></symbol></defs></svg>
 <div id="app"></div>
 <div id="login-modal" role="dialog" aria-modal="true" aria-label="Sign in"></div>
 <div id="meta-modal" role="dialog" aria-modal="true" aria-label="Full metadata"></div>
@@ -1978,6 +2392,10 @@ footer.site .fname{font-size:1.15rem;font-weight:800;letter-spacing:-.02em;color
 /* ============ DATA ============ */
 
 /* SRS §4.1 — roles & RBAC */
+/* placeholder — confirm the live GeoNode instance URL with the platform team before launch */
+const GEONODE_URL="https://explorer.commonsplatform.in/account/login/";
+function toggleGeonodeFrame(){const f=document.getElementById('geonodeFrame');if(f)f.hidden=!f.hidden;}
+function toggleLayersPanel(btn){const p=document.getElementById('layersPanel');if(!p)return;const open=p.hidden;p.hidden=!open;btn.setAttribute('aria-expanded',String(open));btn.classList.toggle('open',open);if(open)p.scrollIntoView({behavior:'smooth',block:'nearest'});}
 const ROLES=[
   ["Registered User","Create maps, dashboards and geo-stories; upload datasets; comment. Cannot publish without approval."],
   ["Organization Moderator","Review, approve or reject datasets and content submitted within your organization."],
@@ -1999,7 +2417,7 @@ let curLang="English";
 /* SRS §2.1.4 — the four homepage modules */
 const MODULES=[
   {id:"dss",ic:"<svg class=svgi><use href=#i-puzzle /></svg>",name:"Decision Support System",sub:"",href:"#/dss",
-   desc:"Turn commons data into a starting point for a decision — which sites to repair first, or how one Panchayat compares with its neighbours.",
+   desc:"Get conservation action plans based on status, needs and potential interventions.",
    links:[["Panchayat Atlas","#/atlas"],["Village Explorer","#/village"],["+ 2 planned (V2)","#/dss"]]},
   {id:"thematic",ic:"<svg class=svgi><use href=#i-compass /></svg>",name:"Thematic Datasets",sub:"",href:"#/thematic",
    desc:"Explore curated data layers across key themes like water, biodiversity, land and governance.",
@@ -2008,7 +2426,7 @@ const MODULES=[
    desc:"Access spatial and non-spatial datasets across geographies and common types.",
    links:[["Browse datasets","#/repository"],["Upload","#/upload"]]},
   {id:"insights",ic:"<svg class=svgi><use href=#i-barchart /></svg>",name:"Analytical Engine",sub:"",href:"#/insights",
-   desc:"Build your own analysis with Map Studio and Data Analytics, or browse maps, dashboards and stories already published in the Gallery.",
+   desc:"Analyse commons using built-in tools or upload your data and share insights.",
    links:[["Map Studio","#/mapstudio"],["Data Analytics","#/analytics"],["Gallery","#/gallery"]]}
 ];
 
@@ -2149,22 +2567,27 @@ const NAV=[
   {id:"#/repository",label:"Data Repository",soon:1},
   {id:"#/insights",label:"Analytical Engine",soon:1}
 ];
-/* Commons Platform — the same seven sections, in the same order, from every module's apps switcher */
-const PLATFORM_SECTIONS=[
-  ["Commons Explorer","<svg class=svgi><use href=#i-compass /></svg>","go('#/home')"],
-  ["Understanding Commons","<svg class=svgi><use href=#i-users /></svg>","toast('Opens introduction.commonsplatform.in')"],
-  ["Commons Stories","<svg class=svgi><use href=#i-book /></svg>","toast('Opens stories.commonsplatform.in')"],
-  ["Village Institutions","<svg class=svgi><use href=#i-landmark /></svg>","toast('Opens villageinstitutions.commonsplatform.in')"],
-  ["Facilitating Commoning","<svg class=svgi><use href=#i-hand /></svg>","toast('Opens learning.commonsplatform.in')"],
-  ["Legal Repository","<svg class=svgi><use href=#i-clipboard /></svg>","toast('Opens legalrepository.commonsplatform.in')"],
-  ["Making Expertise Visible","<svg class=svgi><use href=#i-usercircle /></svg>","toast('Opens skills.commonsplatform.in')"]
-];
 function appsMenu(){
   const grid=`<svg width="15" height="15" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><circle cx="3" cy="3" r="1.5"/><circle cx="8" cy="3" r="1.5"/><circle cx="13" cy="3" r="1.5"/><circle cx="3" cy="8" r="1.5"/><circle cx="8" cy="8" r="1.5"/><circle cx="13" cy="8" r="1.5"/><circle cx="3" cy="13" r="1.5"/><circle cx="8" cy="13" r="1.5"/><circle cx="13" cy="13" r="1.5"/></svg>`;
-  const tile=a=>`<div class="app-tile" onclick="appsClose();${a[2]}"><div class="app-ic">${a[1]}</div><div class="app-nm">${a[0]}</div></div>`;
+  const PLATFORM_COMPONENTS=[
+  ["Understanding Commons","<svg class=svgi><use href=#i-users /></svg>","https://introduction.commonsplatform.in/"],
+  ["Commons Stories","<svg class=svgi><use href=#i-book /></svg>","https://stories.commonsplatform.in/"],
+  ["Village Institutions","<svg class=svgi><use href=#i-home /></svg>","https://villageinstitutions.commonsplatform.in/"],
+  ["Commons Explorer","<svg class=svgi><use href=#i-compass /></svg>","#/home"],
+  ["Facilitating Commoning","<svg class=svgi><use href=#i-hand /></svg>","https://learning.commonsplatform.in/"],
+  ["Legal Repository","<svg class=svgi><use href=#i-shield /></svg>","https://legalrepository.commonsplatform.in/"],
+  ["Making Expertise Visible","<svg class=svgi><use href=#i-star /></svg>","https://skills.commonsplatform.in/"],
+  ["Form Builder","<svg class=svgi><use href=#i-clipboard /></svg>","https://formbuilder.commonsplatform.in/"]
+];
+  
+  const tile=a=>{
+    const here=a[2]==='#/home';
+    const act=here?`appsClose();go('#/home')`:`window.open('${a[2]}','_blank')`;
+    return `<div class="app-tile ${here?'here':''}" onclick="${act}"><div class="app-ic">${a[1]}</div><div class="app-nm">${a[0]}${here?' <span class=\'app-here\'>· you are here</span>':''}</div></div>`;
+  };
   return `<div class="appsw" id="appsw"><button class="btn sm btn-icon" onclick="toggleAppsW(event)" title="Apps" aria-label="Apps">${grid}</button>
-    <div class="appsw-menu"><div class="appsw-cols" style="grid-template-columns:1fr">
-      <div><div class="appsw-h">Commons Platform</div><div class="app-grid2">${PLATFORM_SECTIONS.map(tile).join("")}</div></div>
+    <div class="appsw-menu"><div class="appsw-cols one">
+      <div><div class="appsw-h">Commons Platform</div><div class="app-grid2">${PLATFORM_COMPONENTS.map(tile).join("")}</div></div>
     </div></div></div>`;
 }
 function langMenu(){
@@ -2174,7 +2597,7 @@ function langMenu(){
 }
 function header(active){
   let authArea;
-  if(currentRole==null){authArea=`<button class="nav-ic nav-user" title="Sign in to GeoNode" aria-label="Sign in" onclick="openLoginModal(null,'Commons Explorer')"><svg class=svgi><use href=#i-usersolid /></svg></button>`;}
+  if(currentRole==null){authArea=`<button class="nav-ic nav-user" title="Sign in" aria-label="Sign in" onclick="go('#/login')"><svg class=svgi><use href=#i-usersolid /></svg></button>`;}
   else{
     const nm=ROLES[currentRole][0];
     const ini=nm.split(' ').map(w=>w[0]).join('').slice(0,2).toUpperCase();
@@ -2212,21 +2635,19 @@ function crumbs(items){
 function footer(){
   return `<footer class="site"><div class="container">
     <div class="cols">
-      <div><h5 class="fname">Commons Explorer</h5>
+      <div><div class="f-brand"><span class="mk"><svg class=svgi><use href=#i-compass /></svg></span><h5 class="fname">Commons<br>Explorer</h5></div>
         <p class="muted mt12" style="max-width:280px">An open-access module of the Commons Platform for exploring spatial and non-spatial data on natural commons.</p></div>
       <div><h5>Modules</h5><ul><li onclick="go('#/thematic')">Thematic Datasets</li><li onclick="go('#/repository')">Data Repository</li><li onclick="go('#/insights')">Analytical Engine</li><li onclick="go('#/dss')">Decision Support System</li></ul></div>
       <div><h5>Participate</h5><ul><li onclick="go('#/upload')">Upload a dataset</li><li onclick="go('#/story-create')">Create a story</li><li onclick="go('#/gallery')">Gallery</li><li onclick="go('#/bookmarks')">Bookmarks</li><li onclick="go('#/approvals')">Moderation</li></ul></div>
       <div><h5>Platform</h5><ul><li onclick="go('#/roles')">Roles &amp; access</li><li onclick="go('#/sitemap')">Site map</li><li onclick="go('#/architecture')">Architecture</li><li onclick="toast('Accessibility statement')">Accessibility (WCAG)</li><li onclick="toast('Privacy &amp; terms')">Privacy &amp; Terms</li></ul></div>
     </div>
-    <div class="bar"><span>CC-BY 4.0 License. Commons Platform.</span>
-      <div class="row" style="gap:1.1rem;align-items:center">
-        <span class="wf-note">Design prototype</span>
-        <div class="social-icons">
-          <a class="social-ic" href="https://www.linkedin.com/company/fesforcommons/" target="_blank" rel="noopener" title="FES on LinkedIn" aria-label="FES on LinkedIn"><svg class=svgi><use href=#i-linkedin /></svg></a>
-          <a class="social-ic" href="https://www.facebook.com/share/19Xt5o8wvc/?mibextid=qi2Omg" target="_blank" rel="noopener" title="FES on Facebook" aria-label="FES on Facebook"><svg class=svgi><use href=#i-facebook /></svg></a>
-          <a class="social-ic" href="https://x.com/fesforcommons?t=9aOzGhYBOQt54ykZRFzqog&s=08" target="_blank" rel="noopener" title="FES on X" aria-label="FES on X"><svg class=svgi><use href=#i-x /></svg></a>
-          <a class="social-ic" href="https://www.instagram.com/fesforcommons?igsh=MTZqeHduOXpuOGc2cg==" target="_blank" rel="noopener" title="FES on Instagram" aria-label="FES on Instagram"><svg class=svgi><use href=#i-instagram /></svg></a>
-        </div>
+    <div class="bar">
+      <span>CC-BY 4.0 License. Commons Platform.</span>
+      <div class="f-social">
+        <a href="https://www.linkedin.com/company/fesforcommons/" target="_blank" rel="noopener" title="LinkedIn" aria-label="LinkedIn"><svg class=svgi><use href=#i-linkedin /></svg></a>
+        <a href="https://www.facebook.com/share/19Xt5o8wvc/?mibextid=qi2Omg" target="_blank" rel="noopener" title="Facebook" aria-label="Facebook"><svg class=svgi><use href=#i-facebook /></svg></a>
+        <a href="https://x.com/fesforcommons?t=9aOzGhYBOQt54ykZRFzqog&s=08" target="_blank" rel="noopener" title="X (Twitter)" aria-label="X (Twitter)"><svg class=svgi><use href=#i-social-x /></svg></a>
+        <a href="https://www.instagram.com/fesforcommons?igsh=MTZqeHduOXpuOGc2cg==" target="_blank" rel="noopener" title="Instagram" aria-label="Instagram"><svg class=svgi><use href=#i-instagram /></svg></a>
       </div>
     </div>
   </div></footer>`;
@@ -2261,6 +2682,14 @@ function carousel(id,slides,opts){
     <div class="car-dots">${slides.map((s,i)=>`<button class="car-dot ${i?'':'on'}" onclick="carSet('${id}',${i})" aria-label="Slide ${i+1}"></button>`).join("")}</div>
   </div>`;
 }
+function gxSync(a){const on=[...a.querySelectorAll('input')].some(i=>i.type==='checkbox'?i.checked:i.value.trim()!=='');a.classList.toggle('has',on);}
+function gxClear(el){const a=el.closest('.gx-f2');a.querySelectorAll('input').forEach(i=>{if(i.type==='checkbox')i.checked=false;else i.value='';});gxSync(a);toast('Filters cleared');}
+document.addEventListener('change',e=>{const a=e.target.closest&&e.target.closest('.gx-f2');if(a)gxSync(a);});
+document.addEventListener('input',e=>{const a=e.target.closest&&e.target.closest('.gx-f2');if(a)gxSync(a);});
+function dsMapToggle(b){const c=b.closest('.ds-mapcol');const on=c.classList.toggle('full');document.body.classList.toggle('ds-mapfull',on);b.querySelector('span').textContent=on?'Collapse map':'Expand map';b.title=on?'Collapse map':'Expand map to full page';}
+document.addEventListener('keydown',e=>{if(e.key==='Escape'){const c=document.querySelector('.ds-mapcol.full');if(c)dsMapToggle(c.querySelector('.ds-expand'));}});
+function gxSearch(inp){const q=inp.value.trim().toLowerCase();const res=inp.closest('.gx-body').querySelector('.gx-results');let n=0;res.querySelectorAll('.gx-grid .rescard').forEach(c=>{const hit=!q||c.textContent.toLowerCase().indexOf(q)>-1;c.style.display=hit?'':'none';if(hit)n++;});const cnt=res.querySelector('.gx-count b');if(cnt){if(!cnt.dataset.all)cnt.dataset.all=cnt.textContent;cnt.textContent=q?n:cnt.dataset.all;}let e=res.querySelector('.gx-empty');if(!n){if(!e){e=document.createElement('div');e.className='gx-empty';res.querySelector('.gx-grid').after(e);}e.innerHTML='No resources match “'+inp.value.trim()+'”.';}else if(e)e.remove();}
+function gxType(b){document.querySelectorAll(".gx-types > li > .gx-type").forEach(function(x){x.classList.remove("on")});b.classList.add("on");}
 function carRender(id){
   setTimeout(()=>LIVEMAPS.forEach(m=>{try{m.invalidateSize()}catch(e){}}),380);
   const c=CAROUSELS[id];if(!c)return;
@@ -2353,7 +2782,7 @@ function themeResources(t){
   out.push({t:`${t.name} \u2014 status and trends, 2019\u20132024`,kind:"Document",act:"Open document",
     desc:`Report summarising the condition of ${t.name.toLowerCase()} commons across the covered geographies, with methodology and caveats.`,a:GN_AUTHORS[2]});
   out.push({t:`${t.name} data dictionary & methodology note`,kind:"Document",act:"Open document",
-    desc:"Attribute definitions, classification rules and processing steps for the layers in this lens.",a:GN_AUTHORS[3]});
+    desc:"Attribute definitions, classification rules and processing steps for the layers in this theme.",a:GN_AUTHORS[3]});
   return out;
 }
 let repoView='list';
@@ -2361,6 +2790,7 @@ function setRepoView(v){repoView=v;render();}
 function gnCard(r,tid,i){
   return `<div class="gn-card" onclick="go('#/resource/${tid}/${i}')">
     <div class="ph-img gc-th">${r.kind==='Document'?'Document cover':'Layer preview \u2014 GeoNode'}</div>
+    <button class="gn-bk" title="Bookmark" onclick="event.stopPropagation();bookmarkIt('${r.t.replace(/'/g,'')}')"><svg class=svgi><use href=#i-bookmark /></svg></button>
     <button class="gn-add" title="Add to selection" onclick="event.stopPropagation();toast('Added to selection')">\uff0b</button>
     <div class="gc-b">
       <span class="gn-kind" style="--tc:${KIND_TC[r.kind]||'var(--green)'};align-self:flex-start">${r.kind}</span>
@@ -2375,6 +2805,7 @@ function gnRow(r,tid,i){
   return `<div class="gn-row">
     <div class="ph-img gn-th" onclick="go('#/resource/${tid}/${i}')">${r.kind==='Document'?'Document cover':'Layer preview \u2014 GeoNode'}</div>
     <div class="gn-body">
+      <button class="gn-bk" title="Bookmark" onclick="event.stopPropagation();bookmarkIt('${r.t.replace(/'/g,'')}')"><svg class=svgi><use href=#i-bookmark /></svg></button>
       <button class="gn-add" title="Add to selected objects" onclick="toast('Added to Selected Objects')">\uff0b</button>
       <h4 onclick="go('#/resource/${tid}/${i}')">${r.t}</h4>
       <p class="gn-desc">${r.desc}</p>
@@ -2412,7 +2843,7 @@ function openLoginModal(back,what){
     <div class="lm-card">
       <button class="lm-x" onclick="closeLoginModal()" aria-label="Close"><svg class=svgi><use href=#i-x /></svg></button>
       <h3>Sign in</h3>
-      <p class="lm-sub">Commons Platform single sign-on — signs you in to the underlying GeoNode instance.</p>
+      <p class="lm-sub">Commons Platform single sign-on.</p>
       ${what?`<div class="lm-why"><span><svg class=svgi><use href=#i-lock /></svg></span><span>${what} requires an account. Sign in to continue — you'll be taken straight there.</span></div>`:''}
       <div class="field-block"><label class="wf-label">Email</label><input class="wf-in" placeholder="you@organisation.org"></div>
       <div class="field-block"><label class="wf-label">Password</label><input class="wf-in" type="password" placeholder="••••••••"></div>
@@ -2438,7 +2869,7 @@ function loginModalSubmit(){
 }
 function currentPathSafe(){return (location.hash||'#/home');}
 /* a gated destination opens the dialog for visitors, otherwise navigates */
-function goGated(href,what){ if(isAuthed()){go(href);} else {openLoginModal(href,what);} }
+function goGated(href,what){ if(isAuthed()){go(href);} else {gateLogin(href);} }
 document.addEventListener('keydown',function(e){ if(e.key==='Escape'){ closeLoginModal(); closeMetaModal(); } });
 /* full metadata modal — GeoNode-style record */
 function closeMetaModal(){const m=document.getElementById('meta-modal');if(m){m.classList.remove('open');m.innerHTML='';}}
@@ -2522,7 +2953,7 @@ function signinNotice(what,back,ref){
 function urlRow(path,label){
   return `<div>
     <div class="wf-note" style="margin-bottom:6px">Unique resource URL · discoverable in search &amp; gallery</div>
-    <div class="urlbar"><span><svg class=svgi><use href=#i-link /></svg></span><span>https://explorer.commonsplatform.in${path}</span>
+    <div class="urlbar"><span><svg class=svgi><use href=#i-link /></svg></span><span>https://commons.fes.org.in/explorer${path}</span>
       <a class="btn sm" style="margin-left:auto" onclick="toast('Link copied')">Copy</a></div>
     <div class="row mt12" style="gap:8px">
       <a class="btn sm" onclick="bookmarkIt('${(label||'').replace(/'/g,'')}')"><svg class=svgi><use href=#i-bookmark /></svg> Bookmark</a>
@@ -2541,7 +2972,7 @@ function statusPill(s){const solid=(s==='Approved'||s==='Published');return `<sp
 
 /* module tiles — SRS §2.1.4 */
 /* one colour per tag — the same tag is the same colour everywhere it appears */
-const CHIP_TC={
+const CHIP_TC={"Zonal statistics":"var(--c-mapstudio)","Thematic comparison":"var(--c-groundwater)","AI report":"var(--c-village)","Dashboards":"var(--c-analytics)","Indicators":"var(--c-commons)","Time series":"var(--c-lulc)","Maps":"var(--c-mapstudio)","Stories":"var(--c-gallery)","Map workspace":"var(--c-forest)","14-step tracker":"var(--c-biomass)","Resources":"var(--c-habitat)","Spring inventory":"var(--c-water)","Hydrogeology":"var(--c-surface)","Recharge planning":"var(--c-clart)","Admin boundaries":"var(--c-atlas)","Sectoral layers":"var(--c-protected)","Indicator dashboards":"var(--c-analytics)","Village view":"var(--c-village)","DP layers":"var(--c-browse)","At-a-glance report":"var(--c-species)",
   "Water":"var(--c-water)","Land":"var(--c-forest)","Biodiversity":"var(--c-bio)","Explore Other Layers":"var(--c-other)",
   "Browse datasets":"var(--c-browse)","Upload":"var(--c-upload)",
   "Panchayat Atlas":"var(--c-atlas)","Village Explorer":"var(--c-village)","+ 2 planned (V2)":"var(--c-planned)",
@@ -2684,7 +3115,7 @@ screens.home=()=>shell("#/home",null,`
 
   <section class="section">
     <h2>Four pathways to explore</h2>
-    <p class="sub">Each module opens an intermediate navigation page before its detailed views.</p>
+    <p class="sub">Each pathway opens an intermediate navigation page before its detailed views.</p>
     ${moduleTiles()}
   </section>
 
@@ -2700,16 +3131,17 @@ screens.home=()=>shell("#/home",null,`
 
 /* ---- SRS §2.2.1.1 Thematic Datasets — intermediate navigation ---- */
 const LENS_TC={water:"var(--c-water)",forest:"var(--c-forest)",biodiversity:"var(--c-bio)",other:"var(--c-other)"};
-const LENS_IMG={water:"assets/water-checkdam.jpg",forest:"assets/photo-2.jpg",biodiversity:"assets/photo-8.jpg",other:"assets/photo-3.jpg"};
+const LENS_IMG={water:"assets/photo-11.jpg",forest:"assets/photo-2.jpg",biodiversity:"assets/photo-8.jpg",other:"assets/photo-3.jpg"};
 function lensCard(o){
+  const click=o.click||`go('${o.href}')`;
   return `<article class="mod-tile comp lens-card" style="--tc:${o.tc}">
-    <div class="mc-media" style="background-image:url('${o.img}')" onclick="go('${o.href}')"><span class="mc-tag">${o.tag}</span></div>
+    <div class="mc-media" style="background-image:url('${o.img}')" onclick="${click}"><span class="mc-tag">${o.tag||''}</span></div>
     <div class="mc-body">
-      <div class="mc-head" onclick="go('${o.href}')"><div class="mod-ic">${o.ic}</div><div class="mc-title"><h3>${o.name}</h3><span class="mc-meta">${o.meta}</span></div></div>
-      <p onclick="go('${o.href}')">${o.desc}</p>
-      <div class="mc-chips">${o.chips.map(c=>`<a class="mc-chip" ${CHIP_TC[c]?`style="--tc:${CHIP_TC[c]}"`:''} onclick="go('${o.href}')">${c}</a>`).join("")}</div>
+      <div class="mc-head" onclick="${click}"><div class="mod-ic">${o.ic||''}</div><div class="mc-title"><h3>${o.name}</h3><span class="mc-meta">${o.meta||''}</span></div></div>
+      <p onclick="${click}">${o.desc}</p>
+      <div class="mc-chips">${(o.chips||[]).map(c=>`<a class="mc-chip" ${CHIP_TC[c]?`style="--tc:${CHIP_TC[c]}"`:''} onclick="${click}">${c}</a>`).join("")}</div>
     </div>
-    <a class="mc-foot" onclick="go('${o.href}')"><span>${o.cta}</span><span class="mc-arrow">→</span></a>
+    <a class="mc-foot" onclick="${click}"><span>${o.cta}</span><span class="mc-arrow">→</span></a>
   </article>`;
 }
 screens.thematic=()=>shell("#/thematic",[{label:"Home",href:"#/home"},{label:"Thematic Datasets"}],`
@@ -2721,13 +3153,21 @@ screens.thematic=()=>shell("#/thematic",[{label:"Home",href:"#/home"},{label:"Th
   </div>
   <div class="page-photo"><img src="assets/ill-types.jpg" alt=""></div>
   <div class="hstats">
-    <div class="hstat" onclick="jumpToThemeCards()"><span class="ic-tile"><svg class=svgi><use href=#i-layers /></svg></span><div><b>3</b><span>curated themes</span></div></div>
-    <div class="hstat" title="A data layer is one curated map layer surfaced inside a theme — for example “Groundwater — well observations” under Water." onclick="jumpToThemeCards('20+ data layers are listed inside the 3 themes below')"><span class="ic-tile"><svg class=svgi><use href=#i-map /></svg></span><div><b>20<em>+</em></b><span>data layers</span></div></div>
-    <div class="hstat" title="A dataset is the full downloadable record in the Data Repository catalogue — the file(s) a data layer is drawn from." onclick="go('#/repository')"><span class="ic-tile"><svg class=svgi><use href=#i-db /></svg></span><div><b>${DATASETS.length}</b><span>datasets in the catalogue</span></div></div>
+    <button class="hstat hstat-click" onclick="document.getElementById('thm-grid').scrollIntoView({behavior:'smooth',block:'start'})"><span class="ic-tile"><svg class=svgi><use href=#i-layers /></svg></span><div><b>3</b><span>curated themes</span></div><span class="hstat-go"><svg class=svgi><use href=#i-chevdown /></svg></span></button>
+    <button class="hstat hstat-click" id="hstat-layers" aria-expanded="false" onclick="toggleLayersPanel(this)"><span class="ic-tile"><svg class=svgi><use href=#i-map /></svg></span><div><b>20<em>+</em></b><span>data layers, inside the themes</span></div><span class="hstat-go"><svg class=svgi><use href=#i-chevdown /></svg></span></button>
+    <button class="hstat hstat-click" onclick="go('#/repository')"><span class="ic-tile"><svg class=svgi><use href=#i-db /></svg></span><div><b>${DATASETS.length}</b><span>datasets, across the repository</span></div><span class="hstat-go"><svg class=svgi><use href=#i-external /></svg></span></button>
   </div>
-  <p class="muted" style="text-align:center;max-width:700px;margin:.9rem auto 0;font-size:16px;line-height:1.6">A <b>data layer</b> is one curated map layer shown inside a theme. A <b>dataset</b> is the underlying data record in the Data Repository catalogue — a layer may be built from one or more datasets.</p>
+  <p class="hstats-note">A <b>data layer</b> is one curated map layer shown inside a theme. A <b>dataset</b> is the underlying data record in the Data Repository catalogue &mdash; a layer may be built from one or more datasets.</p>
+  <div id="layersPanel" class="layers-panel" hidden>
+    <div class="layers-panel-in">
+      ${THEMES.map(t=>`<div class="lp-group">
+        <div class="lp-h" style="--tc:${LENS_TC[t.id]}"><span class="lp-dot"></span>${t.name}<span class="lp-n">${t.layers.length} layers</span></div>
+        <div class="lp-chips">${t.layers.map(l=>`<a class="mc-chip" ${CHIP_TC[l]?`style="--tc:${CHIP_TC[l]}"`:`style="--tc:${LENS_TC[t.id]}"`} onclick="go('#/theme/${t.id}')">${l}</a>`).join("")}</div>
+      </div>`).join("")}
+    </div>
+  </div>
   <section class="section" style="padding-top:.5rem">
-    <div class="grid g3 mod-grid lens-grid3" id="theme-cards">
+    <div class="grid g3 mod-grid lens-grid3" id="thm-grid">
       ${THEMES.map(t=>lensCard({tc:LENS_TC[t.id],img:LENS_IMG[t.id],href:'#/theme/'+t.id,tag:'',ic:t.ic,name:t.name,meta:t.tag,desc:t.desc,chips:t.layers.slice(0,3),cta:'Open the '+t.name+' theme'})).join("")}
     </div>
     <div class="lens-cta"><a class="btn primary" onclick="go('#/repository')">Explore Other Layers →</a></div>
@@ -2762,7 +3202,7 @@ function themeRepo(t){
   return `<div class="gn">
     <aside class="gn-side">
       <div class="gn-fh"><b>Filters</b><a onclick="toast('Filters cleared')">Clear</a></div>
-      ${facet('Text',`<input class="wf-in" style="font-size:12.5px;padding:8px 10px" placeholder="Search within ${t.name}\u2026" onkeydown="if(event.key==='Enter')toast('Search within lens')">`)}
+      ${facet('Text',`<input class="wf-in" style="font-size:12.5px;padding:8px 10px" placeholder="Search within ${t.name}\u2026" onkeydown="if(event.key==='Enter')toast('Search within theme')">`)}
       ${facet('Keywords',['commons',t.name.toLowerCase(),'village','district','india'].map(k=>opt(k)).join(''),true)}
       ${facet('Type',['Vector Layer','Map','Document'].map(k=>opt(k+'s',counts[k]||0)).join(''))}
       ${facet('Categories',['Environment','Inland waters','Boundaries','Society'].map(k=>opt(k)).join(''),true)}
@@ -2825,6 +3265,7 @@ const GX_RES=[
 ];
 
 /* GeoNode catalogue — used by Data Repository and by Explore Other Layers */
+const GX_TC={"All":"var(--green)","Datasets":"var(--c-browse)","Dataset":"var(--c-browse)","Maps":"var(--c-mapstudio)","Map":"var(--c-mapstudio)","GeoStories":"var(--c-gallery)","GeoStory":"var(--c-gallery)","Dashboards":"var(--c-analytics)","Dashboard":"var(--c-analytics)"};
 function gxCatalogue(tab,opts){
   opts=opts||{};
   const tabs=opts.tabs||["Data","Maps","GeoStories","Dashboards","Featured"];
@@ -2832,58 +3273,50 @@ function gxCatalogue(tab,opts){
   const count=opts.count||'236';
   const route=opts.route||'#/repository';
   return `
-    <div class="gx-hero">
-      <div class="gx-search">
-        <span class="ic"><svg class=svgi><use href=#i-search /></svg></span>
-        <input placeholder="Search datasets, maps, geo-stories and dashboards…" onkeydown="if(event.key==='Enter')toast('Keyword search')">
-        <a class="btn sm primary" onclick="toast('Keyword search')">Search</a>
-      </div>
-    </div>
     ${opts.hideTabs?'':`<div class="gx-tabs mt24">
       ${tabs.map(t=>`<div class="gx-tab ${t===tab?'on':''}" onclick="go('${route}?tab=${t}')">${t}</div>`).join("")}
       <div class="right"><div class="gx-tab" onclick="go('#/home')">Home</div><div class="gx-tab" onclick="go('#/about')">About</div><div class="gx-tab" onclick="toggleLang(event)">${curLang==='English'?'English':curLang}</div></div>
     </div>`}
+    ${gxLatestCards()}
     <div class="gx-body" style="${opts.hideTabs?'border-top:1px solid var(--line);border-radius:var(--radius);margin-top:24px':''}">
-      <aside class="gx-filters">
-        <div class="gx-fh"><b><svg class=svgi><use href=#i-chevdown /></svg> Filters</b><div class="acts"><span onclick="toast('Filters cleared')">Clear filters</span><span onclick="toast('Close filter panel')"><svg class=svgi><use href=#i-x /></svg></span></div></div>
-        <input class="wf-in" style="font-size:12.5px;padding:9px 11px" placeholder="Search…">
-        <div class="gx-group">Resources</div>
-        <label class="gx-chk"><input type="checkbox"> Featured</label>
-        <label class="gx-chk"><input type="checkbox"> Datasets</label>
-        <label class="gx-chk sub"><input type="checkbox"> Vector</label>
-        <label class="gx-chk sub"><input type="checkbox"> Raster</label>
-        <label class="gx-chk sub"><input type="checkbox"> Remote</label>
-        <label class="gx-chk sub"><input type="checkbox"> Time series</label>
-        <label class="gx-chk"><input type="checkbox"> Documents</label>
-        <label class="gx-chk"><input type="checkbox"> Maps</label>
-        <label class="gx-chk"><input type="checkbox"> GeoStories</label>
-        <label class="gx-chk"><input type="checkbox"> Dashboards</label>
-        <div class="gx-lab">Date from</div><div class="gx-date">dd / mm / yyyy <span style="margin-left:auto"><svg class=svgi><use href=#i-calendar /></svg></span></div>
-        <div class="gx-lab">Date to</div><div class="gx-date">dd / mm / yyyy <span style="margin-left:auto"><svg class=svgi><use href=#i-calendar /></svg></span></div>
-        <label class="gx-chk" style="margin-top:12px"><input type="checkbox"> Extent</label>
-        <div class="ph-img" style="min-height:110px;font-size:11px" onclick="toast('Draw a bounding box')">Map extent selector</div>
-        <div class="wrapline">to be added</div>
-        <div class="gx-group" style="margin-top:0">Themes</div>
-        ${DS_THEMES.map(t=>`<label class="gx-chk"><input type="checkbox"> ${t}</label>`).join("")}
-        <div class="gx-group">Data source</div>
-        ${["FES verticals","Partner CSOs","Academic partners","National datasets","Commons Platform"].map(t=>`<label class="gx-chk"><input type="checkbox"> ${t}</label>`).join("")}
+      <aside class="gx-filters gx-f2">
+        <div class="gx-f2h"><b><svg class="svgi" viewBox="0 0 24 24" fill="currentColor"><path d="M3 4h18l-7 8.5V20l-4-2v-5.5L3 4z"/></svg> Filters</b><div class="acts"><span class="gx-clear" onclick="gxClear(this)">Clear filters</span></div></div>
+        <div class="gx-f2s"><input placeholder="Search..." oninput="gxSearch(this)"></div>
+        <div class="gx-f2l">Resources</div>
+        <div class="gx-f2list">
+          <label class="gx-cb"><input type="checkbox"><span>Featured</span></label>
+          <label class="gx-cb"><input type="checkbox"><span>Datasets</span></label>
+          <div class="gx-f2sub"><label class="gx-cb gx-cbs"><input type="checkbox"><span>Vector</span></label><label class="gx-cb gx-cbs"><input type="checkbox"><span>Raster</span></label><label class="gx-cb gx-cbs"><input type="checkbox"><span>Remote</span></label><label class="gx-cb gx-cbs"><input type="checkbox"><span>Time series</span></label></div>
+          <label class="gx-cb"><input type="checkbox"><span>Documents</span></label><label class="gx-cb"><input type="checkbox"><span>Maps</span></label><label class="gx-cb"><input type="checkbox"><span>GeoStories</span></label><label class="gx-cb"><input type="checkbox"><span>Dashboards</span></label>
+        </div>
+        <div class="gx-f2l">Date from</div>
+        <div class="gx-f2d"><input placeholder=""><svg class=svgi><use href=#i-calendar /></svg></div>
+        <div class="gx-f2l">Date to</div>
+        <div class="gx-f2d"><input placeholder=""><svg class=svgi><use href=#i-calendar /></svg></div>
+        <div class="gx-f2l">Theme</div>
+        <div class="gx-f2list">${DS_THEMES.map(t=>`<label class="gx-cb"><input type="checkbox"><span>${t}</span></label>`).join("")}</div>
+        <div class="gx-f2l">Data source</div>
+        <div class="gx-f2list">${["FES verticals","Partner CSOs","Academic partners","National datasets","Commons Platform"].map(t=>`<label class="gx-cb"><input type="checkbox"><span>${t}</span></label>`).join("")}</div>
+        <label class="gx-cb"><input type="checkbox"><span>Extent</span></label>
+        <div class="gx-f2map" style="background-image:url('assets/water-bodies.jpg')"></div>
       </aside>
       <div class="gx-results">
         <div class="gx-bar">
-          <a class="btn sm primary" onclick="toast('Toggle filter panel')">Filter</a>
-          <span class="gx-count"><b>${count}</b> Resources found</span>
-          <span class="row" style="gap:6px;margin-left:auto;align-items:center">
-            <a class="btn sm" onclick="toast('Grid / list view')"><svg class=svgi><use href=#i-list /></svg></a>
-            <select class="wf-in" style="max-width:150px;font-size:12.5px;padding:7px 10px"><option>Less recent</option><option>Most recent</option><option>Most popular</option><option>Title A–Z</option></select>
+          <span class="gx-count"><b>${count}</b> resources</span>
+          <div class="gx-chips">${["All","Datasets","Maps","GeoStories","Dashboards"].map((t,i)=>`<a class="mc-chip ${i?'':'on'}" style="--tc:${GX_TC[t]}" onclick="[...this.parentNode.children].forEach(c=>c.classList.remove('on'));this.classList.add('on');toast('Showing ${t}')">${t}</a>`).join("")}</div>
+          <span class="gn-tools">
+            <span class="viewtog"><button class="on" title="Card view"><svg class=svgi><use href=#i-grid /></svg></button><button title="List view" onclick="toast('List view')"><svg class=svgi><use href=#i-menu /></svg></button></span>
+            <label class="gn-sort"><span>Sort</span><select class="wf-in"><option>Most recent</option><option>Less recent</option><option>Most popular</option><option>Title A–Z</option></select><svg class="svgi cv"><use href=#i-chevdown /></svg></label>
           </span>
         </div>
-        <div class="grid g2">
+        <div class="grid g2 gx-grid">
           ${GX_RES.map(r=>`<div class="rescard" onclick="go('${r[4]}')">
             <div class="ph-img rth">${r[2].indexOf('Dashboard')>-1?'Dashboard preview — Superset':r[2].indexOf('GeoStory')>-1?'Geo-story preview':'Layer preview — GeoNode'}</div>
             <div class="rb">
-              <h4><span class="ri"><svg class=svgi><use href=#i-db /></svg></span>${r[0]}</h4>
+              <span class="gn-kind" style="--tc:${GX_TC[r[2].split(' ')[0]]||'var(--green)'}">${r[2]}</span>
+              <h4>${r[0]}</h4>
               <p>${r[1]}</p>
-              <div class="rf"><span>◎ ${r[3]}</span><span class="btn sm primary" onclick="event.stopPropagation();go('${r[4]}')">View</span></div>
+              <div class="rf"><span class="gx-owner"><span class="pw-av">${r[3].slice(0,2).toUpperCase()}</span>${r[3]}</span><span class="row" style="gap:.5rem;align-items:center"><button class="rf-bk" title="Bookmark" onclick="event.stopPropagation();bookmarkIt('${r[0].replace(/'/g,'')}')"><svg class=svgi><use href=#i-bookmark /></svg></button><span class="btn sm" onclick="event.stopPropagation();go('${r[4]}')">View →</span></span></div>
             </div>
           </div>`).join("")}
         </div>
@@ -2892,9 +3325,23 @@ function gxCatalogue(tab,opts){
     </div>
 `;
 }
+function gxLatestCards(){
+  return `<section class="gx-latest">
+    <h2 class="repo-title" style="margin:0 0 1rem">Latest additions</h2>
+    <div class="gx-latest-grid">${GX_RES.slice(0,4).map((r,i)=>`<div class="rescard" onclick="go('${r[4]}')">
+      <div class="ph-img rth">${r[2].indexOf('Dashboard')>-1?'Dashboard preview — Superset':r[2].indexOf('GeoStory')>-1?'Geo-story preview':'Layer preview — GeoNode'}</div>
+      <div class="rb">
+        <span class="gn-kind" style="--tc:${GX_TC[r[2].split(' ')[0]]||'var(--green)'}">${r[2]}</span>
+        <h4>${r[0]}</h4>
+        <p>${r[1]}</p>
+        <div class="rf"><span class="gx-owner"><span class="pw-av">${r[3].slice(0,2).toUpperCase()}</span>${r[3]} · added ${31-i} Aug 2025</span><span class="row" style="gap:.5rem;align-items:center"><button class="rf-bk" title="Bookmark" onclick="event.stopPropagation();bookmarkIt('${r[0].replace(/'/g,'')}')"><svg class=svgi><use href=#i-bookmark /></svg></button><span class="btn sm" onclick="event.stopPropagation();go('${r[4]}')">View →</span></span></div>
+      </div>
+    </div>`).join("")}</div>
+  </section>`;
+}
 function gxLatest(){
-  return `<div class="between"><div><div class="eyebrow">Latest additions</div><h3 class="mb0" style="font-size:17px">Most recently published resources</h3></div>
-      <a class="btn sm" onclick="go('#/whats-new')">All updates →</a></div>
+  return `<div class="between" style="margin-bottom:.25rem"><h2 class="repo-title" style="margin:0">Latest additions</h2>
+      <a class="btn sm primary" onclick="go('#/whats-new')">All updates →</a></div>
     <div class="panel mt12" style="padding:4px 6px">
       ${GX_RES.slice(0,6).map((r,i)=>`<div class="ds-row" onclick="go('${r[4]}')" style="${i?'':'border-top:none'}">
         <div class="ds-ic">${r[2].indexOf('Dashboard')>-1?'<svg class=svgi><use href=#i-trend /></svg>':r[2].indexOf('GeoStory')>-1?'<svg class=svgi><use href=#i-book /></svg>':'<svg class=svgi><use href=#i-map /></svg>'}</div>
@@ -2906,26 +3353,32 @@ function gxLatest(){
 /* ---- Explore Other Layers — the same catalogue, reached from the lens picker ---- */
 screens.explore=(p)=>shell("#/thematic",[{label:"Home",href:"#/home"},{label:"Thematic Datasets",href:"#/thematic"},{label:"Explore Other Layers"}],`
   <section class="section" style="padding-bottom:14px">
-    <div class="eyebrow">Thematic Datasets · beyond the three lenses</div>
+    <div class="eyebrow">Thematic Datasets · beyond the three themes</div>
     <h2 style="font-size:24px;margin:0 0 6px">Explore Other Layers</h2>
     <p class="sub">The full GeoNode catalogue — datasets, maps, geo-stories and dashboards published across the platform.</p>
     ${gxCatalogue(p.tab)}
   </section>
-  <section class="section">${gxLatest()}</section>
 `);
 
 /* ---- SRS §2.2.2 Data Repository ---- */
 screens.repository=(p)=>shell("#/repository",[{label:"Home",href:"#/home"},{label:"Data Repository"}],`
-  <section class="section" style="padding-bottom:14px">
-    <div class="between" style="align-items:flex-start;gap:16px;flex-wrap:wrap">
-      <div><h2 style="font-size:24px;margin:0 0 6px">Data Repository</h2>
-      <p class="sub" style="margin:0">A centralised hub for storing, organising and accessing datasets on natural and socio-ecological commons — spatial and non-spatial, across geographies and common types. Commons Explorer is the entry point into the platform's GeoNode instance.</p></div>
-      <a class="btn primary" style="flex:0 0 auto" onclick="openLoginModal(null,'GeoNode')"><svg class=svgi><use href=#i-usersolid /></svg> Sign in to GeoNode →</a>
+  <div class="pagehero bare">
+    <div class="ph-copy">
+      <h1>Data <em>Repository</em></h1>
+      <p>A centralised hub for storing, organising and accessing datasets on natural and socio-ecological commons - spatial and non-spatial, across geographies and common types.</p>
     </div>
+  </div>
+  <div class="page-photo"><img src="assets/photo-1.jpg" alt=""></div>
+  <div class="hstats hstats4">
+    <div class="hstat"><span class="ic-tile"><svg class=svgi><use href=#i-db /></svg></span><div><b>236</b><span>resources in the catalogue</span></div></div>
+    <div class="hstat"><span class="ic-tile"><svg class=svgi><use href=#i-layers /></svg></span><div><b>${DATASETS.length}</b><span>curated datasets</span></div></div>
+    <div class="hstat"><span class="ic-tile"><svg class=svgi><use href=#i-folder /></svg></span><div><b>${DS_FORMATS.length}</b><span>data formats</span></div></div>
+    <div class="hstat"><span class="ic-tile"><svg class=svgi><use href=#i-compass /></svg></span><div><b>${DS_THEMES.length}</b><span>themes</span></div></div>
+  </div>
+  <section class="section" style="padding-top:0;padding-bottom:14px">
     ${gxCatalogue(p.tab,{hideTabs:true})}
   </section>
 
-  <section class="section">${gxLatest()}</section>
 
 `);
 
@@ -2941,10 +3394,11 @@ screens.dataset=(p)=>{
   const centre=[["Lat","18.055278"],["Lon","75.030834"]];
   return shell("#/repository",[{label:"Home",href:"#/home"},{label:"Data Repository",href:"#/repository"},{label:d.t}],`
   <section class="section">
-    <div class="grid" style="grid-template-columns:minmax(0,1.1fr) 380px;gap:24px;align-items:start">
-      <!-- LEFT: map -->
-      <div class="panel" style="padding:0;overflow:hidden;position:sticky;top:16px">
-        <div class="ph-img" style="min-height:560px;border-radius:0" onclick="go('#/mapstudio')">Layer preview — GeoNode map · India (OpenStreetMap)</div>
+    <div class="grid" style="grid-template-columns:minmax(0,1.1fr) 380px;gap:24px;align-items:stretch">
+      <!-- LEFT: map fills the full column height -->
+      <div class="panel ds-mapcol" style="padding:0;overflow:hidden;display:flex;min-height:560px">
+        <div class="ph-img" style="flex:1;min-height:560px;height:auto;border-radius:0" onclick="go('#/mapstudio')">Layer preview — GeoNode map · India (OpenStreetMap)</div>
+        <button class="ds-expand" type="button" onclick="event.stopPropagation();dsMapToggle(this)" title="Expand map to full page"><svg class="svgi ic-max"><use href=#i-maximize /></svg><svg class="svgi ic-min"><use href=#i-x /></svg><span>Expand map</span></button>
       </div>
       <!-- RIGHT: information -->
       <div class="stack">
@@ -3119,19 +3573,17 @@ function submitUpload(){
 
 /* ---- SRS §2.2.3.1 Analytical Engine — intermediate navigation ---- */
 screens.insights=()=>shell("#/insights",[{label:"Home",href:"#/home"},{label:"Analytical Engine"}],`
-  <section class="section">
-    <h2 style="font-size:26px">Analytical Engine</h2>
-    <p class="sub">Two ways to work with analysis on commons data: build your own with Map Studio or Data Analytics, or browse maps, dashboards and stories the community has already published in the Gallery.</p>
-    <div class="grid g3 mt16">
-      ${[["<svg class=svgi><use href=#i-map /></svg>","Map Studio","","Build · geo-spatial analysis","Create, style, manage and publish geospatial data and maps — filters, area calculation, thematic comparison, zonal statistics and AI-assisted reports.","#/mapstudio","Sign-in needed for AI reports"],
-         ["<svg class=svgi><use href=#i-trend /></svg>","Data Analytics","","Build · non-spatial analytics","Explore tabular, indicator-based and time-series data through Superset dashboards, charts and comparative metrics.","#/analytics","Coming soon"],
-         ["<svg class=svgi><use href=#i-image /></svg>","Gallery of User generated Content","","Browse · already published","Browse and publish maps, dashboards and narrative stories contributed by the community, in one interpretable format.","#/gallery","Open to all"]
-        ].map(c=>`<div class="mod-tile lg ${c[6]==='Coming soon'?'tile-soon':''}" onclick="${c[6]==='Coming soon'?`toast('${c[1]} is not live yet — more work is needed before this module is ready.')`:(c[6]==='Open to all'?`go('${c[5]}')`:`goGated('${c[5]}','${c[1]}')`)}">
-          <div class="mod-ic">${c[0]}</div>
-          <div class="wf-note">${c[3]}</div>
-          <h3>${c[1]}${c[2]?`<span class="mod-sub">${c[2]}</span>`:''}</h3><p>${c[4]}</p>
-          <div class="sub-links"><span class="chip-lock ${c[6]==='Coming soon'?'soon':''}">${c[6]}</span></div>
-        </div>`).join("")}
+  <div class="pagehero bare">
+    <div class="ph-copy">
+      <h1>Analytical <em>Engine</em></h1>
+      <p>This is where analysis on commons data happens, and where the results live. Browse maps, dashboards and stories already published by others in the Gallery, or build your own — Map Studio for spatial analysis, Data Analytics for tabular and time-series data.</p>
+    </div>
+  </div>
+  <section class="section" style="padding-top:.5rem">
+    <div class="grid g3 mod-grid lens-grid3">
+      ${lensCard({tc:"var(--c-mapstudio)",img:"assets/photo-9.jpg",tag:"Geo-spatial analysis",name:"Map Studio",meta:"GeoNode · GeoServer tools · sign-in for AI reports",desc:"Create, style, manage and publish geospatial data and maps — filters, area calculation, thematic comparison, zonal statistics and AI-assisted reports.",chips:["Zonal statistics","Thematic comparison","AI report"],cta:"Open Map Studio",click:"goGated('#/mapstudio','Map Studio')"})}
+      ${lensCard({tc:"var(--c-analytics)",img:"assets/ill-5.jpg",tag:"Non-spatial analytics",name:"Data Analytics",meta:"Apache Superset · sign-in required",desc:"Explore tabular, indicator-based and time-series data through Superset dashboards, charts and comparative metrics.",chips:["Dashboards","Indicators","Time series"],cta:"Open Data Analytics",click:"goGated('#/analytics','Data Analytics')"})}
+      ${lensCard({tc:"var(--c-gallery)",img:"assets/ill-1.jpg",tag:"Collaborative gallery",name:"Gallery of User generated Content",meta:"Sign-in required",desc:"Browse and publish maps, dashboards and narrative stories contributed by the community, in one interpretable format.",chips:["Maps","Dashboards","Stories"],cta:"Browse the Gallery",click:"goGated('#/gallery','Gallery')"})}
     </div>
   </section>
 `);
@@ -3195,6 +3647,25 @@ screens.mapstudio=()=>shell("#/insights",[{label:"Home",href:"#/home"},{label:"A
       <div><h2 class="mb0" style="font-size:24px">Map Studio</h2></div>
     </div>
     <p class="sub">A technical workspace for creating, styling, managing and publishing geospatial data and maps, built on GeoNode and GeoServer. Datasets are prepared here before appearing in atlases, dashboards and the gallery.</p>
+  </section>
+
+  <section class="section" style="padding-top:0;padding-bottom:6px">
+    <div class="panel geonode-entry">
+      <div class="ge-tx">
+        <div class="eyebrow">Powered by GeoNode</div>
+        <h3 style="margin:.5rem 0 .5rem;font-size:1.1rem">Map Studio is the entry point into the GeoNode instance</h3>
+        <p class="muted" style="margin:0 0 1rem">Layers, styles and permissions are managed in GeoNode itself. Sign in there directly to work on the underlying data.</p>
+        <div class="row" style="gap:.6rem">
+          <a class="btn primary" href="${GEONODE_URL}" target="_blank" rel="noopener">Sign in to GeoNode <svg class=svgi><use href=#i-external /></svg></a>
+          <a class="btn" onclick="toggleGeonodeFrame()">Preview sign-in here</a>
+        </div>
+        <div class="wf-note mt8">Placeholder link — to be replaced with the live GeoNode login URL.</div>
+      </div>
+      <div class="ge-frame" id="geonodeFrame" hidden>
+        <iframe src="${GEONODE_URL}" title="GeoNode sign-in" loading="lazy"></iframe>
+        <div class="ge-frame-fallback">If the sign-in page doesn't appear above — some sites block being shown inside another page — use the "Sign in to GeoNode" button instead.</div>
+      </div>
+    </div>
   </section>
 
   <section class="section" style="padding-top:6px">
@@ -3300,80 +3771,18 @@ const PIVOT_ROWS=[["Baniyagaon",2,5,6,0],["Barada","","",0,0],["Bhetasi Ba Bhag"
 function heat(v){ if(v==='')return ''; const n=Math.min(10,Number(v)); const a=(n/10*0.30).toFixed(2); return `background:rgba(60,60,60,${a})`; }
 screens.analytics=()=>shell("#/insights",[{label:"Home",href:"#/home"},{label:"Analytical Engine",href:"#/insights"},{label:"Data Analytics"}],`
   <section class="section" style="padding-bottom:14px">
-    ${signinNotice('Non-spatial analytics','#/analytics','SRS §2.2.3.2.2')}
     <div class="between">
       <div><div class="eyebrow">Analytical Engine · non-spatial analytics</div><h2 class="mb0" style="font-size:24px">Data Analytics</h2></div>
-      <div class="row" style="gap:8px"><a class="btn sm" onclick="toast('My dashboards')">My dashboards</a><a class="btn sm primary" onclick="go('#/gallery')">Publish dashboard</a></div>
     </div>
-    <p class="sub">Analysis and visualisation of tabular, indicator-based and time-series data through Apache Superset, integrated via APIs — complementing the spatial insights from Map Studio and the atlases.</p>
+    <p class="sub">Explore tabular, indicator-based and time-series data through Apache Superset dashboards, charts and comparative metrics.</p>
   </section>
-
-  <section class="section" style="padding-top:6px">
-    <div class="eyebrow">Chart explorer</div>
-    <h3 style="font-size:17px;margin:0 0 12px">Village Wise Section Score</h3>
-    <div class="sup">
-      <div class="sup-title">
-        <h4>Village Wise Section Score</h4><span style="color:var(--ink-3)"><svg class=svgi><use href=#i-star /></svg></span>
-        <div class="sup-meta"><span><svg class=svgi><use href=#i-list /></svg> Added to 1 dashboard</span><span>◎ Superset Admin</span><span><svg class=svgi><use href=#i-pencil /></svg> 2 months ago</span></div>
-        <div class="row" style="gap:8px;margin-left:auto"><a class="btn sm primary" onclick="toast('Chart saved')"><svg class=svgi><use href=#i-save /></svg> Save</a><a class="btn sm" onclick="toast('More options')">⋯</a></div>
-      </div>
-      <div class="sup-body">
-        <div class="sup-col">
-          <h5>Chart Source <span style="float:right;color:var(--ink-3)">⇤</span></h5>
-          <div class="sup-ds"><span><svg class=svgi><use href=#i-grid /></svg></span><span class="nm">public.Village Wise Section…</span><span style="color:var(--ink-3)">⋮</span></div>
-          <input class="wf-in" style="font-size:12.5px;padding:9px 11px" placeholder="Search Metrics &amp; Columns">
-          <div class="sup-grp">
-            <div class="gh">Metrics <span style="color:var(--ink-3)">⌃</span></div>
-            <div class="gs">Showing 1 of 1</div>
-            <div class="sup-item"><span class="mono" style="font-family:var(--mono)">f(x)</span> COUNT(*) <span class="h"><svg class=svgi><use href=#i-list /></svg></span></div>
-          </div>
-          <div class="sup-grp">
-            <div class="gh">Columns <span style="color:var(--ink-3)">⌃</span></div>
-            <div class="gs">Showing 3 of 3</div>
-            ${["village","section_name","section_score"].map(c=>`<div class="sup-item"><span style="color:var(--ink-3);font-family:var(--mono);font-size:11px">abc</span> ${c} <span class="h">⠿</span></div>`).join("")}
-          </div>
-        </div>
-        <div class="sup-col">
-          <div class="sup-tabs"><span class="on">Data</span><span onclick="toast('Customize tab')">Customize</span></div>
-          <div class="sup-viz">
-            <span class="pick"><svg class=svgi><use href=#i-checksquare /></svg> Pivot Table</span>
-            <span class="ico" onclick="toast('Line chart')"><svg class=svgi><use href=#i-trend /></svg></span><span class="ico" onclick="toast('Bar chart')"><svg class=svgi><use href=#i-barchart /></svg></span><span class="ico" onclick="toast('Area chart')"><svg class=svgi><use href=#i-trenddown /></svg></span><span class="ico" onclick="toast('Table')"><svg class=svgi><use href=#i-grid /></svg></span><span class="ico" onclick="toast('Big number')">4k</span><span class="ico" onclick="toast('Pie chart')">◔</span>
-          </div>
-          <div style="text-align:right;margin:6px 0 14px"><a class="btn link" style="font-size:12.5px" onclick="toast('View all charts')">View all charts</a></div>
-          <div class="gh" style="display:flex;justify-content:space-between;font-size:14px;font-weight:600">Query <span style="color:var(--ink-3)">⌃</span></div>
-          <div class="sup-lab">Columns</div>
-          <div class="sup-pill"><span class="x" onclick="toast('Remove column')"><svg class=svgi><use href=#i-x /></svg></span><span class="mono">abc</span> section_name <span class="ch">›</span></div>
-          <div class="sup-drop" onclick="toast('Drop columns here or click')">＋ Drop columns here or click</div>
-          <div class="sup-lab">Rows</div>
-          <div class="sup-pill"><span class="x" onclick="toast('Remove row')"><svg class=svgi><use href=#i-x /></svg></span><span class="mono">abc</span> village <span class="ch">›</span></div>
-          <div class="sup-drop" onclick="toast('Drop columns here or click')">＋ Drop columns here or click</div>
-          <div class="sup-lab">Metrics</div>
-          <div class="sup-pill"><span class="x" onclick="toast('Remove metric')"><svg class=svgi><use href=#i-x /></svg></span><span class="mono">f(x)</span> MAX(section_score) <span class="ch">›</span></div>
-          <div class="sup-drop" onclick="toast('Drop columns/metrics here or click')">＋ Drop columns/metrics here or click</div>
-          <div class="sup-lab">Apply metrics on</div>
-          <div class="sup-seg"><span class="on">Columns</span><span onclick="toast('Apply metrics on rows')">Rows</span></div>
-          <div class="sup-lab">Filters</div>
-          <div class="sup-drop" onclick="toast('Drop columns/metrics here or click')">＋ Drop columns/metrics here or click</div>
-          <a class="btn primary block mt16" onclick="toast('Chart updated')">Update chart</a>
-        </div>
-        <div class="sup-res">
-          <div class="sup-resbar"><span class="sup-chip">68 rows</span><span class="sup-chip mono"><svg class=svgi><use href=#i-clock /></svg> 00:00:00.211</span></div>
-          <div class="tblwrap" style="border-color:var(--line-2)">
-            <table class="pivot">
-              <thead>
-                <tr><th rowspan="2" style="vertical-align:bottom">village</th><th>Metric</th><th colspan="5" style="text-align:left">MAX(section_score)</th></tr>
-                <tr><th>section_name</th><th style="text-align:right">Collective Action</th><th style="text-align:right">Control Over Resources</th><th style="text-align:right">Leadership</th><th style="text-align:right">Women's Participation</th><th style="text-align:right">Total</th></tr>
-              </thead>
-              <tbody>
-                ${PIVOT_ROWS.map(r=>{const vals=r.slice(1);const tot=vals.reduce((a,b)=>a+(b===''?0:Number(b)),0);
-                  return `<tr><td class="name">${r[0]}</td><td></td>${vals.map(v=>`<td class="v" style="${heat(v)}">${v}</td>`).join("")}<td class="v" style="${heat(Math.min(10,tot))}">${tot}</td></tr>`;}).join("")}
-              </tbody>
-            </table>
-          </div>
-          <div class="wf-note mt12">Pivot table rendered from Superset via API · rows shaded by value</div>
-        </div>
-      </div>
-      <div class="sup-foot"><span style="font-weight:600">Results</span><span>Samples</span></div>
+  <section class="section" style="padding-top:0">
+    <div class="panel" style="text-align:center;padding:3.5rem 2rem">
+      <div class="icon-box" style="width:3.2rem;height:3.2rem;font-size:1.4rem;margin:0 auto 1rem"><svg class=svgi><use href=#i-trend /></svg></div>
+      <div class="eyebrow" style="margin:0 auto 1rem">Coming soon</div>
+      <h3 style="margin:0 0 .6rem">The Apache Superset integration is in progress</h3>
+      <p class="muted" style="max-width:34rem;margin:0 auto 1.5rem">Data Analytics is disabled for now while the Superset connection is built. It will offer tabular, indicator-based and time-series analysis once that work is complete.</p>
+      <div class="row" style="justify-content:center;gap:.75rem"><a class="btn primary" onclick="go('#/gallery')">Browse dashboards in the Gallery</a><a class="btn" onclick="go('#/mapstudio')">Open Map Studio instead</a></div>
     </div>
   </section>
 `);
@@ -3394,7 +3803,6 @@ const GNC_RES=[
   ["Sacred groves atlas","map","Community conserved areas of the Khasi hills…","kmenon","#/gallery-item/g-08"]
 ];
 function gncIcon(k){return k==='map'?'<svg class=svgi><use href=#i-map /></svg>':k==='dash'?'◔':k==='story'?'<svg class=svgi><use href=#i-book /></svg>':'<svg class=svgi><use href=#i-db /></svg>';}
-function gncSource(k){return k==='dash'?'Apache Superset':k==='story'?'Commons Stories':'GeoNode';}
 /* reusable GeoNode-style resource catalogue grid (Filter · N found · Order by · cards) */
 function resCatalog(count){
   return `<div class="gnv">
@@ -3429,9 +3837,9 @@ screens.gallery=(p)=>{
   <section class="section" style="padding-bottom:14px">
     <div class="between">
       <div><div class="eyebrow">Analytical Engine · user-generated content</div><h2 class="mb0" style="font-size:24px">Gallery of User generated Content</h2></div>
-      <div class="row" style="gap:8px"><a class="btn sm" onclick="go('#/story-create')"><svg class=svgi><use href=#i-book /></svg> Create a story</a><a class="btn sm" onclick="go('#/mapstudio')"><svg class=svgi><use href=#i-map /></svg> Open Map Studio</a><a class="btn sm primary" onclick="toast('Data Analytics is not live yet — more work is needed before this module is ready.')"><svg class=svgi><use href=#i-trend /></svg> Open Data Analytics</a></div>
+      <div class="row" style="gap:8px"><a class="btn sm" onclick="go('#/story-create')"><svg class=svgi><use href=#i-book /></svg> Create a story</a><a class="btn sm" onclick="go('#/mapstudio')"><svg class=svgi><use href=#i-map /></svg> Open Map Studio</a><a class="btn sm primary" onclick="go('#/analytics')"><svg class=svgi><use href=#i-trend /></svg> Open Data Analytics</a></div>
     </div>
-    <p class="sub">A collaborative gallery bringing together maps, layers and geo-stories published from GeoNode, and — once integrated — dashboards published from Apache Superset, in one interpretable format. Every item has a unique URL and is searchable.</p>
+    <p class="sub">A collaborative gallery bringing together maps and datasets from GeoNode and narrative stories, plus dashboards from Apache Superset once that integration goes live — all in one interpretable format. Every item has a unique URL and is searchable.</p>
   </section>
 
   <section class="section" style="padding-top:6px">
@@ -3446,7 +3854,7 @@ screens.gallery=(p)=>{
           <div class="big">${gncIcon(r[1])}</div>
           <div class="t"><span>${gncIcon(r[1])}</span>${r[0]}</div>
           <div class="ab">${r[2]}</div>
-          <div class="f"><span class="tag">${gncSource(r[1])}</span><span>◎ ${r[3]}</span><span class="btn sm primary" onclick="event.stopPropagation();go('${r[4]}')">View</span></div>
+          <div class="f"><span>◎ ${r[3]}</span><span class="btn sm primary" onclick="event.stopPropagation();go('${r[4]}')">View</span></div>
         </div>`).join("")}
       </div>
       <div class="gnv-links"><span>geonode.org</span><span>Developers</span><span>About</span></div>
@@ -3488,20 +3896,18 @@ screens['gallery-item']=(p)=>{
 
 /* ---- SRS §2.2.4 Decision Support System — intermediate navigation ---- */
 screens.dss=()=>shell("#/dss",[{label:"Home",href:"#/home"},{label:"Decision Support System"}],`
-  <section class="section">
-    <h2 style="font-size:26px">Decision Support System</h2>
-    <p class="sub">Conservation and planning support built on the status of commons, local needs and potential interventions — four sub-modules, released across V1 and V2.</p>
-    <p class="muted" style="max-width:760px;margin:0 0 4px">In practice, this is where a decision gets a starting point: which water bodies or check dams to repair first, where to prioritise spring rehabilitation, how one Gram Panchayat's commons compare with its neighbours before a planning meeting, or whether a village's grazing pressure and common land are improving or declining year on year.</p>
-    <div class="grid g4 mt24">
-      ${[["<svg class=svgi><use href=#i-map /></svg>","Landscape conservation action plan","Landscape-scale action plans — a single embedded GeoNode map and the 14-step LCAP tracker.","V2","#/lcap","","Embedded map · tracker"],
-         ["<svg class=svgi><use href=#i-droplet /></svg>","Spring-shed DSS","Spring inventory, hydrogeological mapping and recharge-intervention planning — the ten-step springshed management flow.","V2","#/springshed","","Flow · ODK · figures"],
-         ["<svg class=svgi><use href=#i-landmark /></svg>","Panchayat Atlas<span class=\"mod-sub\">(Decision Support Module)</span>","Map-based decision support at Gram Panchayat level — administrative boundaries with multi-sectoral layers, indicator dashboards and temporal comparison.","V1","#/atlas","","Sign-in required"],
-         ["<svg class=svgi><use href=#i-home /></svg>","Village Explorer<span class=\"mod-sub\">(Dashboard)</span>","Tools Data + selected DP layers + study data, brought together as a holistic village view with an at-a-glance report.","V1","#/village","","Open to all"]
-        ].map(c=>`<div class="mod-tile dss-tile ${c[5]}" onclick="${c[4]?`go('${c[4]}')`:`toast('${c[1].replace(/<[^>]+>/g,' ')} — planned for V2')`}">
-          <div class="mod-ic">${c[0]}</div>
-          <h3>${c[1]}</h3><p>${c[2]}</p>
-          <div class="sub-links"><span class="chip-lock ${c[5]?'priv':''}">${c[6]}</span></div>
-        </div>`).join("")}
+  <div class="pagehero bare">
+    <div class="ph-copy">
+      <h1>Decision Support <em>System</em></h1>
+      <p>Decision Support turns commons data into planning guidance: where a check dam or spring would help most, which grazing land most needs protection, how a village's forests and water are changing. Four tools, each built around one kind of decision.</p>
+    </div>
+  </div>
+  <section class="section" style="padding-top:.5rem">
+    <div class="grid g2 mod-grid">
+      ${lensCard({tc:"var(--c-atlas)",img:"assets/photo-3.jpg",tag:"V1 · live",name:"Panchayat Atlas",meta:"Decision support module · sign-in required",desc:"Map-based decision support at Gram Panchayat level — administrative boundaries with multi-sectoral layers, indicator dashboards and temporal comparison.",chips:["Admin boundaries","Sectoral layers","Indicator dashboards"],cta:"Open the Panchayat Atlas",href:"#/atlas"})}
+      ${lensCard({tc:"var(--c-village)",img:"assets/photo-1.jpg",tag:"V1 · live",name:"Village Explorer",meta:"Dashboard · open to all",desc:"Tools data, selected DP layers and study data, brought together as a holistic village view with an at-a-glance report.",chips:["Village view","DP layers","At-a-glance report"],cta:"Open Village Explorer",href:"#/village"})}
+      ${lensCard({tc:"var(--c-forest)",img:"assets/photo-8.jpg",tag:"V2 · planned",name:"Landscape conservation action plan",meta:"Map · tracker · resources",desc:"Landscape-scale action plans — a map workspace, a 14-step LCAP tracker and the resources behind the initiative.",chips:["Map workspace","14-step tracker","Resources"],cta:"Preview the LCAP module",href:"#/lcap"})}
+      ${lensCard({tc:"var(--c-water)",img:"assets/photo-11.jpg",tag:"V2 · planned",name:"Spring-shed DSS",meta:"Flow · ODK · figures",desc:"Spring inventory, hydrogeological mapping and recharge-intervention planning — the ten-step springshed management flow.",chips:["Spring inventory","Hydrogeology","Recharge planning"],cta:"Preview the Spring-shed DSS",href:"#/springshed"})}
     </div>
   </section>
 `);
@@ -3527,27 +3933,19 @@ const LCAP_STAGES=[
     ["14","Consolidating evidence and knowledge sharing"]]]
 ];
 const LCAP_LAYERS=["Jaldootdata Post Monsoon 2023","Jaldootdata Pre Monsoon 2023","Micro watershed of India","Rivers of India","Lakes of India","Tanks of India","Reservoirs of India","Drains of India","Springs of India","Waterbodies of India"];
-screens.lcap=()=>shell("#/dss",[{label:"Home",href:"#/home"},{label:"Decision Support System",href:"#/dss"},{label:"Landscape conservation action plan"}],`
-  <section class="section" style="padding-bottom:14px">
-    <h2 class="mb0" style="font-size:24px">Landscape conservation action plan</h2>
-    <p class="sub">A single landscape-scale conservation map maintained in GeoNode, embedded below, together with the fourteen-step planning tracker that runs alongside it.</p>
-  </section>
-
-  <section class="section" style="padding-top:6px">
-    <div class="car-shot" style="cursor:default;box-shadow:var(--shadow-md)">
-      <div class="cs-bar"><i></i><i></i><i></i><span>GeoNode map viewer — embedded</span></div>
-      <div class="car-map" data-seed="21" data-label="Landscape conservation action plan" data-kind="" data-img=""></div>
-    </div>
-    <div class="grid" style="grid-template-columns:1fr 320px;gap:24px;align-items:start;margin-top:20px">
-      <div class="panel">
-        <div class="eyebrow">14-step LCAP tracker</div>
-        <div class="grid g3 mt12">
-          ${LCAP_STAGES.map(s=>`<div class="detail-blk"><div class="k">${s[0]}</div><ul class="dul">${s[1].map(st=>`<li><b>${st[0]}</b> · ${st[1]}</li>`).join("")}</ul></div>`).join("")}
-        </div>
+screens.lcap=()=>shell("#/dss",null,`
+  <div class="mapfull">
+    <div class="car-map" data-seed="21" data-label="Landscape conservation action plan" data-kind="villages"></div>
+    <div class="mf-bar">
+      <button class="mf-back" onclick="go('#/dss')" title="Back to Decision Support"><svg class=svgi><use href=#i-chevdown /></svg></button>
+      <div class="mf-tx"><span class="mf-kicker">Decision Support · single GeoNode map</span><b>Landscape conservation action plan</b><span class="mf-sub">Landscape-scale conservation planning, embedded directly from GeoNode — not a data catalogue.</span></div>
+      <div class="mf-acts">
+        <button class="nav-ic" title="Bookmark" onclick="bookmarkIt('Landscape conservation action plan')"><svg class=svgi><use href=#i-bookmark /></svg></button>
+        <button class="nav-ic" title="Share" onclick="toast('Share link')"><svg class=svgi><use href=#i-external /></svg></button>
+        <button class="nav-ic" title="Open in GeoNode" onclick="window.open('${GEONODE_URL}','_blank')"><svg class=svgi><use href=#i-external /></svg></button>
       </div>
-      <div class="panel">${urlRow('/dss/lcap','Landscape conservation action plan')}</div>
     </div>
-  </section>
+  </div>
 `);
 
 /* ---- LCAP resource → its own map workspace detail ---- */
@@ -3864,10 +4262,10 @@ screens['story-create']=()=>{
   <section class="section">
     <div class="eyebrow">Commons Stories integration</div>
     <h2 style="font-size:22px">Create a story from your resources</h2>
-    <p class="sub">Pull in map views, dashboards and analytical outputs, then add narrative around them. Stories publish to the gallery with a unique URL, after moderation.</p>
-    <div class="callout" style="margin:14px 0 18px">
-      <div class="txt"><strong>How this relates to GeoNode's GeoStories</strong><span>This builder publishes narrative stories into the Commons Explorer gallery under Commons Stories. GeoNode also ships its own GeoStories tool for a map-led narrative built directly from a single GeoNode layer — use that when the story is really just one annotated map. Whether the two stay separate or Commons Stories becomes the single narrative path for the platform is still to be confirmed with the product team.</span></div>
-      <a class="btn sm" onclick="toast('Opens GeoNode GeoStories for this layer')">Try GeoStories in GeoNode →</a>
+    <p class="sub">Pull in map views, dashboards and analytical outputs, then add narrative around them. Stories built here publish to this Gallery with a unique URL, after moderation.</p>
+    <div class="callout" style="margin-bottom:18px">
+      <div class="txt"><strong>Two ways to tell a story</strong><span>This form builds a lighter story mixing maps, dashboards and images. For a fully map-led narrative, GeoNode has its own GeoStory editor. <b>Open question:</b> should stories made here also appear on the separate Commons Stories platform (stories.commonsplatform.in), or do the two stay independent? — flagging for the platform team to confirm.</span></div>
+      <a class="btn" href="${GEONODE_URL}" target="_blank" rel="noopener">Open GeoNode GeoStories →</a>
     </div>
     <div class="stepbar"><i class="on"></i><i class="on"></i><i></i></div>
     <div class="grid" style="grid-template-columns:1fr 320px;gap:24px;align-items:start">
@@ -4186,28 +4584,51 @@ screens.roles=()=>{
 
 /* about / blogs / architecture / site map */
 screens.about=()=>shell("#/about",[{label:"Home",href:"#/home"},{label:"About"}],`
-  <div class="hero">
-    <div class="grid" style="grid-template-columns:1.3fr 1fr;gap:24px;align-items:center">
-      <div><h1 style="font-size:28px">About Commons Explorer</h1>
-        <p class="lead" style="margin:0">A digital, open-access module of the Commons Platform for accessing and visualising spatial and non-spatial data in support of the conservation and sustainable management of natural commons — for communities, practitioners, planners and researchers.</p></div>
-      <div class="ph-img" style="min-height:200px">Platform illustration</div>
+  <div class="pagehero bare">
+    <div class="ph-copy">
+      <h1>About Commons <em>Explorer</em></h1>
+      <p>A digital, open-access module of the Commons Platform for accessing and visualising spatial and non-spatial data in support of the conservation and sustainable management of natural commons - for communities, practitioners, planners and researchers.</p>
     </div>
   </div>
+  <div class="page-photo"><img src="assets/ill-hero.jpg" alt="" style="object-position:center 60%"></div>
+  <div class="hstats hstats4">
+    <div class="hstat"><span class="ic-tile"><svg class=svgi><use href=#i-map /></svg></span><div><b>2.6<em> L</em></b><span>Gram Panchayats mapped</span></div></div>
+    <div class="hstat"><span class="ic-tile"><svg class=svgi><use href=#i-layers /></svg></span><div><b>20+</b><span>curated data layers</span></div></div>
+    <div class="hstat"><span class="ic-tile"><svg class=svgi><use href=#i-users /></svg></span><div><b>4</b><span>modules, one platform</span></div></div>
+    <div class="hstat"><span class="ic-tile"><svg class=svgi><use href=#i-globe /></svg></span><div><b>PAN</b><span>India coverage</span></div></div>
+  </div>
+
+  <section class="section need" style="padding-top:.5rem"><div class="need-top">
+    <figure class="need-photo"><img src="assets/photo-4.jpg" alt=""></figure>
+    <div class="need-copy">
+      <h2>Why it exists</h2>
+      <p>Data on commons is fragmented and largely top-down, rarely capturing local knowledge or the spatial relationships that matter. Commons Explorer brings geospatial datasets together with contextual information so that decision-makers, community institutions, researchers and practitioners can see the same picture.</p>
+      <p>It is the data module of the Commons Platform, sitting alongside Understanding Commons, Commons Stories and the other components, and drawing on GeoNode for spatial data and Apache Superset for analytics.</p>
+      <div class="row need-acts"><a class="btn primary" onclick="go('#/thematic')">Explore the data →</a><a class="btn" onclick="go('#/architecture')">How it is built</a></div>
+    </div>
+  </div></section>
+
+  <section class="section band-soft"><div class="container">
+    <div class="sechead mid"><h2>What the platform does</h2></div>
+    <div class="about-scope">
+      ${[["db","Centralised repository","Spatially linked data on natural commons and thematic layers, in one catalogue."],["map","Map-based visualisation","Interactive maps for lay users and practitioners, with custom map creation."],["search","Search and filter","Find layers by theme, administrative geography, format and other attributes."],["upload","Community contributions","User-generated submissions with administrative review and moderation."],["barchart","Analysis and decision support","Integration with analytical tools and the Decision Support System."],["users","Open by default","Public content is free to browse, download and share, with credit to contributors."]].map((s,i)=>`<div class="pillar-row" style="--tc:${['var(--green)','var(--t-water)','var(--c-browse)','var(--t-pasture)','var(--c-analytics)','var(--t-cultural)'][i]}"><span class="ic-tile"><svg class=svgi><use href=#i-${s[0]} /></svg></span><h3>${s[1]}</h3><p>${s[2]}</p></div>`).join("")}
+    </div>
+  </div></section>
+
   <section class="section">
-    <div class="grid g2">
-      <div class="panel"><div class="eyebrow">Why it exists</div><h3 style="margin:4px 0 8px;font-size:17px">The business need</h3>
-        <p class="muted" style="margin:0">Data on commons is fragmented and largely top-down, rarely capturing local knowledge or the spatial relationships that matter. Commons Explorer brings geospatial datasets together with contextual information so that decision-makers, community institutions, researchers and practitioners can act on evidence at village, district, state and national scale.</p></div>
-      <div class="panel"><div class="eyebrow">Scope</div><h3 style="margin:4px 0 8px;font-size:17px">What the platform does</h3>
-        <ul class="dul">${["Centralised repository for spatially linked data on natural commons and thematic layers.","Interactive, map-based visualisation for lay users and practitioners, with custom map creation.","Filtering, searching and tagging by theme, administrative geography and other attributes.","User-generated submissions with administrative review and moderation.","Integration with analytical and decision-support tools."].map(l=>`<li>${l}</li>`).join("")}</ul></div>
+    <div class="sechead mid"><h2>How it should behave</h2></div>
+    <div class="grid g4 nf-grid">
+      ${[["Usability","Responsive interface, consistent across devices and screen sizes.","hand","var(--green)"],["Performance","Maps, datasets and content load within acceptable response times.","trend","var(--t-water)"],["Scalability","PAN-India raster and vector data, growing volume and user load.","layers","var(--t-pasture)"],["Accessibility","Compliant with recognised accessibility standards for public platforms.","checkcircle","var(--t-cultural)"]].map(n=>`<div class="nf-tile" style="--tc:${n[3]}"><span class="ic-tile"><svg class=svgi><use href=#i-${n[2]} /></svg></span><h3>${n[0]}</h3><p>${n[1]}</p></div>`).join("")}
     </div>
   </section>
-  <section class="section">
-    <div class="eyebrow">Non-functional commitments</div><h3 style="font-size:17px">How it should behave</h3>
-    <div class="grid g4 mt12">
-      ${[["Usability","Responsive interface, consistent across devices and screen sizes."],["Performance","Maps, datasets and content load within acceptable response times."],["Scalability","PAN-India raster and vector data, growing volume and user load."],["Accessibility","Compliant with recognised accessibility standards."],["Security","OWASP standards, authentication and content moderation controls."],["Consistency","Visual and interaction consistency across all modules."],["Templates","Template-based layouts so admins can add content of the same type."],["Web-first","Designed for desktop and tablet; responsive on mobile — no separate app."]].map(c=>`<div class="card"><h3 style="font-size:14px">${c[0]}</h3><p>${c[1]}</p></div>`).join("")}
-    </div>
-  </section>
+
+  <div class="gateway about-gateway">
+    <h2>Part of the Commons Platform</h2>
+    <p>Commons Explorer is one of eight components that together document and support the governance of common-pool resources across India.</p>
+    <div class="row"><a class="btn btn-white arrow" onclick="go('#/thematic')">Start with Thematic Datasets →</a><a class="btn btn-outline" onclick="toast('Opens commonsplatform.in')">Visit the Commons Platform</a></div>
+  </div>
 `);
+
 
 screens['whats-new']=()=>shell("",[{label:"Home",href:"#/home"},{label:"What's New"}],`
   <section class="section">
@@ -4231,58 +4652,67 @@ screens['whats-new']=()=>shell("",[{label:"Home",href:"#/home"},{label:"What's N
   </section>
 `);
 
+const BLOG_TC={"Platform":"var(--c-browse)","Data & methods":"var(--c-analytics)","Field notes":"var(--c-forest)","Policy":"var(--c-atlas)","Community":"var(--c-gallery)"};
+const BLOG_IMGS=["assets/photo-2.jpg","assets/ill-2.jpg","assets/photo-3.jpg","assets/ill-4.jpg","assets/photo-7.jpg","assets/ill-3.jpg","assets/photo-4.jpg","assets/ill-5.jpg","assets/photo-8.jpg","assets/ill-hero.jpg"];
+function blogImg(b){return BLOG_IMGS[BLOGS.indexOf(b)%BLOG_IMGS.length];}
+function blogCard(b){
+  const i=BLOGS.indexOf(b), ini=b[4].split(' ').map(w=>w[0]).join('').slice(0,2);
+  return `<article class="wn-card blog-card" style="--tc:${BLOG_TC[b[3]]||'var(--green)'}" onclick="go('#/blog/${i}')">
+    <div class="wn-media" style="background-image:url('${blogImg(b)}')"><span class="wn-kind">${b[3]}</span></div>
+    <div class="wn-body">
+      <h4>${b[0]}</h4>
+      <p>${b[1]}</p>
+      <div class="wn-meta"><span class="pw-av wn-av">${ini}</span><span class="wn-who">${b[4]}</span><span class="wn-when">${b[2]} · ${b[5]}</span></div>
+    </div>
+  </article>`;
+}
 screens.blogs=(p)=>{
   const cat=p&&p.cat?decodeURIComponent(p.cat):"All";
   const list=BLOGS.filter(b=>cat==="All"||b[3]===cat);
-  const lead=list[0], rest=list.slice(1);
+  const lead=list[0], all=list.slice(1);
+  const per=6, pages=Math.max(1,Math.ceil(all.length/per)), page=Math.min(pages,Math.max(1,parseInt(p&&p.page,10)||1));
+  const rest=all.slice((page-1)*per,page*per);
+  const pageHref=n=>`#/blogs?${cat==='All'?'':'cat='+encodeURIComponent(cat)+'&'}page=${n}`;
   return shell("#/blogs",[{label:"Home",href:"#/home"},{label:"Blogs"}],`
-  <section class="section" style="padding-bottom:12px">
-    <div class="eyebrow">From the team</div><h2 style="font-size:22px">Blogs</h2>
-    <p class="sub">Notes on the platform, the data behind it and how people are using it.</p>
-  </section>
-
-  ${lead?`<section class="section" style="padding-top:0">
-    <div class="panel" style="padding:0;overflow:hidden;cursor:pointer" onclick="go('#/blog/${BLOGS.indexOf(lead)}')">
-      <div class="grid" style="grid-template-columns:1.1fr 1fr;gap:0;align-items:stretch">
-        <div class="ph-img" style="min-height:280px;border:none;border-radius:0">Cover image</div>
-        <div style="padding:30px 32px;display:flex;flex-direction:column;justify-content:center">
-          <div class="row" style="gap:8px;margin-bottom:10px"><span class="tag solid">Featured</span><span class="tag">${lead[3]}</span></div>
-          <h3 style="font-size:24px;margin:0 0 10px;line-height:1.25">${lead[0]}</h3>
-          <p class="muted" style="margin:0 0 16px;font-size:14.5px">${lead[1]}</p>
-          <div class="row" style="gap:10px;align-items:center">
-            <span class="pw-av" style="width:28px;height:28px;font-size:11px">${lead[4].split(' ').map(w=>w[0]).join('').slice(0,2)}</span>
-            <span class="wf-note" style="text-transform:none;letter-spacing:0;font-size:12.5px">${lead[4]} · ${lead[2]} · ${lead[5]} read</span>
-            <span class="btn sm" style="margin-left:auto">Read →</span>
-          </div>
-        </div>
+  <div class="pagehero bare">
+    <div class="ph-copy">
+      <h1>Notes from the <em>team</em></h1>
+      <p>Notes on the platform, the data behind it and how people are using it.</p>
+    </div>
+  </div>
+  <section class="section" style="padding-top:0">
+    ${lead?`<article class="blog-feature" style="--tc:${BLOG_TC[lead[3]]||'var(--green)'}" onclick="go('#/blog/${BLOGS.indexOf(lead)}')">
+      <div class="bf-media" style="background-image:url('${blogImg(lead)}')"><span class="wn-kind">Featured</span></div>
+      <div class="bf-body">
+        <span class="bf-cat">${lead[3]}</span>
+        <h2>${lead[0]}</h2>
+        <p>${lead[1]}</p>
+        <div class="wn-meta"><span class="pw-av wn-av">${lead[4].split(' ').map(w=>w[0]).join('').slice(0,2)}</span><span class="wn-who">${lead[4]}</span><span class="wn-when">${lead[2]} · ${lead[5]} read</span></div>
+        <span class="btn primary bf-btn">Read the post →</span>
       </div>
-    </div>
-  </section>`:''}
-
-  <section class="section" style="padding-top:6px">
-    <div class="between" style="margin-bottom:14px"><h3 class="mb0" style="font-size:17px">${cat==='All'?'All posts':cat}</h3><span class="wf-note">${list.length} posts</span></div>
-    <div class="grid g3">
-      ${rest.map(b=>`<div class="card click" onclick="go('#/blog/${BLOGS.indexOf(b)}')">
-        <div class="ph-img" style="min-height:140px">Cover image</div>
-        <div class="row" style="gap:6px;margin-top:2px"><span class="tag">${b[3]}</span><span class="wf-note" style="margin-left:auto;text-transform:none;letter-spacing:0">${b[5]} read</span></div>
-        <h3>${b[0]}</h3>
-        <p>${b[1]}</p>
-        <div class="cta row" style="gap:9px;align-items:center;padding-top:10px;border-top:1px solid var(--line-2)">
-          <span class="pw-av" style="width:24px;height:24px;font-size:10px">${b[4].split(' ').map(w=>w[0]).join('').slice(0,2)}</span>
-          <span class="wf-note" style="text-transform:none;letter-spacing:0;font-size:12px">${b[4]} · ${b[2]}</span>
-          <span class="btn sm" style="margin-left:auto">Read →</span>
-        </div>
-      </div>`).join("")}
-    </div>
-    ${rest.length?`<div class="row mt24" style="justify-content:center"><a class="btn" onclick="toast('Load more posts')">Load more posts</a></div>`:'<div class="wf-note" style="padding:20px 0;text-transform:none;letter-spacing:0">No other posts in this category.</div>'}
+    </article>`:''}
   </section>
 
-  <section class="section">
-    <div class="callout">
-      <div class="txt"><strong>Get new posts by email</strong><span>Occasional notes on the platform, new datasets and field findings.</span></div>
-      <div class="row" style="gap:8px"><input class="wf-in" style="min-width:240px" placeholder="you@organisation.org"><a class="btn primary" onclick="toast('Subscribed')">Subscribe</a></div>
+  <section class="section" style="padding-top:0">
+    <div class="blog-cats">${BLOG_CATS.map(c=>`<a class="mc-chip ${c===cat?'on':''}" style="--tc:${BLOG_TC[c]||'var(--green)'}" onclick="go('#/blogs${c==='All'?'':'?cat='+encodeURIComponent(c)}')">${c}</a>`).join("")}</div>
+    <div class="between" style="margin-bottom:1rem"><h2 class="repo-title" style="margin:0">${cat==='All'?'All posts':cat}</h2><span class="muted" style="font-size:.88rem">${all.length} posts${pages>1?` · page ${page} of ${pages}`:''}</span></div>
+    <div class="grid g3 wn-grid">
+      ${rest.map(blogCard).join("")}
     </div>
+    ${all.length>per?`<nav class="pager" aria-label="Pages">
+      <a class="pg ${page===1?'off':''}" onclick="${page>1?`go('${pageHref(page-1)}')`:''}">‹ Previous</a>
+      ${Array.from({length:pages},(_,k)=>k+1).map(n=>`<a class="pg num ${n===page?'on':''}" onclick="go('${pageHref(n)}')">${n}</a>`).join("")}
+      <a class="pg ${page===pages?'off':''}" onclick="${page<pages?`go('${pageHref(page+1)}')`:''}">Next ›</a>
+    </nav>`:(rest.length?'':'<div class="muted" style="padding:20px 0">No other posts in this category.</div>')}
   </section>
+
+  <div class="gateway blog-nl">
+    <span class="nl-ic"><svg class=svgi><use href=#i-mail /></svg></span>
+    <h2>Get new posts by email</h2>
+    <p>Occasional notes on the platform, new datasets and field findings. No more than one email a month, and easy to leave.</p>
+    <form class="nl-form" onsubmit="event.preventDefault();toast('Subscribed');this.querySelector('button').textContent='Subscribed'"><input type="email" required placeholder="you@organisation.org" aria-label="Email address"><button class="btn btn-white" type="submit">Subscribe</button></form>
+    <span class="nl-note">Sent by the Commons Explorer team · Foundation for Ecological Security</span>
+  </div>
 `);};
 
 screens.blog=(p)=>{
@@ -4291,97 +4721,81 @@ screens.blog=(p)=>{
   const ini=b[4].split(' ').map(w=>w[0]).join('').slice(0,2);
   const prev=i>0?BLOGS[i-1]:null, next=i<BLOGS.length-1?BLOGS[i+1]:null;
   const related=BLOGS.filter((x,j)=>j!==i&&x[3]===b[3]).slice(0,3);
+  const tc=BLOG_TC[b[3]]||'var(--green)';
   return shell("#/blogs",[{label:"Home",href:"#/home"},{label:"Blogs",href:"#/blogs"},{label:b[0]}],`
-  <section class="section" style="padding-bottom:8px">
-    <div class="art">
-      <div class="row" style="gap:8px;margin-bottom:12px"><span class="tag solid">${b[3]}</span><span class="tag">${b[5]} read</span></div>
-      <h1 style="font-size:36px;line-height:1.18;letter-spacing:-.024em;margin:0 0 14px">${b[0]}</h1>
-      <p class="art-lead">${b[1]}</p>
-      <div class="art-meta">
-        <span class="pw-av lg">${ini}</span>
-        <div><div class="who"><b>${b[4]}</b></div><div class="when">${b[2]} · Commons Explorer team</div></div>
-        <div class="row" style="gap:8px;margin-left:auto">
-          <a class="btn sm" onclick="bookmarkIt('${b[0].replace(/'/g,'')}')"><svg class=svgi><use href=#i-bookmark /></svg> Save</a>
-          <a class="btn sm" onclick="toast('Share link copied')"><svg class=svgi><use href=#i-external /></svg> Share</a>
-          <a class="btn sm" onclick="toast('Print / PDF')"><svg class=svgi><use href=#i-print /></svg></a>
-        </div>
+  <div class="art-hero" style="--tc:${tc}">
+    <div class="row art-hero-tags"><span class="wn-kind">${b[3]}</span><span class="tag">${b[5]} read</span></div>
+    <h1>${b[0]}</h1>
+    <p class="art-lead">${b[1]}</p>
+    <div class="art-meta">
+      <span class="pw-av lg">${ini}</span>
+      <div><div class="who"><b>${b[4]}</b></div><div class="when">${b[2]} · Commons Explorer team</div></div>
+      <div class="row" style="gap:8px;margin-left:auto">
+        <a class="btn sm" onclick="bookmarkIt('${b[0].replace(/'/g,'')}')"><svg class=svgi><use href=#i-bookmark /></svg> Save</a>
+        <a class="btn sm" onclick="toast('Share link copied')"><svg class=svgi><use href=#i-external /></svg> Share</a>
+        <a class="btn sm" onclick="toast('Print / PDF')"><svg class=svgi><use href=#i-print /></svg></a>
       </div>
     </div>
-  </section>
+  </div>
+  <figure class="art-cover"><img src="${blogImg(b)}" alt=""><figcaption>Reading the commons together — an illustrated village session on shared resources. Illustration: Foundation for Ecological Security.</figcaption></figure>
 
-  <section class="section" style="padding-top:0">
-    <div class="grid" style="grid-template-columns:1fr 240px;gap:40px;align-items:start">
+  <section class="section art-wrap">
+    <div class="art-grid">
       <div class="art">
-        <figure style="margin-top:0">
-          <div class="ph-img" style="min-height:320px">Cover image</div>
-          <figcaption>Figure 1 — Placeholder caption for the opening image, with source and credit.</figcaption>
-        </figure>
-
-        <p>Placeholder opening paragraph that sets up the question this post answers, in the voice the published blog would use. It runs two or three sentences before the first sub-heading, so the measure and rhythm of the article body can be judged.</p>
-        <p>A second paragraph carries the context — who this is for, what changed, and why it matters for people working with commons data. Links to <a onclick="go('#/repository')" style="text-decoration:underline;cursor:pointer">datasets</a> and <a onclick="go('#/gallery')" style="text-decoration:underline;cursor:pointer">published outputs</a> sit inline where they help.</p>
+        <p class="art-open">Commons Explorer began with a simple observation: the data that describes India's shared lands and waters exists, but it is scattered across departments, formats and scales, and it rarely reaches the people who depend on those resources. This post explains one of the design choices that followed, and what it means for anyone who opens the platform.</p>
+        <p>The platform serves several audiences at once: community institutions planning the year's work on a pasture or tank, practitioners supporting them, district planners, and researchers. Each arrives with a different question, and the module's job is to get them from that question to the right <a onclick="go('#/repository')">dataset</a> or <a onclick="go('#/thematic')">map</a> without a detour through the catalogue.</p>
 
         <h3 id="art-1">Where this started</h3>
-        <p>Placeholder section text. Two paragraphs per section is a reasonable default for this template; longer pieces can run to four or five sections without the page feeling heavy.</p>
-        <blockquote>A pull quote sits here to break the column and carry the line the post is remembered for.</blockquote>
-        <p>Placeholder continuation after the quote, returning to the argument and adding the detail that supports it.</p>
+        <p>The first version of the catalogue listed every layer alphabetically. It was complete and almost unusable: a village volunteer looking for the condition of a nearby tank had no reason to know that the answer lived in a layer called "surface water bodies — performance classes". Themes were the response. Each one groups the layers, maps and documents that belong to a way of looking at the commons, and puts a curated dashboard in front of the raw list.</p>
+        <blockquote>The catalogue tells you what exists. A theme tells you where to start.</blockquote>
+        <p>Three themes were enough to cover most of what the platform holds today: Water, Land and Biodiversity. Everything else remains reachable through the full catalogue, and new themes can be added as the data behind them matures.</p>
 
         <h3 id="art-2">What the data shows</h3>
-        <p>Placeholder text introducing a figure or a table drawn from the platform.</p>
-        <figure>
-          <div class="ph-img" style="min-height:240px">Chart or map figure</div>
-          <figcaption>Figure 2 — Placeholder caption describing the figure, its source and its vintage.</figcaption>
-        </figure>
+        <p>Grouping the layers also made the gaps visible. Water is the deepest theme, with well observations reaching village scale for several states; Biodiversity is the thinnest, with most records concentrated in protected areas. The figure below, drawn from the platform, shows how the extent of recorded common land has shifted over the last decades.</p>
+        <figure class="art-fig"><img src="assets/chart-2.jpg" alt=""><figcaption>Figure 2 — Changes in the extent of common land, compiled from state land-use records. Source: Commons Explorer, 2025.</figcaption></figure>
         <ul>
-          <li>A first finding, stated plainly.</li>
-          <li>A second finding, with the caveat that qualifies it.</li>
-          <li>A third finding that points to the next piece of work.</li>
+          <li>Most village-scale detail sits in the Water theme, where observation-well networks are densest.</li>
+          <li>Land layers are strong on cover and change, weaker on tenure and use rights.</li>
+          <li>Biodiversity records cluster around protected areas and thin out in the working landscapes where commons matter most.</li>
         </ul>
 
         <h3 id="art-3">What it means for practice</h3>
-        <p>Placeholder closing section — the implication for planners, community institutions and researchers using Commons Explorer.</p>
+        <p>For a planner, a theme is a shortlist: open Water and the layers worth comparing are already side by side. For a community institution, it is a vocabulary that matches the questions raised in a meeting. For researchers, the gaps are the point: they show where field data would change the picture.</p>
         <h4>Try it yourself</h4>
-        <p>Placeholder pointer to the module the post is about, so a reader can act on it immediately.</p>
-        <div class="row" style="gap:8px;margin:6px 0 4px"><a class="btn primary" onclick="go('#/thematic')">Open Thematic Datasets →</a><a class="btn" onclick="go('#/repository')">Browse the catalogue</a></div>
+        <p>Open the Water theme, switch between the groundwater and water-body performance maps for a district you know, and see whether the pattern matches what you see on the ground.</p>
+        <div class="row" style="gap:8px;margin:6px 0 4px"><a class="btn primary" onclick="go('#/theme/water')">Open the Water theme →</a><a class="btn" onclick="go('#/repository')">Browse the catalogue</a></div>
 
-        <div class="art-tags">${['commons',b[3].toLowerCase(),'india','wireframe'].map(t=>`<span class="tag" onclick="toast('Tag: ${t}')">#${t}</span>`).join("")}</div>
+        <div class="art-tags">${['commons',b[3].toLowerCase(),'india','data'].map(t=>`<span class="tag" onclick="toast('Tag: ${t}')">#${t}</span>`).join("")}</div>
 
-        <div class="panel" style="display:flex;gap:16px;align-items:flex-start">
+        <div class="art-author">
           <span class="pw-av lg">${ini}</span>
-          <div><b style="font-size:15px">${b[4]}</b>
-            <p class="muted" style="margin:6px 0 10px;font-size:13.5px">Placeholder author bio — role at FES or partner organisation, and the work this post draws on.</p>
+          <div><b>${b[4]}</b>
+            <p>Writes about the platform and the data behind it for the Commons Explorer team at the Foundation for Ecological Security, drawing on field work with village institutions across central India.</p>
             <a class="btn sm" onclick="toast('All posts by this author')">More posts by ${b[4].split(' ')[0]} →</a></div>
         </div>
 
-        <div class="grid g2 mt24">
-          ${prev?`<div class="card click" onclick="go('#/blog/${i-1}')"><div class="wf-note">← Previous post</div><h3 style="font-size:15px">${prev[0]}</h3></div>`:'<div></div>'}
-          ${next?`<div class="card click" onclick="go('#/blog/${i+1}')" style="text-align:right"><div class="wf-note">Next post →</div><h3 style="font-size:15px">${next[0]}</h3></div>`:'<div></div>'}
+        <div class="art-nav">
+          ${prev?`<a class="art-navcard" onclick="go('#/blog/${i-1}')"><span class="k">← Previous post</span><b>${prev[0]}</b></a>`:'<span></span>'}
+          ${next?`<a class="art-navcard next" onclick="go('#/blog/${i+1}')"><span class="k">Next post →</span><b>${next[0]}</b></a>`:'<span></span>'}
         </div>
       </div>
 
-      <aside>
+      <aside class="art-side">
         <div class="art-toc">
           <div class="h">In this article</div>
-          <a class="on" onclick="toast('Jump to section')">Where this started</a>
-          <a onclick="toast('Jump to section')">What the data shows</a>
-          <a onclick="toast('Jump to section')">What it means for practice</a>
-          <div class="h" style="margin-top:24px">Share</div>
+          <a class="on" onclick="artJump(this,'art-1')">Where this started</a>
+          <a onclick="artJump(this,'art-2')">What the data shows</a>
+          <a onclick="artJump(this,'art-3')">What it means for practice</a>
+          <div class="h" style="margin-top:1.5rem">Share</div>
           <div class="row" style="gap:6px"><a class="btn sm" onclick="toast('Copy link')">Copy link</a><a class="btn sm" onclick="toast('Email')">Email</a></div>
+          ${related.length?`<div class="h" style="margin-top:1.5rem">More in ${b[3]}</div>
+          <div class="art-rel">${related.map(r=>`<a class="art-relrow" onclick="go('#/blog/${BLOGS.indexOf(r)}')"><span class="th" style="background-image:url('${blogImg(r)}')"></span><span><b>${r[0]}</b><small>${r[2]} · ${r[5]}</small></span></a>`).join("")}</div>`:''}
         </div>
       </aside>
     </div>
   </section>
-
-  ${related.length?`<section class="section">
-    <div class="between"><h3 class="mb0" style="font-size:17px">More in ${b[3]}</h3><a class="btn sm" onclick="go('#/blogs')">All posts →</a></div>
-    <div class="grid g3 mt16">
-      ${related.map(r=>`<div class="card click" onclick="go('#/blog/${BLOGS.indexOf(r)}')">
-        <div class="ph-img" style="min-height:130px">Cover image</div>
-        <div class="wf-note mt8">${r[2]} · ${r[5]} read</div>
-        <h3>${r[0]}</h3><p>${r[1]}</p>
-      </div>`).join("")}
-    </div>
-  </section>`:''}
 `);};
+function artJump(a,id){document.querySelectorAll('.art-toc a').forEach(x=>x.classList.remove('on'));a.classList.add('on');const el=document.getElementById(id);if(el)window.scrollTo({top:el.getBoundingClientRect().top+window.scrollY-96,behavior:'smooth'});}
 
 screens.architecture=()=>shell("",[{label:"Home",href:"#/home"},{label:"Architecture"}],`
   <section class="section">
@@ -4406,7 +4820,7 @@ screens.sitemap=()=>shell("",[{label:"Home",href:"#/home"},{label:"Site map"}],`
     <p class="sub">Every screen in this wireframe, in navigation order.</p>
     <div class="panel mt16"><div class="tree">Home  <a onclick="go('#/home')">#/home</a>
 ├── Thematic Datasets  <a onclick="go('#/thematic')">#/thematic</a>
-│   ├── Lens page (×3)  <a onclick="go('#/theme/water')">#/theme/:id</a>
+│   ├── Theme page (×3)  <a onclick="go('#/theme/water')">#/theme/:id</a>
 │   ├── Full map view  <a onclick="go('#/mapview/water')">#/mapview/:id</a>
 │   └── Explore Other Layers  <a onclick="go('#/repository')">→ Data Repository</a>
 ├── Data Repository  <a onclick="go('#/repository')">#/repository</a>
@@ -4469,14 +4883,6 @@ function render(){
   carBootAll();
 }
 function go(hash){if(location.hash===hash){render();}else{location.hash=hash;}}
-/* hstat on the Thematic Datasets page — jumps to the theme cards and flashes them, so clicking a count visibly does something */
-function jumpToThemeCards(note){
-  const el=document.getElementById('theme-cards');
-  if(!el){return;}
-  el.scrollIntoView({behavior:'smooth',block:'start'});
-  el.classList.remove('flash');void el.offsetWidth;el.classList.add('flash');
-  if(note)toast(note);
-}
 window.addEventListener("hashchange",render);
 
 /* ---- HELPERS ---- */
@@ -4592,11 +4998,18 @@ const LIVEMAPS=[];
 function liveMapChrome(label){
   return `<div class="lm-chrome">
     <button class="lm-layers" title="Layers" onclick="event.stopPropagation();toast('Layer panel')"><svg class=svgi><use href=#i-layers /></svg></button>
-    <div class="lm-search"><span>Search by location name</span><svg class=svgi><use href=#i-settings /></svg><svg class=svgi><use href=#i-search /></svg><svg class=svgi><use href=#i-menu /></svg></div>
+    <div class="lm-search" onclick="event.stopPropagation()"><input placeholder="Search by location name" oninput="lmSuggest(this)" onkeydown="lmKey(event,this)" onfocus="lmSuggest(this)" onblur="setTimeout(()=>lmHide(this),150)"><svg class=svgi><use href=#i-settings /></svg><svg class=svgi onclick="lmGo(this.parentNode.querySelector('input'))"><use href=#i-search /></svg><svg class=svgi><use href=#i-menu /></svg><div class="lm-sugg"></div></div>
     <div class="lm-zoom"><button onclick="event.stopPropagation();lmZoom(this,1)">+</button><button onclick="event.stopPropagation();lmZoom(this,-1)">−</button><button class="lm-3d" onclick="event.stopPropagation();toast('3D view')">3D</button><button onclick="event.stopPropagation();toast('More tools')">⋯</button></div>
     <div class="lm-mini"></div>
   </div>`;
 }
+const LM_PLACES=[["Mumbai",19.076,72.877,10],["Delhi",28.614,77.209,10],["New Delhi",28.614,77.209,10],["Bengaluru",12.972,77.594,10],["Hyderabad",17.385,78.487,10],["Chennai",13.083,80.27,10],["Kolkata",22.573,88.364,10],["Pune",18.52,73.856,10],["Ahmedabad",23.023,72.572,10],["Jaipur",26.912,75.787,10],["Lucknow",26.847,80.947,10],["Bhopal",23.26,77.413,10],["Indore",22.72,75.858,10],["Nagpur",21.146,79.088,10],["Surat",21.17,72.831,10],["Patna",25.594,85.138,10],["Ranchi",23.344,85.31,10],["Bhubaneswar",20.296,85.825,10],["Raipur",21.251,81.63,10],["Guwahati",26.144,91.736,10],["Dehradun",30.317,78.032,10],["Chandigarh",30.733,76.779,10],["Kochi",9.931,76.267,10],["Visakhapatnam",17.687,83.219,10],["Udaipur",24.585,73.712,10],["Bhilwara",25.347,74.641,10],["Mandalgarh",25.2,75.09,11],["Anantapur",14.681,77.6,10],["Kolhapur",16.705,74.243,10],["Nashik",19.997,73.79,10],["Rajasthan",26.9,73.8,6],["Gujarat",22.3,71.7,6],["Maharashtra",19.6,76.0,6],["Karnataka",15.0,75.7,6],["Andhra Pradesh",15.9,79.7,6],["Telangana",18.0,79.2,6],["Tamil Nadu",11.0,78.5,6],["Kerala",10.5,76.3,6],["Odisha",20.5,84.5,6],["Madhya Pradesh",23.3,78.0,6],["Chhattisgarh",21.3,82.0,6],["Jharkhand",23.6,85.5,6],["Bihar",25.8,85.7,6],["Uttar Pradesh",26.9,80.9,6],["Uttarakhand",30.1,79.2,7],["Himachal Pradesh",31.9,77.2,7],["Punjab",31.0,75.5,7],["Haryana",29.2,76.2,7],["West Bengal",23.5,87.8,6],["Assam",26.2,92.9,6],["Meghalaya",25.5,91.3,7],["Nagaland",26.1,94.5,7],["Sikkim",27.5,88.5,8],["Goa",15.3,74.1,9]];
+function lmMatch(q){q=q.trim().toLowerCase();if(!q)return[];const st=LM_PLACES.filter(p=>p[0].toLowerCase().startsWith(q)),sub=LM_PLACES.filter(p=>!st.includes(p)&&p[0].toLowerCase().indexOf(q)>-1);return st.concat(sub).slice(0,6);}
+function lmSuggest(inp){const box=inp.parentNode.querySelector('.lm-sugg');const hits=lmMatch(inp.value);box.innerHTML=hits.map(p=>`<div class="lm-opt" onmousedown="event.preventDefault();lmPick(this,'${p[0]}')"><svg class=svgi><use href=#i-map /></svg>${p[0]}<small>${p[3]<9?'State':'Place'}</small></div>`).join('');box.classList.toggle('open',hits.length>0);}
+function lmHide(inp){inp.parentNode.querySelector('.lm-sugg').classList.remove('open');}
+function lmPick(el,name){const inp=el.closest('.lm-search').querySelector('input');inp.value=name;lmHide(inp);lmGo(inp);}
+function lmKey(e,inp){if(e.key==='Enter'){e.preventDefault();lmGo(inp);}else if(e.key==='Escape'){lmHide(inp);inp.blur();}}
+function lmGo(inp){const host=inp.closest('.car-map');const m=host&&host._leaflet;const hit=lmMatch(inp.value)[0];lmHide(inp);if(!hit){toast('No location found for "'+inp.value.trim()+'"');return;}inp.value=hit[0];if(!m)return;if(host._lmPin)host._lmPin.remove();host._lmPin=L.circleMarker([hit[1],hit[2]],{radius:9,color:'#fff',weight:2,fillColor:'#d4a24c',fillOpacity:1}).addTo(m).bindTooltip(hit[0],{permanent:true,direction:'top',offset:[0,-8]}).openTooltip();m.flyTo([hit[1],hit[2]],hit[3],{duration:.9});}
 function lmZoom(btn,d){const host=btn.closest('.car-map');const m=host&&host._leaflet;if(m)m.setZoom(m.getZoom()+d);}
 function liveMap(el,seed,label,kind){
   el.innerHTML=`<div class="lm-canvas"></div>`+liveMapChrome(label);
