@@ -208,7 +208,7 @@ main{min-height:60vh;padding-bottom:3rem;animation:fade .3s ease}
 .acct-item .acct-ic{font-size:.95rem;flex:none}
 @media(max-width:760px){.acct-nav{position:static;flex-direction:row;flex-wrap:wrap;gap:.4rem}.acct-item{border-color:var(--line-2);background:#fff;margin-bottom:0}.acct-grid{grid-template-columns:1fr!important}}
 .pw-head{display:flex;align-items:center;gap:.7rem;padding:.7rem}
-.pw-head b{display:block;font-size:.92rem;color:var(--ink)}.pw-head span{font-size:.75rem;color:var(--muted-2)}
+.pw-head b{display:block;font-size:.92rem;color:var(--ink)}.pw-head span{font-size:.75rem;color:var(--muted-2)}.pw-head .pw-av{color:#fff}
 .pw-div{height:1px;background:var(--line);margin:.35rem 0}
 .pw-item{display:flex;align-items:center;gap:.65rem;width:100%;background:none;border:0;padding:.6rem .7rem;border-radius:.55rem;font:inherit;font-size:.9rem;
   font-weight:600;color:var(--ink);cursor:pointer;text-align:left}
@@ -2646,8 +2646,6 @@ function header(active){
     authArea=`<div class="profilew" id="profilew"><button class="profilew-btn" onclick="toggleProfileW(event)"><span class="pw-av">${ini}</span><span class="pw-name">${nm}</span><span class="pw-cv"><svg class=svgi><use href=#i-chevdown /></svg></span></button>`
       +`<div class="profilew-menu"><div class="pw-head"><span class="pw-av lg">${ini}</span><div><b>${nm}</b><span>Signed-in role · RBAC</span></div></div><div class="pw-div"></div>`
       +`<button class="pw-item" onclick="pwClose();go('#/profile')"><span class="pw-ic"><svg class=svgi><use href=#i-user /></svg></span> My Profile</button>`
-      +`<button class="pw-item" onclick="pwClose();go('#/uploads')"><span class="pw-ic"><svg class=svgi><use href=#i-upload /></svg></span> My Uploads &amp; Credits</button>`
-      +`<button class="pw-item" onclick="pwClose();go('#/bookmarks')"><span class="pw-ic"><svg class=svgi><use href=#i-bookmark /></svg></span> Bookmarks &amp; Lists</button>`
       +(roleCan('moderate')?`<button class="pw-item" onclick="pwClose();go('#/approvals')"><span class="pw-ic"><svg class=svgi><use href=#i-checkcircle /></svg></span> Approvals</button>`:'')
       +(roleCan('orgAdmin')||roleCan('platform')?`<button class="pw-item" onclick="pwClose();go('#/admin')"><span class="pw-ic"><svg class=svgi><use href=#i-wrench /></svg></span> Administration</button>`:'')
       +`<button class="pw-item" onclick="pwClose();go('#/password')"><span class="pw-ic"><svg class=svgi><use href=#i-key /></svg></span> Change Password</button>`
