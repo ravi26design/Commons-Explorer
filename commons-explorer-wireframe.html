@@ -3964,13 +3964,8 @@ screens['lcap-resources']=()=>shell("#/dss",[{label:"Home",href:"#/home"},{label
   </section>
 `);
 screens.lcap=()=>shell("#/dss",[{label:"Home",href:"#/home"},{label:"Decision Support System",href:"#/dss"},{label:"Landscape conservation action plan",href:"#/lcap-resources"},{label:"Map"}],`
-  <div class="between lcap-head">
-    <span class="wf-note" style="text-transform:none;letter-spacing:0;font-size:13px">Single GeoNode map</span>
-    <div class="row" style="gap:8px">
-      <a class="btn sm" onclick="bookmarkIt('Landscape conservation action plan')"><svg class=svgi><use href=#i-bookmark /></svg> Bookmark</a>
-      <a class="btn sm" onclick="toast('Share link')"><svg class=svgi><use href=#i-external /></svg> Share</a>
-      <a class="btn sm" onclick="window.open('${GEONODE_URL}','_blank')">Open in GeoNode</a>
-    </div>
+  <div class="between lcap-head" style="justify-content:flex-end">
+    <a class="btn sm" onclick="window.open('${GEONODE_URL}','_blank')">Open in GeoNode</a>
   </div>
   <div class="gnv lcap-viewer">
     <div class="gnv-body">
