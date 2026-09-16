@@ -4786,11 +4786,6 @@ screens.blog=(p)=>{
     <div class="art-meta">
       <span class="pw-av lg">${ini}</span>
       <div><div class="who"><b>${b[4]}</b></div><div class="when">${b[2]} · Commons Explorer team</div></div>
-      <div class="row" style="gap:8px;margin-left:auto">
-        <a class="btn sm" onclick="bookmarkIt('${b[0].replace(/'/g,'')}')"><svg class=svgi><use href=#i-bookmark /></svg> Save</a>
-        <a class="btn sm" onclick="toast('Share link copied')"><svg class=svgi><use href=#i-external /></svg> Share</a>
-        <a class="btn sm" onclick="toast('Print / PDF')"><svg class=svgi><use href=#i-print /></svg></a>
-      </div>
     </div>
   </div>
   <figure class="art-cover"><img src="${blogImg(b)}" alt=""><figcaption>Reading the commons together — an illustrated village session on shared resources. Illustration: Foundation for Ecological Security.</figcaption></figure>
@@ -4819,21 +4814,8 @@ screens.blog=(p)=>{
         <p>For a planner, a theme is a shortlist: open Water and the layers worth comparing are already side by side. For a community institution, it is a vocabulary that matches the questions raised in a meeting. For researchers, the gaps are the point: they show where field data would change the picture.</p>
         <h4>Try it yourself</h4>
         <p>Open the Water theme, switch between the groundwater and water-body performance maps for a district you know, and see whether the pattern matches what you see on the ground.</p>
-        <div class="row" style="gap:8px;margin:6px 0 4px"><a class="btn primary" onclick="go('#/theme/water')">Open the Water theme →</a><a class="btn" onclick="go('#/repository')">Browse the catalogue</a></div>
 
         <div class="art-tags">${['commons',b[3].toLowerCase(),'india','data'].map(t=>`<span class="tag" onclick="toast('Tag: ${t}')">#${t}</span>`).join("")}</div>
-
-        <div class="art-author">
-          <span class="pw-av lg">${ini}</span>
-          <div><b>${b[4]}</b>
-            <p>Writes about the platform and the data behind it for the Commons Explorer team at the Foundation for Ecological Security, drawing on field work with village institutions across central India.</p>
-            <a class="btn sm" onclick="toast('All posts by this author')">More posts by ${b[4].split(' ')[0]} →</a></div>
-        </div>
-
-        <div class="art-nav">
-          ${prev?`<a class="art-navcard" onclick="go('#/blog/${i-1}')"><span class="k">← Previous post</span><b>${prev[0]}</b></a>`:'<span></span>'}
-          ${next?`<a class="art-navcard next" onclick="go('#/blog/${i+1}')"><span class="k">Next post →</span><b>${next[0]}</b></a>`:'<span></span>'}
-        </div>
       </div>
 
       <aside class="art-side">
