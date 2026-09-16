@@ -3451,16 +3451,13 @@ screens.dataset=(p)=>{
           <div class="between" style="align-items:flex-start;gap:12px">
             <div style="min-width:0">
               <div class="row" style="gap:8px;margin-bottom:6px"><span class="rc-type-chip">${d.kind} · ${d.fmt}</span>${accessChip(d.access)}<span class="tag">${d.theme}</span></div>
-              <h2 style="margin:0 0 2px;font-size:24px"><svg class=svgi><use href=#i-db /></svg> ${d.t}</h2>
+              <h2 style="margin:0 0 2px;font-size:24px">${d.t}</h2>
               <p class="muted" style="margin:0">a ${rtype} from <b>${d.org}</b> · ${d.yr}</p>
             </div>
             <a class="btn primary" style="flex:0 0 auto" onclick="go('#/mapstudio')">View dataset</a>
           </div>
           <div class="row mt12" style="gap:8px;flex-wrap:wrap">
             <a class="btn sm" onclick="downloadDs('${d.id}')"><svg class=svgi><use href=#i-download /></svg> Download ${d.fmt}</a>
-            <a class="btn sm" onclick="bookmarkIt('${d.t.replace(/'/g,'')}')"><svg class=svgi><use href=#i-bookmark /></svg> Bookmark</a>
-            <a class="btn sm" onclick="toast('Share dialog')"><svg class=svgi><use href=#i-external /></svg> Share</a>
-            <a class="btn sm" onclick="toast('API endpoint / WMS link')"><svg class=svgi><use href=#i-globe /></svg> API &amp; WMS</a>
           </div>
           <div class="tabs mt16"><span class="tab active" onclick="resTab(this,'res-info')">Info</span><span class="tab" onclick="resTab(this,'res-location')">Location</span><span class="tab" onclick="resTab(this,'res-attributes')">Attributes</span></div>
           <div id="res-info" class="mt12">
