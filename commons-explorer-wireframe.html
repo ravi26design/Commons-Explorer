@@ -1889,7 +1889,7 @@ footer.site .fname{font-size:1.15rem;font-weight:800;letter-spacing:-.02em;color
 /* ---------- maps: live basemap chrome + CLART thematic map ---------- */
 .car-map{position:relative;min-height:330px;background:#eef0ea;overflow:hidden}
 .geo-embed{position:relative;min-height:330px;background:#eef0ea;overflow:hidden}
-.geo-embed iframe{position:absolute;left:0;right:0;top:-104px;width:100%;height:calc(100% + 104px);border:0;display:block}
+.geo-embed iframe{position:absolute;left:0;right:0;top:-104px;width:100%;height:calc(100% + 264px);border:0;display:block}
 .mapfull .geo-embed{position:absolute;inset:0;min-height:0}
 .car-shot .geo-embed{min-height:330px}
 .car-shot .car-map{min-height:330px}
@@ -2796,7 +2796,6 @@ function stageCarousel(id,items,ms){
               : `<div class="car-map" data-seed="${gi+1+groups.indexOf(g)*3}" data-label="${it[0].replace(/"/g,'')}" data-kind="${/clart/i.test(it[0]+' '+it[1])?'clart':/groundwater/i.test(it[0])?'wells':/water body/i.test(it[0])?'villages':''}" data-img="${/clart/i.test(it[0]+' '+it[1])?'assets/water-clart':/groundwater/i.test(it[0])?'assets/water-groundwater':/water body/i.test(it[0])?'assets/water-bodies':''}"></div>`}
           </div>
           <div class="car-pill">${it[0]}</div>
-          <div class="car-sub">${it[1]}</div>
         </div>`).join("")}
       </div></div>`).join("")}
     </div>
@@ -4059,7 +4058,7 @@ screens.springshed=()=>shell("#/dss",[{label:"Home",href:"#/home"},{label:"Decis
   <section class="section" style="padding-top:6px">
     <div class="grid" style="grid-template-columns:1.35fr 1fr;gap:26px;align-items:start">
       <div>
-        <div class="odk-chip"><span class="dot"></span>Springshed management flow · ODK-based · 10 steps</div>
+        <p class="sub" style="margin:0 0 1rem">Springshed management flow · ODK-based · 10 steps</p>
         <div class="stimeline">
           ${SPRING_STEPS.map(st=>`<div class="stl-item">
             <div class="stl-num">${st[0]}</div>
@@ -4082,8 +4081,7 @@ screens.springshed=()=>shell("#/dss",[{label:"Home",href:"#/home"},{label:"Decis
           <div class="fcap">Figure 2 — Discharge measurement using a container of known volume and a stop watch, and recording observations using ODK on mobile devices.</div>
         </div>
         <div class="figcard">
-          <div class="ph-img" style="min-height:190px">Spring inventory — location of springs in Rongara block</div>
-          <div class="row mt8" style="gap:14px"><span class="legend-sw"><i style="background:#1565C0"></i>Springs</span><span class="wf-note" style="margin-left:auto">6 km</span></div>
+          <div class="has-img" style="min-height:230px" onclick="toast('Spring inventory — Rongara block')">${mapMock(4)}</div>
           <div class="fcap">Figure 3 — Spring inventory map showing the occurrence of springs and their distribution across villages in the GE imagery.</div>
         </div>
         <div class="figcard">
