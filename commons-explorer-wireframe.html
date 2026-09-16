@@ -792,25 +792,25 @@ footer .bar{border-top:1px solid var(--line-2);padding:1.35rem 0 1.75rem;font-si
 .ve-h .min{border:0;background:none;cursor:pointer;color:var(--faint);font-size:1rem;line-height:1}
 .ve-glance{display:grid;grid-template-columns:repeat(4,1fr);gap:.75rem;padding:1rem}
 @media(max-width:1100px){.ve-glance{grid-template-columns:repeat(2,1fr)}}
-.gl{border:1px solid var(--line);border-radius:0;padding:.75rem;text-align:center;background:#fff}
-.gl .glt{font-size:.8rem;color:var(--muted);line-height:1.4;min-height:34px}
-.gl .glt sup{font-size:.62rem;color:var(--faint);margin-left:3px}
+.gl{border:1px solid var(--line);border-radius:0;padding:1.1rem 1rem 1.25rem;text-align:center;background:#fff}
+.gl .glt{font-size:.8rem;color:var(--muted);line-height:1.45;min-height:34px}
+.gl .glt sup{font-size:.64rem;color:var(--faint);margin-left:.3rem;vertical-align:.5em}
 .gl .pct{display:inline-grid;place-items:center;width:2.75rem;height:2.75rem;border-radius:50%;background:var(--green-soft);font-size:.82rem;font-weight:800;color:var(--green-d);margin:.5rem 0 .25rem}
 .gl .glimg{font-size:2.5rem;line-height:1;text-align:center;padding:.25rem 0 .1rem}
 .gl.clickable{cursor:pointer}
 .gl.clickable:hover{border-color:var(--green-line);box-shadow:var(--shadow-card)}
 .gl .gl-open{font-size:.7rem;font-weight:700;color:var(--green-d);margin-top:.4rem;opacity:0;transition:opacity .12s}
 .gl.clickable:hover .gl-open{opacity:1}
-.gl.veland{border-top:3px solid var(--tc);padding-top:1rem}
+.gl.veland{border-top:3px solid var(--tc);padding-top:1.2rem}
 .gl.veland:hover{border-color:var(--line);border-top-color:var(--tc)}
-.ve-ring-wrap{position:relative;width:5.2rem;height:5.2rem;margin:.35rem auto .5rem}
+.ve-ring-wrap{position:relative;width:5.2rem;height:5.2rem;margin:.6rem auto .65rem}
 .ve-ring{width:100%;height:100%;transform:rotate(-90deg)}
 .ve-ring-bg{fill:none;stroke:var(--line);stroke-width:2.6}
 .ve-ring-fg{fill:none;stroke:var(--tc);stroke-width:2.6;stroke-linecap:round}
 .ve-ring-pct{position:absolute;inset:0;display:grid;place-items:center;font-size:1.05rem;font-weight:800;color:var(--ink)}
-.gl .ve-ic{display:grid;place-items:center;width:2.1rem;height:2.1rem;margin:0 auto;background:color-mix(in srgb, var(--tc) 14%, #fff);color:var(--tc);flex:none}
+.gl .ve-ic{display:grid;place-items:center;width:2.1rem;height:2.1rem;margin:.15rem auto 0;background:color-mix(in srgb, var(--tc) 14%, #fff);color:var(--tc);flex:none}
 .gl .ve-ic .svgi{width:1.05rem;height:1.05rem}
-.gl.vesp{border-top:3px solid var(--tc);padding-top:1rem}
+.gl.vesp{border-top:3px solid var(--tc);padding-top:1.2rem}
 /* Village Explorer — layer map (full view) */
 .vemap{position:relative;min-height:600px;border:1px solid var(--line);border-radius:0;overflow:hidden;background:#eef2ea;
   background-image:linear-gradient(rgba(0,0,0,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(0,0,0,.03) 1px,transparent 1px);background-size:46px 46px;box-shadow:var(--shadow-card)}
@@ -873,7 +873,7 @@ footer .bar{border-top:1px solid var(--line-2);padding:1.35rem 0 1.75rem;font-si
 .region-h .min{width:1.5rem;height:1.5rem;border:0;background:none;cursor:pointer;color:var(--faint);font-size:1rem;line-height:1}
 .region-b{padding:1rem 1.15rem 1.25rem}
 .region-b label{display:block;font-size:.82rem;font-weight:700;color:var(--ink);margin:0 0 .4rem}
-.region-b select{width:100%;margin-bottom:1rem}
+.region-b select{width:100%;margin-bottom:1rem;padding-right:1.5rem}
 .region-b .nest{background:var(--bg-soft);border:1px solid var(--line);border-radius:0;padding:.75rem .9rem}
 .region-b .nest select{margin-bottom:0}
 .sheet{border:1px solid var(--line-2);border-radius:0;background:#fff;padding:.75rem;display:flex;flex-direction:column;gap:.55rem;box-shadow:var(--shadow-card);transition:.15s}
@@ -929,11 +929,11 @@ footer .bar{border-top:1px solid var(--line-2);padding:1.35rem 0 1.75rem;font-si
 .stl-item:not(:last-child)::before{content:"";position:absolute;left:22px;top:48px;bottom:-2px;width:2px;background:var(--line-2)}
 .stl-num{width:46px;height:46px;border-radius:50%;border:2px dashed var(--line-2);background:#fff;display:grid;place-items:center;font-weight:800;font-size:.9rem;color:var(--muted-2);z-index:1}
 .stl-item:first-child .stl-num{background:var(--green);border:0;color:#fff}
-.stl-card{border:1px solid var(--line);border-radius:0;background:#fff;padding:.85rem 1rem;cursor:pointer;box-shadow:var(--shadow-card);transition:border-color .12s,box-shadow .15s,transform .15s;align-self:start}
-.stl-card:hover{border-color:var(--green-line);box-shadow:var(--shadow-lift);transform:translateY(-2px)}
-.stl-card h4{margin:0;font-size:1.02rem;color:var(--ink)}
-.stl-sub{font-size:.76rem;color:var(--muted-2);margin-top:.2rem}
-.stl-note{margin-top:.65rem;border-left:3px solid var(--green);background:var(--green-soft);border-radius:0;padding:.6rem .8rem;font-size:.82rem;line-height:1.55;color:var(--ink-2)}
+.stl-card{border:1px solid var(--line);border-top:3px solid var(--green-line);border-radius:0;background:#fff;padding:1.1rem 1.25rem;cursor:pointer;box-shadow:var(--shadow-card);transition:border-color .12s,box-shadow .15s,transform .15s;align-self:start}
+.stl-card:hover{border-color:var(--green-line);border-top-color:var(--green);box-shadow:var(--shadow-lift);transform:translateY(-2px)}
+.stl-card h4{margin:0;font-size:1.08rem;line-height:1.3;color:var(--ink)}
+.stl-sub{font-size:.78rem;color:var(--muted-2);margin-top:.3rem}
+.stl-note{margin-top:.85rem;border-left:3px solid var(--green);background:var(--green-soft);border-radius:0;padding:.7rem .95rem;font-size:.83rem;line-height:1.6;color:var(--ink-2)}
 .stl-note h5{margin:0 0 .4rem;font-size:.78rem;font-weight:800;color:var(--ink)}
 .stl-note ul{margin:0;padding-left:1rem}.stl-note li{margin:.2rem 0}
 
@@ -2397,11 +2397,20 @@ body.ds-mapfull{overflow:hidden}
 .f-brand .fname{margin:0;line-height:1.25}
 footer.site .bar{display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap}
 .f-social{display:flex;align-items:center;gap:.6rem}
-.f-social a{width:2.2rem;height:2.2rem;border-radius:50%;background:var(--green);color:#fff;display:grid;place-items:center;transition:background .15s,transform .15s}
-.f-social a:hover{background:var(--green-d);transform:translateY(-2px)}
+.f-social a{width:2.2rem;height:2.2rem;display:grid;place-items:center;transition:background .15s,border-color .15s,color .15s,transform .15s}
+.f-social a:hover{transform:translateY(-2px)}
 .f-social .svgi{width:1.05rem;height:1.05rem}
 .f-social .svgi:not(.ig-icon){fill:currentColor;stroke:none}
 .f-social .ig-icon{stroke-width:2.2}
+.f-social .soc-circle{border-radius:50%;background:var(--green);color:#fff}
+.f-social .soc-circle:hover{background:var(--green-d)}
+.f-social .soc-square{border-radius:.5rem;background:var(--green);color:#fff}
+.f-social .soc-square:hover{background:var(--green-d)}
+.f-social .soc-outline{background:#fff;border:1.5px solid var(--green);color:var(--green)}
+.f-social .soc-outline:hover{background:var(--green-soft)}
+.f-social .soc-bare{background:transparent;color:var(--green-d)}
+.f-social .soc-bare:hover{color:var(--green)}
+.f-social .soc-bare .svgi{width:1.15rem;height:1.15rem}
 @media(max-width:560px){footer.site .bar{justify-content:center;text-align:center}}
 </style>
 </head>
@@ -2675,10 +2684,10 @@ function footer(){
     <div class="bar">
       <span>CC-BY 4.0 License. Commons Platform.</span>
       <div class="f-social">
-        <a href="https://www.linkedin.com/company/fesforcommons/" target="_blank" rel="noopener" title="LinkedIn" aria-label="LinkedIn"><svg class=svgi><use href=#i-linkedin /></svg></a>
-        <a href="https://www.facebook.com/share/19Xt5o8wvc/?mibextid=qi2Omg" target="_blank" rel="noopener" title="Facebook" aria-label="Facebook"><svg class=svgi><use href=#i-facebook /></svg></a>
-        <a href="https://x.com/fesforcommons?t=9aOzGhYBOQt54ykZRFzqog&s=08" target="_blank" rel="noopener" title="X (Twitter)" aria-label="X (Twitter)"><svg class=svgi><use href=#i-social-x /></svg></a>
-        <a href="https://www.instagram.com/fesforcommons?igsh=MTZqeHduOXpuOGc2cg==" target="_blank" rel="noopener" title="Instagram" aria-label="Instagram"><svg class="svgi ig-icon"><use href=#i-instagram /></svg></a>
+        <a class="soc-circle" href="https://www.facebook.com/share/19Xt5o8wvc/?mibextid=qi2Omg" target="_blank" rel="noopener" title="Facebook" aria-label="Facebook"><svg class=svgi><use href=#i-facebook /></svg></a>
+        <a class="soc-square soc-outline" href="https://www.instagram.com/fesforcommons?igsh=MTZqeHduOXpuOGc2cg==" target="_blank" rel="noopener" title="Instagram" aria-label="Instagram"><svg class="svgi ig-icon"><use href=#i-instagram /></svg></a>
+        <a class="soc-bare" href="https://x.com/fesforcommons?t=9aOzGhYBOQt54ykZRFzqog&s=08" target="_blank" rel="noopener" title="X (Twitter)" aria-label="X (Twitter)"><svg class=svgi><use href=#i-social-x /></svg></a>
+        <a class="soc-square" href="https://www.linkedin.com/company/fesforcommons/" target="_blank" rel="noopener" title="LinkedIn" aria-label="LinkedIn"><svg class=svgi><use href=#i-linkedin /></svg></a>
       </div>
     </div>
   </div></footer>`;
