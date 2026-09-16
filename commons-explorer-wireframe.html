@@ -3614,7 +3614,7 @@ screens.insights=()=>shell("#/insights",[{label:"Home",href:"#/home"},{label:"An
 /* ---- SRS §2.2.3.2.1 Map Studio ---- */
 /* GeoNode application chrome, reused by the Regional Atlas carousel */
 const GNV_LAYERS=[["North-East FWE a\u2026",0,"<svg class=svgi><use href=#i-folder /></svg>"],["Administrative bo\u2026",0,"\u25a0"],["Biodiversity",0,"\u25a0"],["Forests",0,"\u25a0"],["Water",0,"\u25a0"],["Geology",1,"\u25a0"]];
-function gnViewer(region,idx){
+function gnViewer(region,idx,url){
   return `<div class="gnv">
     <div class="gnv-body">
       <div class="gnv-side">
@@ -3626,30 +3626,33 @@ function gnViewer(region,idx){
             <span class="gr">\u2261</span><span class="eye">${l[1]?'<svg class=svgi><use href=#i-eye /></svg>':'\u2298'}</span><span class="nm">${l[0]}</span><span>${l[2]}</span></div>`).join("")}
         </div>
       </div>
-      <div class="gnv-canvas" onclick="toast('${region} \u2014 pan / zoom the atlas')">
-        <div class="car-map" style="position:absolute;inset:0" data-seed="${(idx||0)+1}" data-label="${region}" data-kind="villages"></div>
+      <div class="gnv-canvas" ${url?'':`onclick="toast('${region} \u2014 pan / zoom the atlas')"`}>
+        ${url
+          ? `<div class="geo-embed" style="position:absolute;inset:0"><iframe src="${url}" title="${region}" loading="lazy"></iframe></div>`
+          : `<div class="car-map" style="position:absolute;inset:0" data-seed="${(idx||0)+1}" data-label="${region}" data-kind="villages"></div>
         <div class="gnv-loc" onclick="event.stopPropagation()"><span style="flex:1">Search by location name</span><span><svg class=svgi><use href=#i-settings /></svg></span><span><svg class=svgi><use href=#i-search /></svg></span><span><svg class=svgi><use href=#i-menu /></svg></span></div>
         <div class="gnv-mini"></div>
-        <div class="gnv-zoom"><button onclick="event.stopPropagation();toast('Zoom in')">\uff0b</button><button onclick="event.stopPropagation();toast('Zoom out')">\u2212</button><button onclick="event.stopPropagation();toast('More')">\u22ef</button></div>
+        <div class="gnv-zoom"><button onclick="event.stopPropagation();toast('Zoom in')">\uff0b</button><button onclick="event.stopPropagation();toast('Zoom out')">\u2212</button><button onclick="event.stopPropagation();toast('More')">\u22ef</button></div>`}
       </div>
     </div>
   </div>`;
 }
 /* Regional Atlas carousel — one atlas per slide */
-const ATLAS_REGIONS=["NE","Papagani","Upper Bhima Basin"];
+const ATLAS_REGIONS=["NE","Papagani",["Upper Bhima Basin","https://geonode.indiaobservatory.org.in/catalogue/#/map/110"]];
 function regionCarousel(id,regions,ms){
   CAROUSELS[id]={i:0,n:regions.length,timer:null,ms:ms||6000};
+  const nm=r=>Array.isArray(r)?r[0]:r, ur=r=>Array.isArray(r)?r[1]:null;
   return `<div class="carousel" id="${id}">
     <span class="car-auto">Auto-slide \u00b7 ${(ms||6000)/1000}s</span>
     <button class="car-nav prev" onclick="carGo('${id}',-1)" aria-label="Previous">\u2039</button>
     <button class="car-nav next" onclick="carGo('${id}',1)" aria-label="Next">\u203a</button>
     <div class="car-track" id="${id}-track">
       ${regions.map((r,i)=>`<div class="car-slide"><div style="padding:18px 22px 8px;background:var(--panel-2)">
-        ${gnViewer(r,i)}
-        <div style="text-align:center"><span class="car-pill" style="position:static;display:inline-block;margin-top:14px">${r}</span></div>
+        ${gnViewer(nm(r),i,ur(r))}
+        <div style="text-align:center"><span class="car-pill" style="position:static;display:inline-block;margin-top:14px">${nm(r)}</span></div>
       </div></div>`).join("")}
     </div>
-    <div class="car-dots">${regions.map((r,i)=>`<button class="car-dot ${i?'':'on'}" onclick="carSet('${id}',${i})" aria-label="${r}"></button>`).join("")}</div>
+    <div class="car-dots">${regions.map((r,i)=>`<button class="car-dot ${i?'':'on'}" onclick="carSet('${id}',${i})" aria-label="${nm(r)}"></button>`).join("")}</div>
   </div>`;
 }
 
@@ -3662,7 +3665,7 @@ screens.mapstudio=()=>shell("#/insights",[{label:"Home",href:"#/home"},{label:"A
   </section>
 
   <section class="section" style="padding-top:0">
-    ${regionCarousel('mapstudio-car',['NE','Papagani','Upper Bhima Basin'])}
+    ${regionCarousel('mapstudio-car',ATLAS_REGIONS)}
   </section>
 
   <section class="section">
