@@ -3207,11 +3207,6 @@ screens.thematic=()=>shell("#/thematic",[{label:"Home",href:"#/home"},{label:"Th
 screens.theme=(p)=>{
   const t=themeById(p.id);
   return shell("#/thematic",[{label:"Home",href:"#/home"},{label:"Thematic Datasets",href:"#/thematic"},{label:t.name}],`
-  <section class="section" style="padding-bottom:14px">
-    <h2 style="font-size:24px;margin:0 0 6px">${t.name}</h2>
-    <p class="sub">${t.desc}</p>
-  </section>
-
   <section class="section" style="padding-top:18px">
     ${stageCarousel('theme-car',t.maps.map((m,i)=>[m[0],m[1],`go('#/mapview/${t.id}/${i}')`,m[2]]))}
   </section>
