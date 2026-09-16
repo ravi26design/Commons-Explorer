@@ -1139,6 +1139,8 @@ footer .bar{border-top:1px solid var(--line-2);padding:1.35rem 0 1.75rem;font-si
 .mtable tr:last-child td{border-bottom:none}
 .mtable tbody tr:hover td{background:var(--bg-soft)}
 .mtable td b{color:var(--ink);font-weight:700}
+.pivot-num th:not(:first-child),.pivot-num td:not(:first-child){text-align:right;font-variant-numeric:tabular-nums}
+.pivot-num tbody tr:hover td{filter:brightness(.97)}
 .tblwrap{overflow-x:auto;border:1px solid var(--line);border-radius:0;background:#fff;box-shadow:var(--shadow-card)}
 
 /* language switcher */
@@ -3764,8 +3766,14 @@ screens['ai-report']=()=>{
 
 /* ---- SRS §2.2.3.2.2 Data Analytics (non-spatial) ---- */
 const PIVOT_ROWS=[["Baniyagaon",2,5,6,0],["Barada","","",0,0],["Bhetasi Ba Bhag",0,3,3,1],["Bimbola",5,6,3,8],["Borgaon(mundhari)",2,3,4,3],["Dehti",1,0,3,1],["Derala",2,2,2,1],["Fatkei",3,4,5,3],["Gobind Rampur",2,2,2,0],["Jenasahu Patna",2,1,2,1],["Khonshnong",1,2,2,0],["Mandapal",6,9,7,10],["Sarauta",0,3,2,2],["Talagotha",4,5,5,9]];
-function heat(v){ if(v==='')return ''; const n=Math.min(10,Number(v)); const a=(n/10*0.30).toFixed(2); return `background:rgba(60,60,60,${a})`; }
-screens.analytics=()=>shell("#/insights",[{label:"Home",href:"#/home"},{label:"Analytical Engine",href:"#/insights"},{label:"Data Analytics"}],`
+function heat(v){ if(v==='')return ''; const n=Math.min(10,Number(v)); const a=(n/10*0.55).toFixed(2); return `background:rgba(78,124,89,${a})`; }
+const PIVOT_SECTIONS=["Collective Action","Control Over Resources","Leadership","Women's Participation"];
+screens.analytics=()=>{
+  const vals=PIVOT_ROWS.flatMap(r=>r.slice(1)).filter(v=>v!=='').map(Number);
+  const avg=(vals.reduce((a,b)=>a+b,0)/vals.length).toFixed(1);
+  const totals=PIVOT_ROWS.map(r=>[r[0],r.slice(1).filter(v=>v!=='').reduce((a,b)=>a+Number(b),0)]);
+  const top=totals.reduce((a,b)=>b[1]>a[1]?b:a);
+  return shell("#/insights",[{label:"Home",href:"#/home"},{label:"Analytical Engine",href:"#/insights"},{label:"Data Analytics"}],`
   <section class="section" style="padding-bottom:14px">
     <div class="between">
       <div><h2 class="mb0" style="font-size:24px">Data Analytics</h2></div>
@@ -3773,20 +3781,29 @@ screens.analytics=()=>shell("#/insights",[{label:"Home",href:"#/home"},{label:"A
     <p class="sub">Explore tabular, indicator-based and time-series data through Apache Superset dashboards, charts and comparative metrics.</p>
   </section>
   <section class="section" style="padding-top:0">
+    <div class="grid g4 mb16">
+      <div class="kpi"><div class="k">Villages tracked</div><b>${PIVOT_ROWS.length}</b><div class="d">In this dashboard</div></div>
+      <div class="kpi"><div class="k">Sections scored</div><b>${PIVOT_SECTIONS.length}</b><div class="d">Per village, 0–10 scale</div></div>
+      <div class="kpi"><div class="k">Average score</div><b>${avg}</b><div class="d">Across all sections</div></div>
+      <div class="kpi"><div class="k">Top performer</div><b>${top[0]}</b><div class="d">Highest combined score · ${top[1]}</div></div>
+    </div>
     <div class="panel">
-      <div class="between" style="align-items:center;margin-bottom:1rem">
+      <div class="between" style="align-items:center;margin-bottom:1rem;flex-wrap:wrap;gap:.6rem">
         <div><b>Village Wise Section Score</b><div class="wf-note">Superset · pivot table · public.Village Wise Section Score</div></div>
-        <a class="btn sm" onclick="go('#/gallery')">Open in Gallery</a>
+        <div class="row" style="gap:.9rem;align-items:center">
+          <span class="row" style="gap:.4rem;align-items:center;font-size:.72rem;color:var(--muted-2)">Low<span style="width:70px;height:8px;background:linear-gradient(90deg,rgba(78,124,89,.05),rgba(78,124,89,.6));display:inline-block;border:1px solid var(--line)"></span>High</span>
+          <a class="btn sm" onclick="go('#/gallery')">Open in Gallery</a>
+        </div>
       </div>
       <div class="tblwrap">
-        <table class="mtable">
+        <table class="mtable pivot-num">
           <thead><tr><th>Village</th><th>Collective Action</th><th>Control Over Resources</th><th>Leadership</th><th>Women's Participation</th></tr></thead>
-          <tbody>${PIVOT_ROWS.map(r=>`<tr><td>${r[0]}</td><td style="${heat(r[1])}">${r[1]}</td><td style="${heat(r[2])}">${r[2]}</td><td style="${heat(r[3])}">${r[3]}</td><td style="${heat(r[4])}">${r[4]}</td></tr>`).join("")}</tbody>
+          <tbody>${PIVOT_ROWS.map(r=>`<tr><td><b>${r[0]}</b></td><td style="${heat(r[1])}">${r[1]===''?'–':r[1]}</td><td style="${heat(r[2])}">${r[2]===''?'–':r[2]}</td><td style="${heat(r[3])}">${r[3]===''?'–':r[3]}</td><td style="${heat(r[4])}">${r[4]===''?'–':r[4]}</td></tr>`).join("")}</tbody>
         </table>
       </div>
     </div>
   </section>
-`);
+`);};
 
 /* ---- SRS §2.2.3.2.3 Gallery of User generated Content ---- */
 const GNC_RES=[
