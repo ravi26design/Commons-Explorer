@@ -3309,6 +3309,13 @@ const GX_RES=[
   ["Commons of Mandalgarh — a geo-story","Narrative walk-through of the block's common lands, combining maps, charts and photographs.","GeoStory","psharma","#/gallery-item/g-06"],
   ["Village indicators dashboard","Superset dashboard of census-derived socio-economic indicators, filterable by district and block.","Dashboard","ajoshi","#/gallery-item/g-02"]
 ];
+const GX_LATEST=[
+  ["Tools data","Tools data under the Data Repository — coverage, source and method of preparation, attribute schema and known limitations.","Map","admin","https://geonode2.indiaobservatory.org.in/catalogue/#/map/228"],
+  ["Common land - Census","Common land - Census under the Data Repository — coverage, source and method of preparation, attribute schema and known limitations.","Map","admin","https://geonode2.indiaobservatory.org.in/catalogue/#/map/130"],
+  ["FRA potential - Jharkhand","FRA potential - Jharkhand under the Data Repository — coverage, source and method of preparation, attribute schema and known limitations.","Map","admin","https://geonode2.indiaobservatory.org.in/catalogue/#/map/149"],
+  ["Our Commons","Our Commons under the Data Repository — coverage, source and method of preparation, attribute schema and known limitations.","Map","admin","https://geonode2.indiaobservatory.org.in/catalogue/#/map/181"]
+];
+function gxOpen(href){ href.indexOf('http')===0 ? window.open(href,'_blank') : go(href); }
 
 /* GeoNode catalogue — used by Data Repository and by Explore Other Layers */
 const GX_TC={"All":"var(--green)","Datasets":"var(--c-browse)","Dataset":"var(--c-browse)","Maps":"var(--c-mapstudio)","Map":"var(--c-mapstudio)","GeoStories":"var(--c-gallery)","GeoStory":"var(--c-gallery)","Dashboards":"var(--c-analytics)","Dashboard":"var(--c-analytics)"};
@@ -3373,13 +3380,13 @@ function gxCatalogue(tab,opts){
 function gxLatestCards(){
   return `<section class="gx-latest">
     <h2 class="repo-title" style="margin:0 0 1rem">Latest additions</h2>
-    <div class="gx-latest-grid">${GX_RES.slice(0,4).map((r,i)=>`<div class="rescard" onclick="go('${r[4]}')">
-      <div class="ph-img rth">${r[2].indexOf('Dashboard')>-1?'Dashboard preview — Superset':r[2].indexOf('GeoStory')>-1?'Geo-story preview':'Layer preview — GeoNode'}</div>
+    <div class="gx-latest-grid">${GX_LATEST.map((r,i)=>`<div class="rescard" onclick="gxOpen('${r[4]}')">
+      <div class="ph-img rth">Layer preview — GeoNode</div>
       <div class="rb">
         <span class="gn-kind" style="--tc:${GX_TC[r[2].split(' ')[0]]||'var(--green)'}">${r[2]}</span>
         <h4>${r[0]}</h4>
         <p>${r[1]}</p>
-        <div class="rf"><span class="gx-owner"><span class="pw-av">${r[3].slice(0,2).toUpperCase()}</span>${r[3]} · added ${31-i} Aug 2025</span><span class="row" style="gap:.5rem;align-items:center"><button class="rf-bk" title="Bookmark" onclick="event.stopPropagation();bookmarkIt('${r[0].replace(/'/g,'')}')"><svg class=svgi><use href=#i-bookmark /></svg></button><span class="btn sm" onclick="event.stopPropagation();go('${r[4]}')">View →</span></span></div>
+        <div class="rf"><span class="gx-owner"><span class="pw-av">${r[3].slice(0,2).toUpperCase()}</span>${r[3]} · added ${31-i} Aug 2025</span><span class="row" style="gap:.5rem;align-items:center"><button class="rf-bk" title="Bookmark" onclick="event.stopPropagation();bookmarkIt('${r[0].replace(/'/g,'')}')"><svg class=svgi><use href=#i-bookmark /></svg></button><span class="btn sm" onclick="event.stopPropagation();gxOpen('${r[4]}')">View →</span></span></div>
       </div>
     </div>`).join("")}</div>
   </section>`;
