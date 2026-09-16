@@ -3614,7 +3614,7 @@ screens.insights=()=>shell("#/insights",[{label:"Home",href:"#/home"},{label:"An
 /* ---- SRS §2.2.3.2.1 Map Studio ---- */
 /* GeoNode application chrome, reused by the Regional Atlas carousel */
 const GNV_LAYERS=[["North-East FWE a\u2026",0,"<svg class=svgi><use href=#i-folder /></svg>"],["Administrative bo\u2026",0,"\u25a0"],["Biodiversity",0,"\u25a0"],["Forests",0,"\u25a0"],["Water",0,"\u25a0"],["Geology",1,"\u25a0"]];
-function gnViewer(region){
+function gnViewer(region,idx){
   return `<div class="gnv">
     <div class="gnv-body">
       <div class="gnv-side">
@@ -3627,8 +3627,8 @@ function gnViewer(region){
         </div>
       </div>
       <div class="gnv-canvas" onclick="toast('${region} \u2014 pan / zoom the atlas')">
-        ${region} atlas extent
-        <div class="gnv-loc"><span style="flex:1">Search by location name</span><span><svg class=svgi><use href=#i-settings /></svg></span><span><svg class=svgi><use href=#i-search /></svg></span><span><svg class=svgi><use href=#i-menu /></svg></span></div>
+        <div class="car-map" style="position:absolute;inset:0" data-seed="${(idx||0)+1}" data-label="${region}" data-kind="villages"></div>
+        <div class="gnv-loc" onclick="event.stopPropagation()"><span style="flex:1">Search by location name</span><span><svg class=svgi><use href=#i-settings /></svg></span><span><svg class=svgi><use href=#i-search /></svg></span><span><svg class=svgi><use href=#i-menu /></svg></span></div>
         <div class="gnv-mini"></div>
         <div class="gnv-zoom"><button onclick="event.stopPropagation();toast('Zoom in')">\uff0b</button><button onclick="event.stopPropagation();toast('Zoom out')">\u2212</button><button onclick="event.stopPropagation();toast('More')">\u22ef</button></div>
       </div>
@@ -3644,8 +3644,8 @@ function regionCarousel(id,regions,ms){
     <button class="car-nav prev" onclick="carGo('${id}',-1)" aria-label="Previous">\u2039</button>
     <button class="car-nav next" onclick="carGo('${id}',1)" aria-label="Next">\u203a</button>
     <div class="car-track" id="${id}-track">
-      ${regions.map(r=>`<div class="car-slide"><div style="padding:18px 22px 8px;background:var(--panel-2)">
-        ${gnViewer(r)}
+      ${regions.map((r,i)=>`<div class="car-slide"><div style="padding:18px 22px 8px;background:var(--panel-2)">
+        ${gnViewer(r,i)}
         <div style="text-align:center"><span class="car-pill" style="position:static;display:inline-block;margin-top:14px">${r}</span></div>
       </div></div>`).join("")}
     </div>
