@@ -3283,6 +3283,24 @@ screens.mapview=(p)=>{
   </div>
 `);};
 
+/* ---- DSS card previews that reuse a thematic map but keep the DSS breadcrumb ---- */
+function dssMapPreview(name,themeId,idx){
+  const t=themeById(themeId); const m=t.maps[idx];
+  return shell("#/dss",[{label:"Home",href:"#/home"},{label:"Decision Support System",href:"#/dss"},{label:name}],`
+  <div class="mapfull">
+    ${m[2]
+      ? `<div class="geo-embed"><iframe src="${m[2]}" title="${m[0].replace(/"/g,'')}" loading="lazy"></iframe></div>`
+      : `<div class="car-map" data-seed="${idx+1}" data-label="${m[0].replace(/"/g,'')}" data-kind="${mapKindFor(m[0],m[1])}" data-img="${mapImgFor(m[0],m[1])}"></div>`}
+    <div class="mf-bar">
+      <button class="mf-back" onclick="go('#/dss')" title="Back to Decision Support System"><svg class=svgi><use href=#i-chevdown /></svg></button>
+      <div class="mf-tx"><span class="mf-kicker">Decision Support · V2 planned</span><b>${name}</b><span class="mf-sub">${m[1]}</span></div>
+      <div class="mf-acts"><button class="nav-ic" title="Bookmark" onclick="bookmarkIt('${name}')"><svg class=svgi><use href=#i-bookmark /></svg></button><button class="nav-ic" title="Share" onclick="toast('Share link')"><svg class=svgi><use href=#i-external /></svg></button><button class="nav-ic" title="Print" onclick="toast('Print map')"><svg class=svgi><use href=#i-print /></svg></button></div>
+    </div>
+  </div>
+`);}
+screens['waterbody-performance']=()=>dssMapPreview('Waterbody performance','water',1);
+screens['landcover-analysis']=()=>dssMapPreview('Landcover analysis','forest',2);
+
 /* ---- Explore Other Layers — full GeoNode catalogue (from the Thematic Datasets lens picker) ---- */
 const GX_RES=[
   ["Landuse/landcover 1999","The LU/LC classification system for the Papagni watershed has been carried out on 1:50,000 scale using satellite imagery.","Dataset · Vector","admin","#/dataset/ds-04"],
@@ -3925,8 +3943,8 @@ screens.dss=()=>shell("#/dss",[{label:"Home",href:"#/home"},{label:"Decision Sup
   <section class="section" style="padding-top:3rem">
     <div class="grid g2 mod-grid">
       ${lensCard({tc:"var(--c-forest)",img:"assets/photo-8.jpg",tag:"V2 · planned",name:"Landscape conservation action plan",meta:"Map · tracker · resources",desc:"Landscape-scale action plans — a map workspace, a 14-step LCAP tracker and the resources behind the initiative.",chips:["Map workspace","14-step tracker","Resources"],cta:"Preview the LCAP module",href:"#/lcap-resources"})}
-      ${lensCard({tc:"var(--c-waterbody)",img:"assets/photo-4.jpg",tag:"V2 · planned",name:"Waterbody performance",meta:"Thematic map · Water theme",desc:"Good / moderate / poor performance of water bodies, to prioritise which ones need repair or restoration first.",chips:["Performance status","Restoration priority","Maharashtra"],cta:"Preview Waterbody performance",href:"#/mapview/water/1"})}
-      ${lensCard({tc:"var(--c-lulc)",img:"assets/photo-7.jpg",tag:"V2 · planned",name:"Landcover analysis",meta:"Thematic map · Land theme",desc:"Land-use / land-cover change detection across forests and revenue lands, to track what's shifting and where.",chips:["LULC change","Forest cover","Landcover 2022"],cta:"Preview Landcover analysis",href:"#/mapview/forest/2"})}
+      ${lensCard({tc:"var(--c-waterbody)",img:"assets/photo-4.jpg",tag:"V2 · planned",name:"Waterbody performance",meta:"Thematic map · Water theme",desc:"Good / moderate / poor performance of water bodies, to prioritise which ones need repair or restoration first.",chips:["Performance status","Restoration priority","Maharashtra"],cta:"Preview Waterbody performance",href:"#/waterbody-performance"})}
+      ${lensCard({tc:"var(--c-lulc)",img:"assets/photo-7.jpg",tag:"V2 · planned",name:"Landcover analysis",meta:"Thematic map · Land theme",desc:"Land-use / land-cover change detection across forests and revenue lands, to track what's shifting and where.",chips:["LULC change","Forest cover","Landcover 2022"],cta:"Preview Landcover analysis",href:"#/landcover-analysis"})}
       ${lensCard({tc:"var(--c-atlas)",img:"assets/photo-3.jpg",tag:"V1 · live",name:"Panchayat Atlas",meta:"Decision support module · sign-in required",desc:"Map-based decision support at Gram Panchayat level — administrative boundaries with multi-sectoral layers, indicator dashboards and temporal comparison.",chips:["Admin boundaries","Sectoral layers","Indicator dashboards"],cta:"Open the Panchayat Atlas",href:"#/atlas"})}
     </div>
   </section>
