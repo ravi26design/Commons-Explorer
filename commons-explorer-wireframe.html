@@ -3768,17 +3768,22 @@ function heat(v){ if(v==='')return ''; const n=Math.min(10,Number(v)); const a=(
 screens.analytics=()=>shell("#/insights",[{label:"Home",href:"#/home"},{label:"Analytical Engine",href:"#/insights"},{label:"Data Analytics"}],`
   <section class="section" style="padding-bottom:14px">
     <div class="between">
-      <div><div class="eyebrow">Analytical Engine · non-spatial analytics</div><h2 class="mb0" style="font-size:24px">Data Analytics</h2></div>
+      <div><h2 class="mb0" style="font-size:24px">Data Analytics</h2></div>
     </div>
     <p class="sub">Explore tabular, indicator-based and time-series data through Apache Superset dashboards, charts and comparative metrics.</p>
   </section>
   <section class="section" style="padding-top:0">
-    <div class="panel" style="text-align:center;padding:3.5rem 2rem">
-      <div class="icon-box" style="width:3.2rem;height:3.2rem;font-size:1.4rem;margin:0 auto 1rem"><svg class=svgi><use href=#i-trend /></svg></div>
-      <div class="eyebrow" style="margin:0 auto 1rem">Coming soon</div>
-      <h3 style="margin:0 0 .6rem">The Apache Superset integration is in progress</h3>
-      <p class="muted" style="max-width:34rem;margin:0 auto 1.5rem">Data Analytics is disabled for now while the Superset connection is built. It will offer tabular, indicator-based and time-series analysis once that work is complete.</p>
-      <div class="row" style="justify-content:center;gap:.75rem"><a class="btn primary" onclick="go('#/gallery')">Browse dashboards in the Gallery</a><a class="btn" onclick="go('#/mapstudio')">Open Map Studio instead</a></div>
+    <div class="panel">
+      <div class="between" style="align-items:center;margin-bottom:1rem">
+        <div><b>Village Wise Section Score</b><div class="wf-note">Superset · pivot table · public.Village Wise Section Score</div></div>
+        <a class="btn sm" onclick="go('#/gallery')">Open in Gallery</a>
+      </div>
+      <div class="tblwrap">
+        <table class="mtable">
+          <thead><tr><th>Village</th><th>Collective Action</th><th>Control Over Resources</th><th>Leadership</th><th>Women's Participation</th></tr></thead>
+          <tbody>${PIVOT_ROWS.map(r=>`<tr><td>${r[0]}</td><td style="${heat(r[1])}">${r[1]}</td><td style="${heat(r[2])}">${r[2]}</td><td style="${heat(r[3])}">${r[3]}</td><td style="${heat(r[4])}">${r[4]}</td></tr>`).join("")}</tbody>
+        </table>
+      </div>
     </div>
   </section>
 `);
