@@ -1735,6 +1735,11 @@ button.lg-input.dd-btn .dd-cv{color:var(--faint);width:1rem;height:1rem}
 
 /* pages held back for now — visible in the nav, not clickable */
 .nav a.navlink.soon,.nav .nav-user.soon{pointer-events:none;cursor:default}
+.mod-tile.soon{cursor:default;opacity:.6}
+.mod-tile.soon:hover{transform:none;box-shadow:none;border-color:var(--line)}
+.mod-tile.soon:hover::after{transform:scaleX(0)}
+.mod-tile.soon:hover h3{color:inherit}
+.mod-tile.soon .mc-media,.mod-tile.soon .mc-head,.mod-tile.soon p,.mod-tile.soon .mc-foot,.mod-tile.soon .mc-chip{cursor:default;pointer-events:none}
 
 /* header links — larger and bold */
 .nav a.navlink,.nav a.navlink.soon{font-weight:700;color:var(--ink)}
@@ -2601,6 +2606,8 @@ function loginPickRole(i){loginRole=i;const f=document.getElementById('loginRole
 function loginSubmit(){loginAs(loginRole);}
 
 /* ============ NAV / SHELL ============ */
+/* TEMP: top nav + home pathway cards disabled while the internal pages are held back. Flip to false to restore. */
+const LANDING_ONLY=true;
 const NAV=[
   {id:"#/dss",label:"Decision Support"},
   {id:"#/thematic",label:"Thematic Datasets"},
@@ -2608,7 +2615,7 @@ const NAV=[
   {id:"#/insights",label:"Commons Insights"},
   {id:"#/blogs",label:"Blogs"},
   {id:"#/about",label:"About"}
-];
+].map(n=>LANDING_ONLY?{...n,soon:1}:n);
 function appsMenu(){
   const grid=`<svg width="15" height="15" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><circle cx="3" cy="3" r="1.5"/><circle cx="8" cy="3" r="1.5"/><circle cx="13" cy="3" r="1.5"/><circle cx="3" cy="8" r="1.5"/><circle cx="8" cy="8" r="1.5"/><circle cx="13" cy="8" r="1.5"/><circle cx="3" cy="13" r="1.5"/><circle cx="8" cy="13" r="1.5"/><circle cx="13" cy="13" r="1.5"/></svg>`;
   const PLATFORM_COMPONENTS=[
@@ -3029,20 +3036,22 @@ const MOD_IMG={thematic:"assets/photo-8.jpg",repository:"assets/photo-3.jpg",dss
 const MOD_FIT={};
 const MOD_STAT={thematic:"3 themes · 20+ layers",repository:"12 datasets · 5 formats",dss:"2 tools live · 2 planned",insights:"Map Studio · Superset"};
 function moduleTiles(){
+  const go_=LANDING_ONLY?"toast('Coming soon')":null;
+  const act=href=>go_||`go('${href}')`;
   return `<div class="grid g2 mod-grid">${MODULES.map(m=>`
-    <article class="mod-tile comp" style="--tc:${MOD_TC[m.id]||'var(--green)'}">
-      <div class="mc-media${MOD_FIT[m.id]?' '+MOD_FIT[m.id]:''}" style="background-image:url('${MOD_IMG[m.id]}')" onclick="go('${m.href}')">
+    <article class="mod-tile comp${LANDING_ONLY?' soon':''}" style="--tc:${MOD_TC[m.id]||'var(--green)'}">
+      <div class="mc-media${MOD_FIT[m.id]?' '+MOD_FIT[m.id]:''}" style="background-image:url('${MOD_IMG[m.id]}')" onclick="${act(m.href)}">
         <span class="mc-tag">${MOD_TAG[m.id]||''}</span>
       </div>
       <div class="mc-body">
-        <div class="mc-head" onclick="go('${m.href}')">
+        <div class="mc-head" onclick="${act(m.href)}">
           <div class="mod-ic">${m.ic}</div>
           <div class="mc-title"><h3>${m.name}</h3><span class="mc-meta">${m.sub?m.sub.replace(/[()]/g,'')+' · ':''}${MOD_STAT[m.id]||''}</span></div>
         </div>
-        <p onclick="go('${m.href}')">${m.desc}</p>
-        <div class="mc-chips">${m.links.map(l=>`<a class="mc-chip" ${CHIP_TC[l[0]]?`style="--tc:${CHIP_TC[l[0]]}"`:''} onclick="go('${l[1]}')">${l[0]}</a>`).join("")}</div>
+        <p onclick="${act(m.href)}">${m.desc}</p>
+        <div class="mc-chips">${m.links.map(l=>`<a class="mc-chip" ${CHIP_TC[l[0]]?`style="--tc:${CHIP_TC[l[0]]}"`:''} onclick="${LANDING_ONLY?go_:`go('${l[1]}')`}">${l[0]}</a>`).join("")}</div>
       </div>
-      <a class="mc-foot" onclick="go('${m.href}')"><span>Open ${m.name}</span><span class="mc-arrow">→</span></a>
+      <a class="mc-foot" onclick="${act(m.href)}"><span>Open ${m.name}</span><span class="mc-arrow">→</span></a>
     </article>`).join("")}</div>`;
 }
 
