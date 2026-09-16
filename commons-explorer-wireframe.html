@@ -2465,7 +2465,7 @@ const MODULES=[
   {id:"repository",ic:"<svg class=svgi><use href=#i-db /></svg>",name:"Data Repository",sub:"",href:"#/repository",
    desc:"Access spatial and non-spatial datasets across geographies and common types.",
    links:[["Browse datasets","#/repository"],["Upload","#/upload"]]},
-  {id:"insights",ic:"<svg class=svgi><use href=#i-barchart /></svg>",name:"Analytical Engine",sub:"",href:"#/insights",
+  {id:"insights",ic:"<svg class=svgi><use href=#i-barchart /></svg>",name:"Commons Insights",sub:"",href:"#/insights",
    desc:"Analyse commons using built-in tools or upload your data and share insights.",
    links:[["Map Studio","#/mapstudio"],["Data Analytics","#/analytics"],["Gallery","#/gallery"]]}
 ];
@@ -2605,7 +2605,7 @@ const NAV=[
   {id:"#/dss",label:"Decision Support"},
   {id:"#/thematic",label:"Thematic Datasets"},
   {id:"#/repository",label:"Data Repository"},
-  {id:"#/insights",label:"Analytical Engine"},
+  {id:"#/insights",label:"Commons Insights"},
   {id:"#/blogs",label:"Blogs",soon:1},
   {id:"#/about",label:"About",soon:1}
 ];
@@ -2679,7 +2679,7 @@ function footer(){
     <div class="cols">
       <div><div class="f-brand"><span class="mk"><svg class=svgi><use href=#i-compass /></svg></span><h5 class="fname">Commons<br>Explorer</h5></div>
         <p class="muted mt12" style="max-width:280px">An open-access module of the Commons Platform for exploring spatial and non-spatial data on natural commons.</p></div>
-      <div><h5>Modules</h5><ul><li onclick="go('#/thematic')">Thematic Datasets</li><li onclick="go('#/repository')">Data Repository</li><li onclick="go('#/insights')">Analytical Engine</li><li onclick="go('#/dss')">Decision Support System</li></ul></div>
+      <div><h5>Modules</h5><ul><li onclick="go('#/thematic')">Thematic Datasets</li><li onclick="go('#/repository')">Data Repository</li><li onclick="go('#/insights')">Commons Insights</li><li onclick="go('#/dss')">Decision Support System</li></ul></div>
       <div><h5>Participate</h5><ul><li onclick="go('#/upload')">Upload a dataset</li><li onclick="go('#/story-create')">Create a story</li><li onclick="go('#/gallery')">Gallery</li><li onclick="go('#/bookmarks')">Bookmarks</li><li onclick="go('#/approvals')">Moderation</li></ul></div>
       <div><h5>Platform</h5><ul><li onclick="go('#/roles')">Roles &amp; access</li><li onclick="go('#/sitemap')">Site map</li><li onclick="go('#/architecture')">Architecture</li><li onclick="toast('Accessibility statement')">Accessibility (WCAG)</li><li onclick="toast('Privacy &amp; terms')">Privacy &amp; Terms</li></ul></div>
     </div>
@@ -3411,7 +3411,7 @@ screens.repository=(p)=>shell("#/repository",[{label:"Home",href:"#/home"},{labe
   <div class="pagehero bare">
     <div class="ph-copy">
       <h1>Data <em>Repository</em></h1>
-      <p>A centralised hub for storing, organising and accessing datasets on natural and socio-ecological commons - spatial and non-spatial, across geographies and common types.</p>
+      <p>A centralised hub for storing, organising and accessing datasets on natural and socio-ecological commons - spatial and non-spatial datasets, across geographies and common types.</p>
     </div>
   </div>
   <section class="section" style="padding-top:1.5rem;padding-bottom:14px">
@@ -3610,12 +3610,12 @@ function submitUpload(){
   go('#/uploads');
 }
 
-/* ---- SRS §2.2.3.1 Analytical Engine — intermediate navigation ---- */
-screens.insights=()=>shell("#/insights",[{label:"Home",href:"#/home"},{label:"Analytical Engine"}],`
+/* ---- SRS §2.2.3.1 Commons Insights — intermediate navigation ---- */
+screens.insights=()=>shell("#/insights",[{label:"Home",href:"#/home"},{label:"Commons Insights"}],`
   <div class="pagehero bare">
     <div class="ph-copy">
-      <h1>Analytical <em>Engine</em></h1>
-      <p>This is where analysis on commons data happens, and where the results live. Browse maps, dashboards and stories already published by others in the Gallery, or build your own — Map Studio for spatial analysis, Data Analytics for tabular and time-series data.</p>
+      <h1>Commons <em>Insights</em></h1>
+      <p>A powerful suite of geospatial analytical tools designed to help communities, researchers, and policymakers understand and manage common resources through state-of-the-art satellite data. Analyze commons using built-in tools or upload your data and share insights.</p>
     </div>
   </div>
   <div class="page-photo"><img src="assets/photo-9.jpg" alt=""></div>
@@ -3673,7 +3673,7 @@ function regionCarousel(id,regions,ms){
   </div>`;
 }
 
-screens.mapstudio=()=>shell("#/insights",[{label:"Home",href:"#/home"},{label:"Analytical Engine",href:"#/insights"},{label:"Map Studio"}],`
+screens.mapstudio=()=>shell("#/insights",[{label:"Home",href:"#/home"},{label:"Commons Insights",href:"#/insights"},{label:"Map Studio"}],`
   <section class="section" style="padding-bottom:14px">
     <div class="between">
       <div><h2 class="mb0" style="font-size:24px">Map Studio</h2></div>
@@ -3745,7 +3745,7 @@ screens.mapstudio=()=>shell("#/insights",[{label:"Home",href:"#/home"},{label:"A
 
 /* AI report — login gated */
 screens['ai-report']=()=>{
-  return shell("#/insights",[{label:"Home",href:"#/home"},{label:"Analytical Engine",href:"#/insights"},{label:"Map Studio",href:"#/mapstudio"},{label:"AI report"}],`
+  return shell("#/insights",[{label:"Home",href:"#/home"},{label:"Commons Insights",href:"#/insights"},{label:"Map Studio",href:"#/mapstudio"},{label:"AI report"}],`
   <section class="section">
     ${signinNotice('AI report generation','#/ai-report','SRS §2.2.3.2.1')}
     <div class="between"><div><div class="eyebrow">AI-assisted interpretation</div><h2 class="mb0" style="font-size:22px">Analysis report — common lands, Mandalgarh block</h2></div>
@@ -3788,7 +3788,7 @@ screens.analytics=()=>{
   const avg=(vals.reduce((a,b)=>a+b,0)/vals.length).toFixed(1);
   const totals=PIVOT_ROWS.map(r=>[r[0],r.slice(1).filter(v=>v!=='').reduce((a,b)=>a+Number(b),0)]);
   const top=totals.reduce((a,b)=>b[1]>a[1]?b:a);
-  return shell("#/insights",[{label:"Home",href:"#/home"},{label:"Analytical Engine",href:"#/insights"},{label:"Data Analytics"}],`
+  return shell("#/insights",[{label:"Home",href:"#/home"},{label:"Commons Insights",href:"#/insights"},{label:"Data Analytics"}],`
   <section class="section" style="padding-bottom:14px">
     <div class="between">
       <div><h2 class="mb0" style="font-size:24px">Data Analytics</h2></div>
@@ -3867,10 +3867,10 @@ function lcapView(which){
 screens.gallery=(p)=>{
   const tab=p.tab||'All resources';
   const tabs=["All resources","Datasets","Maps","Documents","GeoStories","Dashboards"];
-  return shell("#/insights",[{label:"Home",href:"#/home"},{label:"Analytical Engine",href:"#/insights"},{label:"Gallery of User generated Content"}],`
+  return shell("#/insights",[{label:"Home",href:"#/home"},{label:"Commons Insights",href:"#/insights"},{label:"Gallery of User generated Content"}],`
   <section class="section" style="padding-bottom:14px">
     <div class="between">
-      <div><div class="eyebrow">Analytical Engine · user-generated content</div><h2 class="mb0" style="font-size:24px">Gallery of User generated Content</h2></div>
+      <div><div class="eyebrow">Commons Insights · user-generated content</div><h2 class="mb0" style="font-size:24px">Gallery of User generated Content</h2></div>
       <div class="row" style="gap:8px"><a class="btn sm" onclick="go('#/story-create')"><svg class=svgi><use href=#i-book /></svg> Create a story</a><a class="btn sm" onclick="go('#/mapstudio')"><svg class=svgi><use href=#i-map /></svg> Open Map Studio</a><a class="btn sm primary" onclick="go('#/analytics')"><svg class=svgi><use href=#i-trend /></svg> Open Data Analytics</a></div>
     </div>
     <p class="sub">A collaborative gallery bringing together maps and datasets from GeoNode and narrative stories, plus dashboards from Apache Superset once that integration goes live — all in one interpretable format. Every item has a unique URL and is searchable.</p>
@@ -3899,7 +3899,7 @@ screens.gallery=(p)=>{
 
 screens['gallery-item']=(p)=>{
   const g=galById(p.id);
-  return shell("#/insights",[{label:"Home",href:"#/home"},{label:"Analytical Engine",href:"#/insights"},{label:"Gallery",href:"#/gallery"},{label:g.kind}],`
+  return shell("#/insights",[{label:"Home",href:"#/home"},{label:"Commons Insights",href:"#/insights"},{label:"Gallery",href:"#/gallery"},{label:g.kind}],`
   <section class="section">
     <div class="grid" style="grid-template-columns:1fr 310px;gap:24px;align-items:start">
       <div class="stack">
@@ -4858,7 +4858,7 @@ screens.architecture=()=>shell("",[{label:"Home",href:"#/home"},{label:"Architec
     <p class="sub">Backend built as microservices; the front end stays modular so components can be added without rework.</p>
     <div class="panel mt16">
       <div class="wf-note" style="margin-bottom:10px">Presentation layer</div>
-      <div class="flow">${["Home","Thematic Datasets","Data Repository","Analytical Engine","Decision Support"].map(n=>`<div class="node ${n==='Home'?'strong':''}">${n}</div>`).join('<div class="arw">·</div>')}</div>
+      <div class="flow">${["Home","Thematic Datasets","Data Repository","Commons Insights","Decision Support"].map(n=>`<div class="node ${n==='Home'?'strong':''}">${n}</div>`).join('<div class="arw">·</div>')}</div>
       <div class="wf-note" style="margin:18px 0 10px">Service layer — microservices</div>
       <div class="flow">${["Search &amp; discovery","Content &amp; moderation","Bookmarks &amp; lists","Reports","Admin Hierarchy","Organisations","Programs","Feedback","Telemetry"].map(n=>`<div class="node">${n}</div>`).join('<div class="arw">·</div>')}</div>
       <div class="wf-note" style="margin:18px 0 10px">Data &amp; integration layer</div>
@@ -4881,7 +4881,7 @@ screens.sitemap=()=>shell("",[{label:"Home",href:"#/home"},{label:"Site map"}],`
 ├── Data Repository  <a onclick="go('#/repository')">#/repository</a>
 │   ├── Dataset detail  <a onclick="go('#/dataset/ds-01')">#/dataset/:id</a>
 │   └── Upload dataset  <a onclick="go('#/upload')">#/upload</a>
-├── Analytical Engine  <a onclick="go('#/insights')">#/insights</a>
+├── Commons Insights  <a onclick="go('#/insights')">#/insights</a>
 │   ├── Map Studio  <a onclick="go('#/mapstudio')">#/mapstudio</a>
 │   │   └── AI report  <a onclick="go('#/ai-report')">#/ai-report</a>   <svg class=svgi><use href=#i-lock /></svg>
 │   ├── Data Analytics  <a onclick="go('#/analytics')">#/analytics</a>   <svg class=svgi><use href=#i-lock /></svg>
