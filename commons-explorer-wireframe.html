@@ -3638,7 +3638,7 @@ function gnViewer(region,idx,url){
   </div>`;
 }
 /* Regional Atlas carousel — one atlas per slide */
-const ATLAS_REGIONS=["NE","Papagani",["Upper Bhima Basin","https://geonode.indiaobservatory.org.in/catalogue/#/map/110"]];
+const ATLAS_REGIONS=[["NE","https://geonode.indiaobservatory.org.in/catalogue/#/map/160"],["Papagani","https://geonode2.indiaobservatory.org.in/catalogue/#/map/130"],["Upper Bhima Basin","https://geonode.indiaobservatory.org.in/catalogue/#/map/110"]];
 function regionCarousel(id,regions,ms){
   CAROUSELS[id]={i:0,n:regions.length,timer:null,ms:ms||6000};
   const nm=r=>Array.isArray(r)?r[0]:r, ur=r=>Array.isArray(r)?r[1]:null;
