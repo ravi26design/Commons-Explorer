@@ -3349,7 +3349,6 @@ function gxCatalogue(tab,opts){
       <div class="gx-results">
         <div class="gx-bar">
           <span class="gx-count"><b>${count}</b> resources</span>
-          <div class="gx-chips">${["All","Datasets","Maps","GeoStories","Dashboards"].map((t,i)=>`<a class="mc-chip ${i?'':'on'}" style="--tc:${GX_TC[t]}" onclick="[...this.parentNode.children].forEach(c=>c.classList.remove('on'));this.classList.add('on');toast('Showing ${t}')">${t}</a>`).join("")}</div>
           <span class="gn-tools">
             <span class="viewtog"><button class="on" title="Card view"><svg class=svgi><use href=#i-grid /></svg></button><button title="List view" onclick="toast('List view')"><svg class=svgi><use href=#i-menu /></svg></button></span>
             <label class="gn-sort"><span>Sort</span><select class="wf-in"><option>Most recent</option><option>Less recent</option><option>Most popular</option><option>Title A–Z</option></select><svg class="svgi cv"><use href=#i-chevdown /></svg></label>
