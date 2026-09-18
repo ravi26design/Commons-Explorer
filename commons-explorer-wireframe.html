@@ -214,11 +214,13 @@ main{min-height:60vh;padding-bottom:3rem;animation:fade .3s ease}
 .acct-item:hover{background:var(--bg-soft);color:var(--ink)}
 .acct-item.active{background:var(--green);color:#fff;border-color:var(--green);box-shadow:0 8px 18px -10px rgba(78,124,89,.6)}
 .acct-item .acct-ic{font-size:.95rem;flex:none}
-.acct-split{display:flex;align-items:stretch;min-height:calc(100vh - 4.7rem)}
-.acct-side-panel{background:#fff;flex:0 0 auto;width:max(270px,calc((100vw - 90rem)/2 + 2rem + 250px));padding:2.75rem 1.5rem 2.75rem max(2rem,calc((100vw - 90rem)/2 + 2rem));border-right:1px solid var(--line)}
+.acct-div{height:1px;background:var(--line);margin:.6rem .2rem}
+.acct-item.danger{color:var(--red)}
+.acct-item.danger:hover{background:var(--red-soft);color:var(--red)}
+.acct-split{display:flex;align-items:stretch;min-height:calc(100vh - 4.7rem);margin:0 -2rem}
+.acct-side-panel{background:#fff;flex:0 0 auto;width:274px;padding:2.75rem 1.5rem 2.75rem 2rem;border-right:1px solid var(--line)}
 .acct-content-panel{background:var(--bg-soft);flex:1;min-width:0;padding:2.75rem 2rem 2.75rem 1.75rem}
-.acct-content-in{max-width:calc(90rem - 250px - 24px - 4rem)}
-@media(max-width:900px){.acct-split{flex-direction:column}.acct-side-panel{width:auto;border-right:0;border-bottom:1px solid var(--line);padding:1.25rem}.acct-content-panel{padding:1.25rem}.acct-content-in{max-width:none}}
+@media(max-width:900px){.acct-split{flex-direction:column;margin:0 -1.25rem}.acct-side-panel{width:auto;border-right:0;border-bottom:1px solid var(--line);padding:1.25rem}.acct-content-panel{padding:1.25rem}}
 @media(max-width:760px){.acct-nav{position:static;flex-direction:row;flex-wrap:wrap;gap:.4rem}.acct-item{border-color:var(--line-2);background:#fff;margin-bottom:0}}
 .pw-head{display:flex;align-items:center;gap:.7rem;padding:.7rem}
 .pw-head b{display:block;font-size:.92rem;color:var(--ink)}.pw-head span{font-size:.75rem;color:var(--muted-2)}.pw-head .pw-av{color:#fff}
@@ -2615,6 +2617,19 @@ function isAuthed(){return currentRole!=null;}
 function roleName(){return currentRole==null?"Visitor":ROLES[currentRole][0];}
 function loginAs(i){currentRole=i;try{localStorage.setItem('ce_role',i);}catch(e){}toast('Signed in as '+ROLES[i][0]);go(pendingAfterLogin||'#/home');pendingAfterLogin=null;}
 function signOut(){currentRole=null;try{localStorage.removeItem('ce_role');}catch(e){}toast('Signed out — browsing as Visitor');go('#/home');}
+function confirmLogout(){
+  pwClose();
+  const m=document.getElementById('meta-modal');
+  m.innerHTML=`<div class="mm-back" onclick="closeMetaModal()"></div>
+   <div class="mm-card" style="max-width:24rem;text-align:center">
+    <button class="mm-x" onclick="closeMetaModal()" aria-label="Close"><svg class=svgi><use href=#i-x /></svg></button>
+    <div class="icon-box" style="width:3rem;height:3rem;font-size:1.2rem;margin:0 auto 1rem;background:var(--red-soft);color:var(--red)"><svg class=svgi><use href=#i-logout /></svg></div>
+    <h2 style="font-size:1.15rem;border:0;padding:0;margin:0 0 .5rem">Log out?</h2>
+    <p class="muted" style="margin:0 0 1.3rem">You'll need to sign in again to access your account and contributions.</p>
+    <div class="row" style="justify-content:center;gap:.6rem"><a class="btn" onclick="closeMetaModal()">Cancel</a><a class="btn primary" style="background:var(--red);border-color:var(--red)" onclick="closeMetaModal();signOut()">Log out</a></div>
+   </div>`;
+  m.classList.add('open');
+}
 let pendingAfterLogin=null;
 function toggleLoginRole(e){e.stopPropagation();const d=document.getElementById('loginRoleDD');if(d)d.classList.toggle('open');}
 function loginPickRole(i){loginRole=i;const lr=LOGIN_ROLES.find(r=>r[0]===i)||[i,ROLES[i][0],ROLES[i][1]];const f=document.getElementById('loginRoleField');if(f)f.innerHTML='<svg class=svgi><use href=#i-user /></svg> '+lr[1];const c=document.getElementById('loginRoleDesc');if(c)c.textContent=lr[2];const d=document.getElementById('loginRoleDD');if(d)d.classList.remove('open');}
@@ -2670,7 +2685,7 @@ function header(active){
       +`<button class="pw-item" onclick="pwClose();go('#/profile')"><span class="pw-ic"><svg class=svgi><use href=#i-user /></svg></span> My Profile</button>`
       +(roleCan('orgAdmin')||roleCan('platform')||roleCan('superAdmin')?`<button class="pw-item" onclick="pwClose();go('#/admin')"><span class="pw-ic"><svg class=svgi><use href=#i-wrench /></svg></span> Users &amp; Roles</button>`:'')
       +`<button class="pw-item" onclick="pwClose();go('#/password')"><span class="pw-ic"><svg class=svgi><use href=#i-key /></svg></span> Change Password</button>`
-      +`<div class="pw-div"></div><button class="pw-item danger" onclick="signOut()"><span class="pw-ic"><svg class=svgi><use href=#i-logout /></svg></span> Logout</button></div></div>`;
+      +`<div class="pw-div"></div><button class="pw-item danger" onclick="confirmLogout()"><span class="pw-ic"><svg class=svgi><use href=#i-logout /></svg></span> Logout</button></div></div>`;
   }
   return `<a class="skip" href="#main">Skip to content</a>
   <header class="site" id="sitehdr"><div class="container"><nav class="nav" aria-label="Primary">
@@ -4462,7 +4477,10 @@ function accountNav(active){
     ["admin","<svg class=svgi><use href=#i-wrench /></svg>","Users &amp; Roles","#/admin",roleCan('orgAdmin')||roleCan('platform')||roleCan('superAdmin')],
     ["password","<svg class=svgi><use href=#i-key /></svg>","Change Password","#/password",1]
   ];
-  return `<div class="acct-nav">${items.filter(i=>i[4]).map(i=>`<a class="acct-item ${i[0]===active?'active':''}" onclick="go('${i[3]}')"><span class="acct-ic">${i[1]}</span>${i[2]}</a>`).join("")}</div>`;
+  return `<div class="acct-nav">${items.filter(i=>i[4]).map(i=>`<a class="acct-item ${i[0]===active?'active':''}" onclick="go('${i[3]}')"><span class="acct-ic">${i[1]}</span>${i[2]}</a>`).join("")}
+    <div class="acct-div"></div>
+    <a class="acct-item danger" onclick="confirmLogout()"><span class="acct-ic"><svg class=svgi><use href=#i-logout /></svg></span>Logout</a>
+  </div>`;
 }
 function accountShell(active,crumbItems,inner){
   return shell("",crumbItems,`<div class="acct-split">
