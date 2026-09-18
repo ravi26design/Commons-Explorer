@@ -4637,28 +4637,99 @@ screens.approvals=(p)=>{
 };
 
 /* administration — org admin / platform moderator / super admin */
-screens.admin=()=>{
-  if(!(roleCan('orgAdmin')||roleCan('platform'))) return gateScreen('Administration','Administration is available to Organization Admins, Platform Moderators and the Platform Super Admin.','#/admin');
-  return accountShell('admin',[{label:"Home",href:"#/home"},{label:"Administration"}],`
-    <div class="between"><div><h2 class="mb0" style="margin-top:0;font-size:20px">Administration</h2><p class="muted" style="margin:4px 0 0">Users, content governance, data standards and platform configuration.</p></div><span class="role-badge">${roleName()}</span></div>
-    <div class="grid g4 mt16">${[["Users in organization","46","6 pending invites"],["Content items","318","12 archived"],["Restricted layers","24","access-controlled"],["Open reports","3","policy compliance"]].map(k=>`<div class="kpi"><div class="k">${k[0]}</div><b>${k[1]}</b><div class="d">${k[2]}</div></div>`).join("")}</div>
-    ${roleCan('orgAdmin')?`
-    <div class="panel mt16"><div class="between"><div class="eyebrow">Organization users</div><a class="btn sm primary" onclick="toast('Invite user')">＋ Invite user</a></div>
-      <div class="tblwrap mt12"><table class="mtable"><thead><tr><th>Name</th><th>Email</th><th>Role</th><th>Status</th><th></th></tr></thead><tbody>
-        ${[["Kavita Menon","kavita@fes.org.in","Registered User","Active"],["Aditi Joshi","aditi@partner.org","Organization Moderator","Active"],["Manish Patel","manish@fes.org.in","Registered User","Active"],["Sarah Johnson","sarah@partner.org","Registered User","Invited"]].map(r=>`<tr><td><b>${r[0]}</b></td><td>${r[1]}</td><td>${r[2]}</td><td>${statusPill(r[3]==='Active'?'Approved':'Pending')}</td><td><a class="btn sm" onclick="toast('Manage user')">Manage</a></td></tr>`).join("")}
-      </tbody></table></div></div>`:''}
-    ${roleCan('platform')?`
-    <div class="grid g2 mt16">
-      <div class="panel"><div class="eyebrow">Platform configuration</div>
-        <div class="stack mt8">${[["Site structure &amp; navigation","Menus, module order, landing content"],["Content templates","Theme pages, DSS view and report templates"],["Data standards","Metadata schema, formats, licences"],["Moderation policy","Queues, escalation and SLAs"]].map(r=>`<div class="ctx-row" style="cursor:pointer" onclick="toast('${r[0].replace(/&amp;/g,'and')}')"><h5>${r[0]}</h5><p>${r[1]}</p></div>`).join("")}</div></div>
-      <div class="panel"><div class="eyebrow">Integrations</div>
-        <div class="mt8">${[["GeoNode / GeoServer","Connected"],["GeoNetwork (metadata)","Connected"],["Apache Superset","Connected"],["AI services","Connected"],["SSO / identity","Connected"],["Commons Stories","Connected"],["Admin Hierarchy · Organisations · Programs","Connected"],["Feedback · Telemetry","Connected"]].map(r=>`<div class="detail-f"><span class="k">${r[0]}</span><span class="v">● ${r[1]}</span></div>`).join("")}</div></div>
-    </div>`:''}
-    ${roleCan('superAdmin')?`
-    <div class="panel mt16"><div class="eyebrow">Super admin</div>
-      <div class="row mt8" style="gap:8px"><a class="btn sm" onclick="toast('Roles &amp; permissions editor')">Roles &amp; permissions</a><a class="btn sm" onclick="toast('System logs')">System logs</a><a class="btn sm" onclick="toast('Audit trail')">Audit trail</a><a class="btn sm" onclick="toast('Override moderation')">Override moderation</a></div></div>`:''}
+const ADMIN_USERS=[
+  ["Kavita Menon","Platform Super Admin","kavita@fes.org.in","2026-05-27","Active"],
+  ["Aditi Joshi","Organization Moderator","aditi@partner.org","2026-05-26","Active"],
+  ["Priya Sharma","Platform Super Admin","priya.sharma@fes.org.in","2026-05-25","Active"],
+  ["Sarah Johnson","Registered User","sarah@partner.org","2026-05-24","Active"],
+  ["Manish Patel","Registered User","manish@fes.org.in","2026-05-23","Active"],
+  ["Kiran Rao","Organization Admin","kiran@fes.org.in","2026-05-21","Active"],
+  ["Rohit Verma","Registered User","rohit@partner.org","2026-05-19","Pending"],
+  ["Neha Kapoor","Platform Moderator","neha@fes.org.in","2026-04-30","Inactive"]
+];
+const ADMIN_ROLES=[
+  ["Platform Super Admin","17 permissions","2","2025-01-01"],
+  ["Platform Moderator","11 permissions","1","2025-01-01"],
+  ["Organization Admin","10 permissions","1","2025-02-15"],
+  ["Organization Moderator","8 permissions","1","2025-02-15"],
+  ["Registered User","6 permissions","3","2025-03-01"]
+];
+const ADMIN_AV_TC=["var(--c-water)","var(--green)","var(--c-atlas)","var(--red)","var(--c-forest)","var(--c-waterbody)","var(--amber-d)","var(--c-village)"];
+function adminStatusTag(s){
+  const m={Active:['var(--green-soft)','var(--green-d)'],Pending:['var(--amber-soft)','var(--amber-d)'],Inactive:['var(--bg-soft)','var(--muted-2)']}[s]||['var(--chip)','var(--ink)'];
+  return `<span class="tag" style="background:${m[0]};color:${m[1]};border-color:transparent">${s}</span>`;
+}
+screens.admin=(p)=>{
+  if(!(roleCan('orgAdmin')||roleCan('platform'))) return gateScreen('Users & Roles','Users & Roles is available to Organization Admins, Platform Moderators and the Platform Super Admin.','#/admin');
+  const tab=p.tab||'Users';
+  return accountShell('admin',[{label:"Home",href:"#/home"},{label:"Users & Roles"}],`
+    <div class="between" style="align-items:flex-start">
+      <div><h2 class="mb0" style="font-size:22px">Users & Roles</h2><p class="sub" style="margin:2px 0 0">People who can reach the module, and what each of them may do.</p></div>
+      <a class="btn primary" onclick="${tab==='Roles'?'openAddRoleModal()':'openAddUserModal()'}">+ Add ${tab==='Roles'?'role':'user'}</a>
+    </div>
+    <div class="row mt16" style="gap:.6rem">
+      <a class="tab-c ${tab==='Users'?'active':''}" onclick="go('#/admin?tab=Users')">Users <span class="cnt">${ADMIN_USERS.length}</span></a>
+      <a class="tab-c ${tab==='Roles'?'active':''}" onclick="go('#/admin?tab=Roles')">Roles <span class="cnt">${ADMIN_ROLES.length}</span></a>
+    </div>
+    <div class="panel mt16" style="padding:4px 6px">
+    ${tab==='Roles'?`
+      <div class="tblwrap"><table class="mtable"><thead><tr><th>Role name</th><th>Permissions</th><th>Users</th><th>Created</th><th>Actions</th></tr></thead><tbody>
+        ${ADMIN_ROLES.map(r=>`<tr><td><span class="tag">${r[0]}</span></td><td>${r[1]}</td><td>${r[2]}</td><td>${r[3]}</td>
+          <td><span class="row" style="gap:8px"><button class="btn-icon" title="Edit" onclick="toast('Edit role')"><svg class=svgi><use href=#i-pencil /></svg></button><button class="btn-icon" title="Delete" onclick="toast('Delete role')"><svg class=svgi><use href=#i-trash /></svg></button></span></td></tr>`).join("")}
+      </tbody></table></div>`:`
+      <div class="tblwrap"><table class="mtable"><thead><tr><th>Name</th><th>Role</th><th>Email</th><th>Last active</th><th>Status</th><th>Actions</th></tr></thead><tbody>
+        ${ADMIN_USERS.map((r,i)=>`<tr><td><span class="row" style="gap:.6rem;align-items:center"><span class="pw-av" style="background:${ADMIN_AV_TC[i%ADMIN_AV_TC.length]}">${r[0].split(' ').map(w=>w[0]).join('').slice(0,2).toUpperCase()}</span><b>${r[0]}</b></span></td><td>${r[1]}</td><td>${r[2]}</td><td>${r[3]}</td><td>${adminStatusTag(r[4])}</td>
+          <td><span class="row" style="gap:8px"><button class="btn-icon" title="Edit" onclick="toast('Edit user')"><svg class=svgi><use href=#i-pencil /></svg></button><button class="btn-icon" title="Delete" onclick="toast('Delete user')"><svg class=svgi><use href=#i-trash /></svg></button></span></td></tr>`).join("")}
+      </tbody></table></div>`}
+    </div>
   `);
 };
+function openAddUserModal(){
+  const m=document.getElementById('meta-modal');
+  m.innerHTML=`<div class="mm-back" onclick="closeMetaModal()"></div>
+   <div class="mm-card" style="max-width:30rem">
+    <button class="mm-x" onclick="closeMetaModal()" aria-label="Close"><svg class=svgi><use href=#i-x /></svg></button>
+    <div class="wf-note" style="text-transform:uppercase;letter-spacing:.08em">Add</div>
+    <h2 style="font-size:1.4rem;border:0;padding:0;margin:0 0 1rem">Add user</h2>
+    <p class="muted" style="margin:0 0 1.2rem">Invite someone and set what they may do.</p>
+    <div class="field-block"><label class="wf-label">Full name</label><input class="wf-in" placeholder="e.g. Anita Rao"></div>
+    <div class="field-block"><label class="wf-label">Email</label><input class="wf-in" placeholder="name@organisation.org"></div>
+    <div class="grid g2">
+      <div class="field-block"><label class="wf-label">Role</label><select class="wf-in">${ADMIN_ROLES.map(r=>`<option>${r[0]}</option>`).join("")}</select></div>
+      <div class="field-block"><label class="wf-label">Status</label><select class="wf-in"><option>Active</option><option>Pending</option><option>Inactive</option></select></div>
+    </div>
+    <div class="row mt8"><a class="btn" onclick="closeMetaModal()">Cancel</a><a class="btn primary" onclick="toast('User added');closeMetaModal()">+ Add user</a></div>
+   </div>`;
+  m.classList.add('open');
+}
+const ADMIN_MODULES=[
+  ["<svg class=svgi><use href=#i-grid /></svg>","Moderation portal",[1,0,0,0]],
+  ["<svg class=svgi><use href=#i-checkcircle /></svg>","Approvals",[1,0,1,1]],
+  ["<svg class=svgi><use href=#i-upload /></svg>","Contributions",[1,1,1,1]],
+  ["<svg class=svgi><use href=#i-pin /></svg>","Local names & rules",[1,1,1,1]],
+  ["<svg class=svgi><use href=#i-book /></svg>","Module content",[1,1,1,1]],
+  ["<svg class=svgi><use href=#i-search /></svg>","Search",[1,0,0,0]],
+  ["<svg class=svgi><use href=#i-settings /></svg>","Settings",[1,0,1,0]],
+  ["<svg class=svgi><use href=#i-users /></svg>","Users & Roles",[1,1,1,1]]
+];
+function openAddRoleModal(){
+  const m=document.getElementById('meta-modal');
+  const cell=on=>on?'<input type="checkbox">':'<span class="wf-note">—</span>';
+  m.innerHTML=`<div class="mm-back" onclick="closeMetaModal()"></div>
+   <div class="mm-card" style="max-width:44rem">
+    <button class="mm-x" onclick="closeMetaModal()" aria-label="Close"><svg class=svgi><use href=#i-x /></svg></button>
+    <div class="wf-note" style="text-transform:uppercase;letter-spacing:.08em">Add</div>
+    <h2 style="font-size:1.4rem;border:0;padding:0;margin:0 0 1rem">Add role</h2>
+    <p class="muted" style="margin:0 0 1.2rem">Define a role and the modules it may reach.</p>
+    <div class="field-block"><label class="wf-label">Role name</label><input class="wf-in" placeholder="e.g. Senior Reviewer"></div>
+    <div class="wf-label" style="text-transform:uppercase;letter-spacing:.08em;font-size:.72rem;margin:1rem 0 .5rem">Module permissions</div>
+    <div class="tblwrap"><table class="mtable"><thead><tr><th>Module</th><th style="text-align:center">View</th><th style="text-align:center">Add</th><th style="text-align:center">Edit</th><th style="text-align:center">Delete</th></tr></thead><tbody>
+      ${ADMIN_MODULES.map(r=>`<tr><td><span class="row" style="gap:.5rem;align-items:center">${r[0]}${r[1]}</span></td>${r[2].map(c=>`<td style="text-align:center">${cell(c)}</td>`).join("")}</tr>`).join("")}
+    </tbody></table></div>
+    <div class="row mt16"><a class="btn" onclick="closeMetaModal()">Cancel</a><a class="btn primary" onclick="toast('Role added');closeMetaModal()">+ Add role</a></div>
+   </div>`;
+  m.classList.add('open');
+}
 
 /* roles matrix — SRS §4 */
 screens.roles=()=>{
