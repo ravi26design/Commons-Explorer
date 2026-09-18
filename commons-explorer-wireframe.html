@@ -214,7 +214,12 @@ main{min-height:60vh;padding-bottom:3rem;animation:fade .3s ease}
 .acct-item:hover{background:var(--bg-soft);color:var(--ink)}
 .acct-item.active{background:var(--green);color:#fff;border-color:var(--green);box-shadow:0 8px 18px -10px rgba(78,124,89,.6)}
 .acct-item .acct-ic{font-size:.95rem;flex:none}
-@media(max-width:760px){.acct-nav{position:static;flex-direction:row;flex-wrap:wrap;gap:.4rem}.acct-item{border-color:var(--line-2);background:#fff;margin-bottom:0}.acct-grid{grid-template-columns:1fr!important}}
+.acct-split{display:flex;align-items:stretch;min-height:calc(100vh - 4.7rem)}
+.acct-side-panel{background:#fff;flex:0 0 auto;width:max(270px,calc((100vw - 90rem)/2 + 2rem + 250px));padding:2.75rem 1.5rem 2.75rem max(2rem,calc((100vw - 90rem)/2 + 2rem));border-right:1px solid var(--line)}
+.acct-content-panel{background:var(--bg-soft);flex:1;min-width:0;padding:2.75rem 2rem 2.75rem 1.75rem}
+.acct-content-in{max-width:calc(90rem - 250px - 24px - 4rem)}
+@media(max-width:900px){.acct-split{flex-direction:column}.acct-side-panel{width:auto;border-right:0;border-bottom:1px solid var(--line);padding:1.25rem}.acct-content-panel{padding:1.25rem}.acct-content-in{max-width:none}}
+@media(max-width:760px){.acct-nav{position:static;flex-direction:row;flex-wrap:wrap;gap:.4rem}.acct-item{border-color:var(--line-2);background:#fff;margin-bottom:0}}
 .pw-head{display:flex;align-items:center;gap:.7rem;padding:.7rem}
 .pw-head b{display:block;font-size:.92rem;color:var(--ink)}.pw-head span{font-size:.75rem;color:var(--muted-2)}.pw-head .pw-av{color:#fff}
 .pw-div{height:1px;background:var(--line);margin:.35rem 0}
@@ -4460,7 +4465,10 @@ function accountNav(active){
   return `<div class="acct-nav">${items.filter(i=>i[4]).map(i=>`<a class="acct-item ${i[0]===active?'active':''}" onclick="go('${i[3]}')"><span class="acct-ic">${i[1]}</span>${i[2]}</a>`).join("")}</div>`;
 }
 function accountShell(active,crumbItems,inner){
-  return shell("",crumbItems,`<section class="section" style="background:var(--bg-soft);width:100vw;margin-left:calc(50% - 50vw);margin-right:calc(50% - 50vw)"><div class="container"><div class="grid acct-grid" style="grid-template-columns:250px 1fr;gap:24px;align-items:start">${accountNav(active)}<div>${inner}</div></div></div></section>`);
+  return shell("",crumbItems,`<div class="acct-split">
+    <aside class="acct-side-panel">${accountNav(active)}</aside>
+    <div class="acct-content-panel"><div class="acct-content-in">${inner}</div></div>
+  </div>`);
 }
 
 function closeLogin(){go(pendingAfterLogin||'#/home');}
