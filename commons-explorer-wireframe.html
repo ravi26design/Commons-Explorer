@@ -2928,6 +2928,27 @@ function goGated(href,what){ if(isAuthed()){go(href);} else {gateLogin(href);} }
 document.addEventListener('keydown',function(e){ if(e.key==='Escape'){ closeLoginModal(); closeMetaModal(); } });
 /* full metadata modal — GeoNode-style record */
 function closeMetaModal(){const m=document.getElementById('meta-modal');if(m){m.classList.remove('open');m.innerHTML='';}}
+function saveProfileModal(){toast('Profile saved');closeMetaModal();}
+function openEditProfileModal(){
+  const m=document.getElementById('meta-modal');
+  m.innerHTML=`<div class="mm-back" onclick="closeMetaModal()"></div>
+   <div class="mm-card" style="max-width:34rem">
+    <button class="mm-x" onclick="closeMetaModal()" aria-label="Close"><svg class=svgi><use href=#i-x /></svg></button>
+    <h2 style="font-size:1.3rem">Edit profile</h2>
+    <div class="grid g2">
+      <div class="field-block"><label class="wf-label">Full name</label><input class="wf-in" value="Priya Sharma"></div>
+      <div class="field-block"><label class="wf-label">Email</label><input class="wf-in" value="priya.sharma@fes.org.in"></div>
+      <div class="field-block"><label class="wf-label">Phone</label><input class="wf-in" value="+91 98765 43210"></div>
+      <div class="field-block"><label class="wf-label">Location</label><input class="wf-in" value="Udaipur, India"></div>
+      <div class="field-block"><label class="wf-label">Organization</label><input class="wf-in" value="Foundation for Ecological Security"></div>
+      <div class="field-block"><label class="wf-label">Designation</label><input class="wf-in" value="GIS Analyst"></div>
+      <div class="field-block"><label class="wf-label">State</label><select class="wf-in">${STATES.map(s=>`<option>${s}</option>`).join("")}</select></div>
+      <div class="field-block"><label class="wf-label">Interface language</label><select class="wf-in"><option>English</option><option>हिन्दी</option></select></div>
+    </div>
+    <div class="row mt8"><a class="btn primary" onclick="saveProfileModal()">Save changes</a><a class="btn" onclick="closeMetaModal()">Cancel</a></div>
+   </div>`;
+  m.classList.add('open');
+}
 function mdToast(){toast('Reference link / download');}
 function showMetaModal(o){
   const row=(l,v)=>`<div class="md-row"><span class="lab">${l}</span><span class="val">${v}</span></div>`;
@@ -4489,7 +4510,7 @@ screens.profile=()=>{
   return accountShell('profile',[{label:"Home",href:"#/home"},{label:"My Profile"}],`
     <h2 class="mb0" style="font-size:22px;margin-bottom:16px">My Profile</h2>
     <div class="panel" style="position:relative">
-      <button class="btn btn-icon" style="position:absolute;top:1rem;right:1rem" title="Edit profile" onclick="toast('Edit profile')"><svg class=svgi><use href=#i-pencil /></svg></button>
+      <button class="btn btn-icon" style="position:absolute;top:1rem;right:1rem;border-color:transparent" title="Edit profile" onclick="openEditProfileModal()"><svg class=svgi><use href=#i-pencil /></svg></button>
       <div class="row" style="gap:16px;align-items:center">
         <span class="pw-av lg" style="width:4.1rem;height:4.1rem;font-size:1.25rem;background:var(--ink)">${ini}</span>
         <div>
