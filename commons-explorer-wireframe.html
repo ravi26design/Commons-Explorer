@@ -4437,7 +4437,7 @@ function accountNav(active){
   return `<div class="acct-nav"><div class="acct-h">Account · ${roleName()}</div>${items.filter(i=>i[4]).map(i=>`<a class="acct-item ${i[0]===active?'active':''}" onclick="go('${i[3]}')"><span class="acct-ic">${i[1]}</span>${i[2]}</a>`).join("")}</div>`;
 }
 function accountShell(active,crumbItems,inner){
-  return shell("",crumbItems,`<section class="section"><div class="grid acct-grid" style="grid-template-columns:250px 1fr;gap:24px;align-items:start">${accountNav(active)}<div>${inner}</div></div></section>`);
+  return shell("",crumbItems,`<section class="section" style="background:var(--bg-soft);width:100vw;margin-left:calc(50% - 50vw);margin-right:calc(50% - 50vw)"><div class="container"><div class="grid acct-grid" style="grid-template-columns:250px 1fr;gap:24px;align-items:start">${accountNav(active)}<div>${inner}</div></div></div></section>`);
 }
 
 function closeLogin(){go(pendingAfterLogin||'#/home');}
@@ -4504,8 +4504,8 @@ screens.profile=()=>{
       </div>
     </div>
     <div class="panel mt16">
-      <div class="eyebrow"><svg class=svgi><use href=#i-settings /></svg> Preferences</div>
-      <div class="mt8">${[["Email notifications","Get notified when a submission of yours is reviewed or published.",1],["Weekly summary report","Receive a weekly activity summary every Monday.",1],["Platform updates","Occasional emails about new features on the Commons Platform.",0]].map(r=>`<div class="detail-f" style="align-items:center">
+      <h3 style="margin:0;font-size:1.05rem;display:flex;align-items:center;gap:.5rem"><svg class=svgi><use href=#i-settings /></svg> Preferences</h3>
+      <div class="mt12">${[["Email notifications","Get notified when a submission of yours is reviewed or published.",1],["Weekly summary report","Receive a weekly activity summary every Monday.",1],["Platform updates","Occasional emails about new features on the Commons Platform.",0]].map(r=>`<div class="detail-f" style="align-items:center">
         <div><b style="display:block;font-size:.92rem">${r[0]}</b><span class="wf-note" style="text-transform:none;letter-spacing:0;font-weight:400">${r[1]}</span></div>
         <label class="tgl"><input type="checkbox" ${r[2]?'checked':''} onchange="toast('Preference updated')"><span class="tgl-tr"></span></label>
       </div>`).join("")}</div>
