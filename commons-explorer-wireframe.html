@@ -4434,7 +4434,7 @@ function accountNav(active){
     ["admin","<svg class=svgi><use href=#i-wrench /></svg>","Users &amp; Roles","#/admin",roleCan('orgAdmin')||roleCan('platform')||roleCan('superAdmin')],
     ["password","<svg class=svgi><use href=#i-key /></svg>","Change Password","#/password",1]
   ];
-  return `<div class="acct-nav"><div class="acct-h">Account · ${roleName()}</div>${items.filter(i=>i[4]).map(i=>`<a class="acct-item ${i[0]===active?'active':''}" onclick="go('${i[3]}')"><span class="acct-ic">${i[1]}</span>${i[2]}</a>`).join("")}</div>`;
+  return `<div class="acct-nav">${items.filter(i=>i[4]).map(i=>`<a class="acct-item ${i[0]===active?'active':''}" onclick="go('${i[3]}')"><span class="acct-ic">${i[1]}</span>${i[2]}</a>`).join("")}</div>`;
 }
 function accountShell(active,crumbItems,inner){
   return shell("",crumbItems,`<section class="section" style="background:var(--bg-soft);width:100vw;margin-left:calc(50% - 50vw);margin-right:calc(50% - 50vw)"><div class="container"><div class="grid acct-grid" style="grid-template-columns:250px 1fr;gap:24px;align-items:start">${accountNav(active)}<div>${inner}</div></div></div></section>`);
