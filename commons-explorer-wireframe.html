@@ -168,6 +168,14 @@ main{min-height:60vh;padding-bottom:3rem;animation:fade .3s ease}
 .story-stat b{font-size:1.9rem;font-weight:800;line-height:1;letter-spacing:-.02em;color:var(--green-d)}
 .role-badge{display:inline-flex;align-items:center;gap:.4rem;font-size:.82rem;font-weight:700;color:var(--green-d);background:var(--green-soft);
   border:1px solid var(--green-line);border-radius:999px;padding:.35rem .85rem;white-space:nowrap}
+.role-badge svg{width:14px;height:14px}
+
+.tgl{position:relative;display:inline-block;width:2.7rem;height:1.55rem;flex:none;cursor:pointer}
+.tgl input{position:absolute;opacity:0;width:100%;height:100%;margin:0;cursor:pointer}
+.tgl .tgl-tr{position:absolute;inset:0;background:var(--line-2);border-radius:999px;transition:background .15s}
+.tgl .tgl-tr::before{content:'';position:absolute;width:1.15rem;height:1.15rem;left:.2rem;top:.2rem;background:#fff;border-radius:50%;transition:transform .15s;box-shadow:0 1px 3px rgba(0,0,0,.3)}
+.tgl input:checked+.tgl-tr{background:var(--ink)}
+.tgl input:checked+.tgl-tr::before{transform:translateX(1.15rem)}
 
 /* profile chip */
 .profilew{position:relative}
@@ -4479,26 +4487,29 @@ screens.profile=()=>{
   if(!isAuthed()) return gateScreen('My Profile','Sign in to view your profile and account information.','#/profile');
   const nm=roleName(), ini=nm.split(' ').map(w=>w[0]).join('').slice(0,2).toUpperCase();
   return accountShell('profile',[{label:"Home",href:"#/home"},{label:"My Profile"}],`
-    <div class="panel">
-      <div class="row" style="gap:14px;align-items:center"><span class="pw-av lg">${ini}</span>
-        <div><h2 style="margin:0;font-size:20px">Priya Sharma</h2><div class="wf-note" style="text-transform:none;letter-spacing:0">priya.sharma@fes.org.in · ${nm}</div></div>
-        <span class="role-badge" style="margin-left:auto">${nm}</span></div>
-      <div class="grid g2 mt16">
-        <div class="field-block"><label class="wf-label">Full name</label><input class="wf-in" value="Priya Sharma"></div>
-        <div class="field-block"><label class="wf-label">Email</label><input class="wf-in" value="priya.sharma@fes.org.in"></div>
-        <div class="field-block"><label class="wf-label">Organization</label><input class="wf-in" value="Foundation for Ecological Security"></div>
-        <div class="field-block"><label class="wf-label">Designation</label><input class="wf-in" value="GIS Analyst"></div>
-        <div class="field-block"><label class="wf-label">State</label><select class="wf-in">${STATES.map(s=>`<option>${s}</option>`).join("")}</select></div>
-        <div class="field-block"><label class="wf-label">Interface language</label><select class="wf-in"><option>English</option><option>हिन्दी</option></select></div>
+    <h2 class="mb0" style="font-size:22px">My Profile</h2>
+    <p class="sub" style="margin:2px 0 16px">Your account details and preferences.</p>
+    <div class="panel" style="position:relative">
+      <button class="btn btn-icon" style="position:absolute;top:1rem;right:1rem" title="Edit profile" onclick="toast('Edit profile')"><svg class=svgi><use href=#i-pencil /></svg></button>
+      <div class="row" style="gap:16px;align-items:center">
+        <span class="pw-av lg" style="width:4.1rem;height:4.1rem;font-size:1.25rem;background:var(--ink)">${ini}</span>
+        <div>
+          <h3 style="margin:0 0 8px;font-size:20px">Priya Sharma</h3>
+          <span class="role-badge"><svg class=svgi><use href=#i-shield /></svg> ${nm}</span>
+          <div class="row mt8" style="gap:18px;flex-wrap:wrap;font-size:.85rem;color:var(--muted-2)">
+            <span class="row" style="gap:.4rem;align-items:center"><svg class="svgi" style="width:15px;height:15px"><use href=#i-mail /></svg>priya.sharma@fes.org.in</span>
+            <span class="row" style="gap:.4rem;align-items:center"><svg class="svgi" style="width:15px;height:15px"><use href=#i-message /></svg>+91 98765 43210</span>
+            <span class="row" style="gap:.4rem;align-items:center"><svg class="svgi" style="width:15px;height:15px"><use href=#i-pin /></svg>Udaipur, India</span>
+          </div>
+        </div>
       </div>
-      <div class="row"><a class="btn primary" onclick="toast('Profile saved')">Save changes</a><a class="btn" onclick="go('#/password')">Change password</a></div>
     </div>
-    <div class="grid g3 mt16">
-      ${[["Datasets uploaded","12","3 pending review"],["Maps &amp; dashboards","7","published"],["Downloads of your data","2,418","all time"]].map(k=>`<div class="kpi"><div class="k">${k[0]}</div><b>${k[1]}</b><div class="d">${k[2]}</div></div>`).join("")}
-    </div>
-    <div class="panel mt16"><div class="eyebrow">Your permissions</div>
-      <div class="mt8">${[["Browse &amp; search public content",1],["Download permitted content",1],["Upload datasets &amp; documentation",roleCan('contribute')],["Create maps, dashboards &amp; stories",roleCan('contribute')],["Approve or reject submissions",roleCan('moderate')],["Manage organization users",roleCan('orgAdmin')],["Manage platform configuration &amp; standards",roleCan('platform')],["Override moderation · audit trails",roleCan('superAdmin')]].map(r=>`<div class="detail-f"><span class="k">${r[0]}</span><span class="v">${r[1]?'<svg class=svgi><use href=#i-check /></svg> Allowed':'— Not allowed'}</span></div>`).join("")}</div>
-      <div class="mt12"><a class="btn sm" onclick="go('#/roles')">See the full role matrix →</a></div>
+    <div class="panel mt16">
+      <div class="eyebrow"><svg class=svgi><use href=#i-settings /></svg> Preferences</div>
+      <div class="mt8">${[["Email notifications","Get notified when a submission of yours is reviewed or published.",1],["Weekly summary report","Receive a weekly activity summary every Monday.",1],["Platform updates","Occasional emails about new features on the Commons Platform.",0]].map(r=>`<div class="detail-f" style="align-items:center">
+        <div><b style="display:block;font-size:.92rem">${r[0]}</b><span class="wf-note" style="text-transform:none;letter-spacing:0;font-weight:400">${r[1]}</span></div>
+        <label class="tgl"><input type="checkbox" ${r[2]?'checked':''} onchange="toast('Preference updated')"><span class="tgl-tr"></span></label>
+      </div>`).join("")}</div>
     </div>
   `);
 };
