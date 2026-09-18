@@ -93,6 +93,10 @@ p{margin:0}
 .btn.link:hover{color:var(--green-d);background:none}
 .btn.block{width:100%;justify-content:center}
 .btn.btn-icon{padding:0;width:2.4rem;height:2.4rem;border-radius:.65rem;color:var(--muted);display:inline-grid;place-items:center}
+.acts-group{display:inline-flex;align-items:stretch;border:1px solid var(--line-2);background:#fff}
+.acts-group button{border:0;background:none;padding:.45rem .6rem;color:var(--muted);cursor:pointer;display:inline-grid;place-items:center}
+.acts-group button:not(:last-child){border-right:1px solid var(--line-2)}
+.acts-group button:hover{background:var(--bg-soft);color:var(--ink)}
 .btn.btn-icon:hover{border-color:var(--green);color:var(--green);background:var(--green-soft)}
 .btn:focus-visible,.wf-in:focus-visible,select:focus-visible,input:focus-visible,.navlink:focus-visible{outline:2px solid var(--green);outline-offset:2px}
 
@@ -1213,7 +1217,7 @@ footer .bar{border-top:1px solid var(--line-2);padding:1.35rem 0 1.75rem;font-si
 #login-modal .lm-foot a:hover{color:var(--green-d)}
 /* full metadata modal */
 #meta-modal{position:fixed;inset:0;z-index:96;display:none}
-#meta-modal.open{display:flex;align-items:flex-start;justify-content:center;padding:2rem 1.5rem}
+#meta-modal.open{display:flex;align-items:center;justify-content:center;padding:2rem 1.5rem}
 #meta-modal .mm-back{position:absolute;inset:0;background:rgba(20,28,60,.58);backdrop-filter:blur(2px)}
 #meta-modal .mm-card{position:relative;z-index:2;width:min(880px,100%);max-height:calc(100vh - 4rem);overflow:auto;background:#fff;border:0;border-radius:0;box-shadow:var(--shadow-lg);padding:1.75rem 2rem 2rem}
 #meta-modal .mm-x{position:absolute;top:.9rem;right:1rem;width:2rem;height:2rem;border-radius:.55rem;border:1px solid var(--line-2);background:#fff;color:var(--muted);cursor:pointer;font-size:.9rem;display:grid;place-items:center;z-index:3}
@@ -4675,11 +4679,11 @@ screens.admin=(p)=>{
     ${tab==='Roles'?`
       <div class="tblwrap"><table class="mtable"><thead><tr><th>Role name</th><th>Permissions</th><th>Users</th><th>Created</th><th>Actions</th></tr></thead><tbody>
         ${ADMIN_ROLES.map(r=>`<tr><td><span class="tag">${r[0]}</span></td><td>${r[1]}</td><td>${r[2]}</td><td>${r[3]}</td>
-          <td><span class="row" style="gap:8px"><button class="btn-icon" title="Edit" onclick="toast('Edit role')"><svg class=svgi><use href=#i-pencil /></svg></button><button class="btn-icon" title="Delete" onclick="toast('Delete role')"><svg class=svgi><use href=#i-trash /></svg></button></span></td></tr>`).join("")}
+          <td><span class="acts-group"><button title="Edit" onclick="toast('Edit role')"><svg class=svgi><use href=#i-pencil /></svg></button><button title="Delete" onclick="toast('Delete role')"><svg class=svgi><use href=#i-trash /></svg></button></span></td></tr>`).join("")}
       </tbody></table></div>`:`
       <div class="tblwrap"><table class="mtable"><thead><tr><th>Name</th><th>Role</th><th>Email</th><th>Last active</th><th>Status</th><th>Actions</th></tr></thead><tbody>
         ${ADMIN_USERS.map((r,i)=>`<tr><td><span class="row" style="gap:.6rem;align-items:center"><span class="pw-av" style="background:${ADMIN_AV_TC[i%ADMIN_AV_TC.length]}">${r[0].split(' ').map(w=>w[0]).join('').slice(0,2).toUpperCase()}</span><b>${r[0]}</b></span></td><td>${r[1]}</td><td>${r[2]}</td><td>${r[3]}</td><td>${adminStatusTag(r[4])}</td>
-          <td><span class="row" style="gap:8px"><button class="btn-icon" title="Edit" onclick="toast('Edit user')"><svg class=svgi><use href=#i-pencil /></svg></button><button class="btn-icon" title="Delete" onclick="toast('Delete user')"><svg class=svgi><use href=#i-trash /></svg></button></span></td></tr>`).join("")}
+          <td><span class="acts-group"><button title="Edit" onclick="toast('Edit user')"><svg class=svgi><use href=#i-pencil /></svg></button><button title="Delete" onclick="toast('Delete user')"><svg class=svgi><use href=#i-trash /></svg></button></span></td></tr>`).join("")}
       </tbody></table></div>`}
     </div>
   `);
