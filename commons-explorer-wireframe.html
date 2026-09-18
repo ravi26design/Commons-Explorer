@@ -4675,7 +4675,7 @@ screens.admin=(p)=>{
       <a class="tab-c ${tab==='Users'?'active':''}" onclick="go('#/admin?tab=Users')">Users <span class="cnt">${ADMIN_USERS.length}</span></a>
       <a class="tab-c ${tab==='Roles'?'active':''}" onclick="go('#/admin?tab=Roles')">Roles <span class="cnt">${ADMIN_ROLES.length}</span></a>
     </div>
-    <div class="panel mt16" style="padding:4px 6px">
+    <div class="mt16">
     ${tab==='Roles'?`
       <div class="tblwrap"><table class="mtable"><thead><tr><th>Role name</th><th>Permissions</th><th>Users</th><th>Created</th><th>Actions</th></tr></thead><tbody>
         ${ADMIN_ROLES.map(r=>`<tr><td><span class="tag">${r[0]}</span></td><td>${r[1]}</td><td>${r[2]}</td><td>${r[3]}</td>
