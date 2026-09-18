@@ -229,6 +229,13 @@ main{min-height:60vh;padding-bottom:3rem;animation:fade .3s ease}
 .acct-content-panel{background:var(--bg-soft);flex:1;min-width:0;padding:1.5rem 2rem 2.75rem 1.75rem}
 @media(max-width:900px){.acct-split{flex-direction:column;margin:0 -1.25rem}.acct-side-panel{width:auto;border-right:0;border-bottom:1px solid var(--line);padding:1.25rem}.acct-content-panel{padding:1.25rem}}
 @media(max-width:760px){.acct-nav{position:static;flex-direction:row;flex-wrap:wrap;gap:.4rem}.acct-item{border-color:var(--line-2);background:#fff;margin-bottom:0}}
+/* larger touch targets for icon-only controls on phones/tablets */
+@media(max-width:900px){
+  .nav-ic,.btn.btn-icon,.acts-group button,.lg-eye,.mm-x,.mf-acts .nav-ic,.rf-bk{min-width:2.5rem;min-height:2.5rem}
+  .acts-group button{padding:.6rem .75rem}
+  .mtable td:first-child,.mtable th:first-child{position:sticky;left:0;background:#fff;z-index:1;box-shadow:2px 0 4px -2px rgba(0,0,0,.12)}
+  .mtable thead th:first-child{background:var(--bg-soft)}
+}
 .pw-head{display:flex;align-items:center;gap:.7rem;padding:.7rem}
 .pw-head b{display:block;font-size:.92rem;color:var(--ink)}.pw-head span{font-size:.75rem;color:var(--muted-2)}.pw-head .pw-av{color:#fff}
 .pw-div{height:1px;background:var(--line);margin:.35rem 0}
