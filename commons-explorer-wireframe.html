@@ -4487,8 +4487,7 @@ screens.profile=()=>{
   if(!isAuthed()) return gateScreen('My Profile','Sign in to view your profile and account information.','#/profile');
   const nm=roleName(), ini=nm.split(' ').map(w=>w[0]).join('').slice(0,2).toUpperCase();
   return accountShell('profile',[{label:"Home",href:"#/home"},{label:"My Profile"}],`
-    <h2 class="mb0" style="font-size:22px">My Profile</h2>
-    <p class="sub" style="margin:2px 0 16px">Your account details and preferences.</p>
+    <h2 class="mb0" style="font-size:22px;margin-bottom:16px">My Profile</h2>
     <div class="panel" style="position:relative">
       <button class="btn btn-icon" style="position:absolute;top:1rem;right:1rem" title="Edit profile" onclick="toast('Edit profile')"><svg class=svgi><use href=#i-pencil /></svg></button>
       <div class="row" style="gap:16px;align-items:center">
