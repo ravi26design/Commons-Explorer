@@ -4529,13 +4529,20 @@ screens.profile=()=>{
 
 screens.password=()=>{
   if(!isAuthed()) return gateScreen('Change password','Sign in to manage your account.','#/password');
+  const pwField=(label,placeholder)=>`<div class="field-block"><label class="wf-label">${label}</label>
+    <div style="position:relative"><input class="wf-in" style="padding-right:2.6rem" type="password" ${placeholder?`placeholder="${placeholder}"`:''}>
+      <button class="lg-eye" type="button" style="position:absolute;right:.8rem;top:50%;transform:translateY(-50%)" aria-label="Show password" onclick="togglePw(this)"><svg class=svgi><use href=#i-eyeoff /></svg></button>
+    </div></div>`;
   return accountShell('password',[{label:"Home",href:"#/home"},{label:"Change Password"}],`
+    <h2 class="mb0" style="font-size:22px">Change Password</h2>
+    <p class="sub" style="margin:2px 0 16px">Update your password to keep your account secure.</p>
     <div class="panel" style="max-width:520px">
-      <h2 style="margin:0 0 4px;font-size:20px">Change password</h2>
-      <p class="muted" style="margin:0 0 16px">Passwords follow the platform's OWASP-aligned policy.</p>
-      <div class="field-block"><label class="wf-label">Current password</label><input class="wf-in" type="password" placeholder="••••••••"></div>
-      <div class="field-block"><label class="wf-label">New password</label><input class="wf-in" type="password" placeholder="At least 12 characters"></div>
-      <div class="field-block"><label class="wf-label">Confirm new password</label><input class="wf-in" type="password"></div>
+      <h3 style="margin:0 0 4px;font-size:1.05rem;display:flex;align-items:center;gap:.5rem"><svg class=svgi><use href=#i-key /></svg> Change password</h3>
+      <p class="muted" style="margin:0 0 18px">Passwords follow the platform's OWASP-aligned policy.</p>
+      ${pwField('Current password')}
+      ${pwField('New password','At least 12 characters')}
+      ${pwField('Confirm new password')}
+      <div class="row" style="gap:6px;flex-wrap:wrap;margin:.2rem 0 1.3rem">${['12+ characters','1 uppercase letter','1 number','1 symbol'].map(r=>`<span class="tag"><svg class=svgi style="width:12px;height:12px"><use href=#i-check /></svg> ${r}</span>`).join("")}</div>
       <div class="row"><a class="btn primary" onclick="toast('Password updated')">Update password</a><a class="btn" onclick="go('#/profile')">Cancel</a></div>
     </div>
   `);
