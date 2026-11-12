@@ -3314,8 +3314,7 @@ screens.thematic=(p)=>shell("#/thematic",[{label:"Home",href:"#/home"},{label:"T
       <p>Explore Curated datasets and visualisations organised around key themes relevant to India's commons - water, forests and land, and biodiversity. Select a theme to open its thematic dashboard and data viewer.</p>
     </div>
   </div>
-  <div class="page-photo"><img src="assets/ill-types.jpg" alt=""></div>
-  <section class="section" style="padding-top:3rem">
+  <section class="section" style="padding-top:2rem">
     <div class="grid g3 mod-grid lens-grid3" id="thm-grid">
       ${THEMES.map(t=>lensCard({tc:LENS_TC[t.id],img:LENS_IMG[t.id],href:'#/theme/'+t.id,tag:'',ic:t.ic,name:t.name,meta:t.tag,desc:t.desc,cta:'Open the '+t.name+' theme'})).join("")}
     </div>
