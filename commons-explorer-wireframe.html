@@ -1491,16 +1491,18 @@ body{overflow-x:clip}
 .hs-track{display:flex;height:100%;transition:transform .6s ease}
 .hs-slide{position:relative;flex:0 0 100%;height:100%}
 .hs-slide img{width:100%;height:100%;object-fit:cover;object-position:center center;display:block}
-.hs-cap{position:absolute;left:clamp(1rem,3vw,2.5rem);bottom:clamp(1rem,4vw,2.5rem);z-index:2;max-width:26rem;background:rgba(255,255,255,.94);padding:1rem 1.2rem 1.1rem;box-shadow:0 14px 34px -16px rgba(20,30,50,.45)}
-.hs-cap em{display:block;font-style:normal;font-size:.7rem;font-weight:800;letter-spacing:.09em;text-transform:uppercase;color:var(--green-d);margin-bottom:.25rem}
-.hs-cap b{display:block;font-size:1.15rem;line-height:1.25;margin-bottom:.3rem}
-.hs-cap span{display:block;font-size:.9rem;line-height:1.5;color:var(--muted);margin-bottom:.7rem}
+.hs-slide::after{content:'';position:absolute;inset:0;background:linear-gradient(to top,rgba(20,24,28,.78) 0%,rgba(20,24,28,.45) 38%,rgba(20,24,28,0) 68%);pointer-events:none}
+.hs-cap{position:absolute;left:clamp(1rem,5vw,4.5rem);bottom:clamp(1.25rem,4vw,2.75rem);z-index:2;max-width:34rem;color:#fff;text-shadow:0 2px 14px rgba(0,0,0,.45)}
+.hs-cap em{display:block;font-style:normal;font-size:.72rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.85);margin-bottom:.35rem}
+.hs-cap b{display:block;font-size:clamp(1.6rem,3vw,2.4rem);line-height:1.15;margin-bottom:.45rem;color:#fff}
+.hs-cap span{display:block;font-size:1rem;line-height:1.55;color:rgba(255,255,255,.92);margin-bottom:.9rem}
+.hs-cap .btn{text-shadow:none}
 .hs-nav{position:absolute;top:50%;transform:translateY(-50%);z-index:3;width:2.75rem;height:2.75rem;border-radius:50%;border:0;background:rgba(255,255,255,.9);color:var(--ink);font-size:1.4rem;line-height:1;cursor:pointer;box-shadow:0 6px 16px -8px rgba(0,0,0,.5)}
 .hs-nav.prev{left:1rem}.hs-nav.next{right:1rem}
 .hs-dots{position:absolute;right:clamp(1rem,3vw,2.5rem);bottom:clamp(1rem,4vw,2.5rem);z-index:3;display:flex;gap:.45rem}
 .hs-dots .car-dot{width:.7rem;height:.7rem;border-radius:50%;border:0;background:rgba(255,255,255,.6);padding:0;cursor:pointer;box-shadow:0 1px 4px rgba(0,0,0,.4)}
 .hs-dots .car-dot.on{background:#fff;width:1.8rem;border-radius:999px}
-@media(max-width:700px){.hs-cap{max-width:none;right:1rem;bottom:3.4rem;padding:.8rem 1rem}.hs-cap span{display:none}.hs-nav{width:2.4rem;height:2.4rem}.hs-dots{left:50%;right:auto;transform:translateX(-50%);bottom:1rem}}
+@media(max-width:700px){.hs-cap{max-width:none;right:1rem;bottom:3.4rem}.hs-cap b{font-size:1.4rem}.hs-cap span{display:none}.hs-nav{width:2.4rem;height:2.4rem}.hs-dots{left:50%;right:auto;transform:translateX(-50%);bottom:1rem}}
 .photo-credit{position:absolute;right:1rem;bottom:.8rem;z-index:2;font-size:.7rem;color:rgba(255,255,255,.85);background:rgba(59,53,49,.55);padding:.3rem .6rem}
 .ehero-after{z-index:1;background:#fff;box-shadow:0 -18px 40px -22px rgba(20,30,50,.35);padding-top:.5rem}
 .rise{animation:up .5s ease both}
