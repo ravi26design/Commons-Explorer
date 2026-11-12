@@ -2656,9 +2656,7 @@ const NAV=[
   {id:"#/dss",label:"Decision Support"},
   {id:"#/thematic",label:"Thematic Datasets"},
   {id:"#/repository",label:"Data Repository"},
-  {id:"#/insights",label:"Commons Insights"},
-  {id:"#/blogs",label:"Blogs"},
-  {id:"#/about",label:"About"}
+  {id:"#/insights",label:"Commons Insights"}
 ].map(n=>LANDING_ONLY?{...n,soon:1}:n);
 function appsMenu(){
   const grid=`<svg width="15" height="15" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><circle cx="3" cy="3" r="1.5"/><circle cx="8" cy="3" r="1.5"/><circle cx="13" cy="3" r="1.5"/><circle cx="3" cy="8" r="1.5"/><circle cx="8" cy="8" r="1.5"/><circle cx="13" cy="8" r="1.5"/><circle cx="3" cy="13" r="1.5"/><circle cx="8" cy="13" r="1.5"/><circle cx="13" cy="13" r="1.5"/></svg>`;
@@ -3399,7 +3397,7 @@ function gxCatalogue(tab,opts){
   return `
     ${opts.hideTabs?'':`<div class="gx-tabs mt24">
       ${tabs.map(t=>`<div class="gx-tab ${t===tab?'on':''}" onclick="go('${route}?tab=${t}')">${t}</div>`).join("")}
-      <div class="right"><div class="gx-tab" onclick="go('#/home')">Home</div><div class="gx-tab" onclick="go('#/about')">About</div><div class="gx-tab" onclick="toggleLang(event)">${curLang==='English'?'English':curLang}</div></div>
+      <div class="right"><div class="gx-tab" onclick="go('#/home')">Home</div><div class="gx-tab" onclick="toggleLang(event)">${curLang==='English'?'English':curLang}</div></div>
     </div>`}
     ${gxLatestCards()}
     <div class="gx-body" style="${opts.hideTabs?'border-top:1px solid var(--line);border-radius:var(--radius);margin-top:24px':''}">
@@ -5056,9 +5054,6 @@ screens.sitemap=()=>shell("",[{label:"Home",href:"#/home"},{label:"Site map"}],`
 │   ├── Administration  <a onclick="go('#/admin')">#/admin</a>   <svg class=svgi><use href=#i-lock /></svg> admin
 │   └── Change password  <a onclick="go('#/password')">#/password</a>   <svg class=svgi><use href=#i-lock /></svg>
 └── Platform
-    ├── About  <a onclick="go('#/about')">#/about</a>
-    ├── Blogs  <a onclick="go('#/blogs')">#/blogs</a>
-    │   └── Blog post  <a onclick="go('#/blog/0')">#/blog/:id</a>
     ├── Roles &amp; access  <a onclick="go('#/roles')">#/roles</a>
     ├── Architecture  <a onclick="go('#/architecture')">#/architecture</a>
     └── Site map  <a onclick="go('#/sitemap')">#/sitemap</a></div></div>
