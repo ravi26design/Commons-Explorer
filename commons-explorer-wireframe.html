@@ -2590,7 +2590,7 @@ const DS_FORMATS=["SHP","GeoJSON","KML","CSV","GeoTIFF"];
 /* SRS §2.2.3.2.3 — gallery of user-generated content */
 const GALLERY=[
   {id:"g-01",t:"Where the tanks went — 30 years of water bodies in Anantapur",kind:"Story",src:"Commons Stories",who:"Kavita Menon",org:"FES",when:"12 Aug 2025",views:"1.2k",ic:"<svg class=svgi><use href=#i-book /></svg>"},
-  {id:"g-02",t:"Common land pressure index — district dashboard",kind:"Dashboard",src:"Apache Superset",who:"Aditi Joshi",org:"Partner CSO",when:"04 Aug 2025",views:"860",ic:"<svg class=svgi><use href=#i-trend /></svg>"},
+  {id:"g-02",t:"Common land pressure index - district dashboard",kind:"Dashboard",src:"Apache Superset",who:"Aditi Joshi",org:"Partner CSO",when:"04 Aug 2025",views:"860",ic:"<svg class=svgi><use href=#i-trend /></svg>"},
   {id:"g-03",t:"Grazing corridors of Kutch — interactive map",kind:"Map",src:"GeoNode",who:"Manish Patel",org:"FES",when:"29 Jul 2025",views:"2.0k",ic:"<svg class=svgi><use href=#i-map /></svg>"},
   {id:"g-04",t:"Forest cover change vs CFR claims — comparison",kind:"Map",src:"GeoNode",who:"Krishnan Iyer",org:"Academic partner",when:"22 Jul 2025",views:"640",ic:"<svg class=svgi><use href=#i-map /></svg>"},
   {id:"g-05",t:"Who uses the commons? Household dependence charts",kind:"Dashboard",src:"Apache Superset",who:"Sarah Johnson",org:"Partner CSO",when:"15 Jul 2025",views:"512",ic:"<svg class=svgi><use href=#i-trend /></svg>"},
@@ -2603,7 +2603,7 @@ function galById(id){return GALLERY.find(g=>g.id===id)||GALLERY[0];}
 /* What's New — latest additions and updates across the platform (homepage feed) */
 const WHATS_NEW=[
   {kind:"New dataset",ic:"<svg class=svgi><use href=#i-map /></svg>",t:"Common lands of Bhilwara district - parcel boundaries",note:"12,340 parcels mapped at 1:10,000, published to the repository.",when:"31 Aug 2025",who:"FES \u2014 Land Vertical",href:"#/dataset/ds-01",img:"assets/photo-2.jpg"},
-  {kind:"New dashboard",ic:"<svg class=svgi><use href=#i-trend /></svg>",t:"Common land pressure index \u2014 district dashboard",note:"Compare pressure on commons across 18 districts, refreshed nightly.",when:"28 Aug 2025",who:"Aditi Joshi \u00b7 Partner CSO",href:"#/gallery-item/g-02",img:"assets/photo-3.jpg"},
+  {kind:"New dashboard",ic:"<svg class=svgi><use href=#i-trend /></svg>",t:"Common land pressure index - district dashboard",note:"Compare pressure on commons across 18 districts, refreshed nightly.",when:"28 Aug 2025",who:"Aditi Joshi \u00b7 Partner CSO",href:"#/gallery-item/g-02",img:"assets/photo-3.jpg"},
   {kind:"New story",ic:"<svg class=svgi><use href=#i-book /></svg>",t:"Where the tanks went \u2014 30 years of water bodies in Anantapur",note:"A narrative built from map views and Superset charts.",when:"24 Aug 2025",who:"Kavita Menon \u00b7 FES",href:"#/gallery-item/g-01",img:"assets/type-water.jpg"},
   {kind:"Platform update",ic:"<svg class=svgi><use href=#i-sparkles /></svg>",t:"Zonal statistics now available in Map Studio",note:"Compute raster statistics by zone and export the results table.",when:"21 Aug 2025",who:"Commons Explorer team",href:"#/mapstudio",img:"assets/hero-participatory.jpg"}
 ];
