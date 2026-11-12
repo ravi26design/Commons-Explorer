@@ -2483,6 +2483,13 @@ footer.site .bar{display:flex;align-items:center;justify-content:space-between;g
 .pw-card .pw-cta:hover,.pw-card:hover .pw-cta{color:var(--tc);background:none;box-shadow:none}
 .pw-card .pw-cta .mc-arrow{transition:transform .15s}
 .pw-card:hover .pw-cta .mc-arrow{transform:translateX(4px)}
+.pw-card .pw-play{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);z-index:2;width:4.25rem;height:4.25rem;border-radius:50%;border:0;background:rgba(255,255,255,.92);display:grid;place-items:center;cursor:pointer;box-shadow:0 12px 30px -10px rgba(0,0,0,.55);transition:transform .2s,background .2s}
+.pw-card .pw-play svg{width:1.7rem;height:1.7rem;fill:var(--tc);margin-left:.18rem}
+.pw-card .pw-play:hover{transform:translate(-50%,-50%) scale(1.08);background:#fff}
+.pw-card .mc-media.playing{background:#000;cursor:default}
+.pw-card .mc-media.playing::after{display:none}
+.pw-card .mc-media iframe,.pw-card .mc-media video{position:absolute;inset:0;width:100%;height:100%;border:0;background:#000}
+.pw-card .pw-vclose{position:absolute;right:.7rem;top:.6rem;z-index:3;width:2.2rem;height:2.2rem;border-radius:50%;border:0;background:rgba(0,0,0,.6);color:#fff;font-size:1.4rem;line-height:1;cursor:pointer}
 .mod-tile.pw-card.soon{pointer-events:none}
 @media(max-width:640px){.pw-card .mc-media{height:11rem}.pw-card .mc-body{padding:0 1.25rem 1.35rem}.pw-card h3{font-size:1.35rem}.pw-card .pw-cta{align-self:flex-start}}
 </style>
@@ -3133,6 +3140,22 @@ const MOD_TAG={thematic:"Curated themes",repository:"Open data",dss:"Planning to
 const MOD_IMG={thematic:"assets/photo-8.jpg",repository:"assets/photo-3.jpg",dss:"assets/photo-1.jpg",insights:"assets/photo-9.jpg"};
 const MOD_FIT={};
 const MOD_STAT={thematic:"3 themes · 20+ layers",repository:"12 datasets · 5 formats",dss:"6 planning tools",insights:"Map Studio · Superset"};
+/* home pathway card videos — paste a YouTube / Vimeo / .mp4 URL per module to enable playback */
+const MOD_VIDEO={dss:"",thematic:"",repository:"",insights:""};
+function playModVideo(e,id){
+  e.stopPropagation();
+  const url=(MOD_VIDEO[id]||'').trim();
+  if(!url){toast('Video to be added');return;}
+  const media=e.currentTarget.closest('.mc-media');
+  const yt=url.match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|embed\/|shorts\/))([\w-]{11})/);
+  const vm=url.match(/vimeo\.com\/(?:video\/)?(\d+)/);
+  const player=yt?`<iframe src="https://www.youtube.com/embed/${yt[1]}?autoplay=1&rel=0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>`
+    :vm?`<iframe src="https://player.vimeo.com/video/${vm[1]}?autoplay=1" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>`
+    :`<video src="${url}" controls autoplay playsinline></video>`;
+  media.classList.add('playing');
+  media.onclick=ev=>ev.stopPropagation();
+  media.innerHTML=`${player}<button class="pw-vclose" type="button" aria-label="Close video" onclick="event.stopPropagation();render()">×</button>`;
+}
 function moduleTiles(){
   const go_=LANDING_ONLY?"toast('Coming soon')":null;
   const act=href=>go_||`go('${href}')`;
@@ -3142,6 +3165,7 @@ function moduleTiles(){
         <div class="pw-img" style="background-image:url('${MOD_IMG[m.id]}')"></div>
         <span class="mc-tag">${MOD_TAG[m.id]||''}</span>
         <span class="pw-num">0${i+1}</span>
+        <button class="pw-play" type="button" aria-label="Play ${m.name} video" onclick="playModVideo(event,'${m.id}')"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13a1 1 0 0 0 1.5.86l10.5-6.5a1 1 0 0 0 0-1.72L9.5 4.64A1 1 0 0 0 8 5.5z"/></svg></button>
       </div>
       <div class="mc-body">
         <span class="pw-ic">${m.ic}</span>
