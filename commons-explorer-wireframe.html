@@ -3124,7 +3124,6 @@ function moduleTiles(){
           <div class="mc-title"><h3>${m.name}</h3><span class="mc-meta">${m.sub?m.sub.replace(/[()]/g,'')+' · ':''}${MOD_STAT[m.id]||''}</span></div>
         </div>
         <p onclick="${act(m.href)}">${m.desc}</p>
-        <div class="mc-chips">${m.links.map(l=>`<a class="mc-chip" ${CHIP_TC[l[0]]?`style="--tc:${CHIP_TC[l[0]]}"`:''} onclick="${LANDING_ONLY?go_:`go('${l[1]}')`}">${l[0]}</a>`).join("")}</div>
       </div>
       <a class="mc-foot" onclick="${act(m.href)}"><span>Open ${m.name}</span><span class="mc-arrow">→</span></a>
     </article>`).join("")}</div>`;
