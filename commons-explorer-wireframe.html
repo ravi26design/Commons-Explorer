@@ -1491,7 +1491,6 @@ body{overflow-x:clip}
 .hs-track{display:flex;height:100%;transition:transform .6s ease}
 .hs-slide{position:relative;flex:0 0 100%;height:100%}
 .hs-slide img{width:100%;height:100%;object-fit:cover;object-position:center center;display:block}
-.hs-slide::after{content:'';position:absolute;inset:0;background:linear-gradient(to top,rgba(20,24,28,.78) 0%,rgba(20,24,28,.45) 38%,rgba(20,24,28,0) 68%);pointer-events:none}
 .hs-cap{position:absolute;left:clamp(1rem,5vw,4.5rem);bottom:clamp(1.25rem,4vw,2.75rem);z-index:2;max-width:34rem;color:#fff;text-shadow:0 2px 14px rgba(0,0,0,.45)}
 .hs-cap em{display:block;font-style:normal;font-size:.72rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.85);margin-bottom:.35rem}
 .hs-cap b{display:block;font-size:clamp(1.6rem,3vw,2.4rem);line-height:1.15;margin-bottom:.45rem;color:#fff}
@@ -3241,7 +3240,6 @@ function heroSlider(){
   return `<div class="hero-photo" id="${id}">
     <div class="hs-track" id="${id}-track">${HERO_SLIDES.map(h=>{const m=MODULES.find(x=>x.id===h[0]);return `<div class="hs-slide">
       <img src="${h[1]}" alt="${m.name}">
-      <div class="hs-cap"><em>Pathway</em><b>${m.name}</b><span>${h[2]}</span><a class="btn primary sm" onclick="go('${m.href}')">Open ${m.name} →</a></div>
     </div>`;}).join("")}</div>
     <button class="hs-nav prev" onclick="carGo('${id}',-1)" aria-label="Previous slide">‹</button>
     <button class="hs-nav next" onclick="carGo('${id}',1)" aria-label="Next slide">›</button>
