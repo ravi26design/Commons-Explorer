@@ -2465,35 +2465,31 @@ footer.site .bar{display:flex;align-items:center;justify-content:space-between;g
 @media(max-width:560px){footer.site .bar{justify-content:center;text-align:center}}
 
 /* ---- home pathway cards ---- */
-.mod-tile.pw-card{display:flex;flex-direction:column;cursor:pointer;border:1px solid var(--line-2);border-radius:18px;background:#fff;box-shadow:0 1px 2px rgba(74,66,62,.05),0 10px 28px -18px rgba(74,66,62,.35);transition:transform .2s,box-shadow .2s,border-color .2s}
-.mod-tile.pw-card:hover{transform:translateY(-4px);box-shadow:0 22px 40px -22px rgba(74,66,62,.5);border-color:color-mix(in srgb,var(--tc) 45%,#fff)}
-.pw-card .mc-media{position:relative;height:14.5rem;flex:none;background:none;cursor:pointer}
-.pw-card .pw-img{position:absolute;inset:0;background-size:cover;background-position:center;transition:transform .6s ease}
-.pw-card:hover .pw-img{transform:scale(1.05)}
-.pw-card .mc-media::after{background:linear-gradient(to top,rgba(30,28,26,.55),rgba(30,28,26,0) 55%)}
-.pw-card .mc-body{display:flex;flex-direction:column;flex:1;padding:1.5rem 1.75rem 1.5rem;gap:0}
-.pw-card .pw-eyebrow{display:flex;align-items:center;gap:.7rem;margin-bottom:.85rem}
-.pw-card .pw-ic{display:grid;place-items:center;width:2.4rem;height:2.4rem;flex:none;border-radius:50%;background:color-mix(in srgb,var(--tc) 12%,#fff);color:var(--tc)}
-.pw-card .pw-ic .svgi{width:1.2rem;height:1.2rem;stroke-width:1.9}
-.mod-tile.pw-card .mc-body h3{margin:0;font-size:1.75rem;line-height:1.12;letter-spacing:-.025em;color:var(--ink)}
-.mod-tile.pw-card .mc-body h3::after{content:'';display:block;width:2.6rem;height:3px;margin-top:.7rem;background:var(--tc);border-radius:2px;transition:width .25s}
-.mod-tile.pw-card:hover .mc-body h3::after{width:4.2rem}
-.mod-tile.pw-card:hover .mc-body h3{color:var(--tc)}
-.pw-card .pw-stat{font-size:.72rem;font-weight:800;letter-spacing:.11em;text-transform:uppercase;color:var(--tc)}
-.mod-tile.pw-card .mc-body>p{margin:.85rem 0 1.3rem;padding:0;font-size:1rem;line-height:1.7;color:var(--ink-2);cursor:pointer}
-.pw-card .pw-foot{margin-top:auto;padding-top:1rem;border-top:1px solid var(--line)}
-.pw-card .pw-cta{display:inline-flex;align-items:center;gap:.55rem;padding:0;background:none;border:0;box-shadow:none;border-radius:0;font-size:1.02rem;font-weight:700;color:var(--cta);cursor:pointer;transition:color .15s}
-.pw-card .pw-cta:hover,.pw-card:hover .pw-cta{color:var(--tc);background:none;box-shadow:none}
-.pw-card .pw-cta .mc-arrow{transition:transform .15s}
-.pw-card:hover .pw-cta .mc-arrow{transform:translateX(4px)}
-.pw-card .pw-play{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);z-index:2;width:4.25rem;height:4.25rem;border-radius:50%;border:0;background:rgba(255,255,255,.92);display:grid;place-items:center;cursor:pointer;box-shadow:0 12px 30px -10px rgba(0,0,0,.55);transition:transform .2s,background .2s}
-.pw-card .pw-play svg{width:1.7rem;height:1.7rem;fill:var(--tc);margin-left:.18rem}
-.pw-card .pw-play:hover{transform:translate(-50%,-50%) scale(1.08);background:#fff}
+.mod-tile.pw-card{display:flex;flex-direction:column;cursor:pointer;border:1px solid var(--line-2);border-radius:14px;background:#fff;box-shadow:none;transition:box-shadow .2s,border-color .2s}
+.mod-tile.pw-card:hover{transform:none;box-shadow:0 14px 30px -20px rgba(74,66,62,.45);border-color:color-mix(in srgb,var(--tc) 40%,var(--line-2))}
+.pw-card .mc-media{position:relative;height:13.5rem;flex:none;background:none;cursor:pointer}
+.pw-card .pw-img{position:absolute;inset:0;background-size:cover;background-position:center;transition:transform .5s ease}
+.pw-card:hover .pw-img{transform:scale(1.03)}
+.pw-card .mc-media::after{background:linear-gradient(to top,rgba(30,28,26,.28),rgba(30,28,26,0) 50%)}
+.pw-card .pw-play{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);z-index:2;width:3.4rem;height:3.4rem;border-radius:50%;border:0;background:rgba(255,255,255,.94);display:grid;place-items:center;cursor:pointer;box-shadow:0 8px 22px -8px rgba(0,0,0,.5);transition:transform .2s}
+.pw-card .pw-play svg{width:1.3rem;height:1.3rem;fill:var(--tc);margin-left:.14rem}
+.pw-card .pw-play:hover{transform:translate(-50%,-50%) scale(1.07)}
 .pw-card .mc-media.playing{background:#000;cursor:default}
 .pw-card .mc-media.playing::after{display:none}
 .pw-card .mc-media iframe,.pw-card .mc-media video{position:absolute;inset:0;width:100%;height:100%;border:0;background:#000}
 .pw-card .pw-vclose{position:absolute;right:.7rem;top:.6rem;z-index:3;width:2.2rem;height:2.2rem;border-radius:50%;border:0;background:rgba(0,0,0,.6);color:#fff;font-size:1.4rem;line-height:1;cursor:pointer}
+.pw-card .mc-body{display:flex;flex-direction:column;flex:1;padding:1.4rem 1.6rem 1.35rem;gap:0}
+.pw-card .pw-stat{font-size:.72rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--tc);margin-bottom:.45rem}
+.mod-tile.pw-card .mc-body h3{margin:0;font-size:1.55rem;line-height:1.2;letter-spacing:-.02em;color:var(--ink)}
+.mod-tile.pw-card:hover .mc-body h3{color:var(--ink)}
+.mod-tile.pw-card .mc-body>p{margin:.55rem 0 1.1rem;padding:0;font-size:.97rem;line-height:1.6;color:var(--muted);cursor:pointer}
+.pw-card .pw-foot{margin-top:auto}
+.pw-card .pw-cta{display:inline-flex;align-items:center;gap:.5rem;padding:0;background:none;border:0;box-shadow:none;border-radius:0;font-size:.98rem;font-weight:700;color:var(--cta);cursor:pointer;transition:color .15s}
+.pw-card:hover .pw-cta{color:var(--tc)}
+.pw-card .pw-cta .mc-arrow{transition:transform .15s}
+.pw-card:hover .pw-cta .mc-arrow{transform:translateX(4px)}
 .mod-tile.pw-card.soon{pointer-events:none}
+@media(max-width:640px){.pw-card .mc-media{height:10.5rem}.pw-card .mc-body{padding:1.15rem 1.2rem 1.2rem}.mod-tile.pw-card .mc-body h3{font-size:1.35rem}}
 @media(max-width:640px){.pw-card .mc-media{height:11rem}.pw-card .mc-body{padding:1.25rem 1.25rem 1.3rem}.mod-tile.pw-card .mc-body h3{font-size:1.45rem}.pw-card .pw-cta{align-self:flex-start}}
 </style>
 </head>
@@ -3166,11 +3162,10 @@ function moduleTiles(){
     <article class="mod-tile comp pw-card${LANDING_ONLY?' soon':''}" style="--tc:${MOD_TC[m.id]||'var(--green)'}" onclick="${act(m.href)}">
       <div class="mc-media">
         <div class="pw-img" style="background-image:url('${MOD_IMG[m.id]}')"></div>
-        <span class="mc-tag">${MOD_TAG[m.id]||''}</span>
         <button class="pw-play" type="button" aria-label="Play ${m.name} video" onclick="playModVideo(event,'${m.id}')"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13a1 1 0 0 0 1.5.86l10.5-6.5a1 1 0 0 0 0-1.72L9.5 4.64A1 1 0 0 0 8 5.5z"/></svg></button>
       </div>
       <div class="mc-body">
-        <div class="pw-eyebrow"><span class="pw-ic">${m.ic}</span><span class="pw-stat">${MOD_STAT[m.id]||''}</span></div>
+        <span class="pw-stat">${MOD_STAT[m.id]||''}</span>
         <h3>${m.name}</h3>
         <p>${m.desc}</p>
         <div class="pw-foot"><a class="pw-cta" onclick="event.stopPropagation();${act(m.href)}">Open ${m.name} <span class="mc-arrow">→</span></a></div>
