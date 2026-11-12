@@ -2494,6 +2494,9 @@ footer.site .bar{display:flex;align-items:center;justify-content:space-between;g
 @media(max-width:640px){.lens-card .mc-foot{padding:0 1.2rem 1.25rem}}
 /* Latest Update cards — no type pill on the image */
 .wn-nokind .wn-kind{display:none}
+/* Featured — two wide cards */
+.wn-wrap .wn-grid.g2 .wn-media{aspect-ratio:2/1}
+@media(max-width:700px){.wn-wrap .wn-grid.g2 .wn-media{aspect-ratio:16/10}}
 </style>
 </head>
 <body>
@@ -3296,7 +3299,7 @@ screens.home=()=>shell("#/home",null,`
   <section class="section">
     <div class="wn-wrap"><div class="container wn-in">
       <div class="between wn-head"><div><h2 class="mb0">Featured</h2><p class="sub">New datasets, maps, dashboards and stories as they are published, alongside platform updates.</p></div></div>
-      <div class="grid g4 wn-grid">${WHATS_NEW.map(whatsNewCard).join("")}</div>
+      <div class="grid g2 wn-grid">${WHATS_NEW.slice(0,2).map(whatsNewCard).join("")}</div>
     </div></div>
   </section>
 
