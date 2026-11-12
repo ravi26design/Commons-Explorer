@@ -3291,17 +3291,17 @@ screens.home=()=>shell("#/home",null,`
     ${moduleTiles()}
   </section>
 
-  <section class="section" id="latest-update">
-    <h2>Latest Update</h2>
-    <p class="sub">What has changed on Commons Explorer recently.</p>
-    <div class="grid g4 wn-grid">${LATEST_UPDATES.map(whatsNewCard).join("")}</div>
-  </section>
-
   <section class="section">
     <div class="wn-wrap"><div class="container wn-in">
       <div class="between wn-head"><div><h2 class="mb0">Featured</h2><p class="sub">New datasets, maps, dashboards and stories as they are published, alongside platform updates.</p></div></div>
       <div class="grid g4 wn-grid">${WHATS_NEW.map(whatsNewCard).join("")}</div>
     </div></div>
+  </section>
+
+  <section class="section" id="latest-update">
+    <h2>Latest Update</h2>
+    <p class="sub">What has changed on Commons Explorer recently.</p>
+    <div class="grid g4 wn-grid">${LATEST_UPDATES.map(whatsNewCard).join("")}</div>
   </section>
   </div></div>
 `);
