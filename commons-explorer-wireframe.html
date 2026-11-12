@@ -2463,6 +2463,27 @@ footer.site .bar{display:flex;align-items:center;justify-content:space-between;g
 .f-social .soc-bare:hover{color:var(--green)}
 .f-social .soc-bare .svgi{width:1.15rem;height:1.15rem}
 @media(max-width:560px){footer.site .bar{justify-content:center;text-align:center}}
+
+/* ---- home pathway cards ---- */
+.mod-tile.pw-card{display:flex;flex-direction:column;cursor:pointer;border:1px solid var(--line-2);border-radius:18px;background:#fff;box-shadow:0 1px 2px rgba(74,66,62,.05),0 10px 28px -18px rgba(74,66,62,.35);transition:transform .2s,box-shadow .2s,border-color .2s}
+.mod-tile.pw-card:hover{transform:translateY(-4px);box-shadow:0 22px 40px -22px rgba(74,66,62,.5);border-color:color-mix(in srgb,var(--tc) 45%,#fff)}
+.pw-card .mc-media{position:relative;height:14.5rem;flex:none;background:none;cursor:pointer}
+.pw-card .pw-img{position:absolute;inset:0;background-size:cover;background-position:center;transition:transform .6s ease}
+.pw-card:hover .pw-img{transform:scale(1.05)}
+.pw-card .mc-media::after{background:linear-gradient(to top,rgba(30,28,26,.55),rgba(30,28,26,0) 55%)}
+.pw-card .pw-num{position:absolute;right:1.1rem;top:.85rem;z-index:1;font-family:var(--serif,inherit);font-size:2rem;font-weight:700;line-height:1;color:rgba(255,255,255,.9);text-shadow:0 2px 12px rgba(0,0,0,.4)}
+.pw-card .mc-body{display:flex;flex-direction:column;flex:1;padding:0 1.75rem 1.75rem;gap:.55rem}
+.pw-card .pw-ic{display:grid;place-items:center;width:3.1rem;height:3.1rem;margin-top:-1.55rem;border-radius:.9rem;background:#fff;color:var(--tc);box-shadow:0 10px 22px -10px rgba(74,66,62,.55),inset 0 0 0 1px color-mix(in srgb,var(--tc) 28%,#fff);position:relative;z-index:2}
+.pw-card .pw-ic .svgi{width:1.5rem;height:1.5rem;stroke-width:1.8}
+.pw-card h3{margin:.55rem 0 0;font-size:1.6rem;line-height:1.15;letter-spacing:-.02em}
+.pw-card:hover h3{color:var(--tc)}
+.pw-card .pw-stat{display:inline-block;align-self:flex-start;font-size:.74rem;font-weight:700;letter-spacing:.02em;color:var(--tc);background:color-mix(in srgb,var(--tc) 11%,#fff);border:1px solid color-mix(in srgb,var(--tc) 24%,#fff);padding:.22rem .7rem;border-radius:999px}
+.pw-card .mc-body>p{margin:.35rem 0 1.1rem;padding:0;font-size:.98rem;line-height:1.65;color:var(--muted);cursor:pointer}
+.pw-card .pw-cta{align-self:flex-start;margin-top:auto;padding:.7rem 1.35rem;font-weight:700;gap:.6rem}
+.pw-card .pw-cta .mc-arrow{transition:transform .15s}
+.pw-card:hover .pw-cta .mc-arrow{transform:translateX(4px)}
+.mod-tile.pw-card.soon{pointer-events:none}
+@media(max-width:640px){.pw-card .mc-media{height:11rem}.pw-card .mc-body{padding:0 1.25rem 1.35rem}.pw-card h3{font-size:1.35rem}.pw-card .pw-cta{align-self:stretch}}
 </style>
 </head>
 <body>
@@ -3110,23 +3131,24 @@ const MOD_TC={thematic:"var(--green)",repository:"var(--t-water)",dss:"var(--t-c
 const MOD_TAG={thematic:"Curated themes",repository:"Open data",dss:"Planning tools",insights:"Build & share"};
 const MOD_IMG={thematic:"assets/photo-8.jpg",repository:"assets/photo-3.jpg",dss:"assets/photo-1.jpg",insights:"assets/photo-9.jpg"};
 const MOD_FIT={};
-const MOD_STAT={thematic:"3 themes · 20+ layers",repository:"12 datasets · 5 formats",dss:"2 tools live · 2 planned",insights:"Map Studio · Superset"};
+const MOD_STAT={thematic:"3 themes · 20+ layers",repository:"12 datasets · 5 formats",dss:"6 planning tools",insights:"Map Studio · Superset"};
 function moduleTiles(){
   const go_=LANDING_ONLY?"toast('Coming soon')":null;
   const act=href=>go_||`go('${href}')`;
-  return `<div class="grid g2 mod-grid">${MODULES.map(m=>`
-    <article class="mod-tile comp${LANDING_ONLY?' soon':''}" style="--tc:${MOD_TC[m.id]||'var(--green)'}">
-      <div class="mc-media${MOD_FIT[m.id]?' '+MOD_FIT[m.id]:''}" style="background-image:url('${MOD_IMG[m.id]}')" onclick="${act(m.href)}">
+  return `<div class="grid g2 mod-grid">${MODULES.map((m,i)=>`
+    <article class="mod-tile comp pw-card${LANDING_ONLY?' soon':''}" style="--tc:${MOD_TC[m.id]||'var(--green)'}" onclick="${act(m.href)}">
+      <div class="mc-media">
+        <div class="pw-img" style="background-image:url('${MOD_IMG[m.id]}')"></div>
         <span class="mc-tag">${MOD_TAG[m.id]||''}</span>
+        <span class="pw-num">0${i+1}</span>
       </div>
       <div class="mc-body">
-        <div class="mc-head" onclick="${act(m.href)}">
-          <div class="mod-ic">${m.ic}</div>
-          <div class="mc-title"><h3>${m.name}</h3><span class="mc-meta">${m.sub?m.sub.replace(/[()]/g,'')+' · ':''}${MOD_STAT[m.id]||''}</span></div>
-        </div>
-        <p onclick="${act(m.href)}">${m.desc}</p>
+        <span class="pw-ic">${m.ic}</span>
+        <h3>${m.name}</h3>
+        <span class="pw-stat">${MOD_STAT[m.id]||''}</span>
+        <p>${m.desc}</p>
+        <a class="btn primary pw-cta" onclick="event.stopPropagation();${act(m.href)}">Open ${m.name} <span class="mc-arrow">→</span></a>
       </div>
-      <a class="mc-foot" onclick="${act(m.href)}"><span>Open ${m.name}</span><span class="mc-arrow">→</span></a>
     </article>`).join("")}</div>`;
 }
 
