@@ -2538,11 +2538,8 @@ const MODULES=[
    desc:"Get conservation action plans based on status, needs and potential interventions.",
    links:[["Panchayat Atlas","#/atlas"],["Village Explorer","#/village"],["+ 2 planned (V2)","#/dss"]]},
   {id:"thematic",ic:"<svg class=svgi><use href=#i-compass /></svg>",name:"Thematic Datasets",sub:"",href:"#/thematic",
-   desc:"Explore curated data layers across key themes like water, biodiversity, land and governance.",
-   links:[["Water","#/theme/water"],["Land","#/theme/forest"],["Biodiversity","#/theme/biodiversity"],["Explore Other Layers","#/repository"]]},
-  {id:"repository",ic:"<svg class=svgi><use href=#i-db /></svg>",name:"Data Repository",sub:"",href:"#/repository",
-   desc:"Access spatial and non-spatial datasets across geographies and common types.",
-   links:[["Browse datasets","#/repository"],["Upload","#/upload"]]},
+   desc:"Explore curated data layers across key themes like water, biodiversity, land and governance, and browse the full data repository.",
+   links:[["Water","#/theme/water"],["Land","#/theme/forest"],["Biodiversity","#/theme/biodiversity"],["Data Repository","#/repository"]]},
   {id:"insights",ic:"<svg class=svgi><use href=#i-barchart /></svg>",name:"Commons Insights",sub:"",href:"#/insights",
    desc:"Analyse commons using built-in tools or upload your data and share insights.",
    links:[["Map Studio","#/mapstudio"],["Data Analytics","#/analytics"],["Gallery","#/gallery"]]}
@@ -2697,7 +2694,6 @@ const LANDING_ONLY=false;
 const NAV=[
   {id:"#/dss",label:"Decision Support"},
   {id:"#/thematic",label:"Thematic Datasets"},
-  {id:"#/repository",label:"Data Repository"},
   {id:"#/insights",label:"Commons Insights"}
 ].map(n=>LANDING_ONLY?{...n,soon:1}:n);
 function appsMenu(){
@@ -2767,7 +2763,7 @@ function footer(){
     <div class="cols">
       <div><div class="f-brand"><span class="mk"><svg class=svgi><use href=#i-compass /></svg></span><h5 class="fname">Commons<br>Explorer</h5></div>
         <p class="muted mt12" style="max-width:280px">An open-access module of the Commons Platform for exploring spatial and non-spatial data on natural commons.</p></div>
-      <div><h5>Modules</h5><ul><li onclick="go('#/dss')">Decision Support System</li><li onclick="go('#/thematic')">Thematic Datasets</li><li onclick="go('#/repository')">Data Repository</li><li onclick="go('#/insights')">Commons Insights</li></ul></div>
+      <div><h5>Modules</h5><ul><li onclick="go('#/dss')">Decision Support System</li><li onclick="go('#/thematic')">Thematic Datasets</li><li onclick="go('#/insights')">Commons Insights</li></ul></div>
       <div><h5>Tools</h5><ul><li onclick="goGated('#/mapstudio','Map Studio')">Map Studio</li><li onclick="goGated('#/analytics','Data Analytics')">Data Analytics</li></ul></div>    </div>
     <div class="bar">
       <span>CC-BY 4.0 License. Commons Platform.</span>
@@ -3136,11 +3132,11 @@ const MOD_TC={thematic:"var(--green)",repository:"var(--t-water)",dss:"var(--t-c
 const MOD_TAG={thematic:"Curated themes",repository:"Open data",dss:"Planning tools",insights:"Build & share"};
 const MOD_IMG={thematic:"assets/photo-8.jpg",repository:"assets/photo-3.jpg",dss:"assets/photo-1.jpg",insights:"assets/photo-9.jpg"};
 const MOD_FIT={};
-const MOD_STAT={thematic:"3 themes · 20+ layers",repository:"12 datasets · 5 formats",dss:"6 planning tools",insights:"Map Studio · Superset"};
+const MOD_STAT={thematic:"3 themes · full data repository",dss:"6 planning tools",insights:"Map Studio · Superset"};
 function moduleTiles(){
   const go_=LANDING_ONLY?"toast('Coming soon')":null;
   const act=href=>go_||`go('${href}')`;
-  return `<div class="grid g2 mod-grid">${MODULES.map((m,i)=>`
+  return `<div class="grid g3 mod-grid">${MODULES.map((m,i)=>`
     <article class="mod-tile comp pw-card${LANDING_ONLY?' soon':''}" style="--tc:${MOD_TC[m.id]||'var(--green)'}" onclick="${act(m.href)}">
       <div class="mc-media">
         <div class="pw-img" style="background-image:url('${MOD_IMG[m.id]}')"></div>
@@ -3255,7 +3251,6 @@ const screens={};
 const HERO_SLIDES=[
   ["dss","assets/photo-participatory-map.jpg","Get conservation action plans based on status, needs and potential interventions."],
   ["thematic","assets/photo-8.jpg","Explore curated data layers across key themes like water, biodiversity, land and governance."],
-  ["repository","assets/photo-3.jpg","Access spatial and non-spatial datasets across geographies and common types."],
   ["insights","assets/photo-9.jpg","Analyse commons using built-in tools or upload your data and share insights."]
 ];
 function heroSlider(){
@@ -3282,7 +3277,7 @@ screens.home=()=>shell("#/home",null,`
   <div class="ehero-after"><div class="container">
 
   <section class="section">
-    <h2>Four pathways to explore</h2>
+    <h2>Three pathways to explore</h2>
     <p class="sub">Each pathway opens an intermediate navigation page before its detailed views.</p>
     ${moduleTiles()}
   </section>
@@ -3312,7 +3307,7 @@ function lensCard(o){
     <a class="mc-foot" onclick="${click}"><span>${o.cta}</span><span class="mc-arrow">→</span></a>
   </article>`;
 }
-screens.thematic=()=>shell("#/thematic",[{label:"Home",href:"#/home"},{label:"Thematic Datasets"}],`
+screens.thematic=(p)=>shell("#/thematic",[{label:"Home",href:"#/home"},{label:"Thematic Datasets"}],`
   <div class="pagehero bare">
     <div class="ph-copy">
       <h1>Thematic <em>Datasets</em></h1>
@@ -3322,10 +3317,10 @@ screens.thematic=()=>shell("#/thematic",[{label:"Home",href:"#/home"},{label:"Th
   <div class="page-photo"><img src="assets/ill-types.jpg" alt=""></div>
   <section class="section" style="padding-top:3rem">
     <div class="grid g3 mod-grid lens-grid3" id="thm-grid">
-      ${THEMES.map(t=>lensCard({tc:LENS_TC[t.id],img:LENS_IMG[t.id],href:'#/theme/'+t.id,tag:'',ic:t.ic,name:t.name,meta:t.tag,desc:t.desc,chips:t.layers.slice(0,3),cta:'Open the '+t.name+' theme'})).join("")}
+      ${THEMES.map(t=>lensCard({tc:LENS_TC[t.id],img:LENS_IMG[t.id],href:'#/theme/'+t.id,tag:'',ic:t.ic,name:t.name,meta:t.tag,desc:t.desc,cta:'Open the '+t.name+' theme'})).join("")}
     </div>
-    <div class="lens-cta"><a class="btn primary" onclick="go('#/repository')">Explore Other Layers →</a></div>
   </section>
+  ${repositorySection(p)}
 `);
 
 /* ---- SRS §2.2.1.2 Thematic Datasets — detailed page ---- */
@@ -3538,19 +3533,18 @@ screens.explore=(p)=>shell("#/thematic",[{label:"Home",href:"#/home"},{label:"Th
 `);
 
 /* ---- SRS §2.2.2 Data Repository ---- */
-screens.repository=(p)=>shell("#/repository",[{label:"Home",href:"#/home"},{label:"Data Repository"}],`
-  <div class="pagehero bare">
-    <div class="ph-copy">
-      <h1>Data <em>Repository</em></h1>
-      <p>A centralised hub for storing, organising and accessing datasets on natural and socio-ecological commons - spatial and non-spatial datasets, across geographies and common types.</p>
-    </div>
-  </div>
-  <section class="section" style="padding-top:1.5rem;padding-bottom:14px">
-    ${gxCatalogue(p.tab,{hideTabs:true})}
-  </section>
-
-
-`);
+/* Data Repository now lives below the themes on the Thematic Datasets page */
+function repositorySection(p){
+  return `<section class="section repo-section" id="data-repository" style="scroll-margin-top:4.5rem;padding-top:3.5rem;padding-bottom:14px;border-top:1px solid var(--line)">
+    <h2 class="repo-title" style="font-size:clamp(1.8rem,3vw,2.4rem);margin:0 0 .6rem">Data <em>Repository</em></h2>
+    <p class="sub" style="max-width:60rem;margin-bottom:1.25rem">A centralised hub for storing, organising and accessing datasets on natural and socio-ecological commons - spatial and non-spatial datasets, across geographies and common types.</p>
+    ${gxCatalogue(p&&p.tab,{hideTabs:true})}
+  </section>`;
+}
+screens.repository=(p)=>{
+  setTimeout(()=>{const e=document.getElementById('data-repository');if(e)e.scrollIntoView({behavior:'instant'});},0);
+  return screens.thematic(p||{});
+};
 
 
 /* dataset detail */
@@ -3562,7 +3556,7 @@ screens.dataset=(p)=>{
   const attrs=[["gid","N/A","N/A"],["objectid","N/A","N/A"],["shape_leng","N/A","N/A"],["shape_area","N/A","N/A"],["area_ha","Area in Hectare","N/A"],["area_sqkm","Area in Square Kilometer","N/A"],["district","District name","N/A"],["state","State name","N/A"],["year","Reference year","N/A"],["source","Source dataset","N/A"]];
   const bbox=[["Min Lat","16.469154"],["Min Lon","73.178459"],["Max Lat","19.641401"],["Max Lon","76.883209"]];
   const centre=[["Lat","18.055278"],["Lon","75.030834"]];
-  return shell("#/repository",[{label:"Home",href:"#/home"},{label:"Data Repository",href:"#/repository"},{label:d.t}],`
+  return shell("#/thematic",[{label:"Home",href:"#/home"},{label:"Thematic Datasets",href:"#/thematic"},{label:"Data Repository",href:"#/repository"},{label:d.t}],`
   <section class="section">
     <div class="grid" style="grid-template-columns:minmax(0,1.1fr) 380px;gap:24px;align-items:stretch">
       <!-- LEFT: map fills the full column height -->
@@ -3687,7 +3681,7 @@ function downloadDsNote(){ toast(isAuthed()?'Download started':'Public download 
 /* upload — SRS §2.2.2.1 / §2.2.3.2.1 */
 screens.upload=()=>{
   if(!isAuthed()) return gateScreen('Upload','Only registered users can upload datasets and supporting documentation. Sign in to continue.','#/upload',[{label:'Data Repository',href:'#/repository'}]);
-  return shell("#/repository",[{label:"Home",href:"#/home"},{label:"Data Repository",href:"#/repository"},{label:"Upload"}],`
+  return shell("#/thematic",[{label:"Home",href:"#/home"},{label:"Thematic Datasets",href:"#/thematic"},{label:"Data Repository",href:"#/repository"},{label:"Upload"}],`
   <section class="section">
     <div class="eyebrow">Contribute</div><h2 style="font-size:22px">Upload a dataset</h2>
     <p class="sub">Supported formats: KML, SHP (zipped), GeoJSON, GeoTIFF and CSV. Uploads are reviewed by a moderator before publication.</p>
@@ -5063,7 +5057,7 @@ screens.architecture=()=>shell("",[{label:"Home",href:"#/home"},{label:"Architec
     <p class="sub">Backend built as microservices; the front end stays modular so components can be added without rework.</p>
     <div class="panel mt16">
       <div class="wf-note" style="margin-bottom:10px">Presentation layer</div>
-      <div class="flow">${["Home","Thematic Datasets","Data Repository","Commons Insights","Decision Support"].map(n=>`<div class="node ${n==='Home'?'strong':''}">${n}</div>`).join('<div class="arw">·</div>')}</div>
+      <div class="flow">${["Home","Thematic Datasets &amp; Data Repository","Commons Insights","Decision Support"].map(n=>`<div class="node ${n==='Home'?'strong':''}">${n}</div>`).join('<div class="arw">·</div>')}</div>
       <div class="wf-note" style="margin:18px 0 10px">Service layer — microservices</div>
       <div class="flow">${["Search &amp; discovery","Content &amp; moderation","Bookmarks &amp; lists","Reports","Admin Hierarchy","Organisations","Programs","Feedback","Telemetry"].map(n=>`<div class="node">${n}</div>`).join('<div class="arw">·</div>')}</div>
       <div class="wf-note" style="margin:18px 0 10px">Data &amp; integration layer</div>
@@ -5082,8 +5076,7 @@ screens.sitemap=()=>shell("",[{label:"Home",href:"#/home"},{label:"Site map"}],`
 ├── Thematic Datasets  <a onclick="go('#/thematic')">#/thematic</a>
 │   ├── Theme page (×3)  <a onclick="go('#/theme/water')">#/theme/:id</a>
 │   ├── Full map view  <a onclick="go('#/mapview/water')">#/mapview/:id</a>
-│   └── Explore Other Layers  <a onclick="go('#/repository')">→ Data Repository</a>
-├── Data Repository  <a onclick="go('#/repository')">#/repository</a>
+│   ├── Data Repository (section on the same page)  <a onclick="go('#/repository')">#/thematic</a>
 │   ├── Dataset detail  <a onclick="go('#/dataset/ds-01')">#/dataset/:id</a>
 │   └── Upload dataset  <a onclick="go('#/upload')">#/upload</a>
 ├── Commons Insights  <a onclick="go('#/insights')">#/insights</a>
