@@ -2570,7 +2570,7 @@ function themeById(id){return THEMES.find(t=>t.id===id)||THEMES[0];}
 
 /* SRS §2.2.2 — data repository */
 const DATASETS=[
-  {id:"ds-01",t:"Common lands of Bhilwara district — parcel boundaries",theme:"Land",kind:"Spatial",fmt:"SHP",geo:"Rajasthan · Bhilwara",yr:"2024",org:"FES — Land Vertical",access:"Public",dl:"1,284",feat:"12,340 polygons"},
+  {id:"ds-01",t:"Common lands of Bhilwara district - parcel boundaries",theme:"Land",kind:"Spatial",fmt:"SHP",geo:"Rajasthan · Bhilwara",yr:"2024",org:"FES — Land Vertical",access:"Public",dl:"1,284",feat:"12,340 polygons"},
   {id:"ds-02",t:"Surface water bodies — village-level inventory",theme:"Water",kind:"Spatial",fmt:"GeoJSON",geo:"Madhya Pradesh",yr:"2024",org:"FES — Water Vertical",access:"Public",dl:"962",feat:"8,776 polygons"},
   {id:"ds-03",t:"Community Forest Rights claims — status tracker",theme:"Land",kind:"Tabular",fmt:"CSV",geo:"Odisha",yr:"2023",org:"Partner CSO",access:"Restricted",dl:"431",feat:"5,102 rows"},
   {id:"ds-04",t:"Land use / land cover mosaic (Level II)",theme:"Land",kind:"Spatial",fmt:"GeoTIFF",geo:"PAN-India",yr:"2023",org:"National dataset",access:"Public",dl:"3,051",feat:"30 m raster"},
@@ -2602,7 +2602,7 @@ function galById(id){return GALLERY.find(g=>g.id===id)||GALLERY[0];}
 
 /* What's New — latest additions and updates across the platform (homepage feed) */
 const WHATS_NEW=[
-  {kind:"New dataset",ic:"<svg class=svgi><use href=#i-map /></svg>",t:"Common lands of Bhilwara district \u2014 parcel boundaries",note:"12,340 parcels mapped at 1:10,000, published to the repository.",when:"31 Aug 2025",who:"FES \u2014 Land Vertical",href:"#/dataset/ds-01",img:"assets/photo-2.jpg"},
+  {kind:"New dataset",ic:"<svg class=svgi><use href=#i-map /></svg>",t:"Common lands of Bhilwara district - parcel boundaries",note:"12,340 parcels mapped at 1:10,000, published to the repository.",when:"31 Aug 2025",who:"FES \u2014 Land Vertical",href:"#/dataset/ds-01",img:"assets/photo-2.jpg"},
   {kind:"New dashboard",ic:"<svg class=svgi><use href=#i-trend /></svg>",t:"Common land pressure index \u2014 district dashboard",note:"Compare pressure on commons across 18 districts, refreshed nightly.",when:"28 Aug 2025",who:"Aditi Joshi \u00b7 Partner CSO",href:"#/gallery-item/g-02",img:"assets/photo-3.jpg"},
   {kind:"New story",ic:"<svg class=svgi><use href=#i-book /></svg>",t:"Where the tanks went \u2014 30 years of water bodies in Anantapur",note:"A narrative built from map views and Superset charts.",when:"24 Aug 2025",who:"Kavita Menon \u00b7 FES",href:"#/gallery-item/g-01",img:"assets/type-water.jpg"},
   {kind:"Platform update",ic:"<svg class=svgi><use href=#i-sparkles /></svg>",t:"Zonal statistics now available in Map Studio",note:"Compute raster statistics by zone and export the results table.",when:"21 Aug 2025",who:"Commons Explorer team",href:"#/mapstudio",img:"assets/hero-participatory.jpg"}
