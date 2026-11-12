@@ -1488,6 +1488,19 @@ body{overflow-x:clip}
 .hc-ic .svgi{width:2rem;height:2rem;stroke-width:1.6}
 .hero-photo{position:sticky;top:5rem;z-index:0;height:calc(100vh - 5rem);height:calc(100dvh - 5rem);overflow:hidden;background:#efe9df}
 .hero-photo img{width:100%;height:100%;object-fit:cover;object-position:center 40%;display:block}
+.hs-track{display:flex;height:100%;transition:transform .6s ease}
+.hs-slide{position:relative;flex:0 0 100%;height:100%}
+.hs-slide img{width:100%;height:100%;object-fit:cover;object-position:center center;display:block}
+.hs-cap{position:absolute;left:clamp(1rem,3vw,2.5rem);bottom:clamp(1rem,4vw,2.5rem);z-index:2;max-width:26rem;background:rgba(255,255,255,.94);padding:1rem 1.2rem 1.1rem;box-shadow:0 14px 34px -16px rgba(20,30,50,.45)}
+.hs-cap em{display:block;font-style:normal;font-size:.7rem;font-weight:800;letter-spacing:.09em;text-transform:uppercase;color:var(--green-d);margin-bottom:.25rem}
+.hs-cap b{display:block;font-size:1.15rem;line-height:1.25;margin-bottom:.3rem}
+.hs-cap span{display:block;font-size:.9rem;line-height:1.5;color:var(--muted);margin-bottom:.7rem}
+.hs-nav{position:absolute;top:50%;transform:translateY(-50%);z-index:3;width:2.75rem;height:2.75rem;border-radius:50%;border:0;background:rgba(255,255,255,.9);color:var(--ink);font-size:1.4rem;line-height:1;cursor:pointer;box-shadow:0 6px 16px -8px rgba(0,0,0,.5)}
+.hs-nav.prev{left:1rem}.hs-nav.next{right:1rem}
+.hs-dots{position:absolute;right:clamp(1rem,3vw,2.5rem);bottom:clamp(1rem,4vw,2.5rem);z-index:3;display:flex;gap:.45rem}
+.hs-dots .car-dot{width:.7rem;height:.7rem;border-radius:50%;border:0;background:rgba(255,255,255,.6);padding:0;cursor:pointer;box-shadow:0 1px 4px rgba(0,0,0,.4)}
+.hs-dots .car-dot.on{background:#fff;width:1.8rem;border-radius:999px}
+@media(max-width:700px){.hs-cap{max-width:none;right:1rem;bottom:3.4rem;padding:.8rem 1rem}.hs-cap span{display:none}.hs-nav{width:2.4rem;height:2.4rem}.hs-dots{left:50%;right:auto;transform:translateX(-50%);bottom:1rem}}
 .photo-credit{position:absolute;right:1rem;bottom:.8rem;z-index:2;font-size:.7rem;color:rgba(255,255,255,.85);background:rgba(59,53,49,.55);padding:.3rem .6rem}
 .ehero-after{z-index:1;background:#fff;box-shadow:0 -18px 40px -22px rgba(20,30,50,.35);padding-top:.5rem}
 .rise{animation:up .5s ease both}
@@ -3214,6 +3227,26 @@ function barChart(title,sub,labels,heights){
 /* ============ SCREENS ============ */
 const screens={};
 
+/* home hero — one slide per module */
+const HERO_SLIDES=[
+  ["dss","assets/hero-aerial-wetland.webp","Get conservation action plans based on status, needs and potential interventions."],
+  ["thematic","assets/photo-8.jpg","Explore curated data layers across key themes like water, biodiversity, land and governance."],
+  ["repository","assets/photo-3.jpg","Access spatial and non-spatial datasets across geographies and common types."],
+  ["insights","assets/photo-9.jpg","Analyse commons using built-in tools or upload your data and share insights."]
+];
+function heroSlider(){
+  const id='hero-car';
+  CAROUSELS[id]={i:0,n:HERO_SLIDES.length,timer:null,ms:5000};
+  return `<div class="hero-photo" id="${id}">
+    <div class="hs-track" id="${id}-track">${HERO_SLIDES.map(h=>{const m=MODULES.find(x=>x.id===h[0]);return `<div class="hs-slide">
+      <img src="${h[1]}" alt="${m.name}">
+      <div class="hs-cap"><em>Pathway</em><b>${m.name}</b><span>${h[2]}</span><a class="btn primary sm" onclick="go('${m.href}')">Open ${m.name} →</a></div>
+    </div>`;}).join("")}</div>
+    <button class="hs-nav prev" onclick="carGo('${id}',-1)" aria-label="Previous slide">‹</button>
+    <button class="hs-nav next" onclick="carGo('${id}',1)" aria-label="Next slide">›</button>
+    <div class="hs-dots">${HERO_SLIDES.map((h,i)=>`<button class="car-dot ${i?'':'on'}" onclick="carSet('${id}',${i})" aria-label="Slide ${i+1}"></button>`).join("")}</div>
+  </div>`;
+}
 /* ---- SRS §2.1 Home page ---- */
 screens.home=()=>shell("#/home",null,`
   <div class="ehero mid"><div class="in">
@@ -3222,7 +3255,7 @@ screens.home=()=>shell("#/home",null,`
       <p>Commons Explorer is the open-access data, analytics and sense making module of the Commons Platform. It brings spatial and non-spatial data on forests, pastures, water bodies and the institutions that govern them into one place — to browse, map, analyse and act on, from the village to the nation.</p>
     </div>
   </div></div>
-  <div class="hero-photo"><img src="assets/photo-participatory-map.jpg" alt=""><span class="photo-credit">Building a 3D participatory resource map together · Foundation for Ecological Security</span></div>
+  ${heroSlider()}
   <div class="ehero-after"><div class="container">
 
   <section class="section">
