@@ -2471,15 +2471,18 @@ footer.site .bar{display:flex;align-items:center;justify-content:space-between;g
 .pw-card .pw-img{position:absolute;inset:0;background-size:cover;background-position:center;transition:transform .6s ease}
 .pw-card:hover .pw-img{transform:scale(1.05)}
 .pw-card .mc-media::after{background:linear-gradient(to top,rgba(30,28,26,.55),rgba(30,28,26,0) 55%)}
-.pw-card .pw-num{position:absolute;right:1.1rem;top:.85rem;z-index:1;font-family:var(--serif,inherit);font-size:2rem;font-weight:700;line-height:1;color:rgba(255,255,255,.9);text-shadow:0 2px 12px rgba(0,0,0,.4)}
-.pw-card .mc-body{display:flex;flex-direction:column;flex:1;padding:0 1.75rem 1.75rem;gap:.55rem}
-.pw-card .pw-ic{display:grid;place-items:center;width:3.1rem;height:3.1rem;margin-top:-1.55rem;border-radius:.9rem;background:#fff;color:var(--tc);box-shadow:0 10px 22px -10px rgba(74,66,62,.55),inset 0 0 0 1px color-mix(in srgb,var(--tc) 28%,#fff);position:relative;z-index:2}
-.pw-card .pw-ic .svgi{width:1.5rem;height:1.5rem;stroke-width:1.8}
-.pw-card h3{margin:.55rem 0 0;font-size:1.6rem;line-height:1.15;letter-spacing:-.02em}
-.pw-card:hover h3{color:var(--tc)}
-.pw-card .pw-stat{display:inline-block;align-self:flex-start;font-size:.74rem;font-weight:700;letter-spacing:.02em;color:var(--tc);background:color-mix(in srgb,var(--tc) 11%,#fff);border:1px solid color-mix(in srgb,var(--tc) 24%,#fff);padding:.22rem .7rem;border-radius:999px}
-.pw-card .mc-body>p{margin:.35rem 0 1.1rem;padding:0;font-size:.98rem;line-height:1.65;color:var(--muted);cursor:pointer}
-.pw-card .pw-cta{display:inline-flex;align-items:center;align-self:flex-start;margin-top:auto;gap:.55rem;padding:0;background:none;border:0;box-shadow:none;border-radius:0;font-size:1rem;font-weight:700;color:var(--cta);cursor:pointer;transition:color .15s}
+.pw-card .mc-body{display:flex;flex-direction:column;flex:1;padding:1.5rem 1.75rem 1.5rem;gap:0}
+.pw-card .pw-eyebrow{display:flex;align-items:center;gap:.7rem;margin-bottom:.85rem}
+.pw-card .pw-ic{display:grid;place-items:center;width:2.4rem;height:2.4rem;flex:none;border-radius:50%;background:color-mix(in srgb,var(--tc) 12%,#fff);color:var(--tc)}
+.pw-card .pw-ic .svgi{width:1.2rem;height:1.2rem;stroke-width:1.9}
+.mod-tile.pw-card .mc-body h3{margin:0;font-size:1.75rem;line-height:1.12;letter-spacing:-.025em;color:var(--ink)}
+.mod-tile.pw-card .mc-body h3::after{content:'';display:block;width:2.6rem;height:3px;margin-top:.7rem;background:var(--tc);border-radius:2px;transition:width .25s}
+.mod-tile.pw-card:hover .mc-body h3::after{width:4.2rem}
+.mod-tile.pw-card:hover .mc-body h3{color:var(--tc)}
+.pw-card .pw-stat{font-size:.72rem;font-weight:800;letter-spacing:.11em;text-transform:uppercase;color:var(--tc)}
+.mod-tile.pw-card .mc-body>p{margin:.85rem 0 1.3rem;padding:0;font-size:1rem;line-height:1.7;color:var(--ink-2);cursor:pointer}
+.pw-card .pw-foot{margin-top:auto;padding-top:1rem;border-top:1px solid var(--line)}
+.pw-card .pw-cta{display:inline-flex;align-items:center;gap:.55rem;padding:0;background:none;border:0;box-shadow:none;border-radius:0;font-size:1.02rem;font-weight:700;color:var(--cta);cursor:pointer;transition:color .15s}
 .pw-card .pw-cta:hover,.pw-card:hover .pw-cta{color:var(--tc);background:none;box-shadow:none}
 .pw-card .pw-cta .mc-arrow{transition:transform .15s}
 .pw-card:hover .pw-cta .mc-arrow{transform:translateX(4px)}
@@ -2491,7 +2494,7 @@ footer.site .bar{display:flex;align-items:center;justify-content:space-between;g
 .pw-card .mc-media iframe,.pw-card .mc-media video{position:absolute;inset:0;width:100%;height:100%;border:0;background:#000}
 .pw-card .pw-vclose{position:absolute;right:.7rem;top:.6rem;z-index:3;width:2.2rem;height:2.2rem;border-radius:50%;border:0;background:rgba(0,0,0,.6);color:#fff;font-size:1.4rem;line-height:1;cursor:pointer}
 .mod-tile.pw-card.soon{pointer-events:none}
-@media(max-width:640px){.pw-card .mc-media{height:11rem}.pw-card .mc-body{padding:0 1.25rem 1.35rem}.pw-card h3{font-size:1.35rem}.pw-card .pw-cta{align-self:flex-start}}
+@media(max-width:640px){.pw-card .mc-media{height:11rem}.pw-card .mc-body{padding:1.25rem 1.25rem 1.3rem}.mod-tile.pw-card .mc-body h3{font-size:1.45rem}.pw-card .pw-cta{align-self:flex-start}}
 </style>
 </head>
 <body>
@@ -3164,15 +3167,13 @@ function moduleTiles(){
       <div class="mc-media">
         <div class="pw-img" style="background-image:url('${MOD_IMG[m.id]}')"></div>
         <span class="mc-tag">${MOD_TAG[m.id]||''}</span>
-        <span class="pw-num">0${i+1}</span>
         <button class="pw-play" type="button" aria-label="Play ${m.name} video" onclick="playModVideo(event,'${m.id}')"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13a1 1 0 0 0 1.5.86l10.5-6.5a1 1 0 0 0 0-1.72L9.5 4.64A1 1 0 0 0 8 5.5z"/></svg></button>
       </div>
       <div class="mc-body">
-        <span class="pw-ic">${m.ic}</span>
+        <div class="pw-eyebrow"><span class="pw-ic">${m.ic}</span><span class="pw-stat">${MOD_STAT[m.id]||''}</span></div>
         <h3>${m.name}</h3>
-        <span class="pw-stat">${MOD_STAT[m.id]||''}</span>
         <p>${m.desc}</p>
-        <a class="pw-cta" onclick="event.stopPropagation();${act(m.href)}">Open ${m.name} <span class="mc-arrow">→</span></a>
+        <div class="pw-foot"><a class="pw-cta" onclick="event.stopPropagation();${act(m.href)}">Open ${m.name} <span class="mc-arrow">→</span></a></div>
       </div>
     </article>`).join("")}</div>`;
 }
