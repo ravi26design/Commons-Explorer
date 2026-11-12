@@ -2479,11 +2479,12 @@ footer.site .bar{display:flex;align-items:center;justify-content:space-between;g
 .pw-card:hover h3{color:var(--tc)}
 .pw-card .pw-stat{display:inline-block;align-self:flex-start;font-size:.74rem;font-weight:700;letter-spacing:.02em;color:var(--tc);background:color-mix(in srgb,var(--tc) 11%,#fff);border:1px solid color-mix(in srgb,var(--tc) 24%,#fff);padding:.22rem .7rem;border-radius:999px}
 .pw-card .mc-body>p{margin:.35rem 0 1.1rem;padding:0;font-size:.98rem;line-height:1.65;color:var(--muted);cursor:pointer}
-.pw-card .pw-cta{align-self:flex-start;margin-top:auto;padding:.7rem 1.35rem;font-weight:700;gap:.6rem}
+.pw-card .pw-cta{display:inline-flex;align-items:center;align-self:flex-start;margin-top:auto;gap:.55rem;padding:0;background:none;border:0;box-shadow:none;border-radius:0;font-size:1rem;font-weight:700;color:var(--cta);cursor:pointer;transition:color .15s}
+.pw-card .pw-cta:hover,.pw-card:hover .pw-cta{color:var(--tc);background:none;box-shadow:none}
 .pw-card .pw-cta .mc-arrow{transition:transform .15s}
 .pw-card:hover .pw-cta .mc-arrow{transform:translateX(4px)}
 .mod-tile.pw-card.soon{pointer-events:none}
-@media(max-width:640px){.pw-card .mc-media{height:11rem}.pw-card .mc-body{padding:0 1.25rem 1.35rem}.pw-card h3{font-size:1.35rem}.pw-card .pw-cta{align-self:stretch}}
+@media(max-width:640px){.pw-card .mc-media{height:11rem}.pw-card .mc-body{padding:0 1.25rem 1.35rem}.pw-card h3{font-size:1.35rem}.pw-card .pw-cta{align-self:flex-start}}
 </style>
 </head>
 <body>
@@ -3147,7 +3148,7 @@ function moduleTiles(){
         <h3>${m.name}</h3>
         <span class="pw-stat">${MOD_STAT[m.id]||''}</span>
         <p>${m.desc}</p>
-        <a class="btn primary pw-cta" onclick="event.stopPropagation();${act(m.href)}">Open ${m.name} <span class="mc-arrow">→</span></a>
+        <a class="pw-cta" onclick="event.stopPropagation();${act(m.href)}">Open ${m.name} <span class="mc-arrow">→</span></a>
       </div>
     </article>`).join("")}</div>`;
 }
