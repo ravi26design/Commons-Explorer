@@ -1486,7 +1486,7 @@ body{overflow-x:clip}
 .hero-comps a:hover{border-color:var(--green-line);box-shadow:0 14px 28px -18px rgba(74,66,62,.45);transform:translateY(-3px);color:var(--green-d)}
 .hc-ic{display:grid;place-items:center;width:4.4rem;height:4.4rem;border-radius:1.2rem;flex:none;background:color-mix(in srgb,var(--tc,var(--green)) 12%,#fff);color:var(--tc,var(--green));box-shadow:inset 0 0 0 1px color-mix(in srgb,var(--tc,var(--green)) 24%,#fff)}
 .hc-ic .svgi{width:2rem;height:2rem;stroke-width:1.6}
-.hero-photo{position:relative;z-index:0;height:calc(100vh - 5rem);height:calc(100dvh - 5rem);overflow:hidden;background:#efe9df}
+.hero-photo{position:relative;z-index:0;height:clamp(22rem,58vh,34rem);overflow:hidden;background:#efe9df}
 .hero-photo img{width:100%;height:100%;object-fit:cover;object-position:center 40%;display:block}
 .hs-track{display:flex;height:100%;transition:transform .6s ease}
 .hs-slide{position:relative;flex:0 0 100%;height:100%}
@@ -1507,7 +1507,7 @@ body{overflow-x:clip}
 @keyframes up{from{opacity:.001;transform:translateY(10px)}to{opacity:1;transform:none}}
 @media(max-width:1100px){.hero-comps{grid-template-columns:repeat(4,1fr)}}
 @media(max-width:900px){.hero-photo{top:0}}
-@media(max-width:700px){.hero-photo{height:52vh;height:52dvh}.ehero .in{padding:2rem 1.15rem 1.75rem}.ehero .stand p{font-size:1rem}.hero-comps{gap:.6rem;margin-top:1.75rem}.hero-comps a{padding:.85rem .4rem .8rem;font-size:.78rem;border-radius:12px}}
+@media(max-width:700px){.hero-photo{height:46vh;height:46dvh}.ehero .in{padding:2rem 1.15rem 1.75rem}.ehero .stand p{font-size:1rem}.hero-comps{gap:.6rem;margin-top:1.75rem}.hero-comps a{padding:.85rem .4rem .8rem;font-size:.78rem;border-radius:12px}}
 @media(max-width:560px){.hero-comps{grid-template-columns:repeat(2,1fr)}}
 @media(prefers-reduced-motion:reduce){.rise{animation:none}}
 
