@@ -2603,6 +2603,14 @@ const WHATS_NEW=[
   {kind:"Platform update",ic:"<svg class=svgi><use href=#i-sparkles /></svg>",t:"Zonal statistics now available in Map Studio",note:"Compute raster statistics by zone and export the results table.",when:"21 Aug 2025",who:"Commons Explorer team",href:"#/mapstudio",img:"assets/photo-1.jpg"}
 ];
 
+/* Home — Latest Update (sample items) */
+const LATEST_UPDATES=[
+  {kind:"New tool",ic:"<svg class=svgi><use href=#i-sparkles /></svg>",t:"Waterbody performance tool is now live",note:"Check how water bodies perform across seasons and see where restoration is needed most.",when:"12 Nov 2026",who:"Commons Explorer team",href:"#/dss",img:"assets/water-bodies.jpg"},
+  {kind:"New tool",ic:"<svg class=svgi><use href=#i-sparkles /></svg>",t:"Ground Water Monitoring \u2014 village status added",note:"Village-level groundwater status with well observations, now part of Decision Support.",when:"05 Nov 2026",who:"Commons Explorer team",href:"#/dss",img:"assets/water-groundwater.jpg"},
+  {kind:"New tool",ic:"<svg class=svgi><use href=#i-sparkles /></svg>",t:"Vegetation disturbance and recovery mapping released",note:"Track where vegetation has been disturbed and how quickly it is recovering.",when:"29 Oct 2026",who:"Commons Explorer team",href:"#/dss",img:"assets/type-forest.jpg"},
+  {kind:"Platform update",ic:"<svg class=svgi><use href=#i-sparkles /></svg>",t:"Data Repository now sits with Thematic Datasets",note:"Browse the themes and the full catalogue of datasets together on one page.",when:"22 Oct 2026",who:"Commons Explorer team",href:"#/thematic",img:"assets/photo-7.jpg"}
+];
+
 /* SRS §2.2.4 — DSS reference geography */
 const STATES=["Rajasthan","Madhya Pradesh","Odisha","Andhra Pradesh","Gujarat","Maharashtra"];
 const PANCHAYAT={state:"Rajasthan",district:"Bhilwara",block:"Mandalgarh",gp:"Bagoliya",villages:["Bagoliya","Kherwa","Sarsiya","Dhanora"]};
@@ -3283,6 +3291,11 @@ screens.home=()=>shell("#/home",null,`
     ${moduleTiles()}
   </section>
 
+  <section class="section" id="latest-update">
+    <h2>Latest Update</h2>
+    <p class="sub">What has changed on Commons Explorer recently.</p>
+    <div class="grid g4 wn-grid">${LATEST_UPDATES.map(whatsNewCard).join("")}</div>
+  </section>
 
   <section class="section">
     <div class="wn-wrap"><div class="container wn-in">
