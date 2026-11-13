@@ -2706,9 +2706,7 @@ footer.site .bar{display:flex;align-items:center;justify-content:space-between;g
 .pwf-in input.wf-in:focus{border-color:var(--green);box-shadow:0 0 0 3px rgba(78,124,89,.12)}
 .pwf-lock{position:absolute;left:.9rem;top:50%;transform:translateY(-50%);width:1.05rem;height:1.05rem;color:var(--muted-2);pointer-events:none}
 .pwf-eye{position:absolute;right:.7rem;top:50%;transform:translateY(-50%)}
-.pw-meter{display:flex;gap:.35rem;margin:-.55rem 0 1.15rem}
-.pw-meter i{flex:1;height:.4rem;border-radius:999px;background:var(--line);transition:background .2s}
-.pw-match{display:flex;align-items:center;gap:.45rem;min-height:1.2rem;margin:-.55rem 0 1rem;font-size:.82rem;font-weight:700}
+.pw-match{display:flex;align-items:center;gap:.45rem;min-height:1.2rem;margin:-.5rem 0 .9rem;font-size:.82rem;font-weight:700}
 .pw-match .svgi{width:.95rem;height:.95rem}
 .pw-match.ok{color:var(--green-d)}
 .pw-match.bad{color:var(--red)}
@@ -5205,7 +5203,6 @@ function pwFormHTML(){
   const req=(id,label)=>`<li id="req-${id}"><span class="req-ic"></span>${label}</li>`;
   return `${pwField('pwCur','Current password','')}
         ${pwField('pwNew','New password','At least 12 characters','<span class="pwf-st" id="pwStrengthLabel">Enter a new password</span>')}
-        <div class="pw-meter" id="pwMeter"><i></i><i></i><i></i><i></i></div>
         ${pwField('pwConf','Confirm new password','Re-enter the new password')}
         <div class="pw-match" id="pwMatch"></div>
         <ul class="pw-reqs">${req('len','12 or more characters')}${req('up','One uppercase letter')}${req('num','One number')}${req('sym','One symbol')}</ul>
@@ -5244,7 +5241,6 @@ function pwRefresh(){
   const labels=['Enter a new password','Weak','Fair','Good','Strong'];
   const colors=['var(--line-2)','var(--red)','var(--amber)','var(--c-water)','var(--green)'];
   const lvl=st.v?Math.max(1,st.met):0;
-  const meter=document.getElementById('pwMeter'); if(meter) meter.querySelectorAll('i').forEach((b,n)=>{b.style.background=n<lvl?colors[lvl]:'';});
   const lab=document.getElementById('pwStrengthLabel'); if(lab){lab.textContent=st.v?labels[lvl]:labels[0]; lab.style.color=st.v?colors[lvl]:'';}
   const mt=document.getElementById('pwMatch'); if(mt){ if(!st.conf){mt.textContent='';mt.className='pw-match';} else if(st.match){mt.innerHTML='<svg class=svgi><use href=#i-checkcircle /></svg> Passwords match';mt.className='pw-match ok';} else {mt.innerHTML='<svg class=svgi><use href=#i-x /></svg> Passwords do not match yet';mt.className='pw-match bad';} }
   const go=document.getElementById('pwGo'); if(go) go.classList.toggle('is-off',!st.ok);
