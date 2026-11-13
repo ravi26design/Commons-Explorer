@@ -3576,8 +3576,8 @@ screens.explore=(p)=>shell("#/thematic",[{label:"Home",href:"#/home"},{label:"Th
 /* Data Repository now lives below the themes on the Thematic Datasets page */
 function repositorySection(p){
   return `<section class="section repo-section" id="data-repository" style="scroll-margin-top:4.5rem;padding-top:3.5rem;padding-bottom:14px;border-top:1px solid var(--line)">
-    <h2 class="repo-title" style="font-size:clamp(1.8rem,3vw,2.4rem);margin:0 0 .6rem">Data <em>Repository</em></h2>
-    <p class="sub" style="max-width:60rem;margin-bottom:1.25rem">A centralised hub for storing, organising and accessing datasets on natural and socio-ecological commons - spatial and non-spatial datasets, across geographies and common types.</p>
+    <h2 class="repo-title" style="font-size:clamp(1.8rem,3vw,2.4rem);margin:0 0 .6rem;text-align:center">Data <em>Repository</em></h2>
+    <p class="sub" style="max-width:60rem;margin:0 auto 1.25rem;text-align:center">A centralised hub for storing, organising and accessing datasets on natural and socio-ecological commons - spatial and non-spatial datasets, across geographies and common types.</p>
     ${gxCatalogue(p&&p.tab,{hideTabs:true})}
   </section>`;
 }
