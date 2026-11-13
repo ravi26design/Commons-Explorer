@@ -3323,7 +3323,7 @@ const LENS_IMG={water:"assets/photo-11.jpg",forest:"assets/photo-2.jpg",biodiver
 function lensCard(o){
   const click=o.click||`go('${o.href}')`;
   return `<article class="mod-tile comp lens-card${o.band?' lens-band':''}" style="--tc:${o.tc}">
-    <div class="mc-media" style="background-image:url('${o.img}')" onclick="${click}"><span class="mc-tag">${o.tag||''}</span></div>
+    <div class="mc-media" style="background-image:url('${o.img}')${o.pos?`;background-position:${o.pos}`:''}" onclick="${click}"><span class="mc-tag">${o.tag||''}</span></div>
     <div class="mc-body">
       <div class="mc-head" onclick="${click}"><div class="mod-ic">${o.ic||''}</div><div class="mc-title"><h3>${o.name}</h3><span class="mc-meta">${o.meta||''}</span></div></div>
       <p onclick="${click}">${o.desc}</p>
@@ -3765,9 +3765,9 @@ screens.insights=()=>shell("#/insights",[{label:"Home",href:"#/home"},{label:"Co
   <div class="page-photo"><img src="assets/photo-9.jpg" alt=""></div>
   <section class="section" style="padding-top:3rem">
     <div class="grid g3 mod-grid lens-grid3">
-      ${lensCard({tc:"var(--c-mapstudio)",img:"assets/photo-9.jpg",tag:"Geo-spatial analysis",name:"Map Studio",meta:"GeoNode · GeoServer tools · sign-in for AI reports",desc:"Create, style, manage and publish geospatial data and maps — filters, area calculation, thematic comparison, zonal statistics and AI-assisted reports.",chips:["Zonal statistics","Thematic comparison","AI report"],cta:"Open Map Studio",click:"goGated('#/mapstudio','Map Studio')"})}
-      ${lensCard({tc:"var(--c-analytics)",img:"assets/ill-5.jpg",tag:"Non-spatial analytics",name:"Data Analytics",meta:"Apache Superset · sign-in required",desc:"Explore tabular, indicator-based and time-series data through Superset dashboards, charts and comparative metrics.",chips:["Dashboards","Indicators","Time series"],cta:"Open Data Analytics",click:"goGated('#/analytics','Data Analytics')"})}
-      ${lensCard({tc:"var(--c-gallery)",img:"assets/ill-1.jpg",tag:"Collaborative gallery",name:"Gallery of User generated Content",meta:"Sign-in required",desc:"Browse and publish maps, dashboards and narrative stories contributed by the community, in one interpretable format.",chips:["Maps","Dashboards","Stories"],cta:"Browse the Gallery",click:"goGated('#/gallery','Gallery')"})}
+      ${lensCard({tc:"var(--c-mapstudio)",img:"assets/photo-3.jpg",tag:"",name:"Map Studio",meta:"GeoNode · GeoServer tools · sign-in for AI reports",desc:"Create, style, manage and publish geospatial data and maps — filters, area calculation, thematic comparison, zonal statistics and AI-assisted reports.",cta:"Open Map Studio",click:"goGated('#/mapstudio','Map Studio')"})}
+      ${lensCard({tc:"var(--c-analytics)",img:"assets/chart-3.jpg",tag:"",pos:"center 35%",name:"Data Analytics",meta:"Apache Superset · sign-in required",desc:"Explore tabular, indicator-based and time-series data through Superset dashboards, charts and comparative metrics.",cta:"Open Data Analytics",click:"goGated('#/analytics','Data Analytics')"})}
+      ${lensCard({tc:"var(--c-gallery)",img:"assets/ill-hero.jpg",tag:"",name:"Gallery of User generated Content",meta:"Sign-in required",desc:"Browse and publish maps, dashboards and narrative stories contributed by the community, in one interpretable format.",cta:"Browse the Gallery",click:"goGated('#/gallery','Gallery')"})}
     </div>
   </section>
 `);
