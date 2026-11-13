@@ -2923,6 +2923,43 @@ footer.site .bar{display:flex;align-items:center;justify-content:space-between;g
 .pe-f select.wf-in{font-weight:500;padding-right:2.4rem}
 .pe-foot{display:flex;justify-content:flex-end;gap:.7rem;margin-top:1.6rem;padding-top:1.2rem;border-top:1px solid var(--line-2)}
 @media(max-width:560px){.pe-grid{grid-template-columns:1fr}.pe-foot .btn{flex:1}}
+/* Header search */
+body.srch-lock{overflow:hidden}
+#srch{position:fixed;inset:0;z-index:97;display:none}
+#srch.open{display:block}
+.srch-back{position:absolute;inset:0;background:rgba(20,28,60,.5);backdrop-filter:blur(2px)}
+.srch-card{position:relative;z-index:2;width:min(46rem,calc(100% - 2rem));margin:5.5rem auto 0;max-height:calc(100vh - 8rem);display:flex;flex-direction:column;background:#fff;border:1px solid var(--line);box-shadow:var(--shadow-lg)}
+.srch-bar{display:flex;align-items:center;gap:.8rem;padding:1rem 1.2rem;border-bottom:1px solid var(--line-2);color:var(--muted)}
+.srch-bar>.svgi{width:1.3rem;height:1.3rem;flex:none}
+.srch-bar input{flex:1;min-width:0;border:0;outline:0;background:transparent;font:inherit;font-size:1.1rem;color:var(--ink);padding:.3rem 0}
+.srch-bar input::-webkit-search-cancel-button{display:none}
+.srch-x{flex:none;width:2rem;height:2rem;display:grid;place-items:center;border:1px solid var(--line-2);background:#fff;color:var(--muted);cursor:pointer}
+.srch-x:hover{background:var(--bg-soft);color:var(--ink)}
+.srch-res{overflow:auto;padding:.4rem 0 .6rem;flex:1}
+.srch-g{padding:.5rem 0}
+.srch-gh{display:flex;justify-content:space-between;padding:.4rem 1.2rem;font-size:.7rem;font-weight:800;letter-spacing:.09em;text-transform:uppercase;color:var(--muted-2)}
+.srch-gh span{font-weight:600;letter-spacing:0}
+.srch-it{display:flex;align-items:center;gap:.9rem;padding:.6rem 1.2rem;cursor:pointer;color:var(--ink);text-decoration:none}
+.srch-it:hover,.srch-it.sel{background:var(--bg-soft)}
+.srch-it.sel{box-shadow:inset 0 0 0 1px var(--green-line)}
+.srch-ic{flex:none;width:2.2rem;height:2.2rem;border-radius:.65rem;display:grid;place-items:center;background:var(--green-soft);color:var(--green-d)}
+.srch-ic .svgi{width:1.05rem;height:1.05rem}
+.srch-t{flex:1;min-width:0;display:flex;flex-direction:column}
+.srch-t b{font-size:.94rem;font-weight:600;line-height:1.35;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.srch-t small{font-size:.78rem;color:var(--muted-2);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.srch-t mark{background:color-mix(in srgb,var(--cta) 28%,#fff);color:inherit;padding:0 .1rem}
+.srch-it em{font-style:normal;color:var(--muted-2);opacity:0;transition:opacity .12s}
+.srch-it:hover em,.srch-it.sel em{opacity:1}
+.srch-lock{display:inline-grid;color:var(--muted-2)}
+.srch-lock .svgi{width:.9rem;height:.9rem}
+.srch-chips{display:flex;flex-wrap:wrap;gap:.5rem;padding:.2rem 1.2rem .4rem}
+.srch-chips button{border:1px solid var(--line-2);background:#fff;border-radius:999px;padding:.4rem .9rem;font:inherit;font-size:.84rem;font-weight:600;color:var(--ink);cursor:pointer}
+.srch-chips button:hover{border-color:var(--green-line);background:var(--green-soft)}
+.srch-none{padding:2.2rem 1.4rem;text-align:center;display:flex;flex-direction:column;gap:.3rem}
+.srch-none span{color:var(--muted-2);font-size:.88rem}
+.srch-foot{display:flex;gap:1.2rem;padding:.65rem 1.2rem;border-top:1px solid var(--line-2);font-size:.76rem;color:var(--muted-2);background:var(--bg-soft)}
+.srch-foot kbd{font:inherit;font-size:.72rem;font-weight:700;border:1px solid var(--line-2);background:#fff;padding:0 .35rem;margin-right:.2rem}
+@media(max-width:640px){.srch-card{margin-top:4.2rem;max-height:calc(100vh - 5rem)}.srch-foot{display:none}}
 </style>
 </head>
 <body>
@@ -3374,7 +3411,7 @@ function header(active){
       <span class="navdiv"></span>
       ${appsMenu()}
       ${authArea}
-      <button class="nav-ic" title="Search" aria-label="Search" onclick="go('#/repository')"><svg class=svgi><use href=#i-search /></svg></button>
+      <button class="nav-ic" title="Search" aria-label="Search" onclick="openSearch()"><svg class=svgi><use href=#i-search /></svg></button>
       <span class="navdiv"></span>
       ${langMenu()}
     </div>
@@ -3623,7 +3660,7 @@ function loginModalSubmit(){
 function currentPathSafe(){return (location.hash||'#/home');}
 /* a gated destination opens the dialog for visitors, otherwise navigates */
 function goGated(href,what){ if(isAuthed()){go(href);} else {gateLogin(href);} }
-document.addEventListener('keydown',function(e){ if(e.key==='Escape'){ closeLoginModal(); closeMetaModal(); } });
+document.addEventListener('keydown',function(e){ if(e.key==='Escape'){ closeLoginModal(); closeMetaModal(); closeSearch(); } });
 /* full metadata modal — GeoNode-style record */
 function closeMetaModal(){const m=document.getElementById('meta-modal');if(m){m.classList.remove('open');m.innerHTML='';}}
 function saveProfileModal(){toast('Profile saved');closeMetaModal();}
@@ -3645,6 +3682,70 @@ function openEditProfileModal(){
     </div>
    </div>`;
   m.classList.add('open');
+}
+
+/* ---- Header search: one box for datasets, gallery items, themes, tools and blogs ---- */
+const SEARCH_PAGES=[
+  ["Decision Support System","#/dss","Conservation action plans"],["Panchayat Atlas","#/atlas","Gram Panchayat sheets"],["Village Explorer","#/village","Village-level view"],
+  ["Thematic Datasets","#/thematic","Water, Land and Biodiversity"],["Data Repository","#/repository","Browse the full catalogue"],
+  ["Commons Insights","#/insights","Analyse and share"],["Map Studio","#/mapstudio","Build and combine map layers"],["Data Analytics","#/analytics","Dashboards and charts"],["Gallery","#/gallery","Stories, maps and dashboards by users"],
+  ["Blogs","#/blogs","Notes from the team"]
+];
+let SRCH_SEL=-1;
+function searchHL(t,q){
+  const e=storyEsc(t); if(!q) return e;
+  let out=e;
+  q.split(/\s+/).filter(w=>w.length>1).forEach(w=>{out=out.replace(new RegExp('('+w.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')+')','ig'),'<mark>$1</mark>');});
+  return out;
+}
+function searchData(q){
+  const toks=q.toLowerCase().split(/\s+/).filter(Boolean);
+  const hit=h=>toks.every(t=>h.toLowerCase().includes(t));
+  const ds=DATASETS.filter(d=>hit([d.t,d.theme,d.fmt,d.geo,d.org].join(' '))).map(d=>({t:d.t,sub:d.fmt+' · '+d.geo+' · '+d.yr,href:'#/dataset/'+d.id,ic:'i-db',lock:d.access!=='Public'}));
+  const gl=GALLERY.filter(g=>hit([g.t,g.kind,g.src,g.who,g.org].join(' '))).map(g=>({t:g.t,sub:g.kind+' · '+g.who,href:'#/gallery-item/'+g.id,ic:g.kind==='Story'?'i-book':g.kind==='Dashboard'?'i-trend':'i-map'}));
+  const th=THEMES.filter(x=>hit([x.name,x.tag,x.layers.join(' ')].join(' '))).map(x=>({t:x.name,sub:x.tag,href:'#/theme/'+x.id,ic:'i-compass'}));
+  const pg=SEARCH_PAGES.filter(x=>hit(x[0]+' '+x[2])).map(x=>({t:x[0],sub:x[2],href:x[1],ic:'i-search'}));
+  const bl=BLOGS.map((b,i)=>({b:b,i:i})).filter(o=>hit([o.b[0],o.b[1],o.b[3],o.b[4]].join(' '))).map(o=>({t:o.b[0],sub:o.b[3]+' · '+o.b[5],href:'#/blog/'+o.i,ic:'i-book'}));
+  return [["Datasets",ds.slice(0,5),ds.length],["Gallery",gl.slice(0,4),gl.length],["Themes",th,th.length],["Tools and pages",pg,pg.length],["Blogs",bl.slice(0,3),bl.length]].filter(g=>g[1].length);
+}
+function openSearch(){
+  appsClose(); langClose(); pwClose();
+  let m=document.getElementById('srch'); if(!m){m=document.createElement('div'); m.id='srch'; document.body.appendChild(m);}
+  m.innerHTML=`<div class="srch-back" onclick="closeSearch()"></div>
+   <div class="srch-card" role="dialog" aria-label="Search">
+    <div class="srch-bar"><svg class=svgi><use href=#i-search /></svg><input id="srch-in" type="search" autocomplete="off" placeholder="Search datasets, maps, stories and tools" oninput="searchRun()" onkeydown="searchKey(event)"><button type="button" class="srch-x" onclick="closeSearch()" aria-label="Close search"><svg class=svgi><use href=#i-x /></svg></button></div>
+    <div class="srch-res" id="srch-res"></div>
+    <div class="srch-foot"><span><kbd>↑</kbd><kbd>↓</kbd> to move</span><span><kbd>Enter</kbd> to open</span><span><kbd>Esc</kbd> to close</span></div>
+   </div>`;
+  m.classList.add('open'); document.body.classList.add('srch-lock');
+  searchRun(); const i=document.getElementById('srch-in'); if(i) i.focus();
+}
+function closeSearch(){const m=document.getElementById('srch'); if(m){m.classList.remove('open'); m.innerHTML='';} document.body.classList.remove('srch-lock');}
+function searchGo(href){closeSearch(); go(href);}
+function searchRun(){
+  const inp=document.getElementById('srch-in'), box=document.getElementById('srch-res'); if(!inp||!box) return;
+  const q=inp.value.trim(); SRCH_SEL=-1;
+  if(!q){
+    const sug=["Water","Forest cover","Groundwater","Sacred groves","Panchayat","Grazing"];
+    box.innerHTML=`<div class="srch-g"><div class="srch-gh">Try searching for</div><div class="srch-chips">${sug.map(x=>`<button type="button" onclick="searchSet('${x}')">${x}</button>`).join("")}</div></div>
+     <div class="srch-g"><div class="srch-gh">Jump to</div>${SEARCH_PAGES.slice(0,7).map(x=>`<a class="srch-it" data-href="${x[1]}" onclick="searchGo('${x[1]}')"><span class="srch-ic"><svg class=svgi><use href=#i-search /></svg></span><span class="srch-t"><b>${x[0]}</b><small>${x[2]}</small></span><em>→</em></a>`).join("")}</div>`;
+    return;
+  }
+  const groups=searchData(q);
+  if(!groups.length){box.innerHTML=`<div class="srch-none"><b>No results for "${storyEsc(q)}"</b><span>Check the spelling or try a shorter word such as a theme, place or format.</span></div>`; return;}
+  box.innerHTML=groups.map(g=>`<div class="srch-g"><div class="srch-gh">${g[0]}<span>${g[2]}</span></div>${g[1].map(r=>`<a class="srch-it" data-href="${r.href}" onclick="searchGo('${r.href}')"><span class="srch-ic"><svg class=svgi><use href=#${r.ic} /></svg></span><span class="srch-t"><b>${searchHL(r.t,q)}</b><small>${storyEsc(r.sub)}</small></span>${r.lock?'<i class="srch-lock"><svg class=svgi><use href=#i-lock /></svg></i>':''}<em>→</em></a>`).join("")}</div>`).join("");
+}
+function searchSet(v){const i=document.getElementById('srch-in'); if(i){i.value=v; i.focus();} searchRun();}
+function searchKey(e){
+  const items=[...document.querySelectorAll('#srch-res .srch-it')];
+  if(e.key==='Escape'){closeSearch(); return;}
+  if(e.key==='ArrowDown'||e.key==='ArrowUp'){
+    e.preventDefault(); if(!items.length) return;
+    SRCH_SEL=e.key==='ArrowDown'?(SRCH_SEL+1)%items.length:(SRCH_SEL<=0?items.length-1:SRCH_SEL-1);
+    items.forEach((it,i)=>it.classList.toggle('sel',i===SRCH_SEL)); items[SRCH_SEL].scrollIntoView({block:'nearest'});
+  }else if(e.key==='Enter'){
+    const it=items[SRCH_SEL>=0?SRCH_SEL:0]; if(it){e.preventDefault(); searchGo(it.dataset.href);}
+  }
 }
 function mdToast(){toast('Reference link / download');}
 function showMetaModal(o){
