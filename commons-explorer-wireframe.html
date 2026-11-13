@@ -2607,6 +2607,11 @@ footer.site .bar{display:flex;align-items:center;justify-content:space-between;g
 .acct-nav .acct-logout:hover{background:var(--red-soft);border-color:var(--red)}
 .acct-nav .acct-logout .svgi{width:1.05rem;height:1.05rem}
 @media(max-width:760px){.acct-nav .acct-user,.acct-nav .acct-h{flex:0 0 100%;width:100%}.acct-nav .acct-user{margin-bottom:0}.acct-nav .acct-h{margin:.6rem 0 .2rem}.acct-nav .acct-logout{width:auto;margin-top:.4rem}}
+/* Gallery grid - no outer outline or tinted background */
+.gnv.gnv-plain{border:0;background:none;box-shadow:none;overflow:visible}
+.gnv.gnv-plain .gnc-grid{background:none;padding:0;grid-template-columns:repeat(4,minmax(0,1fr))}
+@media(max-width:1000px){.gnv.gnv-plain .gnc-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:620px){.gnv.gnv-plain .gnc-grid{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
@@ -4310,7 +4315,7 @@ screens.gallery=(p)=>{
   </section>
 
   <section class="section" style="padding-top:6px">
-    <div class="gnv">
+    <div class="gnv gnv-plain">
       <div class="gnc-grid">
         ${GNC_RES.map(r=>`<div class="gnc" onclick="go('${r[4]}')">
           <div class="big">${gncIcon(r[1])}</div>
