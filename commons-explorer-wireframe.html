@@ -2678,9 +2678,38 @@ let MY_UPLOADS=[
   ["Story","A pond, a panchayat and a plan","Commons Stories","09 Jul 2025","Published"],
   ["Dataset","Village grazing survey 2025","CSV · 0.8 MB","02 Jul 2025","Revision requested"]
 ];
-try{var _u=localStorage.getItem('ce_uploads'); if(_u) MY_UPLOADS=JSON.parse(_u).concat(MY_UPLOADS);}catch(e){}
-function saveUploads(extra){try{localStorage.setItem('ce_uploads',JSON.stringify(extra));}catch(e){}}
-let NEW_UPLOADS=[];
+/* Contribution workflow
+   - a Registered User's submission waits in the Approvals queue until a moderator approves it
+   - a moderator's (or admin's) own submission is published straight away, no approval needed */
+let SUBMISSIONS=[];
+try{var _s=localStorage.getItem('ce_subs'); if(_s) SUBMISSIONS=JSON.parse(_s);}catch(e){}
+let QUEUE_DECISIONS={};
+try{var _d=localStorage.getItem('ce_qdec'); if(_d) QUEUE_DECISIONS=JSON.parse(_d);}catch(e){}
+function saveSubs(){try{localStorage.setItem('ce_subs',JSON.stringify(SUBMISSIONS));localStorage.setItem('ce_qdec',JSON.stringify(QUEUE_DECISIONS));}catch(e){}}
+function todayStr(){return new Date().toLocaleDateString('en-GB',{day:'2-digit',month:'short',year:'numeric'});}
+function submitContribution(type,title,detail){
+  const needsReview=!roleCan('moderate');
+  SUBMISSIONS.unshift({id:'s'+Date.now(),type:type,title:title,detail:detail,date:todayStr(),role:currentRole,who:'Priya Sharma · FES',needsReview:needsReview,status:needsReview?'Pending':'Approved'});
+  saveSubs();
+  toast(needsReview?'Submitted - waiting for moderator approval':'Published - moderators do not need approval');
+  return needsReview;
+}
+/* approvals queue rows: [type,title,who,date,status,id] - new submissions first, then the sample items */
+function queueRows(){
+  const mine=SUBMISSIONS.filter(x=>x.needsReview).map(x=>[x.type,x.title,x.who,x.date,x.status,x.id]);
+  const seeded=QUEUE.map((r,i)=>[r[0],r[1],r[2],r[3],QUEUE_DECISIONS['q'+i]||r[4],'q'+i]);
+  return mine.concat(seeded);
+}
+function decide(id,status){
+  if(!roleCan('moderate')) return;
+  const x=SUBMISSIONS.find(v=>v.id===id);
+  if(x) x.status=status; else QUEUE_DECISIONS[id]=status;
+  saveSubs();
+  toast(status==='Approved'?'Approved & published':status==='Rejected'?'Rejected':'Revision requested');
+  go(location.hash);
+}
+/* the signed-in role's own submissions, shown in My Uploads */
+function myUploadRows(){return SUBMISSIONS.filter(x=>x.role===currentRole).map(x=>[x.type,x.title,x.detail,x.date,x.status==='Approved'?'Published':x.status,x.id]);}
 
 /* bookmark lists — SRS §2.3 */
 const BOOKMARKS=[
@@ -3727,7 +3756,7 @@ screens.upload=()=>{
   return shell("#/thematic",[{label:"Home",href:"#/home"},{label:"Thematic Datasets",href:"#/thematic"},{label:"Data Repository",href:"#/repository"},{label:"Upload"}],`
   <section class="section">
     <div class="eyebrow">Contribute</div><h2 style="font-size:22px">Upload a dataset</h2>
-    <p class="sub">Supported formats: KML, SHP (zipped), GeoJSON, GeoTIFF and CSV. Uploads are reviewed by a moderator before publication.</p>
+    <p class="sub">Supported formats: KML, SHP (zipped), GeoJSON, GeoTIFF and CSV. ${roleCan('moderate')?'As a moderator, your uploads are published straight away - no approval needed.':'Uploads are reviewed by a moderator before publication.'}</p>
     <div class="stepbar"><i class="on"></i><i class="on"></i><i></i><i></i></div>
     <div class="grid" style="grid-template-columns:1fr 300px;gap:24px;align-items:start">
       <div class="panel">
@@ -3752,24 +3781,27 @@ screens.upload=()=>{
           <div class="field-block"><label class="wf-label">Licence</label><select class="wf-in"><option>CC BY 4.0</option><option>CC BY-SA 4.0</option><option>Custom / restricted</option></select></div>
         </div>
         <div class="field-block"><label class="wf-label">Supporting documentation</label><div class="wf-field area"><svg class=svgi><use href=#i-paperclip /></svg> Attach a methodology note, data dictionary or source document</div></div>
-        <div class="between mt16"><a class="btn" onclick="go('#/repository')">Cancel</a><a class="btn primary" onclick="submitUpload()">Submit for review →</a></div>
+        <div class="between mt16"><a class="btn" onclick="go('#/repository')">Cancel</a><a class="btn primary" onclick="submitUpload()">${roleCan('moderate')?'Publish →':'Submit for review →'}</a></div>
       </div>
       <div class="stack">
         <div class="panel"><div class="eyebrow">What happens next</div>
           <div class="wf-tl mt12">
-            ${[["done","1","Upload","You submit the file and metadata"],["pending","2","Moderator review","Organization Moderator approves, rejects or requests revisions"],["pending","3","Publication","Layer is published to GeoNode and the repository"],["pending","4","Credit","Attribution appears on the dataset and your profile"]].map(e=>`<div class="wf-ev ${e[0]}"><div class="wf-ic">${e[0]==='done'?'<svg class=svgi><use href=#i-check /></svg>':e[1]}</div><div><div class="wf-lb">${e[2]}</div><div class="wf-mt">${e[3]}</div></div></div>`).join("")}
+            ${[["done","1","Upload","You submit the file and metadata"],["pending","2","Moderator review","Organization Moderator approves, rejects or requests revisions"],["pending","3","Publication","Layer is published to GeoNode and the repository"],["pending","4","Credit","Attribution appears on the dataset and your profile"]].filter(e=>!(roleCan('moderate')&&e[1]==='2')).map((e,i)=>roleCan('moderate')?[e[0],String(i+1),e[2],e[3]]:e).map(e=>`<div class="wf-ev ${e[0]}"><div class="wf-ic">${e[0]==='done'?'<svg class=svgi><use href=#i-check /></svg>':e[1]}</div><div><div class="wf-lb">${e[2]}</div><div class="wf-mt">${e[3]}</div></div></div>`).join("")}
           </div></div>
-        <div class="panel"><div class="eyebrow">Reminder</div><p class="muted" style="margin:6px 0 0">Registered users cannot publish content without approval. Uploads appear in <a onclick="go('#/uploads')" style="text-decoration:underline;cursor:pointer">My Uploads</a> as <i>Pending</i> until reviewed.</p></div>
+        <div class="panel"><div class="eyebrow">Reminder</div><p class="muted" style="margin:6px 0 0">${roleCan('moderate')?'Moderators and admins publish without approval.':'Registered users cannot publish content without approval.'} Uploads appear in <a onclick="go('#/uploads')" style="text-decoration:underline;cursor:pointer">My Uploads</a>${roleCan('moderate')?' as <i>Published</i>.':' as <i>Pending</i> until reviewed.'}</p></div>
       </div>
     </div>
   </section>
 `);};
+function submitStory(){
+  const e=document.getElementById('st-title');
+  submitContribution('Story',(e&&e.value.trim())||'Untitled story','Commons Stories');
+  go('#/uploads');
+}
 function submitUpload(){
   const g=id=>{const e=document.getElementById(id);return e&&e.value?e.value.trim():'';};
   const title=g('up-title')||'Untitled dataset';
-  NEW_UPLOADS.unshift(["Dataset",title,(g('up-theme')||'Water')+' · pending file',"31 Aug 2025","Pending"]);
-  saveUploads(NEW_UPLOADS);
-  toast('Submitted for moderator review');
+  submitContribution('Dataset',title,(g('up-theme')||'Water')+' · pending file');
   go('#/uploads');
 }
 
@@ -4500,7 +4532,7 @@ screens['story-create']=()=>{
     <div class="stepbar"><i class="on"></i><i class="on"></i><i></i></div>
     <div class="grid" style="grid-template-columns:1fr 320px;gap:24px;align-items:start">
       <div class="panel">
-        <div class="field-block"><label class="wf-label">Story title</label><input class="wf-in" placeholder="e.g. A pond, a panchayat and a plan"></div>
+        <div class="field-block"><label class="wf-label">Story title</label><input class="wf-in" id="st-title" placeholder="e.g. A pond, a panchayat and a plan"></div>
         <div class="field-block"><label class="wf-label">Standfirst</label><textarea class="wf-in" placeholder="One or two sentences that set up the story."></textarea></div>
         <div class="wf-note" style="margin:16px 0 8px">Story blocks</div>
         <div class="stack">
@@ -4514,7 +4546,7 @@ screens['story-create']=()=>{
           <a class="btn sm" onclick="toast('Insert a resource — map, dashboard, dataset')">＋ Resource</a>
           <a class="btn sm" onclick="toast('Add image')">＋ Image</a>
         </div>
-        <div class="between mt16"><a class="btn" onclick="go('#/gallery')">Cancel</a><div class="row" style="gap:8px"><a class="btn" onclick="toast('Draft saved')">Save draft</a><a class="btn primary" onclick="toast('Story submitted for approval');go('#/uploads')">Submit for review →</a></div></div>
+        <div class="between mt16"><a class="btn" onclick="go('#/gallery')">Cancel</a><div class="row" style="gap:8px"><a class="btn" onclick="toast('Draft saved')">Save draft</a><a class="btn primary" onclick="submitStory()">${roleCan('moderate')?'Publish →':'Submit for review →'}</a></div></div>
       </div>
       <div class="stack">
         <div class="panel"><div class="eyebrow">Add from</div>
@@ -4715,10 +4747,10 @@ function pwCheckStrength(el){
 /* uploads / contribution credits — SRS §2.2.2.1 */
 screens.uploads=(p)=>{
   if(!isAuthed()) return gateScreen('My Uploads & Credits','Sign in to see your upload history, review status and contribution credits.','#/uploads');
-  const all=NEW_UPLOADS.concat(MY_UPLOADS);
+  const all=myUploadRows().concat(MY_UPLOADS);
   const tab=p.tab||'All';
   const counts=s=>all.filter(r=>r[4]===s).length;
-  const tabs=[["All",all.length],["Published",counts('Published')],["Pending",counts('Pending')],["Revision requested",counts('Revision requested')]];
+  const tabs=[["All",all.length],["Published",counts('Published')],["Pending",counts('Pending')],["Revision requested",counts('Revision requested')],["Rejected",counts('Rejected')]];
   const rows=all.filter(r=>tab==='All'||r[4]===tab);
   return accountShell('uploads',[{label:"Home",href:"#/home"},{label:"My Uploads &amp; Credits"}],`
     <div class="between"><div><h2 class="mb0" style="margin-top:0;font-size:20px">My Uploads &amp; Credits</h2><p class="muted" style="margin:4px 0 0">A record of everything you have contributed, with attribution and review status.</p></div>
@@ -4745,9 +4777,10 @@ screens.uploads=(p)=>{
 screens.approvals=(p)=>{
   if(!roleCan('moderate')) return gateScreen('Approvals','Only Organization Moderators, Platform Moderators and Admins can review submissions.','#/approvals');
   const tab=p.tab||'All';
-  const counts=s=>QUEUE.filter(r=>r[4]===s).length;
-  const tabs=[["All",QUEUE.length],["Pending",counts('Pending')],["Revision requested",counts('Revision requested')],["Approved",counts('Approved')],["Rejected",counts('Rejected')]];
-  const rows=QUEUE.filter(r=>tab==='All'||r[4]===tab);
+  const Q=queueRows();
+  const counts=s=>Q.filter(r=>r[4]===s).length;
+  const tabs=[["All",Q.length],["Pending",counts('Pending')],["Revision requested",counts('Revision requested')],["Approved",counts('Approved')],["Rejected",counts('Rejected')]];
+  const rows=Q.filter(r=>tab==='All'||r[4]===tab);
   return accountShell('approvals',[{label:"Home",href:"#/home"},{label:"Approvals"}],`
     <div class="between"><div><h2 class="mb0" style="margin-top:0;font-size:20px">Approvals</h2><p class="muted" style="margin:4px 0 0">Review, approve or reject datasets and content submitted by users of your organization; request revisions before approval.</p></div>
       <span class="role-badge">${roleName()}</span></div>
@@ -4758,9 +4791,9 @@ screens.approvals=(p)=>{
           <div><b style="font-size:14px">${r[1]}</b><div class="wf-note" style="text-transform:none;letter-spacing:0">${r[0]} · ${r[2]} · ${r[3]}</div></div></div>
         <div class="row" style="gap:8px;align-items:center">${statusPill(r[4])}
           <span class="btn sm" onclick="toast('Preview submission')">Preview</span>
-          <span class="btn sm" onclick="toast('Revision requested')">Request revision</span>
-          <span class="btn sm" onclick="toast('Rejected')">Reject</span>
-          <span class="btn sm primary" onclick="toast('Approved &amp; published')">Approve</span></div></div>`).join("")}
+          ${r[4]==='Pending'?`<span class="btn sm" onclick="decide('${r[5]}','Revision requested')">Request revision</span>
+          <span class="btn sm" onclick="decide('${r[5]}','Rejected')">Reject</span>
+          <span class="btn sm primary" onclick="decide('${r[5]}','Approved')">Approve</span>`:''}</div></div>`).join("")||'<div class="wf-note" style="padding:18px;text-transform:none;letter-spacing:0">Nothing in this status.</div>'}
     </div>
     <div class="panel mt16"><div class="eyebrow">Review workflow</div>
       <div class="flow mt8">
@@ -4769,6 +4802,7 @@ screens.approvals=(p)=>{
         <div class="node">Revisions<span class="sub2">optional</span></div><div class="arw">→</div>
         <div class="node strong">Published<span class="sub2">gallery + repository</span></div>
       </div>
+      <div class="wf-note mt12" style="text-transform:none;letter-spacing:0">Submissions by moderators and admins are published straight away and do not appear in this queue.</div>
       ${roleCan('superAdmin')?'<div class="wf-note mt12">As Platform Super Admin you may override moderation and approval decisions.</div>':''}
     </div>
   `);
