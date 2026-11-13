@@ -2732,6 +2732,7 @@ footer.site .bar{display:flex;align-items:center;justify-content:space-between;g
 .appsw-menu .app-tile.here{cursor:default}
 .appsw-menu .app-ic{width:4.4rem;height:4.4rem;border-radius:1.15rem!important;background:#fff!important;border:1px solid var(--line-2);box-shadow:0 2px 6px -2px rgba(40,36,34,.14)!important;color:var(--green-d)!important;display:grid;place-items:center}
 .appsw-menu .app-ic .svgi{width:1.9rem;height:1.9rem}
+.appsw-menu .app-ic img{width:2.85rem;height:2.85rem;object-fit:contain;display:block}
 .appsw-menu .app-nm{font-size:.98rem;font-weight:500;line-height:1.3;color:var(--ink)}
 @media(max-width:560px){.appsw-menu{width:min(31rem,92vw)}.appsw-menu .app-ic{width:3.6rem;height:3.6rem}.appsw-menu .app-nm{font-size:.88rem}}
 /* Change Password popup */
@@ -3141,13 +3142,13 @@ const NAV=[
 function appsMenu(){
   const grid=`<svg width="15" height="15" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><circle cx="3" cy="3" r="1.5"/><circle cx="8" cy="3" r="1.5"/><circle cx="13" cy="3" r="1.5"/><circle cx="3" cy="8" r="1.5"/><circle cx="8" cy="8" r="1.5"/><circle cx="13" cy="8" r="1.5"/><circle cx="3" cy="13" r="1.5"/><circle cx="8" cy="13" r="1.5"/><circle cx="13" cy="13" r="1.5"/></svg>`;
   const PLATFORM_COMPONENTS=[
-  ["Understanding of Commons","<svg class=svgi><use href=#i-users /></svg>","https://introduction.commonsplatform.in/"],
-  ["Facilitating Commoning","<svg class=svgi><use href=#i-hand /></svg>","https://learning.commonsplatform.in/"],
-  ["Village Institutions","<svg class=svgi><use href=#i-home /></svg>","https://villageinstitutions.commonsplatform.in/"],
-  ["Common Stories","<svg class=svgi><use href=#i-book /></svg>","https://stories.commonsplatform.in/"],
-  ["Legal Repository","<svg class=svgi><use href=#i-shield /></svg>","https://legalrepository.commonsplatform.in/"],
-  ["Commons Explorer","<svg class=svgi><use href=#i-compass /></svg>","#/home"],
-  ["Making Expertise Visible","<svg class=svgi><use href=#i-star /></svg>","https://skills.commonsplatform.in/"]
+  ["Understanding of Commons","<img src=assets/platform/understanding.png alt=\"\">","https://introduction.commonsplatform.in/"],
+  ["Facilitating Commoning","<img src=assets/platform/facilitating.png alt=\"\">","https://learning.commonsplatform.in/"],
+  ["Village Institutions","<img src=assets/platform/village.png alt=\"\">","https://villageinstitutions.commonsplatform.in/"],
+  ["Common Stories","<img src=assets/platform/stories.png alt=\"\">","https://stories.commonsplatform.in/"],
+  ["Legal Repository","<img src=assets/platform/legal.png alt=\"\">","https://legalrepository.commonsplatform.in/"],
+  ["Commons Explorer","<img src=assets/platform/explorer.png alt=\"\">","#/home"],
+  ["Making Expertise Visible","<img src=assets/platform/expertise.png alt=\"\">","https://skills.commonsplatform.in/"]
 ];
 
   const tile=a=>{
