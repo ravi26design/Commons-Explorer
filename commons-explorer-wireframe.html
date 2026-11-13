@@ -3323,7 +3323,7 @@ function urlRow(path,label){
     <div class="row mt12" style="gap:8px">
       <a class="btn sm" onclick="bookmarkIt('${(label||'').replace(/'/g,'')}')"><svg class=svgi><use href=#i-bookmark /></svg> Bookmark</a>
       <a class="btn sm" onclick="toast('Share dialog — public link / send to a Commons Platform user')"><svg class=svgi><use href=#i-external /></svg> Share</a>
-      <a class="btn sm" onclick="go('#/story-create')"><svg class=svgi><use href=#i-book /></svg> Create story from this</a>
+      <a class="btn sm" onclick="openStoryModal()"><svg class=svgi><use href=#i-book /></svg> Create story from this</a>
       <a class="btn sm" onclick="go('#/report')"><svg class=svgi><use href=#i-download /></svg> Download report</a>
     </div>
   </div>`;
@@ -3941,9 +3941,39 @@ screens.upload=()=>{
     </div>
   </section>
 `);};
+/* Create a story - opens as a popup window */
+function openStoryModal(){
+  if(!isAuthed()){ go('#/story-create'); return; }
+  const m=document.getElementById('meta-modal');
+  m.innerHTML=`<div class="mm-back" onclick="closeMetaModal()"></div>
+   <div class="mm-card" style="max-width:44rem">
+    <button class="mm-x" onclick="closeMetaModal()" aria-label="Close"><svg class=svgi><use href=#i-x /></svg></button>
+    <div class="eyebrow">Commons Stories integration</div>
+    <h2 style="font-size:1.35rem;border:0;padding:0;margin:0 0 .35rem">Create a story from your resources</h2>
+    <p class="muted" style="margin:0 0 1rem">Pull in map views, dashboards and analytical outputs, then add narrative around them. ${roleCan('moderate')?'As a moderator, your story is published straight away.':'Stories publish to the Gallery after moderation.'}</p>
+    <div class="field-block"><label class="wf-label">Story title</label><input class="wf-in" id="st-title" placeholder="e.g. A pond, a panchayat and a plan"></div>
+    <div class="field-block"><label class="wf-label">Standfirst</label><textarea class="wf-in" placeholder="One or two sentences that set up the story."></textarea></div>
+    <div class="wf-note" style="margin:14px 0 8px">Story blocks</div>
+    <div class="stack">
+      <div class="ctx-row"><h5>Block 1 · Text</h5><p>Narrative paragraph.</p></div>
+      <div class="ctx-row"><h5>Block 2 · Map</h5><p>Grazing corridors of Kutch — GeoNode map (embedded resource)</p></div>
+      <div class="ctx-row"><h5>Block 3 · Chart</h5><p>Common land per 1,000 population — Superset chart</p></div>
+      <div class="ctx-row"><h5>Block 4 · Image</h5><p>Photo with caption</p></div>
+    </div>
+    <div class="row mt12" style="gap:8px;flex-wrap:wrap">
+      <a class="btn sm" onclick="toast('Add text block')">＋ Text</a>
+      <a class="btn sm" onclick="toast('Insert a resource — map, dashboard, dataset')">＋ Resource</a>
+      <a class="btn sm" onclick="toast('Add image')">＋ Image</a>
+    </div>
+    <div class="between mt16"><a class="btn" onclick="closeMetaModal()">Cancel</a><div class="row" style="gap:8px"><a class="btn" onclick="toast('Draft saved')">Save draft</a><a class="btn primary" onclick="submitStory()">${roleCan('moderate')?'Publish →':'Submit for review →'}</a></div></div>
+   </div>`;
+  m.classList.add('open');
+  const t=document.getElementById('st-title'); if(t) t.focus();
+}
 function submitStory(){
   const e=document.getElementById('st-title');
   submitContribution('Story',(e&&e.value.trim())||'Untitled story','Commons Stories');
+  closeMetaModal();
   go('#/uploads');
 }
 function submitUpload(){
@@ -4274,7 +4304,7 @@ screens.gallery=(p)=>{
   <section class="section" style="padding-bottom:14px">
     <div class="between">
       <div><h2 class="mb0" style="font-size:24px">Gallery of User generated Content</h2></div>
-      <div class="row" style="gap:8px"><a class="btn sm" onclick="go('#/story-create')"><svg class=svgi><use href=#i-book /></svg> Create a story</a><a class="btn sm primary" onclick="go('#/analytics')"><svg class=svgi><use href=#i-trend /></svg> Open Data Analytics</a></div>
+      <div class="row" style="gap:8px"><a class="btn sm" onclick="openStoryModal()"><svg class=svgi><use href=#i-book /></svg> Create a story</a><a class="btn sm primary" onclick="go('#/analytics')"><svg class=svgi><use href=#i-trend /></svg> Open Data Analytics</a></div>
     </div>
     <p class="sub">A collaborative gallery bringing together maps and datasets from GeoNode and narrative stories, plus dashboards from Apache Superset once that integration goes live — all in one interpretable format. Every item has a unique URL and is searchable.</p>
   </section>
@@ -4723,42 +4753,10 @@ screens.vemap=(p)=>{
 /* ---- SRS §2.3 Cross-cutting: story creation ---- */
 screens['story-create']=()=>{
   if(!isAuthed()) return gateScreen('Create a story','Registered users can create narrative stories from existing maps, dashboards and analytical outputs.','#/story-create',[{label:'Gallery',href:'#/gallery'}]);
-  return shell("#/insights",[{label:"Home",href:"#/home"},{label:"Gallery",href:"#/gallery"},{label:"Create a story"}],`
-  <section class="section">
-    <div class="eyebrow">Commons Stories integration</div>
-    <h2 style="font-size:22px">Create a story from your resources</h2>
-    <p class="sub">Pull in map views, dashboards and analytical outputs, then add narrative around them. Stories built here publish to this Gallery with a unique URL, after moderation.</p>
-    <div class="callout" style="margin-bottom:18px">
-      <div class="txt"><strong>Two ways to tell a story</strong><span>This form builds a lighter story mixing maps, dashboards and images. For a fully map-led narrative, GeoNode has its own GeoStory editor. <b>Open question:</b> should stories made here also appear on the separate Commons Stories platform (stories.commonsplatform.in), or do the two stay independent? — flagging for the platform team to confirm.</span></div>
-      <a class="btn" href="${GEONODE_URL}" target="_blank" rel="noopener">Open GeoNode GeoStories →</a>
-    </div>
-    <div class="stepbar"><i class="on"></i><i class="on"></i><i></i></div>
-    <div class="grid" style="grid-template-columns:1fr 320px;gap:24px;align-items:start">
-      <div class="panel">
-        <div class="field-block"><label class="wf-label">Story title</label><input class="wf-in" id="st-title" placeholder="e.g. A pond, a panchayat and a plan"></div>
-        <div class="field-block"><label class="wf-label">Standfirst</label><textarea class="wf-in" placeholder="One or two sentences that set up the story."></textarea></div>
-        <div class="wf-note" style="margin:16px 0 8px">Story blocks</div>
-        <div class="stack">
-          <div class="ctx-row"><h5>Block 1 · Text</h5><p>Narrative paragraph.</p></div>
-          <div class="ctx-row"><h5>Block 2 · Map</h5><p>Grazing corridors of Kutch — GeoNode map (embedded resource)</p></div>
-          <div class="ctx-row"><h5>Block 3 · Chart</h5><p>Common land per 1,000 population — Superset chart</p></div>
-          <div class="ctx-row"><h5>Block 4 · Image</h5><p>Photo with caption</p></div>
-        </div>
-        <div class="row mt12" style="gap:8px">
-          <a class="btn sm" onclick="toast('Add text block')">＋ Text</a>
-          <a class="btn sm" onclick="toast('Insert a resource — map, dashboard, dataset')">＋ Resource</a>
-          <a class="btn sm" onclick="toast('Add image')">＋ Image</a>
-        </div>
-        <div class="between mt16"><a class="btn" onclick="go('#/gallery')">Cancel</a><div class="row" style="gap:8px"><a class="btn" onclick="toast('Draft saved')">Save draft</a><a class="btn primary" onclick="submitStory()">${roleCan('moderate')?'Publish →':'Submit for review →'}</a></div></div>
-      </div>
-      <div class="stack">
-        <div class="panel"><div class="eyebrow">Add from</div>
-          <div class="stack mt8">${[["<svg class=svgi><use href=#i-bookmark /></svg>","My bookmarks","#/bookmarks"],["<svg class=svgi><use href=#i-upload /></svg>","My uploads","#/uploads"],["<svg class=svgi><use href=#i-image /></svg>","Gallery","#/gallery"],["<svg class=svgi><use href=#i-db /></svg>","Data Repository","#/repository"]].map(r=>`<a class="btn sm block" onclick="go('${r[2]}')">${r[0]} ${r[1]}</a>`).join("")}</div></div>
-        <div class="panel"><div class="eyebrow">Preview</div><div class="ph-img mt8" style="min-height:170px">Story preview</div></div>
-      </div>
-    </div>
-  </section>
-`);};
+  /* the story form now opens as a popup over the Gallery */
+  setTimeout(openStoryModal,0);
+  return screens.gallery({});
+};
 
 /* ---- SRS §2.3 Pre-formatted report download ---- */
 screens.report=()=>shell("",[{label:"Home",href:"#/home"},{label:"Download report"}],`
