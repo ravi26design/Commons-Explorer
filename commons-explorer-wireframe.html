@@ -2846,44 +2846,19 @@ footer.site .bar{display:flex;align-items:center;justify-content:space-between;g
   .acct-badge{margin-left:.1rem}
 }
 
-/* approval details page - same flat style as My Uploads */
+/* approval details page - same layout as the dataset detail page */
 .ap-row:hover{background:var(--bg-soft)}
 .ap-back{display:inline-flex;margin-bottom:1rem;font-size:.88rem;font-weight:600;color:var(--muted);cursor:pointer}
 .ap-back:hover{color:var(--green-d)}
-.ap-hero{display:flex;align-items:flex-start;gap:1rem;padding:0 0 1.25rem;margin-bottom:1.25rem;border-bottom:1px solid var(--line)}
-.ap-hero-ic{flex:0 0 auto;width:2.75rem;height:2.75rem;display:grid;place-items:center;border-radius:.8rem;background:color-mix(in srgb,var(--tc) 12%,#fff);color:var(--tc)}
-.ap-hero-ic .svgi{width:1.2rem;height:1.2rem}
-.ap-hero-main{flex:1;min-width:0}
-.ap-kicker{display:block;font-size:.72rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--tc);margin-bottom:.15rem}
-.ap-hero h2{margin:0 0 .45rem;border:0;padding:0;font-size:22px;line-height:1.3}
-.ap-by{display:flex;align-items:center;flex-wrap:wrap;gap:.5rem;font-size:.86rem;color:var(--muted-2)}
-.ap-by b{color:var(--ink);font-weight:600}
-.ap-by i{width:3px;height:3px;border-radius:50%;background:var(--line-2)}
-.ap-av{width:1.5rem;height:1.5rem;border-radius:50%;background:var(--green);color:#fff!important;font-size:.6rem;font-weight:800;display:inline-flex;align-items:center;justify-content:center}
-.ap-state{flex:0 0 auto}
-.ap-grid{display:grid;grid-template-columns:minmax(0,1fr) 19.5rem;gap:1.25rem;align-items:start}
-.ap-main,.ap-side{display:flex;flex-direction:column;gap:1.25rem}
-.ap-side{position:sticky;top:1rem}
-.ap-card{background:#fff;border:1px solid var(--line);box-shadow:var(--shadow-card);padding:1.15rem 1.3rem}
-.ap-card h3{margin:0 0 .75rem;padding:0 0 .7rem;border-bottom:1px solid var(--line-2);font-family:inherit;font-size:.78rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
-.ap-card p{margin:0}
-.ap-about{font-size:.96rem;line-height:1.7;color:var(--ink)}
-.ap-dl{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));margin:0;border:1px solid var(--line-2)}
-.ap-dl>div{display:flex;flex-direction:column;gap:.15rem;padding:.7rem .9rem;border-top:1px solid var(--line-2)}
-.ap-dl>div:nth-child(-n+2){border-top:0}
-.ap-dl>div:nth-child(odd){border-right:1px solid var(--line-2)}
-.ap-dl dt{font-size:.74rem;color:var(--muted-2)}
-.ap-dl dd{margin:0;font-weight:600;font-size:.9rem;overflow-wrap:anywhere}
-.ap-sample{margin-top:.8rem!important;font-size:.76rem;color:var(--muted-2)}
-.ap-msg{font-size:.9rem;line-height:1.55;color:var(--muted)}
-.ap-actions{display:flex;flex-direction:column;gap:.55rem;margin-top:1rem}
-.ap-actions .btn{justify-content:center;text-align:center}
-.ap-actions .btn.ap-rej{color:var(--red)}
+.ap-grid{display:grid;grid-template-columns:minmax(0,1.1fr) 380px;gap:24px;align-items:stretch}
+.ap-prev{padding:0;overflow:hidden;display:flex;min-height:420px}
+.ap-about{margin:0 0 .8rem;font-size:.92rem;line-height:1.65;color:var(--ink)}
+.ap-sample{margin:.8rem 0 0;font-size:.76rem;color:var(--muted-2)}
 .ap-note{margin-top:1rem;padding:.75rem 1rem .8rem;background:color-mix(in srgb,var(--t-cultural) 7%,#fff);border-left:3px solid var(--t-cultural)}
 .ap-note>b{display:block;margin-bottom:.35rem;font-size:.7rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--t-cultural)}
-.ap-note blockquote{margin:0;padding:0;font-size:.9rem;line-height:1.6;color:var(--ink)}
+.ap-note p{margin:0;font-size:.9rem;line-height:1.6;color:var(--ink)}
 .ap-note span{display:block;margin-top:.5rem;font-size:.76rem;color:var(--muted-2)}
-.ap-note.empty p{font-size:.86rem;color:var(--muted)}
+.ap-note.empty p{color:var(--muted)}
 .ap-steps{list-style:none;margin:0;padding:0}
 .ap-steps li{position:relative;padding:0 0 1.1rem 1.6rem;display:flex;flex-direction:column;gap:.1rem}
 .ap-steps li:last-child{padding-bottom:0}
@@ -2893,8 +2868,7 @@ footer.site .bar{display:flex;align-items:center;justify-content:space-between;g
 .ap-steps li.done::before{background:var(--green);border-color:var(--green)}
 .ap-steps li b{font-size:.9rem}
 .ap-steps li span{font-size:.78rem;color:var(--muted-2)}
-@media(max-width:900px){.ap-grid{grid-template-columns:1fr}.ap-side{position:static}}
-@media(max-width:640px){.ap-hero{flex-wrap:wrap}.ap-hero h2{font-size:19px}.ap-state{order:3}.ap-dl{grid-template-columns:1fr}.ap-dl>div:nth-child(2){border-top:1px solid var(--line-2)}.ap-dl>div:nth-child(odd){border-right:0}}
+@media(max-width:1100px){.ap-grid{grid-template-columns:1fr}.ap-prev{min-height:240px}.ap-prev .ph-img{min-height:240px!important}}
 </style>
 </head>
 <body>
@@ -5600,40 +5574,39 @@ function approvalDetail(p){
   else if(st==='Rejected') steps.push(["Rejected","Moderator decision",true]);
   else if(st==='Revision requested') steps.push(["Revision requested",cm?`${cm.by} · ${cm.date}`:"Moderator decision",true]);
   else steps.push(["Waiting for review","A moderator has not decided yet",false]);
-  const ini=name.split(' ').map(w=>w[0]).join('').slice(0,2);
-  const facts=[["Type",r[0]],["Contributor",name],["Organization",org],["Submitted on",r[3]],["Format",sm.fmt],["Theme",sm.theme],["Licence","CC BY 4.0"],["Attribution",org]];
-  const msg=pend?'Approve to publish it, or send it back with a comment.':st==='Approved'?'This submission is published on the platform.':st==='Rejected'?'This submission was not approved for publication.':'Waiting for the contributor to update and resubmit.';
+  const facts=[["Title",r[1]],["Type",r[0]],["Contributor",name],["Organization",org],["Submitted on",r[3]],["Status",st],["Format",sm.fmt],["Category",sm.theme],["Licence","CC BY 4.0"],["Attribution",org]];
+  const prev={Dataset:"Data preview — table",Map:"Layer preview — GeoNode map",Story:"Story preview — field photos",Dashboard:"Dashboard preview — charts"}[r[0]]||"Preview";
+  const note=st==='Revision requested'?`<div class="ap-note${cm?'':' empty'}"><b>Comment for the contributor</b>${cm?`<p>${storyEsc(cm.text)}</p><span>${storyEsc(cm.by)} · ${cm.date}</span>`:`<p>No comment was recorded for this request.</p>`}</div>`:'';
   return accountShell('approvals',crumbs,`
     <a class="ap-back" onclick="go('#/approvals')">← Back to Approvals</a>
-    <section class="ap-hero" style="--tc:${ty.tc}">
-      <span class="ap-hero-ic"><svg class=svgi><use href=#${ty.ic} /></svg></span>
-      <div class="ap-hero-main">
-        <span class="ap-kicker">${r[0]} submission</span>
-        <h2>${storyEsc(r[1])}</h2>
-        <div class="ap-by"><span class="ap-av">${storyEsc(ini)}</span><b>${storyEsc(name)}</b><span>${storyEsc(org)}</span><i></i><span>Submitted ${r[3]}</span></div>
-      </div>
-      <div class="ap-state">${pill}</div>
-    </section>
     <div class="ap-grid">
-      <div class="ap-main">
-        <section class="ap-card"><h3>About this submission</h3><p class="ap-about">${storyEsc(about)}</p></section>
-        <section class="ap-card"><h3>Details</h3>
-          <dl class="ap-dl">${facts.map(f=>`<div><dt>${f[0]}</dt><dd>${storyEsc(f[1])}</dd></div>`).join("")}</dl>
+      <div class="panel ap-prev"><div class="ph-img" style="flex:1;min-height:420px;height:auto">${prev}</div></div>
+      <div class="panel ap-info">
+        <div class="row" style="gap:8px;margin-bottom:6px;flex-wrap:wrap"><span class="rc-type-chip">${r[0]} · ${sm.fmt}</span>${statusPill(st)}<span class="tag">${sm.theme}</span></div>
+        <h2 style="margin:0 0 2px;font-size:24px">${storyEsc(r[1])}</h2>
+        <p class="muted" style="margin:0">a ${r[0].toLowerCase()} from <b>${storyEsc(name)}</b> · ${storyEsc(org)} · ${r[3]}</p>
+        <div class="row mt12" style="gap:8px;flex-wrap:wrap">
+          ${pend?`<a class="btn primary" onclick="decide('${r[5]}','Approved')">Approve</a><a class="btn sm" onclick="openRevisionModal('${r[5]}')">Request revision</a><a class="btn sm" onclick="decide('${r[5]}','Rejected')">Reject</a>`
+          :st==='Revision requested'?`<a class="btn sm" onclick="openRevisionModal('${r[5]}')">${cm?'Edit comment':'Add a comment'}</a>`
+          :`<span class="muted" style="font-size:.88rem">${st==='Approved'?'Published on the platform.':'Not approved for publication.'}</span>`}
+        </div>
+        ${note}
+        <div class="tabs mt16"><span class="tab active" onclick="apTab(this,'ap-info')">Info</span><span class="tab" onclick="apTab(this,'ap-act')">Activity</span></div>
+        <div id="ap-info" class="mt12">
+          <p class="ap-about">${storyEsc(about)}</p>
+          ${facts.map(f=>`<div class="detail-f"><span class="k">${f[0]}</span><span class="v">${storyEsc(f[1])}</span></div>`).join("")}
           <p class="ap-sample">Sample details for this prototype.</p>
-        </section>
-      </div>
-      <aside class="ap-side">
-        <section class="ap-card ap-review ap-st-${st.replace(/ /g,'-').toLowerCase()}"><h3>Review</h3>
-          <p class="ap-msg">${msg}</p>
-          ${st==='Revision requested'?`<div class="ap-note${cm?'':' empty'}"><b>Comment for the contributor</b>${cm?`<blockquote>${storyEsc(cm.text)}</blockquote><span>${storyEsc(cm.by)} · ${cm.date}</span>`:`<p>No comment was recorded for this request.</p>`}</div>
-          <div class="ap-actions"><a class="btn" onclick="openRevisionModal('${r[5]}')">${cm?'Edit comment':'Add a comment'}</a></div>`:''}
-          ${pend?`<div class="ap-actions"><a class="btn primary" onclick="decide('${r[5]}','Approved')"><svg class=svgi><use href=#i-check /></svg> Approve</a><a class="btn" onclick="openRevisionModal('${r[5]}')">Request revision</a><a class="btn ap-rej" onclick="decide('${r[5]}','Rejected')">Reject</a></div>`:''}
-        </section>
-        <section class="ap-card"><h3>Activity</h3>
+        </div>
+        <div id="ap-act" class="mt12 hidden">
           <ol class="ap-steps">${steps.map(t=>`<li class="${t[2]?'done':''}"><b>${t[0]}</b><span>${storyEsc(t[1])}</span></li>`).join("")}</ol>
-        </section>
-      </aside>
+        </div>
+      </div>
     </div>`);
+}
+function apTab(el,id){
+  el.parentNode.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+  el.classList.add('active');
+  ['ap-info','ap-act'].forEach(x=>{const e=document.getElementById(x); if(e) e.classList.toggle('hidden',x!==id);});
 }
 screens.approval=approvalDetail;
 
