@@ -3764,9 +3764,8 @@ screens.insights=()=>shell("#/insights",[{label:"Home",href:"#/home"},{label:"Co
   </div>
   <div class="page-photo"><img src="assets/photo-9.jpg" alt=""></div>
   <section class="section" style="padding-top:3rem">
-    <div class="grid g3 mod-grid lens-grid3">
+    <div class="grid g2 mod-grid">
       ${lensCard({tc:"var(--c-mapstudio)",img:"assets/photo-3.jpg",tag:"",name:"Map Studio",meta:"GeoNode · GeoServer tools · sign-in for AI reports",desc:"Create, style, manage and publish geospatial data and maps — filters, area calculation, thematic comparison, zonal statistics and AI-assisted reports.",cta:"Open Map Studio",click:"goGated('#/mapstudio','Map Studio')"})}
-      ${lensCard({tc:"var(--c-analytics)",img:"assets/chart-3.jpg",tag:"",pos:"center 35%",name:"Data Analytics",meta:"Apache Superset · sign-in required",desc:"Explore tabular, indicator-based and time-series data through Superset dashboards, charts and comparative metrics.",cta:"Open Data Analytics",click:"goGated('#/analytics','Data Analytics')"})}
       ${lensCard({tc:"var(--c-gallery)",img:"assets/ill-hero.jpg",tag:"",name:"Gallery of User generated Content",meta:"Sign-in required",desc:"Browse and publish maps, dashboards and narrative stories contributed by the community, in one interpretable format.",cta:"Browse the Gallery",click:"goGated('#/gallery','Gallery')"})}
     </div>
   </section>
