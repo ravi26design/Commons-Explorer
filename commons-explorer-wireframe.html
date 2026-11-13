@@ -2678,6 +2678,26 @@ footer.site .bar{display:flex;align-items:center;justify-content:space-between;g
 .up-dl b{min-width:2.6rem;font-weight:700;color:var(--ink)}
 .up-dl i{display:block;flex:1;max-width:7rem;height:.4rem;border-radius:999px;background:var(--line)}
 .up-dl u{display:block;height:100%;border-radius:999px;background:var(--green);text-decoration:none}
+/* Upload - supporting documentation */
+.doc-opt{margin-left:.5rem;padding:.1rem .5rem;border-radius:999px;background:var(--bg-soft);border:1px solid var(--line);font-size:.68rem;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--muted-2);vertical-align:middle}
+.doc-drop{display:flex;align-items:center;gap:1rem;padding:1.1rem 1.25rem;border:1.5px dashed var(--line-2);background:var(--bg-soft);cursor:pointer;transition:border-color .15s,background .15s}
+.doc-drop:hover,.doc-drop.over{border-color:var(--green);background:var(--green-soft)}
+.doc-drop .dd-ic{width:2.8rem;height:2.8rem;border-radius:.8rem;display:grid;place-items:center;flex:none;background:#fff;border:1px solid var(--line);color:var(--green-d)}
+.doc-drop .dd-ic .svgi{width:1.25rem;height:1.25rem}
+.doc-drop .dd-tx{flex:1;min-width:0}
+.doc-drop .dd-tx b{display:block;font-size:.95rem;font-weight:700;color:var(--ink);line-height:1.4}
+.doc-drop .dd-tx span{display:block;margin-top:.2rem;font-size:.82rem;color:var(--muted-2)}
+.doc-drop .dd-tx u{color:var(--cta);font-weight:700;text-decoration:none}
+.doc-drop .dd-btn{flex:none;pointer-events:none}
+@media(max-width:640px){.doc-drop{flex-wrap:wrap}.doc-drop .dd-btn{display:none}}
+.doc-list{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:.7rem}
+.doc-list:empty{display:none}
+.doc-chip{display:inline-flex;align-items:center;gap:.5rem;max-width:100%;padding:.4rem .5rem .4rem .75rem;border:1px solid var(--green-line);border-radius:999px;background:var(--green-soft);color:var(--green-d);font-size:.85rem}
+.doc-chip .svgi{width:.95rem;height:.95rem;flex:none}
+.doc-chip b{font-weight:700;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:18rem}
+.doc-chip span{color:var(--muted-2);font-size:.78rem;white-space:nowrap}
+.doc-chip button{width:1.4rem;height:1.4rem;border:0;border-radius:50%;background:none;color:var(--muted-2);font-size:1.05rem;line-height:1;cursor:pointer}
+.doc-chip button:hover{background:#fff;color:var(--red)}
 </style>
 </head>
 <body>
@@ -3974,6 +3994,7 @@ function downloadDsNote(){ toast(isAuthed()?'Download started':'Public download 
 /* upload — SRS §2.2.2.1 / §2.2.3.2.1 */
 screens.upload=()=>{
   if(!isAuthed()) return gateScreen('Upload','Only registered users can upload datasets and supporting documentation. Sign in to continue.','#/upload',[{label:'Data Repository',href:'#/repository'}]);
+  DOC_FILES=[];
   return shell("#/thematic",[{label:"Home",href:"#/home"},{label:"Thematic Datasets",href:"#/thematic"},{label:"Data Repository",href:"#/repository"},{label:"Upload"}],`
   <section class="section">
     <h2 style="font-size:22px">Upload a dataset</h2>
@@ -4001,7 +4022,14 @@ screens.upload=()=>{
           <div class="field-block"><label class="wf-label">Access</label><select class="wf-in" id="up-access"><option>Public</option><option>Restricted — my organization</option><option>Private — only me</option></select></div>
           <div class="field-block"><label class="wf-label">Licence</label><select class="wf-in"><option>CC BY 4.0</option><option>CC BY-SA 4.0</option><option>Custom / restricted</option></select></div>
         </div>
-        <div class="field-block"><label class="wf-label">Supporting documentation</label><div class="wf-field area"><svg class=svgi><use href=#i-paperclip /></svg> Attach a methodology note, data dictionary or source document</div></div>
+        <div class="field-block"><label class="wf-label">Supporting documentation <span class="doc-opt">Optional</span></label>
+          <div class="doc-drop" id="doc-drop" onclick="document.getElementById('doc-input').click()" ondragover="event.preventDefault();this.classList.add('over')" ondragleave="this.classList.remove('over')" ondrop="event.preventDefault();this.classList.remove('over');docAdd(event.dataTransfer.files)">
+            <span class="dd-ic"><svg class=svgi><use href=#i-paperclip /></svg></span>
+            <div class="dd-tx"><b>Attach a methodology note, data dictionary or source document</b><span>Drag files here or <u>browse</u> &middot; PDF, DOCX, XLSX, CSV or TXT &middot; up to 25 MB each</span></div>
+            <span class="btn sm dd-btn">Choose files</span>
+            <input id="doc-input" type="file" multiple hidden accept=".pdf,.doc,.docx,.xls,.xlsx,.csv,.txt" onchange="docAdd(this.files);this.value=''">
+          </div>
+          <div class="doc-list" id="doc-list"></div></div>
         <div class="between mt16"><a class="btn" onclick="go('#/repository')">Cancel</a><a class="btn primary" onclick="submitUpload()">${roleCan('moderate')?'Publish →':'Submit for review →'}</a></div>
       </div>
     </div>
@@ -4099,10 +4127,27 @@ function submitStory(){
   closeMetaModal();
   go('#/uploads');
 }
+/* Upload - supporting documents */
+let DOC_FILES=[];
+const DOC_MAX=25*1024*1024;
+function docSize(b){return b>=1048576?(b/1048576).toFixed(1)+' MB':Math.max(1,Math.round(b/1024))+' KB';}
+function docAdd(files){
+  Array.from(files||[]).forEach(f=>{
+    if(f.size>DOC_MAX){toast(f.name+' is larger than 25 MB'); return;}
+    if(DOC_FILES.some(d=>d.name===f.name&&d.size===f.size)) return;
+    DOC_FILES.push({name:f.name,size:f.size});
+  });
+  docRender();
+}
+function docRemove(i){DOC_FILES.splice(i,1); docRender();}
+function docRender(){
+  const el=document.getElementById('doc-list'); if(!el) return;
+  el.innerHTML=DOC_FILES.map((d,i)=>`<div class="doc-chip"><svg class=svgi><use href=#i-paperclip /></svg><b>${storyEsc(d.name)}</b><span>${docSize(d.size)}</span><button type="button" title="Remove" onclick="docRemove(${i})">×</button></div>`).join('');
+}
 function submitUpload(){
   const g=id=>{const e=document.getElementById(id);return e&&e.value?e.value.trim():'';};
   const title=g('up-title')||'Untitled dataset';
-  submitContribution('Dataset',title,(g('up-theme')||'Water')+' · pending file');
+  submitContribution('Dataset',title,(g('up-theme')||'Water')+' · pending file'+(DOC_FILES.length?' · '+DOC_FILES.length+' document'+(DOC_FILES.length===1?'':'s'):''));
   go('#/uploads');
 }
 
