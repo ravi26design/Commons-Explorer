@@ -5620,7 +5620,7 @@ function approvalDetail(p){
   else steps.push(["Waiting for review","A moderator has not decided yet",false]);
   const facts=[["Title",r[1]],["Type",r[0]],["Contributor",name],["Organization",org],["Submitted on",r[3]],["Status",st],["Format",sm.fmt],["Category",sm.theme],["Licence","CC BY 4.0"],["Attribution",org]];
   const prev={Dataset:"Data preview — table",Map:"Layer preview — GeoNode map",Story:"Story preview — field photos",Dashboard:"Dashboard preview — charts"}[r[0]]||"Preview";
-  const note=st==='Revision requested'?`<div class="ap-note${cm?'':' empty'}"><b>Comment for the contributor</b>${cm?`<p>${storyEsc(cm.text)}</p><span>${storyEsc(cm.by)} · ${cm.date}</span>`:`<p>No comment was recorded for this request.</p>`}</div>`:'';
+  const note=st==='Revision requested'&&cm?`<div class="ap-note"><b>Comment for the contributor</b><p>${storyEsc(cm.text)}</p><span>${storyEsc(cm.by)} · ${cm.date}</span></div>`:'';
   AP_CUR={id:r[5],name:name,org:org,date:r[3],st:st,cm:cm,type:r[0]};
   setTimeout(()=>apHTab(document.querySelector('.ap-htabs button.on'),'comments'),0);
   return shell("",crumbs,`
@@ -5631,11 +5631,9 @@ function approvalDetail(p){
         <div class="row" style="gap:8px;margin-bottom:6px;flex-wrap:wrap"><span class="rc-type-chip">${r[0]} · ${sm.fmt}</span>${statusPill(st)}<span class="tag">${sm.theme}</span></div>
         <h2 style="margin:0 0 2px;font-size:24px">${storyEsc(r[1])}</h2>
         <p class="muted" style="margin:0">a ${r[0].toLowerCase()} from <b>${storyEsc(name)}</b> · ${storyEsc(org)} · ${r[3]}</p>
-        <div class="row ap-btns" style="gap:8px;flex-wrap:wrap">
-          ${pend?`<a class="btn sm primary" onclick="decide('${r[5]}','Approved')">Approve</a><a class="btn sm" onclick="openRevisionModal('${r[5]}')">Request revision</a><a class="btn sm" onclick="decide('${r[5]}','Rejected')">Reject</a>`
-          :st==='Revision requested'?`<a class="btn sm" onclick="openRevisionModal('${r[5]}')">${cm?'Edit comment':'Add a comment'}</a>`
-          :`<span class="muted" style="font-size:.88rem">${st==='Approved'?'Published on the platform.':'Not approved for publication.'}</span>`}
-        </div>
+        ${(()=>{const acts=`${pend?`<a class="btn sm primary" onclick="decide('${r[5]}','Approved')">Approve</a><a class="btn sm" onclick="openRevisionModal('${r[5]}')">Request revision</a><a class="btn sm" onclick="decide('${r[5]}','Rejected')">Reject</a>`
+          :st==='Revision requested'?(cm?`<a class="btn sm" onclick="openRevisionModal('${r[5]}')">Edit comment</a>`:'')
+          :`<span class="muted" style="font-size:.88rem">${st==='Approved'?'Published on the platform.':'Not approved for publication.'}</span>`}`.trim(); return acts?`<div class="row ap-btns" style="gap:8px;flex-wrap:wrap">${acts}</div>`:'';})()}
         ${note}
         <div id="ap-info" class="ap-infobody">
           <p class="ap-about">${storyEsc(about)}</p>
