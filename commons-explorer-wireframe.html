@@ -2848,7 +2848,8 @@ footer.site .bar{display:flex;align-items:center;justify-content:space-between;g
 
 /* approval details page - same layout as the dataset detail page */
 .ap-row:hover{background:var(--bg-soft)}
-.ap-back{display:inline-flex;margin-bottom:1rem;font-size:.88rem;font-weight:600;color:var(--muted);cursor:pointer}
+.section.ap-page{padding:1.4rem 0 2.75rem}
+.ap-back{display:inline-flex;margin-bottom:.9rem;font-size:.88rem;font-weight:600;color:var(--muted);cursor:pointer}
 .ap-back:hover{color:var(--green-d)}
 .ap-grid{display:grid;grid-template-columns:minmax(0,1.1fr) 380px;gap:24px;align-items:stretch}
 .ap-prev{padding:0;overflow:hidden;display:flex;min-height:420px}
@@ -5586,7 +5587,7 @@ function approvalDetail(p){
   const prev={Dataset:"Data preview — table",Map:"Layer preview — GeoNode map",Story:"Story preview — field photos",Dashboard:"Dashboard preview — charts"}[r[0]]||"Preview";
   const note=st==='Revision requested'?`<div class="ap-note${cm?'':' empty'}"><b>Comment for the contributor</b>${cm?`<p>${storyEsc(cm.text)}</p><span>${storyEsc(cm.by)} · ${cm.date}</span>`:`<p>No comment was recorded for this request.</p>`}</div>`:'';
   return shell("",crumbs,`
-    <section class="section"><a class="ap-back" onclick="go('#/approvals')">← Back to Approvals</a>
+    <section class="section ap-page"><a class="ap-back" onclick="go('#/approvals')">← Back to Approvals</a>
     <div class="ap-grid">
       <div class="panel ap-prev"><div class="ph-img" style="flex:1;min-height:420px;height:auto">${prev}</div></div>
       <div class="panel ap-info">
