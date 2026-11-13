@@ -2884,6 +2884,8 @@ function header(active){
     authArea=`<div class="profilew" id="profilew"><button class="profilew-btn" onclick="toggleProfileW(event)"><span class="pw-av">${ini}</span><span class="pw-name">${nm}</span><span class="pw-cv"><svg class=svgi><use href=#i-chevdown /></svg></span></button>`
       +`<div class="profilew-menu"><div class="pw-head"><span class="pw-av lg">${ini}</span><div><b>${nm}</b><span>Signed-in role · RBAC</span></div></div><div class="pw-div"></div>`
       +`<button class="pw-item" onclick="pwClose();go('#/profile')"><span class="pw-ic"><svg class=svgi><use href=#i-user /></svg></span> My Profile</button>`
+      +`<button class="pw-item" onclick="pwClose();go('#/uploads')"><span class="pw-ic"><svg class=svgi><use href=#i-upload /></svg></span> My Uploads</button>`
+      +(roleCan('moderate')?`<button class="pw-item" onclick="pwClose();go('#/approvals')"><span class="pw-ic"><svg class=svgi><use href=#i-check /></svg></span> Approvals</button>`:'')
       +(roleCan('orgAdmin')||roleCan('platform')||roleCan('superAdmin')?`<button class="pw-item" onclick="pwClose();go('#/admin')"><span class="pw-ic"><svg class=svgi><use href=#i-wrench /></svg></span> Users &amp; Roles</button>`:'')
       +`<button class="pw-item" onclick="pwClose();go('#/password')"><span class="pw-ic"><svg class=svgi><use href=#i-key /></svg></span> Change Password</button>`
       +`<div class="pw-div"></div><button class="pw-item danger" onclick="confirmLogout()"><span class="pw-ic"><svg class=svgi><use href=#i-logout /></svg></span> Logout</button></div></div>`;
@@ -4704,6 +4706,8 @@ function accountNav(active){
   const item=i=>`<a class="acct-item ${i[0]===active?'active':''}" onclick="go('${i[3]}')"><span class="acct-ic">${i[1]}</span><span class="acct-lb">${i[2]}</span></a>`;
   const account=[
     ["profile","<svg class=svgi><use href=#i-user /></svg>","My Profile","#/profile",1],
+    ["uploads","<svg class=svgi><use href=#i-upload /></svg>","My Uploads","#/uploads",1],
+    ["approvals","<svg class=svgi><use href=#i-check /></svg>","Approvals","#/approvals",roleCan('moderate')],
     ["admin","<svg class=svgi><use href=#i-wrench /></svg>","Users &amp; Roles","#/admin",roleCan('orgAdmin')||roleCan('platform')||roleCan('superAdmin')]
   ].filter(i=>i[4]);
   const security=[["password","<svg class=svgi><use href=#i-key /></svg>","Change Password","#/password",1]];
