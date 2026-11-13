@@ -2974,6 +2974,17 @@ body.srch-lock{overflow:hidden}
 .ph-img.up-drop>*{position:relative;z-index:1}
 .ph-img.up-drop>div:not(.icon-box){color:#fff!important}
 .ph-img.has-img.up-drop>.wf-note{display:block;color:rgba(255,255,255,.82);text-transform:none;letter-spacing:0;font-size:.78rem}
+.up-end .btn.sm.primary{background:var(--cta);color:#fff;border-color:transparent}
+.ap-list .up-end{gap:.6rem}
+@media(max-width:1180px){
+  .ap-list .up-row{grid-template-columns:auto minmax(0,1fr);row-gap:.7rem}
+  .ap-list .up-date{display:none}
+  .ap-list .up-main .up-din{display:inline}
+  .ap-list .up-main .up-dot{display:block}
+  .ap-list .up-end{grid-column:2 / -1;justify-content:flex-start;flex-wrap:wrap}
+  .ap-list .up-row.has-note .up-note{grid-column:2 / -1}
+}
+@media(max-width:640px){.ap-list .up-row.has-note .up-note,.ap-list .up-end{grid-column:1 / -1}}
 </style>
 </head>
 <body>
@@ -5704,15 +5715,17 @@ screens.approvals=(p)=>{
     <div class="between"><div><h2 class="mb0" style="margin-top:0;font-size:20px">Approvals</h2><p class="muted" style="margin:4px 0 0">Review, approve or reject datasets and content submitted by users of your organization; request revisions before approval.</p></div>
 </div>
     <div class="tabs-c">${tabs.map(t=>`<span class="tab-c ${tab===t[0]?'active':''}" onclick="go('#/approvals${t[0]==='All'?'':'?tab='+encodeURIComponent(t[0])}')">${t[0]} <span class="cnt">${t[1]}</span></span>`).join("")}</div>
-    <div class="panel" style="padding:4px 6px">
-      ${rows.map((r,i)=>`<div class="sub-row ap-row" onclick="go('#/approval?id=${r[5]}')" style="${i?'border-top:1px solid var(--line-2);':''}display:flex;justify-content:space-between;align-items:center;gap:12px;padding:13px 8px">
-        <div class="row" style="gap:10px;align-items:center"><span class="pw-av" style="width:28px;height:28px;font-size:11px">${r[2].split(' ').map(w=>w[0]).join('').slice(0,2)}</span>
-          <div><b style="font-size:14px">${r[1]}</b><div class="wf-note" style="text-transform:none;letter-spacing:0">${r[0]} · ${r[2]} · ${r[3]}</div>${r[6]?`<div class="rev-note"><b>Comment sent:</b> ${storyEsc(r[6].text)}</div>`:''}</div></div>
-        <div class="row" style="gap:8px;align-items:center">${statusPill(r[4])}
-          <span class="btn sm">Preview</span>
-          ${r[4]==='Pending'?`<span class="btn sm" onclick="event.stopPropagation();openRevisionModal('${r[5]}')">Request revision</span>
-          <span class="btn sm" onclick="event.stopPropagation();decide('${r[5]}','Rejected')">Reject</span>
-          <span class="btn sm primary" onclick="event.stopPropagation();decide('${r[5]}','Approved')">Approve</span>`:''}</div></div>`).join("")||'<div class="wf-note" style="padding:18px;text-transform:none;letter-spacing:0">Nothing in this status.</div>'}
+    <div class="up-list ap-list">
+      ${rows.length?rows.map(r=>{const ty=UP_TYPE[r[0]]||UP_TYPE.Dataset, who=r[2], cm=r[6], pend=r[4]==='Pending';
+        const pill=`<span class="up-pill" style="--sc:${r[4]==='Approved'?'var(--green-d)':(UP_STATUS[r[4]]||'var(--muted)')}"><i></i>${r[4]}</span>`;
+        return `<div class="up-row${cm?' has-note':''}" onclick="go('#/approval?id=${r[5]}')">
+          <span class="up-ic" style="--tc:${ty.tc}"><svg class=svgi><use href=#${ty.ic} /></svg></span>
+          <div class="up-main"><b>${storyEsc(r[1])}</b><span class="up-meta"><em style="--tc:${ty.tc}">${r[0]}</em>${storyEsc(who)}<i class="up-dot"></i><span class="up-din">${r[3]}</span></span>${pend?'<small class="up-hint">Waiting for your review</small>':''}</div>
+          <span class="up-date">${r[3]}</span>
+          <div class="up-end">${pill}${pend?`<span class="btn sm" onclick="event.stopPropagation();openRevisionModal('${r[5]}')">Request revision</span><span class="btn sm" onclick="event.stopPropagation();decide('${r[5]}','Rejected')">Reject</span><span class="btn sm primary" onclick="event.stopPropagation();decide('${r[5]}','Approved')">Approve</span>`:'<span class="btn sm">View →</span>'}</div>
+          ${cm?`<div class="up-note"><i class="up-note-ic"><svg class=svgi><use href=#i-message /></svg></i><div class="up-note-body"><div class="up-note-h"><b>Comment sent to the contributor</b><span>${storyEsc(cm.by)} · ${cm.date}</span></div><p>${storyEsc(cm.text)}</p></div></div>`:''}
+        </div>`;}).join("")
+      :'<div class="up-empty"><svg class=svgi><use href=#i-folder /></svg><b>Nothing here yet</b><span>No submissions have this status.</span></div>'}
     </div>
   `);
 };
