@@ -2960,6 +2960,13 @@ body.srch-lock{overflow:hidden}
 .srch-foot{display:flex;gap:1.2rem;padding:.65rem 1.2rem;border-top:1px solid var(--line-2);font-size:.76rem;color:var(--muted-2);background:var(--bg-soft)}
 .srch-foot kbd{font:inherit;font-size:.72rem;font-weight:700;border:1px solid var(--line-2);background:#fff;padding:0 .35rem;margin-right:.2rem}
 @media(max-width:640px){.srch-card{margin-top:4.2rem;max-height:calc(100vh - 5rem)}.srch-foot{display:none}}
+/* account sidebar - Logout sits right under Change Password */
+@media(min-width:761px){
+  .acct-nav{min-height:0}
+  .acct-nav .acct-logout{margin-top:.2rem;padding:.5rem .7rem;gap:.85rem;border:0;border-radius:.85rem;background:none}
+  .acct-nav .acct-logout .svgi{width:1.15rem;height:1.15rem;margin:0 .575rem}
+  .acct-nav .acct-logout:hover{background:var(--red-soft)}
+}
 </style>
 </head>
 <body>
