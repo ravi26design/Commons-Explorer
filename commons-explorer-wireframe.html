@@ -2680,7 +2680,7 @@ footer.site .bar{display:flex;align-items:center;justify-content:space-between;g
 #up-nomatch[hidden]{display:none}
 /* Change Password */
 .pw-card{max-width:40rem;background:#fff;border:1px solid var(--line);box-shadow:var(--shadow-card)}
-.pw-card-h{display:flex;align-items:flex-start;gap:1rem;padding:1.25rem 1.5rem;border-bottom:1px solid var(--line);background:var(--bg-soft)}
+.pw-card-h{display:flex;align-items:center;gap:1rem;padding:1.25rem 1.5rem;border-bottom:1px solid var(--line);background:var(--bg-soft)}
 .pw-card-h .ic{width:2.8rem;height:2.8rem;border-radius:.85rem;display:grid;place-items:center;flex:none;background:var(--green);color:#fff}
 .pw-card-h .ic .svgi{width:1.3rem;height:1.3rem}
 .pw-card-h b{display:block;font-size:1.05rem;color:var(--ink)}
@@ -5474,7 +5474,7 @@ function openPasswordModal(){
   m.innerHTML=`<div class="mm-back" onclick="closeMetaModal()"></div>
    <div class="mm-card pw-modal" role="dialog" aria-label="Change password">
     <button class="mm-x" onclick="closeMetaModal()" aria-label="Close"><svg class=svgi><use href=#i-x /></svg></button>
-    <div class="pw-card-h"><span class="ic"><svg class=svgi><use href=#i-key /></svg></span><div><b>Change password</b><span>Passwords follow the platform's OWASP-aligned policy. Use one you do not use anywhere else.</span></div></div>
+    <div class="pw-card-h"><span class="ic"><svg class=svgi><use href=#i-key /></svg></span><div><b>Change password</b></div></div>
     <div class="pw-card-b">${pwFormHTML()}</div>
    </div>`;
   m.classList.add('open');
