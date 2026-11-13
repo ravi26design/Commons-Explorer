@@ -2786,6 +2786,27 @@ footer.site .bar{display:flex;align-items:center;justify-content:space-between;g
 .ft-card.sel .ft-ck{background:var(--green);border-color:var(--green)}
 #ft-save.is-off{opacity:.55;box-shadow:none}
 #ft-nomatch[hidden]{display:none}
+/* account sidebar - cleaner items, count badges, Logout anchored at the bottom */
+.acct-side-panel{width:268px}
+.acct-nav{min-height:calc(100vh - 11.5rem)}
+.acct-nav .acct-h{display:flex;align-items:center;gap:.7rem;margin:1.25rem 0 .45rem;padding:0 .6rem;font-size:.68rem}
+.acct-nav .acct-h:first-child{margin-top:.15rem}
+.acct-nav .acct-h::after{content:"";flex:1;height:1px;background:var(--line)}
+.acct-nav .acct-item{gap:.8rem;padding:.55rem .65rem;margin-bottom:.1rem;border-radius:.75rem;font-size:.93rem;color:var(--muted);transition:background .15s,color .15s}
+.acct-nav .acct-item .acct-ic{width:2rem;height:2rem;border-radius:.6rem;background:transparent;color:var(--muted-2);box-shadow:none}
+.acct-nav .acct-item .acct-ic .svgi{width:1.15rem;height:1.15rem}
+.acct-nav .acct-item:hover{background:var(--bg-soft);color:var(--ink)}
+.acct-nav .acct-item:hover .acct-ic{background:#fff;color:var(--ink)}
+.acct-nav .acct-item.active{background:var(--green-soft);color:var(--green-d);font-weight:700}
+.acct-nav .acct-item.active .acct-ic{background:var(--green);color:#fff}
+.acct-badge{margin-left:auto;min-width:1.4rem;height:1.4rem;padding:0 .45rem;border-radius:999px;display:grid;place-items:center;font-size:.72rem;font-weight:800;line-height:1;color:#fff}
+.acct-badge.amber{background:var(--amber-d)}
+.acct-badge.orange{background:var(--t-cultural)}
+.acct-nav .acct-logout{margin-top:auto;justify-content:flex-start;gap:.8rem;width:100%;padding:.6rem .65rem;border:0;border-top:1px solid var(--line);border-radius:0;background:none;color:var(--red);font-weight:700}
+.acct-nav .acct-logout::before{content:"";display:none}
+.acct-nav .acct-logout:hover{background:var(--red-soft);border-top-color:var(--line)}
+.acct-nav .acct-logout .svgi{width:1.15rem;height:1.15rem;margin-left:.45rem}
+@media(max-width:760px){.acct-nav{min-height:0}.acct-nav .acct-logout{margin-top:.4rem;border-top:0;border:1px solid color-mix(in srgb,var(--red) 30%,#fff);border-radius:.7rem;width:auto}.acct-nav .acct-h::after{display:none}}
 </style>
 </head>
 <body>
@@ -5222,7 +5243,13 @@ screens.bookmarks=()=>{
 
 /* ---- Account area ---- */
 function accountNav(active){
-  const item=i=>`<a class="acct-item ${i[0]===active?'active':''}" onclick="${i[0]==='password'?'openPasswordModal()':`go('${i[3]}')`}"><span class="acct-ic">${i[1]}</span><span class="acct-lb">${i[2]}</span></a>`;
+  const badge=id=>{
+    let n=0, cls='';
+    if(id==='approvals'){n=queueRows().filter(r=>r[4]==='Pending').length; cls='amber';}
+    else if(id==='uploads'){n=myUploadRows().concat(MY_UPLOADS).filter(r=>r[4]==='Revision requested').length; cls='orange';}
+    return n?`<span class="acct-badge ${cls}" title="${id==='approvals'?'Waiting for review':'Changes requested'}">${n}</span>`:'';
+  };
+  const item=i=>`<a class="acct-item ${i[0]===active?'active':''}" onclick="${i[0]==='password'?'openPasswordModal()':`go('${i[3]}')`}"><span class="acct-ic">${i[1]}</span><span class="acct-lb">${i[2]}</span>${badge(i[0])}</a>`;
   const account=[
     ["profile","<svg class=svgi><use href=#i-user /></svg>","My Profile","#/profile",1],
     ["uploads","<svg class=svgi><use href=#i-upload /></svg>","My Uploads","#/uploads",1],
