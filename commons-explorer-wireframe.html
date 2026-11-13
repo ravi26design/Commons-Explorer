@@ -5465,7 +5465,7 @@ function pwFormHTML(){
         <div class="pw-match" id="pwMatch"></div>
         <ul class="pw-reqs">${req('len','12 or more characters')}${req('up','One uppercase letter')}${req('num','One number')}${req('sym','One symbol')}</ul>
         <div class="pw-msg" id="pwMsg" hidden></div>
-        <div class="row" style="gap:.6rem;margin-top:1.3rem"><a class="btn primary pw-go is-off" id="pwGo" onclick="pwUpdate()">Update password</a><a class="btn" onclick="closeMetaModal()">Cancel</a></div>`;
+        <div class="row" style="gap:.6rem;margin-top:1.3rem;justify-content:flex-end"><a class="btn" onclick="closeMetaModal()">Cancel</a><a class="btn primary pw-go is-off" id="pwGo" onclick="pwUpdate()">Update password</a></div>`;
 }
 function openPasswordModal(){
   if(!isAuthed()){ go('#/password'); return; }
