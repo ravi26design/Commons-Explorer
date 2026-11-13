@@ -2967,6 +2967,13 @@ body.srch-lock{overflow:hidden}
   .acct-nav .acct-logout .svgi{width:1.15rem;height:1.15rem;margin:0 .575rem}
   .acct-nav .acct-logout:hover{background:var(--red-soft)}
 }
+/* upload drop zone - dark overlay so the text reads over the photo */
+.ph-img.up-drop{position:relative;overflow:hidden}
+.ph-img.up-drop::before{content:"";position:absolute;inset:0;background:linear-gradient(rgba(16,20,16,.62),rgba(16,20,16,.72));transition:background .15s;pointer-events:none}
+.ph-img.up-drop:hover::before{background:linear-gradient(rgba(16,20,16,.52),rgba(16,20,16,.64))}
+.ph-img.up-drop>*{position:relative;z-index:1}
+.ph-img.up-drop>div:not(.icon-box){color:#fff!important}
+.ph-img.has-img.up-drop>.wf-note{display:block;color:rgba(255,255,255,.82);text-transform:none;letter-spacing:0;font-size:.78rem}
 </style>
 </head>
 <body>
@@ -4420,7 +4427,7 @@ function downloadDsNote(){ toast(isAuthed()?'Download started':'Public download 
 function uploadFields(){
   return `
         <div class="field-block"><label class="wf-label">File</label>
-          <div class="ph-img" style="min-height:130px;flex-direction:column;gap:8px" onclick="toast('File picker')">
+          <div class="ph-img up-drop" style="min-height:130px;flex-direction:column;gap:8px" onclick="toast('File picker')">
             <div class="icon-box" style="width:40px;height:40px;font-size:19px"><svg class=svgi><use href=#i-upload /></svg></div>
             <div style="font-weight:600;color:var(--ink-2)">Drop a file or click to browse</div>
             <div class="wf-note">KML · SHP (.zip) · GeoJSON · GeoTIFF · CSV — max 2 GB</div>
