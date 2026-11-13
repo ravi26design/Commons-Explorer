@@ -2501,6 +2501,15 @@ footer.site .bar{display:flex;align-items:center;justify-content:space-between;g
 .region-b .rf-group.open .rf-extra{display:flex}
 .region-b .rf-more{border:0;background:none;padding:.35rem 0 0;font:inherit;font-size:.9rem;font-weight:700;color:var(--cta);cursor:pointer}
 .region-b .rf-more:hover{color:var(--green-d)}
+/* Latest Update — horizontal scroller (more than 4 items) */
+.lu-head{align-items:flex-end;gap:1rem;margin-bottom:.25rem}
+.lu-arrows{display:flex;gap:.5rem;flex:none}
+.lu-arrows button{width:2.5rem;height:2.5rem;border-radius:50%;border:1px solid var(--line-2);background:#fff;color:var(--ink);font-size:1.4rem;line-height:1;cursor:pointer;transition:background .15s,color .15s,border-color .15s}
+.lu-arrows button:hover{background:var(--green);border-color:var(--green);color:#fff}
+.lu-scroll{display:flex;gap:1.1rem;overflow-x:auto;scroll-snap-type:x mandatory;padding:1rem 0 1rem;margin-top:.25rem;scrollbar-width:thin;scrollbar-color:var(--line-2) transparent}
+.lu-scroll .wn-card{flex:0 0 calc((100% - 3*1.1rem)/4);min-width:0;scroll-snap-align:start}
+@media(max-width:1000px){.lu-scroll .wn-card{flex-basis:calc((100% - 1.1rem)/2)}}
+@media(max-width:560px){.lu-scroll .wn-card{flex-basis:84%}.lu-arrows{display:none}}
 </style>
 </head>
 <body>
@@ -2619,6 +2628,17 @@ const LATEST_UPDATES=[
   {kind:"New tool",ic:"<svg class=svgi><use href=#i-sparkles /></svg>",t:"Vegetation disturbance and recovery mapping released",note:"Track where vegetation has been disturbed and how quickly it is recovering.",when:"29 Oct 2026",who:"Commons Explorer team",href:"https://mahesh89pr.users.earthengine.app/view/disturbance-recovery-mapping",img:"assets/type-forest.jpg"},
   {kind:"Platform update",ic:"<svg class=svgi><use href=#i-sparkles /></svg>",t:"Data Repository now sits with Thematic Datasets",note:"Browse the themes and the full catalogue of datasets together on one page.",when:"22 Oct 2026",who:"Commons Explorer team",href:"#/repository",img:"assets/photo-7.jpg"}
 ];
+
+/* Latest Update — a 4-up grid, becomes a horizontal scroller when there are more than 4 */
+function latestUpdate(){
+  const many=LATEST_UPDATES.length>4;
+  return `<div class="between lu-head">
+      <div><h2 class="mb0">Latest Update</h2><p class="sub">What has changed on Commons Explorer recently.</p></div>
+      ${many?`<div class="lu-arrows"><button type="button" aria-label="Previous updates" onclick="luScroll(-1)">‹</button><button type="button" aria-label="Next updates" onclick="luScroll(1)">›</button></div>`:''}
+    </div>
+    <div id="lu-scroll" class="${many?'lu-scroll':'grid g4 wn-grid'} wn-nokind">${LATEST_UPDATES.map(whatsNewCard).join("")}</div>`;
+}
+function luScroll(dir){const el=document.getElementById('lu-scroll'); if(el) el.scrollBy({left:dir*el.clientWidth,behavior:'smooth'});}
 
 /* SRS §2.2.4 — DSS reference geography */
 const STATES=["Rajasthan","Madhya Pradesh","Odisha","Andhra Pradesh","Gujarat","Maharashtra"];
@@ -3308,9 +3328,7 @@ screens.home=()=>shell("#/home",null,`
   </section>
 
   <section class="section" id="latest-update">
-    <h2>Latest Update</h2>
-    <p class="sub">What has changed on Commons Explorer recently.</p>
-    <div class="grid g4 wn-grid wn-nokind">${LATEST_UPDATES.map(whatsNewCard).join("")}</div>
+    ${latestUpdate()}
   </section>
   </div></div>
 `);
