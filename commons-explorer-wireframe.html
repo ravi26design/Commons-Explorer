@@ -5585,7 +5585,7 @@ const AP_SAMPLE={
 };
 function approvalDetail(p){
   if(!roleCan('moderate')) return gateScreen('Approvals','Only Organization Moderators, Platform Moderators and Admins can review submissions.','#/approvals');
-  const crumbs=[{label:"Home",href:"#/home"},{label:"Approvals",href:"#/approvals"},{label:"Submission"}];
+  const crumbs=[{label:"Home",href:"#/home"},{label:"Approvals"}]; /* two items = no breadcrumb bar, like the Approvals page */
   const r=queueRows().find(v=>v[5]===p.id);
   if(!r) return accountShell('approvals',crumbs,`<div class="up-empty"><svg class=svgi><use href=#i-folder /></svg><b>Submission not found</b><span>It may have been removed.</span><a class="btn mt16" onclick="go('#/approvals')">Back to Approvals</a></div>`);
   const ty=UP_TYPE[r[0]]||UP_TYPE.Dataset, sm=AP_SAMPLE[r[0]]||AP_SAMPLE.Dataset;
