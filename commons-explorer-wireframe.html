@@ -5679,7 +5679,7 @@ screens.uploads=(p)=>{
       <div class="up-types" id="up-types">${["All","Dataset","Map","Dashboard","Story"].map((t,i)=>`<button type="button" class="${i?'':'on'}" data-t="${t}" onclick="upType(this)">${t}</button>`).join("")}</div>
     </div>
     <div class="up-list" id="up-list">
-      ${rows.length?(UP_ROWS=rows,rows).map((r,ri)=>{const ty=UP_TYPE[r[0]]||UP_TYPE.Dataset; const cm=r[4]==='Revision requested'?(r[6]||seedComment(r[1])):null; return `<div class="up-row${cm?' has-note':''}" data-title="${storyEsc(r[1].toLowerCase())}" data-type="${r[0]}" onclick="openUploadDetail(${ri})">
+      ${rows.length?(UP_ROWS=rows,rows).map((r,ri)=>{const ty=UP_TYPE[r[0]]||UP_TYPE.Dataset; const cm=r[4]==='Revision requested'?(r[6]||seedComment(r[1])):null; return `<div class="up-row${cm?' has-note':''}" data-title="${storyEsc(r[1].toLowerCase())}" data-type="${r[0]}" onclick="go('#/myupload?id='+encodeURIComponent('${myUploadId(r)}'))">
         <span class="up-ic" style="--tc:${ty.tc}"><svg class=svgi><use href=#${ty.ic} /></svg></span>
         <div class="up-main"><b>${r[1]}</b><span class="up-meta"><em style="--tc:${ty.tc}">${r[0]}</em>${r[2]}<i class="up-dot"></i><span class="up-din">${r[3]}</span></span>${!cm&&UP_HINT[r[4]]?`<small class="up-hint">${UP_HINT[r[4]]}</small>`:''}</div>
         <span class="up-date">${r[3]}</span>
@@ -5725,16 +5725,13 @@ const AP_SAMPLE={
   Story:{about:"A field story with photographs, maps and community voices, submitted for publication in Commons Stories.",fmt:"Commons Stories",theme:"Livelihoods"},
   Dashboard:{about:"An analytical dashboard summarising indicators for the area, submitted for publication in Data Analytics.",fmt:"Apache Superset",theme:"Governance"}
 };
-function approvalDetail(p){
-  if(!roleCan('moderate')) return gateScreen('Approvals','Only Organization Moderators, Platform Moderators and Admins can review submissions.','#/approvals');
-  const crumbs=[{label:"Home",href:"#/home"},{label:"Approvals"}]; /* two items = no breadcrumb bar, like the Approvals page */
-  const r=queueRows().find(v=>v[5]===p.id);
-  if(!r) return shell("",crumbs,`<div class="up-empty"><svg class=svgi><use href=#i-folder /></svg><b>Submission not found</b><span>It may have been removed.</span><a class="btn mt16" onclick="go('#/approvals')">Back to Approvals</a></div>`);
+function submissionView(r,o){
+  const crumbs=[{label:"Home",href:"#/home"},{label:o.backLabel}]; /* two items = no breadcrumb bar */
   const ty=UP_TYPE[r[0]]||UP_TYPE.Dataset, sm=AP_SAMPLE[r[0]]||AP_SAMPLE.Dataset;
   const sub=SUBMISSIONS.find(v=>v.id===r[5]);
   const who=r[2].split(' · '), name=who[0], org=who[1]||'FES';
   const about=(sub&&sub.detail)?sub.detail:sm.about;
-  const st=r[4], pend=st==='Pending';
+  const st=r[4]==='Published'?'Approved':r[4], pend=st==='Pending'&&!o.mine, stLabel=(o.mine&&st==='Approved')?'Published':st, fmt=o.fmt||sm.fmt;
   const cm=r[6];
   const pill=`<span class="up-pill" style="--sc:${st==='Approved'?'var(--green-d)':(UP_STATUS[st]||'var(--muted)')}"><i></i>${st}</span>`;
   const steps=[["Submitted",`${name} · ${r[3]}`,true]];
@@ -5742,20 +5739,20 @@ function approvalDetail(p){
   else if(st==='Rejected') steps.push(["Rejected","Moderator decision",true]);
   else if(st==='Revision requested') steps.push(["Revision requested",cm?`${cm.by} · ${cm.date}`:"Moderator decision",true]);
   else steps.push(["Waiting for review","A moderator has not decided yet",false]);
-  const facts=[["Title",r[1]],["Type",r[0]],["Contributor",name],["Organization",org],["Submitted on",r[3]],["Status",st],["Format",sm.fmt],["Category",sm.theme],["Licence","CC BY 4.0"],["Attribution",org]];
+  const facts=[["Title",r[1]],["Type",r[0]],["Contributor",name],["Organization",org],["Submitted on",r[3]],["Status",stLabel],["Format",fmt],["Category",sm.theme],["Licence","CC BY 4.0"],["Attribution",org]];
   const prev={Dataset:"Data preview — table",Map:"Layer preview — GeoNode map",Story:"Story preview — field photos",Dashboard:"Dashboard preview — charts"}[r[0]]||"Preview";
-  const note=st==='Revision requested'&&cm?`<div class="ap-note"><b>Comment for the contributor</b><p>${storyEsc(cm.text)}</p><span>${storyEsc(cm.by)} · ${cm.date}</span></div>`:'';
+  const note=st==='Revision requested'&&cm?`<div class="ap-note"><b>${o.mine?'Comment from the moderator':'Comment for the contributor'}</b><p>${storyEsc(cm.text)}</p><span>${storyEsc(cm.by)} · ${cm.date}</span></div>`:'';
   AP_CUR={id:r[5],name:name,org:org,date:r[3],st:st,cm:cm,type:r[0]};
   setTimeout(()=>apHTab(document.querySelector('.ap-htabs button.on'),'comments'),0);
   return shell("",crumbs,`
-    <section class="section ap-page"><a class="ap-back" onclick="go('#/approvals')">← Back to Approvals</a>
+    <section class="section ap-page"><a class="ap-back" onclick="go('${o.back}')">← Back to ${o.backLabel}</a>
     <div class="ap-grid">
       <div class="panel ap-prev"><div class="ph-img" style="flex:1;min-height:420px;height:auto">${prev}</div></div>
       <div class="panel ap-info">
-        <div class="row" style="gap:8px;margin-bottom:6px;flex-wrap:wrap"><span class="rc-type-chip">${r[0]} · ${sm.fmt}</span>${statusPill(st)}<span class="tag">${sm.theme}</span></div>
+        <div class="row" style="gap:8px;margin-bottom:6px;flex-wrap:wrap"><span class="rc-type-chip">${r[0]} · ${fmt}</span>${statusPill(stLabel)}<span class="tag">${sm.theme}</span></div>
         <h2 style="margin:0 0 2px;font-size:24px">${storyEsc(r[1])}</h2>
         <p class="muted" style="margin:0">a ${r[0].toLowerCase()} from <b>${storyEsc(name)}</b> · ${storyEsc(org)} · ${r[3]}</p>
-        ${(()=>{const acts=`${pend?`<a class="btn sm primary" onclick="decide('${r[5]}','Approved')">Approve</a><a class="btn sm" onclick="openRevisionModal('${r[5]}')">Request revision</a><a class="btn sm" onclick="decide('${r[5]}','Rejected')">Reject</a>`
+        ${(()=>{const acts=`${o.mine?(st==='Revision requested'?'':`<span class="muted" style="font-size:.88rem">${st==='Pending'?'Waiting for a moderator to review.':st==='Approved'?'Live on the platform.':'Not approved for publication.'}</span>`):pend?`<a class="btn sm primary" onclick="decide('${r[5]}','Approved')">Approve</a><a class="btn sm" onclick="openRevisionModal('${r[5]}')">Request revision</a><a class="btn sm" onclick="decide('${r[5]}','Rejected')">Reject</a>`
           :st==='Revision requested'?(cm?`<a class="btn sm" onclick="openRevisionModal('${r[5]}')">Edit comment</a>`:'')
           :`<span class="muted" style="font-size:.88rem">${st==='Approved'?'Published on the platform.':'Not approved for publication.'}</span>`}`.trim(); return acts?`<div class="row ap-btns" style="gap:8px;flex-wrap:wrap">${acts}</div>`:'';})()}
         ${note}
@@ -5773,6 +5770,24 @@ function approvalDetail(p){
         <div id="ap-hbody"></div>
       </div>
     </div></section>`);
+}
+
+function approvalDetail(p){
+  if(!roleCan('moderate')) return gateScreen('Approvals','Only Organization Moderators, Platform Moderators and Admins can review submissions.','#/approvals');
+  const r=queueRows().find(v=>v[5]===p.id);
+  if(!r) return shell("",[{label:"Home",href:"#/home"},{label:"Approvals"}],`<div class="up-empty"><svg class=svgi><use href=#i-folder /></svg><b>Submission not found</b><span>It may have been removed.</span><a class="btn mt16" onclick="go('#/approvals')">Back to Approvals</a></div>`);
+  return submissionView(r,{back:'#/approvals',backLabel:'Approvals'});
+}
+/* My Uploads - the contributor's own view of one submission (same page as Approvals, without the review buttons) */
+function myUploadId(r){return r[5]||('m'+MY_UPLOADS.indexOf(r));}
+function myUploadDetail(p){
+  if(!isAuthed()) return gateScreen('My Uploads & Credits','Sign in to see your upload history, review status and contribution credits.','#/uploads');
+  const row=myUploadRows().concat(MY_UPLOADS).find(v=>myUploadId(v)===p.id);
+  if(!row) return shell("",[{label:"Home",href:"#/home"},{label:"My Uploads"}],`<div class="up-empty"><svg class=svgi><use href=#i-folder /></svg><b>Upload not found</b><span>It may have been removed.</span><a class="btn mt16" onclick="go('#/uploads')">Back to My Uploads</a></div>`);
+  const sub=SUBMISSIONS.find(v=>v.id===row[5]);
+  const cm=row[4]==='Revision requested'?(row[6]||seedComment(row[1])):null;
+  const r=[row[0],row[1],'Priya Sharma · FES',row[3],row[4],myUploadId(row),cm];
+  return submissionView(r,{mine:true,back:'#/uploads',backLabel:'My Uploads',fmt:sub?null:row[2]});
 }
 /* Activity & history panel under the details - comments, submission workflow and activity log */
 let AP_CUR=null, AP_COM={}, AP_DEC={};
@@ -5825,6 +5840,7 @@ function apHTab(btn,tab){
   body.innerHTML=tab==='workflow'?apWorkflowHtml():tab==='log'?apLogHtml():apCommentsHtml();
 }
 screens.approval=approvalDetail;
+screens.myupload=myUploadDetail;
 
 screens.featured=featuredScreen;
 
