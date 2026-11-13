@@ -2901,7 +2901,24 @@ const QUEUE=[
   ["Map","Forest cover change vs CFR claims","Krishnan Iyer · Academic partner","27 Aug 2025","Pending"],
   ["Story","A pond, a panchayat and a plan","Kavita Menon · FES","26 Aug 2025","Revision requested"],
   ["Dashboard","Common land pressure index","Aditi Joshi · Partner CSO","25 Aug 2025","Approved"],
-  ["Dataset","Species occurrence — grassland birds","Sarah Johnson · Partner CSO","24 Aug 2025","Rejected"]
+  ["Dataset","Species occurrence — grassland birds","Sarah Johnson · Partner CSO","24 Aug 2025","Rejected"],
+  ["Map","Watershed atlas — peninsular India","Kavita Menon · FES","30 Aug 2025","Pending"],
+  ["Dataset","Village water-use survey — Rajsamand","Neha Kapoor · Partner CSO","30 Aug 2025","Pending"],
+  ["Dashboard","Household dependence on commons","Aditi Joshi · Partner CSO","29 Aug 2025","Pending"],
+  ["Story","Tanks of Dolpura — a walk-through","Priya Sharma · FES","23 Aug 2025","Approved"],
+  ["Dataset","Gram Panchayat boundaries — Bhilwara","Manish Patel · FES","22 Aug 2025","Approved"],
+  ["Map","Sacred groves of the Khasi hills","Kavita Menon · FES","21 Aug 2025","Approved"],
+  ["Dataset","Rainfall records 2015-2024","Sarah Johnson · Partner CSO","20 Aug 2025","Rejected"],
+  ["Story","Seasonal routes of herders","Krishnan Iyer · Academic partner","19 Aug 2025","Revision requested"],
+  ["Dashboard","Forest cover trends by district","Aditi Joshi · Partner CSO","18 Aug 2025","Approved"],
+  ["Map","Pasture boundaries — Kherwa","Neha Kapoor · Partner CSO","17 Aug 2025","Pending"],
+  ["Dataset","Community forest rights claims — Odisha","Manish Patel · FES","16 Aug 2025","Revision requested"],
+  ["Map","Common land encroachment — Mandalgarh","Kavita Menon · FES","15 Aug 2025","Revision requested"],
+  ["Dashboard","Water body performance by block","Neha Kapoor · Partner CSO","14 Aug 2025","Revision requested"],
+  ["Story","Notes from the field","Sarah Johnson · Partner CSO","13 Aug 2025","Rejected"],
+  ["Map","Boundary draft — Sirohi","Krishnan Iyer · Academic partner","12 Aug 2025","Rejected"],
+  ["Dataset","Livestock census extract","Neha Kapoor · Partner CSO","11 Aug 2025","Rejected"],
+  ["Dataset","Surface water bodies — Mandalgarh block","Priya Sharma · FES","10 Aug 2025","Approved"]
 ];
 let MY_UPLOADS=[
   ["Dataset","Water harvesting structures — Bhilwara","SHP · 4.2 MB","21 Aug 2025","Published"],
@@ -2938,7 +2955,7 @@ function submitContribution(type,title,detail){
 /* approvals queue rows: [type,title,who,date,status,id] - new submissions first, then the sample items */
 function queueRows(){
   const mine=SUBMISSIONS.filter(x=>x.needsReview).map(x=>[x.type,x.title,x.who,x.date,x.status,x.id]);
-  const seeded=QUEUE.map((r,i)=>[r[0],r[1],r[2],r[3],QUEUE_DECISIONS['q'+i]||r[4],'q'+i]);
+  const seeded=QUEUE.map((r,i)=>[r[0],r[1],r[2],r[3],QUEUE_DECISIONS['q'+i]||r[4],'q'+i]).sort((a,b)=>Date.parse(b[3])-Date.parse(a[3]));
   return mine.concat(seeded);
 }
 function decide(id,status){
@@ -5224,7 +5241,7 @@ screens.approvals=(p)=>{
   const rows=Q.filter(r=>tab==='All'||r[4]===tab);
   return accountShell('approvals',[{label:"Home",href:"#/home"},{label:"Approvals"}],`
     <div class="between"><div><h2 class="mb0" style="margin-top:0;font-size:20px">Approvals</h2><p class="muted" style="margin:4px 0 0">Review, approve or reject datasets and content submitted by users of your organization; request revisions before approval.</p></div>
-      <span class="role-badge">${roleName()}</span></div>
+</div>
     <div class="tabs-c">${tabs.map(t=>`<span class="tab-c ${tab===t[0]?'active':''}" onclick="go('#/approvals${t[0]==='All'?'':'?tab='+encodeURIComponent(t[0])}')">${t[0]} <span class="cnt">${t[1]}</span></span>`).join("")}</div>
     <div class="panel" style="padding:4px 6px">
       ${rows.map((r,i)=>`<div class="sub-row" style="${i?'border-top:1px solid var(--line-2);':''}display:flex;justify-content:space-between;align-items:center;gap:12px;padding:13px 8px">
