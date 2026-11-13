@@ -227,7 +227,7 @@ main{min-height:60vh;padding-bottom:3rem;animation:fade .3s ease}
 .acct-side-panel{background:#fff;flex:0 0 auto;width:274px;padding:1.5rem 1.5rem 2.75rem var(--gutter);border-right:1px solid var(--line)}
 .acct-content-panel{background:var(--bg-soft);flex:1;min-width:0;padding:1.5rem var(--gutter) 2.75rem 1.75rem}
 @media(max-width:900px){.acct-split{flex-direction:column;margin:0 calc(-1*var(--gutter))}.acct-side-panel{width:auto;border-right:0;border-bottom:1px solid var(--line);padding:1.25rem var(--gutter)}.acct-content-panel{padding:1.25rem var(--gutter)}}
-@media(max-width:760px){.acct-nav{position:static;flex-direction:row;flex-wrap:wrap;gap:.4rem}.acct-item{border-color:var(--line-2);background:#fff;margin-bottom:0}}
+@media(max-width:900px){.acct-nav{position:static;flex-direction:row;flex-wrap:wrap;gap:.4rem}.acct-item{border-color:var(--line-2);background:#fff;margin-bottom:0}}
 /* larger touch targets for icon-only controls on phones/tablets */
 @media(max-width:900px){
   .nav-ic,.btn.btn-icon,.acts-group button,.lg-eye,.mm-x,.mf-acts .nav-ic,.rf-bk{min-width:2.5rem;min-height:2.5rem}
@@ -2163,7 +2163,7 @@ footer.site .fname{font-size:1.15rem;font-weight:800;letter-spacing:-.02em;color
 .gx-grid .rescard .rth{min-height:140px}
 .gx-grid .gx-owner{font-size:.78rem}
 /* --- repository refinements --- */
-.gx-latest{background:#f2e9dc;margin:1.75rem calc(50% - 50vw) 0;padding:2.25rem calc(50vw - 50%) 2.5rem}
+.gx-latest{background:#f2e9dc;margin:1.75rem calc(50% - 50vw + var(--sbw)/2) 0;padding:2.25rem calc(50vw - 50% - var(--sbw)/2) 2.5rem}
 .gx-latest .rescard,.gx-grid .rescard{box-shadow:0 12px 30px -22px rgba(74,66,62,.4),0 1px 2px rgba(74,66,62,.05)}
 .gx-body{border:0!important;box-shadow:none;background:transparent;gap:1.5rem;margin-top:2rem!important;grid-template-columns:290px 1fr}
 .gx-filters{border:1px solid var(--line-2);border-radius:20px;align-self:start;padding:1.2rem 1.05rem 1.3rem;background:#fff}
@@ -2590,7 +2590,7 @@ footer.site .bar{display:flex;align-items:center;justify-content:space-between;g
 .acct-nav .acct-logout{display:flex;align-items:center;justify-content:center;gap:.55rem;width:100%;margin-top:1.5rem;padding:.7rem 1rem;border:1px solid color-mix(in srgb,var(--red) 32%,#fff);border-radius:.7rem;background:#fff;color:var(--red);font:inherit;font-size:.92rem;font-weight:700;cursor:pointer;transition:background .15s,border-color .15s}
 .acct-nav .acct-logout:hover{background:var(--red-soft);border-color:var(--red)}
 .acct-nav .acct-logout .svgi{width:1.05rem;height:1.05rem}
-@media(max-width:760px){.acct-nav .acct-h{flex:0 0 100%;width:100%;margin:.6rem 0 .2rem}.acct-nav .acct-h:first-child{margin-top:0}.acct-nav .acct-logout{width:auto;margin-top:.4rem}}
+@media(max-width:900px){.acct-nav .acct-h{flex:0 0 100%;width:100%;margin:.6rem 0 .2rem}.acct-nav .acct-h:first-child{margin-top:0}.acct-nav .acct-logout{width:auto;margin-top:.4rem}}
 /* Gallery grid - no outer outline or tinted background */
 .gnv.gnv-plain{border:0;background:none;box-shadow:none;overflow:visible}
 .gnv.gnv-plain .gnc-grid{background:none;padding:0;grid-template-columns:repeat(4,minmax(0,1fr))}
@@ -2805,7 +2805,7 @@ footer.site .bar{display:flex;align-items:center;justify-content:space-between;g
 .acct-nav .acct-logout::before{content:"";display:none}
 .acct-nav .acct-logout:hover{background:var(--red-soft);border-top-color:var(--line)}
 .acct-nav .acct-logout .svgi{width:1.15rem;height:1.15rem;margin-left:.45rem}
-@media(max-width:760px){.acct-nav{min-height:0}.acct-nav .acct-logout{margin-top:.4rem;border-top:0;border:1px solid color-mix(in srgb,var(--red) 30%,#fff);border-radius:.7rem;width:auto}}
+@media(max-width:900px){.acct-nav{min-height:0}.acct-nav .acct-logout{margin-top:.4rem;border-top:0;border:1px solid color-mix(in srgb,var(--red) 30%,#fff);border-radius:.7rem;width:auto}}
 /* My Uploads - list refinement */
 .up-row{display:grid;grid-template-columns:auto minmax(0,1fr) 6.5rem auto;column-gap:1.1rem;align-items:center;padding:1rem 1.3rem}
 .up-row:hover{background:color-mix(in srgb,var(--green-soft) 55%,#fff)}
@@ -2835,7 +2835,7 @@ footer.site .bar{display:flex;align-items:center;justify-content:space-between;g
 .acct-nav .acct-item.active .acct-lb b{font-weight:700}
 .acct-nav .acct-h{margin:1.4rem 0 .5rem}
 /* account sidebar on phones - compact chips, no description lines */
-@media(max-width:760px){
+@media(max-width:900px){
   .acct-nav{flex-direction:row;flex-wrap:wrap;gap:.4rem;min-height:0}
   .acct-nav .acct-h{flex:0 0 100%;margin:.6rem 0 .1rem}
   .acct-nav .acct-h:first-child{margin-top:0}
@@ -2949,7 +2949,7 @@ footer.site .bar{display:flex;align-items:center;justify-content:space-between;g
 .srch-foot{display:flex;gap:1.2rem;padding:.65rem 1.2rem;border-top:1px solid var(--line-2);font-size:.76rem;color:var(--muted-2);background:var(--bg-soft)}
 .srch-foot kbd{font:inherit;font-size:.72rem;font-weight:700;border:1px solid var(--line-2);background:#fff;padding:0 .35rem;margin-right:.2rem}
 /* account sidebar - Logout sits right under Change Password */
-@media(min-width:761px){
+@media(min-width:901px){
   .acct-nav{min-height:0}
   .acct-nav .acct-logout{margin-top:.2rem;padding:.5rem .7rem;gap:.85rem;border:0;border-radius:.85rem;background:none}
   .acct-nav .acct-logout .svgi{width:1.15rem;height:1.15rem;margin:0 .575rem}
@@ -3008,6 +3008,27 @@ header.site.searching .nav>ul,header.site.searching .navright,header.site.search
 /* Home pathways - cards fill their column (the .pw-card width cap is for the password card) and use the same gap as Featured */
 .mod-tile.pw-card{max-width:none;width:100%}
 .mod-grid{gap:1.1rem}
+/* Responsive - pages that set their columns inline collapse to one column on tablets and phones */
+@media(max-width:900px){
+  .grid[style*="grid-template-columns"]{grid-template-columns:minmax(0,1fr)!important}
+}
+/* Responsive - phones */
+@media(max-width:640px){
+  #meta-modal.open{padding:.75rem}
+  #meta-modal .mm-card{max-height:calc(100vh - 1.5rem);max-height:calc(100dvh - 1.5rem);padding:1.25rem 1.1rem 1.4rem}
+  #meta-modal .mm-card.pw-modal,#meta-modal .mm-card.pe-modal{padding:0}
+  input,select,textarea,.wf-in{font-size:16px}
+  .between{flex-wrap:wrap;gap:.75rem}
+  .btn{min-height:2.5rem}
+  .btn.sm{min-height:2.25rem}
+  .tblwrap,.dtable{overflow-x:auto;-webkit-overflow-scrolling:touch}
+  .section{padding-top:2rem;padding-bottom:2rem}
+  .page-photo.hero-h{height:38vh}
+}
+/* full-width bands: use the width minus the scrollbar so nothing pokes past the page edge */
+.full-bleed{width:calc(100vw - var(--sbw));margin-left:calc(50% - 50vw + var(--sbw)/2);margin-right:calc(50% - 50vw + var(--sbw)/2)}
+@media(max-width:640px){.up-main .up-dot{display:none!important}}
+@media(max-width:900px){.acct-side-panel{width:auto!important;flex:0 0 auto}.acct-content-panel{width:100%}}
 </style>
 </head>
 <body>
@@ -4120,7 +4141,7 @@ screens.theme=(p)=>{
     ${stageCarousel('theme-car',t.maps.map((m,i)=>[m[0],m[1],`go('#/mapview/${t.id}/${i}')`,m[2]]))}
   </section>
 
-  <section class="section" style="background:#f3e8dc;width:100vw;margin-left:calc(50% - 50vw);margin-right:calc(50% - 50vw)">
+  <section class="section full-bleed" style="background:#f3e8dc">
     <div class="container">
       <h2 class="repo-title">Thematic repository</h2>
       ${themeRepo(t)}
