@@ -759,29 +759,95 @@ footer .bar{border-top:1px solid var(--line-2);padding:1.35rem 0 1.75rem;font-si
 .gnv-form .fp:hover{color:var(--green-d)}
 .gnv-form .rm{display:flex;align-items:center;gap:.5rem;font-size:.82rem;color:var(--muted);margin-bottom:1rem}
 /* AI report — Map Analysis Expert */
-.mae{display:grid;grid-template-columns:340px 1fr;gap:0;border:1px solid var(--line);border-radius:0;background:#fff;overflow:hidden;box-shadow:var(--shadow-card)}
-@media(max-width:900px){.mae{grid-template-columns:1fr}}
-.mae-l{border-right:1px solid var(--line);padding:1rem;background:var(--bg-soft)}
-.mae-r{padding:1.15rem 1.25rem}
-.mae-up{border:1px solid var(--line-2);border-radius:0;background:#fff;overflow:hidden}
-.mae-up .h{display:flex;align-items:center;gap:.5rem;padding:.55rem .65rem;background:var(--green-soft);color:var(--green-d);font-size:.8rem;font-weight:800}
-.mae-up .h .sp{margin-left:auto;color:var(--muted-2);font-size:.7rem;font-weight:600}
-.mae-up .ic{display:flex;justify-content:center;gap:1.35rem;padding:.65rem;border-top:1px solid var(--line);color:var(--muted-2);font-size:.9rem}
-.mae-sec{margin-top:1rem;border:1px solid var(--line-2);border-radius:0;background:#fff;overflow:hidden}
-.mae-sec .h{padding:.55rem .65rem;background:var(--bg-soft);font-size:.72rem;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--ink)}
-.mae-sec .b{padding:.75rem}
-.mae-badge{display:inline-block;background:var(--green-soft);border:1px solid var(--green-line);color:var(--green-d);border-radius:999px;padding:.25rem .7rem;font-size:.76rem;font-weight:700;margin-bottom:.5rem}
-.mae-help{font-size:.76rem;color:var(--muted-2);line-height:1.6;margin-top:.5rem}
-.mae-tabs{display:flex;gap:1.35rem;border-bottom:1px solid var(--line);margin-bottom:1rem}
-.mae-tab{padding:0 0 .65rem;font-size:.85rem;font-weight:600;color:var(--muted-2);cursor:pointer;border-bottom:2px solid transparent}
-.mae-tab.on{color:var(--green-d);border-bottom-color:var(--green);font-weight:700}
-.mae-hint{display:flex;align-items:center;justify-content:center;gap:.6rem;color:var(--muted-2);font-size:.85rem;padding:.9rem 0 1.35rem}
-.mae-out h4{margin:0 0 .65rem;font-size:1.3rem}
-.mae-out p{margin:0 0 .9rem;font-size:.88rem;color:var(--muted);line-height:1.7}
-.mae-out h5{margin:1rem 0 .5rem;font-size:.9rem}
-.mae-out ul{margin:0;padding-left:1.25rem}
-.mae-out li{font-size:.88rem;color:var(--muted);line-height:1.7;margin:.35rem 0}
-.mae-out li b{color:var(--ink)}
+.mae-head{display:flex;align-items:flex-start;justify-content:space-between;gap:1rem;margin-bottom:1rem}
+.mae-title{font-size:1.35rem;margin:0 0 .3rem}
+.mae-head .sub{margin:0}
+.mae-chip{display:inline-flex;align-items:center;gap:.4rem;flex:none;padding:.35rem .8rem;border-radius:999px;background:var(--green-soft);border:1px solid var(--green-line);color:var(--green-d);font-size:.76rem;font-weight:700}
+.mae-chip .svgi{width:.9rem;height:.9rem}
+.mae{display:grid;grid-template-columns:360px 1fr;gap:0;border:1px solid var(--line);border-radius:0;background:#fff;overflow:hidden;box-shadow:var(--shadow-card)}
+@media(max-width:900px){.mae{grid-template-columns:1fr}.mae-head{flex-direction:column}}
+.mae-l{border-right:1px solid var(--line);padding:1.1rem;background:var(--bg-soft);display:flex;flex-direction:column;gap:.9rem}
+@media(max-width:900px){.mae-l{border-right:0;border-bottom:1px solid var(--line)}}
+.mae-step{border:1px solid var(--line-2);background:#fff}
+.mae-sh{display:flex;align-items:center;gap:.65rem;padding:.7rem .85rem;border-bottom:1px solid var(--line)}
+.mae-sh .n{width:1.5rem;height:1.5rem;border-radius:50%;background:var(--green);color:#fff;display:grid;place-items:center;font-size:.76rem;font-weight:800;flex:none}
+.mae-sh b{font-size:.92rem;font-weight:800;color:var(--ink)}
+.mae-drop{background:#f1efe9}
+.mae-drop .ph-img{display:block}
+.mae-ups{display:grid;grid-template-columns:repeat(3,1fr);gap:.4rem;padding:.65rem;border-top:1px solid var(--line)}
+.mae-ups button{display:flex;align-items:center;justify-content:center;gap:.4rem;padding:.5rem .3rem;border:1px solid var(--line-2);border-radius:.55rem;background:#fff;font:inherit;font-size:.8rem;font-weight:700;color:var(--ink);cursor:pointer;transition:background .15s,border-color .15s,color .15s}
+.mae-ups button:hover{background:var(--green-soft);border-color:var(--green-line);color:var(--green-d)}
+.mae-ups .svgi{width:.95rem;height:.95rem}
+.mae-sb{padding:.8rem .85rem .9rem}
+.mae-lab{font-size:.8rem;color:var(--muted-2);margin-bottom:.5rem}
+.mae-sb select.wf-in{font-size:.9rem;padding:.6rem .75rem;margin:0}
+.mae-help{font-size:.78rem;color:var(--muted-2);line-height:1.6;margin-top:.6rem}
+.mae-go{display:flex;align-items:center;justify-content:center;gap:.55rem;padding:.9rem 1rem;font-size:1rem;margin-top:.1rem}
+.mae-go .svgi{width:1.05rem;height:1.05rem}
+.mae-r{padding:1.1rem 1.5rem 1.5rem;min-width:0}
+.mae-tabs{display:inline-flex;gap:.25rem;padding:.25rem;border-radius:999px;background:var(--bg-soft);border:1px solid var(--line);margin-bottom:1.1rem;flex-wrap:wrap}
+.mae-tab{border:0;background:none;padding:.45rem 1rem;border-radius:999px;font:inherit;font-size:.85rem;font-weight:600;color:var(--muted-2);cursor:pointer;transition:background .15s,color .15s}
+.mae-tab:hover{color:var(--ink)}
+.mae-tab.on{background:var(--green);color:#fff;font-weight:700;box-shadow:0 4px 10px -6px rgba(78,124,89,.7)}
+.mae-pane{display:none}
+.mae-pane.on{display:block}
+.mae-hint{display:flex;align-items:center;gap:.6rem;padding:.7rem .95rem;margin-bottom:1.1rem;border:1px dashed var(--green-line);background:var(--green-soft);color:var(--green-d);font-size:.85rem}
+.mae-hint .svgi{width:1.05rem;height:1.05rem;flex:none}
+.mae-oh{display:flex;align-items:flex-start;justify-content:space-between;gap:1rem;flex-wrap:wrap;padding-bottom:1rem;border-bottom:1px solid var(--line)}
+.mae-kicker{display:block;font-size:.68rem;font-weight:800;letter-spacing:.09em;text-transform:uppercase;color:var(--c-mapstudio,var(--green))}
+.mae-out h4{margin:.2rem 0 .35rem;font-size:1.5rem}
+.mae-meta{display:flex;align-items:center;gap:.6rem;font-size:.8rem;color:var(--muted-2)}
+.mae-meta i{width:4px;height:4px;border-radius:50%;background:var(--line-2)}
+.mae-acts{display:flex;gap:.5rem;flex-wrap:wrap}
+.mae-lead{margin:1rem 0;font-size:.95rem;color:var(--muted);line-height:1.7}
+.mae-card{border:1px solid var(--line);background:#fff;padding:1rem 1.15rem;margin-bottom:.9rem}
+.mae-card h5{display:flex;align-items:center;gap:.6rem;margin:0 0 .6rem;font-size:.98rem;color:var(--ink)}
+.mae-card h5 .n{width:1.5rem;height:1.5rem;border-radius:50%;background:var(--green-soft);border:1px solid var(--green-line);color:var(--green-d);display:grid;place-items:center;font-size:.76rem;font-weight:800;flex:none}
+.mae-card ul{margin:0;padding:0;list-style:none}
+.mae-card li{display:grid;grid-template-columns:11rem 1fr;gap:.25rem 1rem;padding:.6rem 0;border-top:1px solid var(--line)}
+.mae-card li:first-child{border-top:0}
+.mae-card li b{font-size:.86rem;color:var(--ink)}
+.mae-card li span{font-size:.88rem;color:var(--muted);line-height:1.65}
+@media(max-width:700px){.mae-card li{grid-template-columns:1fr}}
+.mae-note{display:flex;align-items:center;gap:.55rem;margin-top:1rem;padding:.65rem .9rem;background:var(--bg-soft);border-left:3px solid var(--cta);font-size:.78rem;font-weight:600;color:var(--muted-2)}
+.mae-note .svgi{width:1rem;height:1rem;flex:none;color:var(--cta)}
+.mae-chat{display:flex;flex-direction:column;gap:.7rem;max-height:20rem;overflow:auto;padding:.2rem .1rem .4rem}
+.mae-q{align-self:flex-end;max-width:80%;padding:.6rem .9rem;border-radius:1rem 1rem .2rem 1rem;background:var(--green);color:#fff;font-size:.88rem;line-height:1.5}
+.mae-a{display:flex;gap:.6rem;align-items:flex-start;max-width:88%}
+.mae-a>div{padding:.65rem .9rem;border-radius:1rem 1rem 1rem .2rem;background:var(--bg-soft);border:1px solid var(--line);font-size:.88rem;color:var(--muted);line-height:1.6}
+.mae-av{width:1.8rem;height:1.8rem;border-radius:50%;background:var(--green-soft);border:1px solid var(--green-line);color:var(--green-d);display:grid;place-items:center;flex:none}
+.mae-av .svgi{width:.95rem;height:.95rem}
+.mae-sugg{display:flex;flex-wrap:wrap;gap:.45rem;margin:.9rem 0 .8rem}
+.mae-sugg button{border:1px solid var(--line-2);background:#fff;border-radius:999px;padding:.35rem .8rem;font:inherit;font-size:.78rem;font-weight:600;color:var(--muted);cursor:pointer;transition:.15s}
+.mae-sugg button:hover{border-color:var(--green);color:var(--green-d);background:var(--green-soft)}
+.mae-ask{display:flex;gap:.6rem}
+.mae-ask input{flex:1;margin:0}
+.mae-ask .btn{display:inline-flex;align-items:center;gap:.45rem}
+.mae-okbar{display:flex;align-items:center;gap:.8rem;padding:.9rem 1.1rem;border:1px solid var(--green-line);background:var(--green-soft);margin-bottom:1rem}
+.mae-okbar .dot{width:.7rem;height:.7rem;border-radius:50%;background:var(--green);box-shadow:0 0 0 4px rgba(78,124,89,.18);flex:none}
+.mae-okbar div{flex:1}
+.mae-okbar b{display:block;color:var(--green-d)}
+.mae-okbar div span{font-size:.78rem;color:var(--muted-2)}
+.mae-rows{border:1px solid var(--line)}
+.mae-row{display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:.85rem 1.1rem;border-top:1px solid var(--line)}
+.mae-row:first-child{border-top:0}
+.mae-row b{display:block;font-size:.9rem;color:var(--ink)}
+.mae-row div span{font-size:.78rem;color:var(--muted-2)}
+.mae-row .r{text-align:right}
+.mae-row em{display:inline-flex;align-items:center;gap:.4rem;font-style:normal;font-weight:700;font-size:.85rem;color:var(--green-d)}
+.mae-row em i{width:.55rem;height:.55rem;border-radius:50%;background:var(--green)}
+.mae-row .r span{display:block;margin-top:.1rem}
+.mae-kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:.7rem;margin-bottom:1.2rem}
+@media(max-width:700px){.mae-kpis{grid-template-columns:repeat(2,1fr)}}
+.mae-kpi{border:1px solid var(--line);padding:.8rem .9rem;background:#fff}
+.mae-kpi span{display:block;font-size:.74rem;color:var(--muted-2);margin-bottom:.25rem}
+.mae-kpi b{font-family:var(--serif);font-weight:400;font-size:1.5rem;color:var(--ink)}
+.mae-sub{margin:1.1rem 0 .6rem;font-size:.72rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--faint)}
+.mae-bar{display:grid;grid-template-columns:10rem 1fr 3rem;gap:.8rem;align-items:center;padding:.35rem 0;font-size:.85rem;color:var(--ink)}
+.mae-bar div{height:.55rem;background:var(--line);border-radius:999px;overflow:hidden}
+.mae-bar i{display:block;height:100%;background:var(--green);border-radius:999px}
+.mae-bar em{font-style:normal;font-weight:700;text-align:right;color:var(--muted-2)}
+@media(max-width:560px){.mae-bar{grid-template-columns:1fr 1fr 2.5rem}}
 
 /* Village Explorer — dashboard refinements */
 .title-chip{display:inline-block;vertical-align:middle;margin-left:.65rem;border:1px solid var(--green-line);background:var(--green-soft);border-radius:999px;padding:.25rem .75rem;
@@ -3962,62 +4028,123 @@ screens.mapstudio=()=>shell("#/insights",[{label:"Home",href:"#/home"},{label:"C
   </section>
 
   <section class="section">
-    <h3 style="font-size:17px;margin:0 0 12px">Map Analysis Expert</h3>
-    <p class="sub">Upload a map image and get expert-level analysis and insights using the OpenRouter API.</p>
+    <div class="mae-head">
+      <div><h3 class="mae-title">Map Analysis Expert</h3>
+        <p class="sub">Upload a map image and get expert-level analysis and insights using the OpenRouter API.</p></div>
+      <span class="mae-chip"><svg class=svgi><use href=#i-sparkles /></svg> AI-assisted &middot; advisory</span>
+    </div>
     <div class="mae">
       <div class="mae-l">
-        <div class="mae-up">
-          <div class="h"><span><svg class=svgi><use href=#i-image /></svg></span> Upload Map Image <span class="sp"><svg class=svgi><use href=#i-maximize /></svg> <svg class=svgi><use href=#i-x /></svg></span></div>
-          <div class="ph-img" style="min-height:150px;border:none;border-radius:0;font-size:11px">Map image preview</div>
-          <div class="ic"><span onclick="toast('Upload file')">\u2b06</span><span onclick="toast('Capture screen')">\u25ce</span><span onclick="toast('Paste from clipboard')"><svg class=svgi><use href=#i-clipboard /></svg></span></div>
-        </div>
-        <div class="mae-sec">
-          <div class="h">Model Selection</div>
-          <div class="b">
-            <span class="mae-badge">Choose AI Model</span>
-            <div class="wf-note" style="text-transform:none;letter-spacing:0;margin-bottom:8px">Select a free vision model from OpenRouter</div>
-            <select class="wf-in" style="font-size:12.5px;padding:9px 11px"><option>Google Gemma 3 (27B)</option><option>Llama 3.2 Vision (11B)</option><option>Qwen2-VL (7B)</option></select>
-            <div class="mae-help">All models support vision capabilities and are free to use. The models are grouped by provider and vary in size (shown in parentheses). Larger models generally provide more detailed analysis but may be slower.</div>
+        <div class="mae-step">
+          <div class="mae-sh"><span class="n">1</span><b>Upload map image</b></div>
+          <div class="mae-drop"><div class="ph-img" style="min-height:150px;border:none;border-radius:0;font-size:11px">Map image preview</div></div>
+          <div class="mae-ups">
+            <button type="button" onclick="toast('Upload file')"><svg class=svgi><use href=#i-upload /></svg> Upload</button>
+            <button type="button" onclick="toast('Capture screen')"><svg class=svgi><use href=#i-image /></svg> Capture</button>
+            <button type="button" onclick="toast('Paste from clipboard')"><svg class=svgi><use href=#i-clipboard /></svg> Paste</button>
           </div>
         </div>
-        <div class="mae-sec">
-          <div class="h">Analysis Type</div>
-          <div class="b">
-            <span class="mae-badge">Analysis Type</span>
-            <select class="wf-in" style="font-size:12.5px;padding:9px 11px"><option>General GIS map analysis</option><option>Land use &amp; land cover</option><option>Water &amp; watershed</option><option>Change detection</option></select>
-            <a class="btn primary block mt12" onclick="toast('Analysing map \u2014 AI report')">Analyze Map</a>
+        <div class="mae-step">
+          <div class="mae-sh"><span class="n">2</span><b>Choose AI model</b></div>
+          <div class="mae-sb">
+            <div class="mae-lab">Free vision models from OpenRouter</div>
+            <select id="mae-model" class="wf-in"><option>Google Gemma 3 (27B)</option><option>Llama 3.2 Vision (11B)</option><option>Qwen2-VL (7B)</option></select>
+            <div class="mae-help">All models support vision and are free to use. Larger models (size in brackets) give more detailed analysis but may be slower.</div>
           </div>
         </div>
+        <div class="mae-step">
+          <div class="mae-sh"><span class="n">3</span><b>Analysis type</b></div>
+          <div class="mae-sb">
+            <select id="mae-type" class="wf-in"><option>General GIS map analysis</option><option>Land use &amp; land cover</option><option>Water &amp; watershed</option><option>Change detection</option></select>
+          </div>
+        </div>
+        <a class="btn primary block mae-go" onclick="toast('Analysing map \u2014 AI report')"><svg class=svgi><use href=#i-sparkles /></svg> Analyze Map</a>
       </div>
       <div class="mae-r">
-        <div class="mae-tabs">
-          <span class="mae-tab on">Analysis</span>
-          <span class="mae-tab" onclick="toast('Q&amp;A tab')">Q&amp;A</span>
-          <span class="mae-tab" onclick="toast('API status')">API Status</span>
-          <span class="mae-tab" onclick="toast('Usage report')">Usage Report</span>
+        <div class="mae-tabs" role="tablist">
+          <button type="button" class="mae-tab on" data-p="analysis" onclick="maeTab(this)">Analysis</button>
+          <button type="button" class="mae-tab" data-p="qa" onclick="maeTab(this)">Q&amp;A</button>
+          <button type="button" class="mae-tab" data-p="api" onclick="maeTab(this)">API Status</button>
+          <button type="button" class="mae-tab" data-p="usage" onclick="maeTab(this)">Usage Report</button>
         </div>
-        <div class="mae-hint">\u2b05 Upload an image and click \u201cAnalyze Map\u201d to see results here</div>
-        <div class="mae-out">
-          <h4>GIS Map Analysis</h4>
-          <p>Here's an analysis of the provided GIS map, focusing solely on observable features and information:</p>
-          <h5>1. Map Overview &amp; Coordinate System / Projection</h5>
-          <ul>
-            <li><b>Base Map:</b> the map uses a basemap sourced from OpenStreetMap contributors, suggesting a focus on readily available, crowd-sourced geographic data.</li>
-            <li><b>Coordinate System / Projection:</b> cannot be determined from the visible information \u2014 there are no explicit indicators of the coordinate system (e.g. EPSG code, datum) or map projection used.</li>
-            <li><b>Scale:</b> the map displays a representative fraction scale of 1:72,224, indicating the level of generalisation and the relationship between map distance and ground distance.</li>
-          </ul>
-          <h5>2. Map Elements &amp; Data Layers</h5>
-          <ul>
-            <li><b>Layers:</b> Thematic layers visible in the uploaded image: land-cover classes, water bodies and settlement footprints.</li>
-            <li><b>Symbology:</b> Classified fills in graduated greens; point symbols mark observation sites.</li>
-          </ul>
-          <div class="row mt16" style="gap:8px"><a class="btn sm primary" onclick="go('#/report')"><svg class=svgi><use href=#i-download /></svg> Download report</a><a class="btn sm" onclick="go('#/gallery')">Publish to Gallery</a><a class="btn sm" onclick="toast('Regenerate')"><svg class=svgi><use href=#i-refresh /></svg> Regenerate</a></div>
-          <div class="wf-note mt12">AI-generated interpretation is advisory. Review before publication.</div>
+
+        <div class="mae-pane on" id="mae-p-analysis">
+          <div class="mae-hint"><svg class=svgi><use href=#i-image /></svg> Upload an image and click &ldquo;Analyze Map&rdquo; to see results here. A sample result is shown below.</div>
+          <div class="mae-out">
+            <div class="mae-oh">
+              <div><span class="mae-kicker">AI report</span><h4>GIS Map Analysis</h4>
+                <div class="mae-meta"><span>Google Gemma 3 (27B)</span><i></i><span>General GIS map analysis</span></div></div>
+              <div class="mae-acts"><a class="btn sm primary" onclick="go('#/report')"><svg class=svgi><use href=#i-download /></svg> Download report</a><a class="btn sm" onclick="go('#/gallery')">Publish to Gallery</a><a class="btn sm" onclick="toast('Regenerate')"><svg class=svgi><use href=#i-refresh /></svg> Regenerate</a></div>
+            </div>
+            <p class="mae-lead">Here's an analysis of the provided GIS map, focusing solely on observable features and information:</p>
+            <div class="mae-card">
+              <h5><span class="n">1</span> Map Overview &amp; Coordinate System / Projection</h5>
+              <ul>
+                <li><b>Base Map</b><span>the map uses a basemap sourced from OpenStreetMap contributors, suggesting a focus on readily available, crowd-sourced geographic data.</span></li>
+                <li><b>Coordinate System / Projection</b><span>cannot be determined from the visible information &mdash; there are no explicit indicators of the coordinate system (e.g. EPSG code, datum) or map projection used.</span></li>
+                <li><b>Scale</b><span>the map displays a representative fraction scale of 1:72,224, indicating the level of generalisation and the relationship between map distance and ground distance.</span></li>
+              </ul>
+            </div>
+            <div class="mae-card">
+              <h5><span class="n">2</span> Map Elements &amp; Data Layers</h5>
+              <ul>
+                <li><b>Layers</b><span>thematic layers visible in the uploaded image: land-cover classes, water bodies and settlement footprints.</span></li>
+                <li><b>Symbology</b><span>classified fills in graduated greens; point symbols mark observation sites.</span></li>
+              </ul>
+            </div>
+            <div class="mae-note"><svg class=svgi><use href=#i-shield /></svg> AI-generated interpretation is advisory. Review before publication.</div>
+          </div>
+        </div>
+
+        <div class="mae-pane" id="mae-p-qa">
+          <div class="mae-lead" style="margin-top:0">Ask follow-up questions about the uploaded map. Answers use the selected model and the image you uploaded.</div>
+          <div class="mae-chat" id="mae-chat">
+            <div class="mae-q">Which land-cover class covers the largest area?</div>
+            <div class="mae-a"><span class="mae-av"><svg class=svgi><use href=#i-sparkles /></svg></span><div>The light-green classified fill dominates the frame, followed by darker green patches along the river corridor. Built-up areas appear as small red-pink clusters.</div></div>
+            <div class="mae-q">Are there any water bodies visible?</div>
+            <div class="mae-a"><span class="mae-av"><svg class=svgi><use href=#i-sparkles /></svg></span><div>Yes. A river runs diagonally through the image and several small blue polygons mark ponds or tanks near the settlements.</div></div>
+          </div>
+          <div class="mae-sugg">${["What is the dominant land cover?","Where are the settlements?","Is there a visible scale bar?"].map(q=>`<button type="button" onclick="maeAsk(this.textContent)">${q}</button>`).join("")}</div>
+          <form class="mae-ask" onsubmit="event.preventDefault();maeAsk()"><input id="mae-q" class="wf-in" placeholder="Ask a question about this map" autocomplete="off"><button type="submit" class="btn primary"><svg class=svgi><use href=#i-message /></svg> Ask</button></form>
+        </div>
+
+        <div class="mae-pane" id="mae-p-api">
+          <div class="mae-okbar"><span class="dot"></span><div><b>All systems operational</b><span id="mae-checked">Last checked just now</span></div><a class="btn sm" onclick="maeRefresh()"><svg class=svgi><use href=#i-refresh /></svg> Refresh status</a></div>
+          <div class="mae-rows">
+            ${[["OpenRouter API","Connection to the OpenRouter gateway","Operational","412 ms"],["Vision model","Google Gemma 3 (27B)","Available","~9 s per map"],["Image upload","Maps up to 10 MB (PNG, JPG, TIFF)","Operational","\u2014"],["Rate limit","Free tier requests per minute","18 of 20 left","resets in 42 s"]].map(r=>`<div class="mae-row"><div><b>${r[0]}</b><span>${r[1]}</span></div><div class="r"><em><i></i>${r[2]}</em><span>${r[3]}</span></div></div>`).join("")}
+          </div>
+          <div class="mae-note"><svg class=svgi><use href=#i-clock /></svg> Sample status shown for this prototype.</div>
+        </div>
+
+        <div class="mae-pane" id="mae-p-usage">
+          <div class="mae-kpis">${[["Analyses this month","24"],["Tokens used","182k"],["Avg. response time","9.4 s"],["Success rate","96%"]].map(k=>`<div class="mae-kpi"><span>${k[0]}</span><b>${k[1]}</b></div>`).join("")}</div>
+          <h5 class="mae-sub">Usage by model</h5>
+          <div class="mae-bars">${[["Google Gemma 3 (27B)",62],["Llama 3.2 Vision (11B)",25],["Qwen2-VL (7B)",13]].map(m=>`<div class="mae-bar"><span>${m[0]}</span><div><i style="width:${m[1]}%"></i></div><em>${m[1]}%</em></div>`).join("")}</div>
+          <h5 class="mae-sub">Recent analyses</h5>
+          <div class="tblwrap"><table class="mtable"><thead><tr><th>Date</th><th>Analysis type</th><th>Model</th><th>Time</th><th>Status</th></tr></thead><tbody>
+            ${[["12 Nov 2026","General GIS map analysis","Gemma 3 (27B)","8.7 s","Done"],["10 Nov 2026","Land use & land cover","Gemma 3 (27B)","10.2 s","Done"],["07 Nov 2026","Water & watershed","Llama 3.2 (11B)","6.1 s","Done"],["02 Nov 2026","Change detection","Qwen2-VL (7B)","5.4 s","Failed"]].map(r=>`<tr><td>${r[0]}</td><td>${r[1]}</td><td>${r[2]}</td><td>${r[3]}</td><td>${statusPill(r[4]==='Done'?'Published':'Rejected').replace(/>Published</,'>Done<').replace(/>Rejected</,'>Failed<')}</td></tr>`).join("")}
+          </tbody></table></div>
+          <div class="mae-note"><svg class=svgi><use href=#i-clock /></svg> Sample usage data shown for this prototype.</div>
         </div>
       </div>
     </div>
   </section>
 `);
+
+/* Map Analysis Expert — tabs, Q&A and status helpers */
+function maeTab(btn){
+  const wrap=btn.closest('.mae-r'); if(!wrap) return;
+  wrap.querySelectorAll('.mae-tab').forEach(t=>t.classList.toggle('on',t===btn));
+  wrap.querySelectorAll('.mae-pane').forEach(p=>p.classList.toggle('on',p.id==='mae-p-'+btn.dataset.p));
+}
+function maeAsk(q){
+  const inp=document.getElementById('mae-q'), chat=document.getElementById('mae-chat'); if(!chat) return;
+  const text=(q||(inp&&inp.value)||'').trim(); if(!text) return;
+  const esc=t=>t.replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]));
+  chat.insertAdjacentHTML('beforeend',`<div class="mae-q">${esc(text)}</div><div class="mae-a"><span class="mae-av"><svg class=svgi><use href=#i-sparkles /></svg></span><div>This is a sample answer. In the live product the selected model answers using the uploaded map image.</div></div>`);
+  if(inp) inp.value=''; chat.scrollTop=chat.scrollHeight;
+}
+function maeRefresh(){const e=document.getElementById('mae-checked'); if(e) e.textContent='Last checked '+new Date().toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit',second:'2-digit'}); toast('API status refreshed');}
 
 /* AI report — login gated */
 screens['ai-report']=()=>{
