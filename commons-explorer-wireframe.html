@@ -4258,7 +4258,7 @@ function gxCatalogue(tab,opts){
               <span class="gn-kind" style="--tc:${GX_TC[r[2].split(' ')[0]]||'var(--green)'}">${r[2]}</span>
               <h4>${r[0]}</h4>
               <p>${r[1]}</p>
-              <div class="rf"><span class="gx-owner"><span class="pw-av">${r[3].slice(0,2).toUpperCase()}</span>${r[3]}</span><span class="row" style="gap:.5rem;align-items:center"><button class="rf-bk" title="Bookmark" onclick="event.stopPropagation();bookmarkIt('${r[0].replace(/'/g,'')}')"><svg class=svgi><use href=#i-bookmark /></svg></button><span class="btn sm" onclick="event.stopPropagation();go('${r[4]}')">View →</span></span></div>
+              <div class="rf"><span class="gx-owner"><span class="pw-av">${r[3].slice(0,2).toUpperCase()}</span>${r[3]}</span><span class="row" style="gap:.5rem;align-items:center"><span class="btn sm" onclick="event.stopPropagation();go('${r[4]}')">View →</span></span></div>
             </div>
           </div>`).join("")}
         </div>
@@ -4276,7 +4276,7 @@ function gxLatestCards(){
         <span class="gn-kind" style="--tc:${GX_TC[r[2].split(' ')[0]]||'var(--green)'}">${r[2]}</span>
         <h4>${r[0]}</h4>
         <p>${r[1]}</p>
-        <div class="rf"><span class="gx-owner"><span class="pw-av">${r[3].slice(0,2).toUpperCase()}</span>${r[3]} · added ${31-i} Aug 2025</span><span class="row" style="gap:.5rem;align-items:center"><button class="rf-bk" title="Bookmark" onclick="event.stopPropagation();bookmarkIt('${r[0].replace(/'/g,'')}')"><svg class=svgi><use href=#i-bookmark /></svg></button><span class="btn sm" onclick="event.stopPropagation();gxOpen('${r[4]}')">View →</span></span></div>
+        <div class="rf"><span class="gx-owner"><span class="pw-av">${r[3].slice(0,2).toUpperCase()}</span>${r[3]} · added ${31-i} Aug 2025</span><span class="row" style="gap:.5rem;align-items:center"><span class="btn sm" onclick="event.stopPropagation();gxOpen('${r[4]}')">View →</span></span></div>
       </div>
     </div>`).join("")}</div>
   </section>`;
