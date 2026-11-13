@@ -2513,6 +2513,18 @@ footer.site .bar{display:flex;align-items:center;justify-content:space-between;g
 /* Commons Insights banner — same height as the home hero slider */
 .page-photo.hero-h{height:clamp(22rem,58vh,34rem)}
 @media(max-width:700px){.page-photo.hero-h{height:46vh;height:46dvh}}
+/* Manage featured picker */
+.fm-count{font-size:.82rem;font-weight:700;color:var(--green-d);margin-bottom:.5rem}
+.fm-list{max-height:52vh;overflow:auto;border:1px solid var(--line)}
+.fm-g{position:sticky;top:0;z-index:1;font-size:.7rem;font-weight:800;letter-spacing:.09em;text-transform:uppercase;color:var(--faint);padding:.6rem 1rem .35rem;background:var(--bg-soft);border-top:1px solid var(--line)}
+.fm-g:first-child{border-top:0}
+.fm-row{display:flex;gap:.8rem;align-items:flex-start;padding:.65rem 1rem;border-top:1px solid var(--line);cursor:pointer;background:#fff}
+.fm-row:hover{background:var(--green-soft)}
+.fm-row input{width:1rem;height:1rem;margin:.2rem 0 0;accent-color:var(--green);flex:none}
+.fm-row b{display:block;font-size:.92rem;font-weight:600;color:var(--ink);line-height:1.35}
+.fm-row small{display:block;font-size:.78rem;color:var(--muted-2);margin-top:.15rem}
+.fm-row.dis{opacity:.45;cursor:not-allowed}
+.fm-row.dis:hover{background:#fff}
 </style>
 </head>
 <body>
@@ -2623,6 +2635,59 @@ const WHATS_NEW=[
   {kind:"New story",ic:"<svg class=svgi><use href=#i-book /></svg>",t:"Where the tanks went \u2014 30 years of water bodies in Anantapur",note:"A narrative built from map views and Superset charts.",when:"24 Aug 2025",who:"Kavita Menon \u00b7 FES",href:"#/gallery-item/g-01",img:"assets/type-water.jpg"},
   {kind:"Platform update",ic:"<svg class=svgi><use href=#i-sparkles /></svg>",t:"Zonal statistics now available in Map Studio",note:"Compute raster statistics by zone and export the results table.",when:"21 Aug 2025",who:"Commons Explorer team",href:"#/mapstudio",img:"assets/hero-participatory.jpg"}
 ];
+
+/* Featured section — moderators and admins choose which cards appear (up to 4) */
+const FEATURED_MAX=4;
+const FEAT_IMG={Water:"assets/photo-11.jpg",Land:"assets/photo-2.jpg",Biodiversity:"assets/photo-8.jpg","Other layers":"assets/photo-3.jpg"};
+const FEAT_GIMG={Story:"assets/type-water.jpg",Dashboard:"assets/chart-3.jpg",Map:"assets/photo-3.jpg",Analysis:"assets/chart-1.jpg"};
+const FEATURE_POOL=[]
+  .concat(WHATS_NEW.map((n,i)=>Object.assign({id:'w'+i,group:'Updates'},n)))
+  .concat(DATASETS.map(d=>({id:d.id,group:'Datasets',kind:'Dataset',ic:'<svg class=svgi><use href=#i-map /></svg>',t:d.t,note:d.fmt+' · '+d.geo+' · '+d.feat,when:d.yr,who:d.org,href:'#/dataset/'+d.id,img:FEAT_IMG[d.theme]||'assets/photo-3.jpg'})))
+  .concat(GALLERY.map(g=>({id:g.id,group:'Gallery',kind:g.kind,ic:g.ic,t:g.t,note:g.src+' · '+g.views+' views',when:g.when,who:g.who+' · '+g.org,href:'#/gallery-item/'+g.id,img:FEAT_GIMG[g.kind]||'assets/photo-3.jpg'})));
+let FEATURED_IDS=['w0','w1'];
+try{var _f=localStorage.getItem('ce_featured'); if(_f) FEATURED_IDS=JSON.parse(_f).filter(id=>FEATURE_POOL.some(x=>x.id===id)).slice(0,FEATURED_MAX);}catch(e){}
+function featuredItems(){return FEATURED_IDS.map(id=>FEATURE_POOL.find(x=>x.id===id)).filter(Boolean);}
+function featuredSection(){
+  const items=featuredItems(), n=items.length;
+  const cols=n>=4?'g4':n===3?'g3':'g2';
+  return `<div class="between wn-head"><div><h2 class="mb0">Featured</h2><p class="sub">New datasets, maps, dashboards and stories as they are published, alongside platform updates.</p></div>${roleCan('moderate')?'<a class="btn sm" onclick="openFeaturedManager()">Manage featured</a>':''}</div>
+      <div class="grid ${cols} wn-grid wn-nokind">${items.map(whatsNewCard).join("")}</div>`;
+}
+let FEAT_DRAFT=[];
+function openFeaturedManager(){
+  if(!roleCan('moderate')) return;
+  FEAT_DRAFT=FEATURED_IDS.slice();
+  const m=document.getElementById('meta-modal');
+  const groups=['Updates','Datasets','Gallery'];
+  m.innerHTML=`<div class="mm-back" onclick="closeMetaModal()"></div>
+   <div class="mm-card" style="max-width:40rem">
+    <button class="mm-x" onclick="closeMetaModal()" aria-label="Close"><svg class=svgi><use href=#i-x /></svg></button>
+    <h2 style="font-size:1.3rem;border:0;padding:0;margin:0 0 .35rem">Manage featured</h2>
+    <p class="muted" style="margin:0 0 .9rem">Choose up to ${FEATURED_MAX} items to show in the Featured section on the home page. They appear in the order you select them.</p>
+    <div class="fm-count" id="fm-count"></div>
+    <div class="fm-list" id="fm-list">${groups.map(g=>`<div class="fm-g">${g}</div>`+FEATURE_POOL.filter(x=>x.group===g).map(x=>`<label class="fm-row" data-id="${x.id}"><input type="checkbox" ${FEAT_DRAFT.includes(x.id)?'checked':''} onchange="featToggle('${x.id}',this)"><span><b>${x.t}</b><small>${x.kind} · ${x.who} · ${x.when}</small></span></label>`).join("")).join("")}</div>
+    <div class="row mt16" style="justify-content:flex-end;gap:.6rem"><a class="btn" onclick="closeMetaModal()">Cancel</a><a class="btn primary" onclick="featSave()">Save</a></div>
+   </div>`;
+  m.classList.add('open');
+  featRefresh();
+}
+function featToggle(id,box){
+  const i=FEAT_DRAFT.indexOf(id);
+  if(box.checked){ if(i<0){ if(FEAT_DRAFT.length>=FEATURED_MAX){box.checked=false;return;} FEAT_DRAFT.push(id);} }
+  else if(i>=0) FEAT_DRAFT.splice(i,1);
+  featRefresh();
+}
+function featRefresh(){
+  const c=document.getElementById('fm-count'); if(c) c.textContent=FEAT_DRAFT.length+' of '+FEATURED_MAX+' selected';
+  document.querySelectorAll('#fm-list .fm-row').forEach(r=>{const on=FEAT_DRAFT.includes(r.dataset.id); const full=FEAT_DRAFT.length>=FEATURED_MAX; r.classList.toggle('dis',!on&&full); r.querySelector('input').disabled=!on&&full;});
+}
+function featSave(){
+  if(!roleCan('moderate')) return;
+  if(!FEAT_DRAFT.length){toast('Select at least one item');return;}
+  FEATURED_IDS=FEAT_DRAFT.slice();
+  try{localStorage.setItem('ce_featured',JSON.stringify(FEATURED_IDS));}catch(e){}
+  closeMetaModal(); toast('Featured section updated'); render();
+}
 
 /* Home — Latest Update (sample items) */
 const LATEST_UPDATES=[
@@ -3354,8 +3419,7 @@ screens.home=()=>shell("#/home",null,`
 
   <section class="section">
     <div class="wn-wrap"><div class="container wn-in">
-      <div class="between wn-head"><div><h2 class="mb0">Featured</h2><p class="sub">New datasets, maps, dashboards and stories as they are published, alongside platform updates.</p></div></div>
-      <div class="grid g2 wn-grid wn-nokind">${WHATS_NEW.slice(0,2).map(whatsNewCard).join("")}</div>
+      ${featuredSection()}
     </div></div>
   </section>
 
