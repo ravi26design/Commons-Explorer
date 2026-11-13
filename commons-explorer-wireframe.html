@@ -5726,12 +5726,11 @@ screens.uploads=(p)=>{
       <div class="up-types" id="up-types">${["All","Dataset","Map","Dashboard","Story"].map((t,i)=>`<button type="button" class="${i?'':'on'}" data-t="${t}" onclick="upType(this)">${t}</button>`).join("")}</div>
     </div>
     <div class="up-list" id="up-list">
-      ${rows.length?(UP_ROWS=rows,rows).map((r,ri)=>{const ty=UP_TYPE[r[0]]||UP_TYPE.Dataset; const cm=r[4]==='Revision requested'?(r[6]||seedComment(r[1])):null; return `<div class="up-row${cm?' has-note':''}" data-title="${storyEsc(r[1].toLowerCase())}" data-type="${r[0]}" onclick="go('#/myupload?id='+encodeURIComponent('${myUploadId(r)}'))">
+      ${rows.length?(UP_ROWS=rows,rows).map((r,ri)=>{const ty=UP_TYPE[r[0]]||UP_TYPE.Dataset; return `<div class="up-row" data-title="${storyEsc(r[1].toLowerCase())}" data-type="${r[0]}" onclick="go('#/myupload?id='+encodeURIComponent('${myUploadId(r)}'))">
         <span class="up-ic" style="--tc:${ty.tc}"><svg class=svgi><use href=#${ty.ic} /></svg></span>
-        <div class="up-main"><b>${r[1]}</b><span class="up-meta"><em style="--tc:${ty.tc}">${r[0]}</em>${r[2]}<i class="up-dot"></i><span class="up-din">${r[3]}</span></span>${!cm&&UP_HINT[r[4]]?`<small class="up-hint">${UP_HINT[r[4]]}</small>`:''}</div>
+        <div class="up-main"><b>${r[1]}</b><span class="up-meta"><em style="--tc:${ty.tc}">${r[0]}</em>${r[2]}<i class="up-dot"></i><span class="up-din">${r[3]}</span></span>${UP_HINT[r[4]]?`<small class="up-hint">${UP_HINT[r[4]]}</small>`:''}</div>
         <span class="up-date">${r[3]}</span>
         <div class="up-end">${upPill(r[4])}<span class="btn sm">View →</span></div>
-        ${cm?`<div class="up-note"><i class="up-note-ic"><svg class=svgi><use href=#i-message /></svg></i><div class="up-note-body"><div class="up-note-h"><b>Moderator comment</b><span>${storyEsc(cm.by)} · ${cm.date}</span></div><p>${storyEsc(cm.text)}</p></div></div>`:''}
       </div>`;}).join("")
       :'<div class="up-empty"><svg class=svgi><use href=#i-folder /></svg><b>Nothing here yet</b><span>No contributions have this status.</span></div>'}
       <div class="up-empty" id="up-nomatch" hidden><svg class=svgi><use href=#i-search /></svg><b>No matches</b><span>Try a different search or type.</span></div>
