@@ -2497,6 +2497,16 @@ footer.site .bar{display:flex;align-items:center;justify-content:space-between;g
 /* Featured — two wide cards */
 .wn-wrap .wn-grid.g2 .wn-media{aspect-ratio:2/1}
 @media(max-width:700px){.wn-wrap .wn-grid.g2 .wn-media{aspect-ratio:16/10}}
+/* Atlas region filter — always-open option lists */
+.region-b .rf-group{padding-bottom:1rem;margin-bottom:1rem;border-bottom:1px solid var(--line)}
+.region-b .rf-title{font-size:.95rem;font-weight:800;color:var(--ink);margin:0 0 .45rem}
+.region-b .rf-list{display:flex;flex-direction:column}
+.region-b .rf-opt{display:flex;align-items:center;gap:.6rem;padding:.38rem 0;margin:0;font-size:.95rem;font-weight:500;color:var(--ink);cursor:pointer}
+.region-b .rf-opt input{width:1rem;height:1rem;margin:0;accent-color:var(--green);flex:none}
+.region-b .rf-extra{display:none}
+.region-b .rf-group.open .rf-extra{display:flex}
+.region-b .rf-more{border:0;background:none;padding:.35rem 0 0;font:inherit;font-size:.9rem;font-weight:700;color:var(--cta);cursor:pointer}
+.region-b .rf-more:hover{color:var(--green-d)}
 </style>
 </head>
 <body>
@@ -4311,6 +4321,24 @@ function atlasSheet(sh,idx){
     </div>
   </div>`;
 }
+/* Panchayat Atlas — region filter: every option is visible, first 5 shown, the rest behind "+ N more" */
+const RF_LIMIT=5;
+const RF_DISTRICTS=["Bhilwara","Ajmer","Udaipur","Chittorgarh","Rajsamand","Pali","Jodhpur","Sirohi"];
+const RF_BLOCKS=["Mandalgarh","Kotri","Asind","Jahazpur","Mandal","Shahpura","Raipur","Banera"];
+const RF_GPS=["Dolpura GP","Bagoliya GP","Kherwa GP","Sarsiya GP","Dhanora GP","Hemalpura GP","Salampura GP"];
+function regionFilter(id,title,opts,selected){
+  const more=Math.max(0,opts.length-RF_LIMIT);
+  return `<div class="rf-group" id="rf-${id}">
+    <div class="rf-title">${title}</div>
+    <div class="rf-list">${opts.map((o,i)=>`<label class="rf-opt${i>=RF_LIMIT?' rf-extra':''}"><input type="radio" name="rf-${id}" value="${o}"${o===selected?' checked':''}><span>${o}</span></label>`).join("")}</div>
+    ${more?`<button type="button" class="rf-more" onclick="rfToggle('${id}',this,${more})">+ ${more} more</button>`:''}
+  </div>`;
+}
+function rfToggle(id,btn,more){
+  const g=document.getElementById('rf-'+id); if(!g) return;
+  const open=g.classList.toggle('open');
+  btn.textContent=open?'Show less':'+ '+more+' more';
+}
 screens.atlas=()=>{
   return shell("#/dss",[{label:"Home",href:"#/home"},{label:"Decision Support System",href:"#/dss"},{label:"Panchayat Atlas"}],`
   <section class="section" style="padding-bottom:14px">
@@ -4322,19 +4350,13 @@ screens.atlas=()=>{
 
   <section class="section" style="padding-top:6px">
     <div class="grid" style="grid-template-columns:320px 1fr;gap:26px;align-items:start">
-      <aside class="region-card">
+      <aside class="region-card" style="position:static">
         <div class="region-h"><span class="globe"><svg class=svgi><use href=#i-globe /></svg></span><b>Select Region</b><button class="min" onclick="toast('Collapse panel')">—</button></div>
         <div class="region-b">
-          <label>State</label>
-          <select class="wf-in"><option>All</option>${STATES.map(x=>`<option>${x}</option>`).join("")}</select>
-          <label>District</label>
-          <select class="wf-in"><option></option><option selected>Bhilwara</option><option>Ajmer</option></select>
-          <label>Block</label>
-          <select class="wf-in"><option></option><option selected>Mandalgarh</option><option>Kotri</option></select>
-          <div class="nest">
-            <label>Panchayat</label>
-            <select class="wf-in"><option></option><option selected>Dolpura GP</option><option>Bagoliya GP</option></select>
-          </div>
+          ${regionFilter('state','State',["All"].concat(STATES),'All')}
+          ${regionFilter('district','District',RF_DISTRICTS,'Bhilwara')}
+          ${regionFilter('block','Block',RF_BLOCKS,'Mandalgarh')}
+          ${regionFilter('gp','Panchayat',RF_GPS,'Dolpura GP')}
           <a class="btn primary block mt16" onclick="toast('Atlas generated for the selected region')">Generate atlas →</a>
           <div class="wf-note mt12" style="text-transform:none;letter-spacing:0">Sheets refresh for the selected Panchayat · 6 villages in Dolpura GP</div>
         </div>
