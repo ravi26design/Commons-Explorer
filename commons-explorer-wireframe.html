@@ -4035,8 +4035,7 @@ function openStoryModal(){
   m.innerHTML=`<div class="mm-back" onclick="closeMetaModal()"></div>
    <div class="mm-card" style="max-width:44rem">
     <button class="mm-x" onclick="closeMetaModal()" aria-label="Close"><svg class=svgi><use href=#i-x /></svg></button>
-    <div class="eyebrow">Commons Stories integration</div>
-    <h2 style="font-size:1.35rem;border:0;padding:0;margin:0 0 .35rem">Create a story from your resources</h2>
+    <h2 style="font-size:1.35rem;border:0;padding:0;margin:0 0 .35rem;padding-right:2.5rem">Create a story from your resources</h2>
     <p class="muted" style="margin:0 0 1rem">Pull in map views, dashboards and analytical outputs, then add narrative around them. ${roleCan('moderate')?'As a moderator, your story is published straight away.':'Stories publish to the Gallery after moderation.'}</p>
     <div class="field-block"><label class="wf-label">Story title</label><input class="wf-in" id="st-title" placeholder="e.g. A pond, a panchayat and a plan" oninput="STORY_DIRTY=true"></div>
     <div class="field-block"><label class="wf-label">Standfirst</label><textarea class="wf-in" placeholder="One or two sentences that set up the story." oninput="STORY_DIRTY=true"></textarea></div>
