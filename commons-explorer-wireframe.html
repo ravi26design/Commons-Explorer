@@ -2824,6 +2824,19 @@ footer.site .bar{display:flex;align-items:center;justify-content:space-between;g
 .up-row.has-note .up-note p{margin:.3rem 0 0;font-size:.9rem;line-height:1.6;color:var(--ink)}
 @media(max-width:900px){.up-row{grid-template-columns:auto minmax(0,1fr) auto}.up-date{display:none}.up-main .up-din{display:inline}.up-main .up-dot{display:block}}
 @media(max-width:640px){.up-row{grid-template-columns:auto minmax(0,1fr);row-gap:.7rem}.up-end{grid-column:1 / -1;width:auto;justify-content:space-between;padding-left:0}.up-row.has-note .up-note{grid-column:1 / -1}}
+/* account sidebar - two-line items with soft icon tiles */
+.acct-nav .acct-item{gap:.85rem;padding:.6rem .7rem;margin-bottom:.2rem;border-radius:.85rem}
+.acct-nav .acct-item .acct-ic{width:2.5rem;height:2.5rem;border-radius:.75rem;background:var(--bg-soft);border:1px solid var(--line);color:var(--muted)}
+.acct-nav .acct-item .acct-ic .svgi{width:1.2rem;height:1.2rem}
+.acct-nav .acct-item:hover .acct-ic{background:#fff;border-color:var(--line-2);color:var(--ink)}
+.acct-nav .acct-item.active .acct-ic{background:var(--green);border-color:var(--green);color:#fff}
+.acct-nav .acct-lb{display:flex;flex-direction:column;min-width:0;line-height:1.25}
+.acct-nav .acct-lb b{font-size:.94rem;font-weight:600;color:inherit}
+.acct-nav .acct-lb small{margin-top:.1rem;font-size:.74rem;font-weight:500;color:var(--muted-2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.acct-nav .acct-item.active .acct-lb b{font-weight:700}
+.acct-nav .acct-item.active .acct-lb small{color:color-mix(in srgb,var(--green-d) 75%,#fff)}
+.acct-nav .acct-lb small:empty{display:none}
+.acct-nav .acct-h{margin:1.4rem 0 .5rem}
 </style>
 </head>
 <body>
@@ -5266,15 +5279,15 @@ function accountNav(active){
     else if(id==='uploads'){n=myUploadRows().concat(MY_UPLOADS).filter(r=>r[4]==='Revision requested').length; cls='orange';}
     return n?`<span class="acct-badge ${cls}" title="${id==='approvals'?'Waiting for review':'Changes requested'}">${n}</span>`:'';
   };
-  const item=i=>`<a class="acct-item ${i[0]===active?'active':''}" onclick="${i[0]==='password'?'openPasswordModal()':`go('${i[3]}')`}"><span class="acct-ic">${i[1]}</span><span class="acct-lb">${i[2]}</span>${badge(i[0])}</a>`;
+  const item=i=>`<a class="acct-item ${i[0]===active?'active':''}" onclick="${i[0]==='password'?'openPasswordModal()':`go('${i[3]}')`}"><span class="acct-ic">${i[1]}</span><span class="acct-lb"><b>${i[2]}</b><small>${i[5]||''}</small></span>${badge(i[0])}</a>`;
   const account=[
-    ["profile","<svg class=svgi><use href=#i-user /></svg>","My Profile","#/profile",1],
-    ["uploads","<svg class=svgi><use href=#i-upload /></svg>","My Uploads","#/uploads",1],
-    ["approvals","<svg class=svgi><use href=#i-check /></svg>","Approvals","#/approvals",roleCan('moderate')],
-    ["featured","<svg class=svgi><use href=#i-star /></svg>","Featured","#/featured",roleCan('moderate')],
-    ["admin","<svg class=svgi><use href=#i-wrench /></svg>","Users &amp; Roles","#/admin",roleCan('orgAdmin')||roleCan('platform')||roleCan('superAdmin')]
+    ["profile","<svg class=svgi><use href=#i-user /></svg>","My Profile","#/profile",1,"Your details"],
+    ["uploads","<svg class=svgi><use href=#i-upload /></svg>","My Uploads","#/uploads",1,"Track your status"],
+    ["approvals","<svg class=svgi><use href=#i-check /></svg>","Approvals","#/approvals",roleCan('moderate'),"To review"],
+    ["featured","<svg class=svgi><use href=#i-star /></svg>","Featured","#/featured",roleCan('moderate'),"Home page cards"],
+    ["admin","<svg class=svgi><use href=#i-wrench /></svg>","Users &amp; Roles","#/admin",roleCan('orgAdmin')||roleCan('platform')||roleCan('superAdmin'),"Manage access"]
   ].filter(i=>i[4]);
-  const security=[["password","<svg class=svgi><use href=#i-key /></svg>","Change Password","#/password",1]];
+  const security=[["password","<svg class=svgi><use href=#i-key /></svg>","Change Password","#/password",1,"Keep it secure"]];
   return `<div class="acct-nav">
     <div class="acct-h">Account</div>
     ${account.map(item).join("")}
