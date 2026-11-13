@@ -2869,6 +2869,10 @@ footer.site .bar{display:flex;align-items:center;justify-content:space-between;g
 .ap-steps li.done::before{background:var(--green);border-color:var(--green)}
 .ap-steps li b{font-size:.9rem}
 .ap-steps li span{font-size:.78rem;color:var(--muted-2)}
+.ap-btns{margin-top:.75rem}
+.ap-info .tabs.ap-tabs{margin:.9rem 0 .5rem;padding:.2rem;gap:.15rem}
+.ap-info .ap-tabs .tab{padding:.32rem .85rem;font-size:.82rem}
+.ap-info #ap-info,.ap-info #ap-act{margin-top:.5rem}
 @media(max-width:900px){.ap-grid{grid-template-columns:1fr}.ap-prev{min-height:240px}.ap-prev .ph-img{min-height:240px!important}}
 /* My Uploads - moderator comment card */
 .up-row.has-note .up-note{grid-column:2 / -1;display:flex;align-items:flex-start;gap:.85rem;margin:.85rem 0 .1rem;padding:.9rem 1.05rem;max-width:none;border:1px solid color-mix(in srgb,var(--t-cultural) 24%,#fff);border-left:1px solid color-mix(in srgb,var(--t-cultural) 24%,#fff);border-radius:.8rem;background:color-mix(in srgb,var(--t-cultural) 6%,#fff)}
@@ -5594,13 +5598,13 @@ function approvalDetail(p){
         <div class="row" style="gap:8px;margin-bottom:6px;flex-wrap:wrap"><span class="rc-type-chip">${r[0]} · ${sm.fmt}</span>${statusPill(st)}<span class="tag">${sm.theme}</span></div>
         <h2 style="margin:0 0 2px;font-size:24px">${storyEsc(r[1])}</h2>
         <p class="muted" style="margin:0">a ${r[0].toLowerCase()} from <b>${storyEsc(name)}</b> · ${storyEsc(org)} · ${r[3]}</p>
-        <div class="row mt12" style="gap:8px;flex-wrap:wrap">
-          ${pend?`<a class="btn primary" onclick="decide('${r[5]}','Approved')">Approve</a><a class="btn sm" onclick="openRevisionModal('${r[5]}')">Request revision</a><a class="btn sm" onclick="decide('${r[5]}','Rejected')">Reject</a>`
+        <div class="row ap-btns" style="gap:8px;flex-wrap:wrap">
+          ${pend?`<a class="btn sm primary" onclick="decide('${r[5]}','Approved')">Approve</a><a class="btn sm" onclick="openRevisionModal('${r[5]}')">Request revision</a><a class="btn sm" onclick="decide('${r[5]}','Rejected')">Reject</a>`
           :st==='Revision requested'?`<a class="btn sm" onclick="openRevisionModal('${r[5]}')">${cm?'Edit comment':'Add a comment'}</a>`
           :`<span class="muted" style="font-size:.88rem">${st==='Approved'?'Published on the platform.':'Not approved for publication.'}</span>`}
         </div>
         ${note}
-        <div class="tabs mt16"><span class="tab active" onclick="apTab(this,'ap-info')">Info</span><span class="tab" onclick="apTab(this,'ap-act')">Activity</span></div>
+        <div class="tabs ap-tabs"><span class="tab active" onclick="apTab(this,'ap-info')">Info</span><span class="tab" onclick="apTab(this,'ap-act')">Activity</span></div>
         <div id="ap-info" class="mt12">
           <p class="ap-about">${storyEsc(about)}</p>
           ${facts.map(f=>`<div class="detail-f"><span class="k">${f[0]}</span><span class="v">${storyEsc(f[1])}</span></div>`).join("")}
