@@ -2639,6 +2639,8 @@ footer.site .bar{display:flex;align-items:center;justify-content:space-between;g
 .st-pick-row span{font-size:.76rem;color:var(--muted-2)}
 .st-confirm{display:flex;align-items:center;justify-content:space-between;gap:.8rem;flex-wrap:wrap;margin-top:1rem;padding:.7rem .95rem;background:var(--red-soft);border-left:3px solid var(--red);font-size:.88rem;font-weight:600;color:var(--ink)}
 .st-confirm[hidden]{display:none}
+/* Gallery load more */
+#gnc-more[hidden],#gnc-end[hidden]{display:none!important}
 </style>
 </head>
 <body>
@@ -4363,6 +4365,31 @@ const GNC_RES=[
 ];
 function gncIcon(k){return k==='map'?'<svg class=svgi><use href=#i-map /></svg>':k==='dash'?'◔':k==='story'?'<svg class=svgi><use href=#i-book /></svg>':'<svg class=svgi><use href=#i-db /></svg>';}
 function gncSource(k){return k==='dash'?'Apache Superset':k==='story'?'Commons Stories':'GeoNode';}
+/* more Gallery resources, shown 12 at a time behind "Load more" (built from the portal's own datasets and gallery items) */
+const GNC_PAGE=12;
+const GNC_MORE=DATASETS.map(d=>[d.t,'data',d.fmt+' · '+d.geo+' · '+d.feat,'admin','#/dataset/'+d.id])
+  .concat(GALLERY.map(g=>[g.t,g.kind==='Story'?'story':g.kind==='Dashboard'?'dash':'map',g.src+' · '+g.views+' views',g.who.split(' ')[0].toLowerCase()==='you'?'psharma':(g.who.split(' ')[0][0]+g.who.split(' ').slice(-1)[0]).toLowerCase(),'#/gallery-item/'+g.id]));
+const GNC_ALL=GNC_RES.concat(GNC_MORE);
+let GNC_SHOWN=GNC_PAGE;
+function gncCard(r){
+  return `<div class="gnc" onclick="go('${r[4]}?from=gallery')">
+          <div class="big">${gncIcon(r[1])}</div>
+          <div class="t"><span>${gncIcon(r[1])}</span>${r[0]}</div>
+          <div class="ab">${r[2]}</div>
+          <div class="f"><span class="tag">${gncSource(r[1])}</span><span>◎ ${r[3]}</span><span class="btn sm primary" onclick="event.stopPropagation();go('${r[4]}?from=gallery')">View</span></div>
+        </div>`;
+}
+function gncLoadMore(){
+  const grid=document.getElementById('gnc-grid'); if(!grid) return;
+  const next=GNC_ALL.slice(GNC_SHOWN,GNC_SHOWN+GNC_PAGE);
+  grid.insertAdjacentHTML('beforeend',next.map(gncCard).join(''));
+  GNC_SHOWN+=next.length;
+  const done=GNC_SHOWN>=GNC_ALL.length;
+  const btn=document.getElementById('gnc-more'), end=document.getElementById('gnc-end');
+  if(btn) btn.hidden=done; if(end) end.hidden=!done;
+  const first=grid.children[GNC_SHOWN-next.length]; if(first&&first.scrollIntoView) first.scrollIntoView({behavior:'smooth',block:'nearest'});
+}
+
 /* reusable GeoNode-style resource catalogue grid (Filter · N found · Order by · cards) */
 function resCatalog(count,target){
   return `<div class="gnv">
@@ -4404,16 +4431,11 @@ screens.gallery=(p)=>{
 
   <section class="section" style="padding-top:6px">
     <div class="gnv gnv-plain">
-      <div class="gnc-grid">
-        ${GNC_RES.map(r=>`<div class="gnc" onclick="go('${r[4]}?from=gallery')">
-          <div class="big">${gncIcon(r[1])}</div>
-          <div class="t"><span>${gncIcon(r[1])}</span>${r[0]}</div>
-          <div class="ab">${r[2]}</div>
-          <div class="f"><span class="tag">${gncSource(r[1])}</span><span>◎ ${r[3]}</span><span class="btn sm primary" onclick="event.stopPropagation();go('${r[4]}?from=gallery')">View</span></div>
-        </div>`).join("")}
+      <div class="gnc-grid" id="gnc-grid">
+        ${(GNC_SHOWN=GNC_PAGE,GNC_ALL.slice(0,GNC_PAGE)).map(gncCard).join("")}
       </div>
     </div>
-    <div class="row mt16" style="justify-content:center"><a class="btn" onclick="toast('Load more resources')">Load more</a></div>
+    <div class="row mt16" style="justify-content:center"><a class="btn" id="gnc-more" onclick="gncLoadMore()">Load more</a><span class="wf-note" id="gnc-end" hidden style="text-transform:none;letter-spacing:0">You have reached the end of the gallery.</span></div>
   </section>
 `);};
 
