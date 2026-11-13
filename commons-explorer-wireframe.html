@@ -2592,21 +2592,18 @@ footer.site .bar{display:flex;align-items:center;justify-content:space-between;g
 .fm-row.dis{opacity:.45;cursor:not-allowed}
 .fm-row.dis:hover{background:#fff}
 /* account sidebar refresh */
-.acct-nav .acct-user{display:flex;align-items:center;gap:.75rem;padding:.15rem .2rem 1.1rem;margin-bottom:.4rem;border-bottom:1px solid var(--line)}
-.acct-nav .acct-av{width:2.75rem;height:2.75rem;border-radius:50%;background:var(--ink);color:#fff;display:grid;place-items:center;font-size:.9rem;font-weight:700;flex:none}
-.acct-nav .acct-user b{display:block;font-size:.98rem;color:var(--ink);line-height:1.25}
-.acct-nav .acct-user div span{display:block;font-size:.78rem;color:var(--muted-2);margin-top:.1rem}
 .acct-nav .acct-h{margin:1.1rem 0 .4rem;padding:0 .8rem}
+.acct-nav .acct-h:first-child{margin-top:0}
 .acct-nav .acct-item{gap:.8rem;padding:.5rem .65rem;margin-bottom:.2rem;border-radius:.7rem;font-weight:600}
 .acct-nav .acct-item .acct-ic{width:2.1rem;height:2.1rem;display:grid;place-items:center;border-radius:.6rem;background:var(--bg-soft);color:var(--muted);transition:background .15s,color .15s}
 .acct-nav .acct-item:hover{background:var(--bg-soft);color:var(--ink)}
 .acct-nav .acct-item:hover .acct-ic{background:#fff}
-.acct-nav .acct-item.active{background:var(--green-soft);color:var(--green-d);border-color:transparent;box-shadow:inset 3px 0 0 var(--green)}
+.acct-nav .acct-item.active{background:var(--green-soft);color:var(--green-d);border-color:transparent;box-shadow:none}
 .acct-nav .acct-item.active .acct-ic{background:var(--green);color:#fff}
 .acct-nav .acct-logout{display:flex;align-items:center;justify-content:center;gap:.55rem;width:100%;margin-top:1.5rem;padding:.7rem 1rem;border:1px solid color-mix(in srgb,var(--red) 32%,#fff);border-radius:.7rem;background:#fff;color:var(--red);font:inherit;font-size:.92rem;font-weight:700;cursor:pointer;transition:background .15s,border-color .15s}
 .acct-nav .acct-logout:hover{background:var(--red-soft);border-color:var(--red)}
 .acct-nav .acct-logout .svgi{width:1.05rem;height:1.05rem}
-@media(max-width:760px){.acct-nav .acct-user,.acct-nav .acct-h{flex:0 0 100%;width:100%}.acct-nav .acct-user{margin-bottom:0}.acct-nav .acct-h{margin:.6rem 0 .2rem}.acct-nav .acct-logout{width:auto;margin-top:.4rem}}
+@media(max-width:760px){.acct-nav .acct-h{flex:0 0 100%;width:100%;margin:.6rem 0 .2rem}.acct-nav .acct-h:first-child{margin-top:0}.acct-nav .acct-logout{width:auto;margin-top:.4rem}}
 /* Gallery grid - no outer outline or tinted background */
 .gnv.gnv-plain{border:0;background:none;box-shadow:none;overflow:visible}
 .gnv.gnv-plain .gnc-grid{background:none;padding:0;grid-template-columns:repeat(4,minmax(0,1fr))}
@@ -4946,7 +4943,6 @@ function accountNav(active){
   ].filter(i=>i[4]);
   const security=[["password","<svg class=svgi><use href=#i-key /></svg>","Change Password","#/password",1]];
   return `<div class="acct-nav">
-    <div class="acct-user"><span class="acct-av">PS</span><div><b>Priya Sharma</b><span>${roleName()}</span></div></div>
     <div class="acct-h">Account</div>
     ${account.map(item).join("")}
     <div class="acct-h">Security</div>
