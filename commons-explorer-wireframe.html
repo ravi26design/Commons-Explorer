@@ -4281,11 +4281,6 @@ screens.gallery=(p)=>{
 
   <section class="section" style="padding-top:6px">
     <div class="gnv">
-      <div class="gnc-bar">
-        <a class="btn sm primary" onclick="toast('Toggle filter panel')">Filter</a>
-        <span><b>147</b> Resources found</span>
-        <div class="r"><span style="cursor:pointer" onclick="toast('List view')"><svg class=svgi><use href=#i-list /></svg></span><span style="cursor:pointer" onclick="toast('Order by')">Order by</span></div>
-      </div>
       <div class="gnc-grid">
         ${GNC_RES.map(r=>`<div class="gnc" onclick="go('${r[4]}')">
           <div class="big">${gncIcon(r[1])}</div>
