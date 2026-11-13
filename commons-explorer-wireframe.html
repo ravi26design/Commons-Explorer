@@ -3012,6 +3012,8 @@ header.site.searching .nav>ul,header.site.searching .navright,header.site.search
 const GEONODE_URL="https://explorer.commonsplatform.in/account/login/";
 function toggleGeonodeFrame(){const f=document.getElementById('geonodeFrame');if(f)f.hidden=!f.hidden;}
 function toggleLayersPanel(btn){const p=document.getElementById('layersPanel');if(!p)return;const open=p.hidden;p.hidden=!open;btn.setAttribute('aria-expanded',String(open));btn.classList.toggle('open',open);if(open)p.scrollIntoView({behavior:'smooth',block:'nearest'});}
+/* the signed-in person (sample) - the role is shown separately on My Profile */
+const USER_NAME='Priya Sharma', USER_DESIG='GIS Analyst';
 const ROLES=[
   ["Registered User","Create maps, dashboards and geo-stories; upload datasets; comment. Cannot publish without approval."],
   ["Organization Moderator","Review, approve or reject datasets and content submitted within your organization."],
@@ -3422,10 +3424,10 @@ function header(active){
   let authArea;
   if(currentRole==null){authArea=`<button class="nav-ic nav-user" title="Sign in" aria-label="Sign in" onclick="go('#/login')"><svg class=svgi><use href=#i-usersolid /></svg></button>`;}
   else{
-    const nm=ROLES[currentRole][0];
+    const nm=USER_NAME;
     const ini=nm.split(' ').map(w=>w[0]).join('').slice(0,2).toUpperCase();
     authArea=`<div class="profilew" id="profilew"><button class="profilew-btn" onclick="toggleProfileW(event)"><span class="pw-av">${ini}</span><span class="pw-name">${nm}</span><span class="pw-cv"><svg class=svgi><use href=#i-chevdown /></svg></span></button>`
-      +`<div class="profilew-menu"><div class="pw-head"><span class="pw-av lg">${ini}</span><div><b>${nm}</b><span>Signed-in role · RBAC</span></div></div><div class="pw-div"></div>`
+      +`<div class="profilew-menu"><div class="pw-head"><span class="pw-av lg">${ini}</span><div><b>${nm}</b><span>${USER_DESIG}</span></div></div><div class="pw-div"></div>`
       +`<button class="pw-item" onclick="pwClose();go('#/profile')"><span class="pw-ic"><svg class=svgi><use href=#i-user /></svg></span> My Profile</button>`
       +`<button class="pw-item" onclick="pwClose();go('#/uploads')"><span class="pw-ic"><svg class=svgi><use href=#i-upload /></svg></span> My Uploads</button>`
       +(roleCan('moderate')?`<button class="pw-item" onclick="pwClose();go('#/approvals')"><span class="pw-ic"><svg class=svgi><use href=#i-check /></svg></span> Approvals</button>`:'')
@@ -5566,7 +5568,7 @@ screens.login=()=>`
 
 screens.profile=()=>{
   if(!isAuthed()) return gateScreen('My Profile','Sign in to view your profile and account information.','#/profile');
-  const nm=roleName(), ini=nm.split(' ').map(w=>w[0]).join('').slice(0,2).toUpperCase();
+  const nm=roleName(), ini=USER_NAME.split(' ').map(w=>w[0]).join('').slice(0,2).toUpperCase();
   return accountShell('profile',[{label:"Home",href:"#/home"},{label:"My Profile"}],`
     <h2 class="mb0" style="font-size:22px;margin-bottom:16px">My Profile</h2>
     <div class="panel" style="position:relative">
