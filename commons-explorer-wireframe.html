@@ -2868,7 +2868,7 @@ footer.site .bar{display:flex;align-items:center;justify-content:space-between;g
 .ap-steps li.done::before{background:var(--green);border-color:var(--green)}
 .ap-steps li b{font-size:.9rem}
 .ap-steps li span{font-size:.78rem;color:var(--muted-2)}
-@media(max-width:1100px){.ap-grid{grid-template-columns:1fr}.ap-prev{min-height:240px}.ap-prev .ph-img{min-height:240px!important}}
+@media(max-width:900px){.ap-grid{grid-template-columns:1fr}.ap-prev{min-height:240px}.ap-prev .ph-img{min-height:240px!important}}
 </style>
 </head>
 <body>
@@ -5561,7 +5561,7 @@ function approvalDetail(p){
   if(!roleCan('moderate')) return gateScreen('Approvals','Only Organization Moderators, Platform Moderators and Admins can review submissions.','#/approvals');
   const crumbs=[{label:"Home",href:"#/home"},{label:"Approvals"}]; /* two items = no breadcrumb bar, like the Approvals page */
   const r=queueRows().find(v=>v[5]===p.id);
-  if(!r) return accountShell('approvals',crumbs,`<div class="up-empty"><svg class=svgi><use href=#i-folder /></svg><b>Submission not found</b><span>It may have been removed.</span><a class="btn mt16" onclick="go('#/approvals')">Back to Approvals</a></div>`);
+  if(!r) return shell("",crumbs,`<div class="up-empty"><svg class=svgi><use href=#i-folder /></svg><b>Submission not found</b><span>It may have been removed.</span><a class="btn mt16" onclick="go('#/approvals')">Back to Approvals</a></div>`);
   const ty=UP_TYPE[r[0]]||UP_TYPE.Dataset, sm=AP_SAMPLE[r[0]]||AP_SAMPLE.Dataset;
   const sub=SUBMISSIONS.find(v=>v.id===r[5]);
   const who=r[2].split(' · '), name=who[0], org=who[1]||'FES';
@@ -5577,8 +5577,8 @@ function approvalDetail(p){
   const facts=[["Title",r[1]],["Type",r[0]],["Contributor",name],["Organization",org],["Submitted on",r[3]],["Status",st],["Format",sm.fmt],["Category",sm.theme],["Licence","CC BY 4.0"],["Attribution",org]];
   const prev={Dataset:"Data preview — table",Map:"Layer preview — GeoNode map",Story:"Story preview — field photos",Dashboard:"Dashboard preview — charts"}[r[0]]||"Preview";
   const note=st==='Revision requested'?`<div class="ap-note${cm?'':' empty'}"><b>Comment for the contributor</b>${cm?`<p>${storyEsc(cm.text)}</p><span>${storyEsc(cm.by)} · ${cm.date}</span>`:`<p>No comment was recorded for this request.</p>`}</div>`:'';
-  return accountShell('approvals',crumbs,`
-    <a class="ap-back" onclick="go('#/approvals')">← Back to Approvals</a>
+  return shell("",crumbs,`
+    <section class="section"><a class="ap-back" onclick="go('#/approvals')">← Back to Approvals</a>
     <div class="ap-grid">
       <div class="panel ap-prev"><div class="ph-img" style="flex:1;min-height:420px;height:auto">${prev}</div></div>
       <div class="panel ap-info">
@@ -5601,7 +5601,7 @@ function approvalDetail(p){
           <ol class="ap-steps">${steps.map(t=>`<li class="${t[2]?'done':''}"><b>${t[0]}</b><span>${storyEsc(t[1])}</span></li>`).join("")}</ol>
         </div>
       </div>
-    </div>`);
+    </div></section>`);
 }
 function apTab(el,id){
   el.parentNode.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
