@@ -4273,7 +4273,7 @@ screens.gallery=(p)=>{
   return shell("#/insights",[{label:"Home",href:"#/home"},{label:"Commons Insights",href:"#/insights"},{label:"Gallery of User generated Content"}],`
   <section class="section" style="padding-bottom:14px">
     <div class="between">
-      <div><div class="eyebrow">Commons Insights · user-generated content</div><h2 class="mb0" style="font-size:24px">Gallery of User generated Content</h2></div>
+      <div><h2 class="mb0" style="font-size:24px">Gallery of User generated Content</h2></div>
       <div class="row" style="gap:8px"><a class="btn sm" onclick="go('#/story-create')"><svg class=svgi><use href=#i-book /></svg> Create a story</a><a class="btn sm" onclick="go('#/mapstudio')"><svg class=svgi><use href=#i-map /></svg> Open Map Studio</a><a class="btn sm primary" onclick="go('#/analytics')"><svg class=svgi><use href=#i-trend /></svg> Open Data Analytics</a></div>
     </div>
     <p class="sub">A collaborative gallery bringing together maps and datasets from GeoNode and narrative stories, plus dashboards from Apache Superset once that integration goes live — all in one interpretable format. Every item has a unique URL and is searchable.</p>
@@ -4294,7 +4294,6 @@ screens.gallery=(p)=>{
           <div class="f"><span class="tag">${gncSource(r[1])}</span><span>◎ ${r[3]}</span><span class="btn sm primary" onclick="event.stopPropagation();go('${r[4]}')">View</span></div>
         </div>`).join("")}
       </div>
-      <div class="gnv-links"><span>geonode.org</span><span>Developers</span><span>About</span></div>
     </div>
     <div class="row mt16" style="justify-content:center"><a class="btn" onclick="toast('Load more resources')">Load more</a></div>
   </section>
