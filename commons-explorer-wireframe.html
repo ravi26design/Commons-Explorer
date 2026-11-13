@@ -2688,7 +2688,6 @@ footer.site .bar{display:flex;align-items:center;justify-content:space-between;g
 .up-types button{border:0;background:none;padding:.35rem .9rem;border-radius:999px;font:inherit;font-size:.82rem;font-weight:600;color:var(--muted-2);cursor:pointer;transition:background .15s,color .15s}
 .up-types button:hover{color:var(--ink)}
 .up-types button.on{background:var(--green);color:#fff;font-weight:700}
-.up-row{border-left:3px solid var(--sc,transparent)}
 .up-row[hidden]{display:none}
 .up-hint{display:block;margin-top:.3rem;font-size:.78rem;font-style:italic;color:var(--muted-2)}
 #up-nomatch[hidden]{display:none}
@@ -2907,8 +2906,18 @@ const QUEUE=[
 let MY_UPLOADS=[
   ["Dataset","Water harvesting structures — Bhilwara","SHP · 4.2 MB","21 Aug 2025","Published"],
   ["Map","Commons of Mandalgarh block","GeoNode map","18 Aug 2025","Pending"],
+  ["Dataset","Surface water bodies — Mandalgarh block","GeoJSON · 6.1 MB","14 Aug 2025","Published"],
+  ["Map","Grazing pressure — Bagoliya GP","GeoNode map","10 Aug 2025","Published"],
+  ["Dashboard","Household dependence on commons","Apache Superset","06 Aug 2025","Pending"],
+  ["Story","Tanks of Dolpura — a walk-through","Commons Stories","29 Jul 2025","Revision requested"],
+  ["Dataset","Forest patches — Mandalgarh","SHP · 3.3 MB","25 Jul 2025","Published"],
+  ["Map","Pasture boundaries — Kherwa","GeoNode map","20 Jul 2025","Rejected"],
+  ["Dataset","Village water-use survey 2024","CSV · 1.2 MB","15 Jul 2025","Published"],
+  ["Dashboard","Common land per 1,000 population","Apache Superset","12 Jul 2025","Published"],
   ["Story","A pond, a panchayat and a plan","Commons Stories","09 Jul 2025","Published"],
-  ["Dataset","Village grazing survey 2025","CSV · 0.8 MB","02 Jul 2025","Revision requested"]
+  ["Story","Seasonal routes of herders","Commons Stories","03 Jul 2025","Pending"],
+  ["Dataset","Village grazing survey 2025","CSV · 0.8 MB","02 Jul 2025","Revision requested"],
+  ["Dataset","Rainfall records 2015-2024","CSV · 0.5 MB","28 Jun 2025","Rejected"]
 ];
 /* Contribution workflow
    - a Registered User's submission waits in the Approvals queue until a moderator approves it
@@ -5192,10 +5201,10 @@ screens.uploads=(p)=>{
     <div class="tabs-c">${tabs.map(t=>`<span class="tab-c ${tab===t[0]?'active':''}" onclick="go('#/uploads${t[0]==='All'?'':'?tab='+encodeURIComponent(t[0])}')">${t[0]} <span class="cnt">${t[1]}</span></span>`).join("")}</div>
     <div class="up-tools">
       <label class="up-search"><svg class=svgi><use href=#i-search /></svg><input id="up-q" type="search" placeholder="Search your contributions" oninput="upFilter()" autocomplete="off"></label>
-      <div class="up-types" id="up-types">${["All","Dataset","Map","Story"].map((t,i)=>`<button type="button" class="${i?'':'on'}" data-t="${t}" onclick="upType(this)">${t}</button>`).join("")}</div>
+      <div class="up-types" id="up-types">${["All","Dataset","Map","Dashboard","Story"].map((t,i)=>`<button type="button" class="${i?'':'on'}" data-t="${t}" onclick="upType(this)">${t}</button>`).join("")}</div>
     </div>
     <div class="up-list" id="up-list">
-      ${rows.length?rows.map(r=>{const ty=UP_TYPE[r[0]]||UP_TYPE.Dataset; return `<div class="up-row" style="--sc:${UP_STATUS[r[4]]||'var(--line-2)'}" data-title="${storyEsc(r[1].toLowerCase())}" data-type="${r[0]}" onclick="toast('Submission detail')">
+      ${rows.length?rows.map(r=>{const ty=UP_TYPE[r[0]]||UP_TYPE.Dataset; return `<div class="up-row" data-title="${storyEsc(r[1].toLowerCase())}" data-type="${r[0]}" onclick="toast('Submission detail')">
         <span class="up-ic" style="--tc:${ty.tc}"><svg class=svgi><use href=#${ty.ic} /></svg></span>
         <div class="up-main"><b>${r[1]}</b><span><em style="--tc:${ty.tc}">${r[0]}</em>${r[2]}<i></i>${r[3]}</span>${UP_HINT[r[4]]?`<small class="up-hint">${UP_HINT[r[4]]}</small>`:''}</div>
         <div class="up-end">${upPill(r[4])}<span class="btn sm">View →</span></div></div>`;}).join("")
@@ -5635,7 +5644,7 @@ function parseHash(){
   const [pathPart,queryPart]=raw.split("?");
   const parts=pathPart.split("/").filter(Boolean);
   const params={};
-  if(queryPart){queryPart.split("&").forEach(kv=>{const[k,v]=kv.split("=");params[k]=v;});}
+  if(queryPart){queryPart.split("&").forEach(kv=>{const[k,v]=kv.split("=");let dv=v;try{dv=decodeURIComponent(v);}catch(e){}params[k]=dv;});}
   return {parts,params};
 }
 function render(){
