@@ -4032,9 +4032,9 @@ function storyKeep(){const c=document.getElementById('st-confirm'); if(c) c.hidd
 function openStoryModal(){
   if(!isAuthed()){ go('#/story-create'); return; }
   const m=document.getElementById('meta-modal');
-  m.innerHTML=`<div class="mm-back" onclick="closeMetaModal()"></div>
+  m.innerHTML=`<div class="mm-back" onclick="storyCancel()"></div>
    <div class="mm-card" style="max-width:44rem">
-    <button class="mm-x" onclick="closeMetaModal()" aria-label="Close"><svg class=svgi><use href=#i-x /></svg></button>
+    <button class="mm-x" onclick="storyCancel()" aria-label="Close"><svg class=svgi><use href=#i-x /></svg></button>
     <h2 style="font-size:1.35rem;border:0;padding:0;margin:0 0 .35rem;padding-right:2.5rem">Create a story from your resources</h2>
     <p class="muted" style="margin:0 0 1rem">Pull in map views, dashboards and analytical outputs, then add narrative around them. ${roleCan('moderate')?'As a moderator, your story is published straight away.':'Stories publish to the Gallery after moderation.'}</p>
     <div class="field-block"><label class="wf-label">Story title</label><input class="wf-in" id="st-title" placeholder="e.g. A pond, a panchayat and a plan" oninput="STORY_DIRTY=true"></div>
@@ -4051,7 +4051,7 @@ function openStoryModal(){
       <div class="st-pick-list" id="st-pick-list"></div>
     </div>
     <div class="st-confirm" id="st-confirm" hidden><span>Discard this story? Your changes will be lost.</span><span class="row" style="gap:8px"><a class="btn sm" onclick="storyKeep()">Keep editing</a><a class="btn sm primary" onclick="closeMetaModal()">Discard</a></span></div>
-    <div class="between mt16"><a class="btn" onclick="storyCancel()">Cancel</a><div class="row" style="gap:8px"><a class="btn" onclick="toast('Draft saved')">Save draft</a><a class="btn primary" onclick="submitStory()">${roleCan('moderate')?'Publish →':'Submit for review →'}</a></div></div>
+    <div class="row mt16" style="justify-content:flex-end"><a class="btn primary" onclick="submitStory()">${roleCan('moderate')?'Publish →':'Submit for review →'}</a></div>
    </div>`;
   m.classList.add('open');
   STORY_BLOCKS=storyDefaults(); STORY_DIRTY=false; storyRender();
