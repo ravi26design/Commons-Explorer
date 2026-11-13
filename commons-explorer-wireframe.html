@@ -2638,6 +2638,43 @@ footer.site .bar{display:flex;align-items:center;justify-content:space-between;g
 .st-confirm[hidden]{display:none}
 /* Gallery load more */
 #gnc-more[hidden],#gnc-end[hidden]{display:none!important}
+/* My Uploads & Credits */
+.up-head{align-items:flex-start;gap:1rem}
+.up-kpis{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:.9rem;margin:1.25rem 0 1.15rem}
+@media(max-width:1100px){.up-kpis{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:520px){.up-kpis{grid-template-columns:1fr}}
+.up-kpi{display:flex;align-items:center;gap:.9rem;padding:1rem 1.1rem;background:#fff;border:1px solid var(--line);box-shadow:var(--shadow-card)}
+.up-kpi .ic{width:2.75rem;height:2.75rem;border-radius:.8rem;display:grid;place-items:center;flex:none;background:color-mix(in srgb,var(--kc) 11%,#fff);color:var(--kc)}
+.up-kpi .ic .svgi{width:1.3rem;height:1.3rem}
+.up-kpi .k{display:block;font-size:.72rem;font-weight:800;letter-spacing:.07em;text-transform:uppercase;color:var(--faint)}
+.up-kpi b{display:block;font-family:var(--serif);font-weight:400;font-size:1.9rem;line-height:1.15;color:var(--ink)}
+.up-kpi .d{display:block;font-size:.8rem;color:var(--muted-2)}
+.up-list{background:#fff;border:1px solid var(--line);box-shadow:var(--shadow-card)}
+.up-row{display:flex;align-items:center;gap:1rem;padding:.95rem 1.15rem;border-top:1px solid var(--line);cursor:pointer;transition:background .15s}
+.up-row:first-child{border-top:0}
+.up-row:hover{background:var(--bg-soft)}
+.up-ic{width:2.6rem;height:2.6rem;border-radius:.75rem;display:grid;place-items:center;flex:none;background:color-mix(in srgb,var(--tc) 12%,#fff);color:var(--tc)}
+.up-ic .svgi{width:1.2rem;height:1.2rem}
+.up-main{flex:1;min-width:0}
+.up-main b{display:block;font-size:.98rem;font-weight:700;color:var(--ink);line-height:1.35}
+.up-main span{display:flex;align-items:center;flex-wrap:wrap;gap:.5rem;font-size:.82rem;color:var(--muted-2);margin-top:.2rem}
+.up-main em{font-style:normal;font-weight:700;color:var(--tc)}
+.up-main i{width:3px;height:3px;border-radius:50%;background:var(--line-2)}
+.up-end{display:flex;align-items:center;gap:.8rem;flex:none}
+.up-pill{display:inline-flex;align-items:center;gap:.45rem;padding:.32rem .8rem;border-radius:999px;font-size:.8rem;font-weight:700;white-space:nowrap;color:var(--sc);background:color-mix(in srgb,var(--sc) 10%,#fff);border:1px solid color-mix(in srgb,var(--sc) 28%,#fff)}
+.up-pill i{width:.5rem;height:.5rem;border-radius:50%;background:var(--sc)}
+@media(max-width:640px){.up-row{flex-wrap:wrap}.up-end{width:100%;justify-content:space-between;padding-left:3.6rem}}
+.up-empty{display:flex;flex-direction:column;align-items:center;gap:.25rem;padding:2.2rem 1rem;color:var(--muted-2);text-align:center}
+.up-empty .svgi{width:1.6rem;height:1.6rem;color:var(--faint);margin-bottom:.35rem}
+.up-empty b{color:var(--ink)}
+.up-credits{margin-top:1.4rem;padding:1.25rem 1.4rem 1.4rem;background:#fff;border:1px solid var(--line);box-shadow:var(--shadow-card)}
+.up-credits h3{margin:0 0 .3rem;font-size:1.15rem}
+.up-credits .muted{margin:0 0 1rem}
+.up-type{display:inline-block;padding:.2rem .65rem;border-radius:999px;font-size:.78rem;font-weight:700;color:var(--tc);background:color-mix(in srgb,var(--tc) 11%,#fff)}
+.up-dl{display:flex;align-items:center;gap:.7rem}
+.up-dl b{min-width:2.6rem;font-weight:700;color:var(--ink)}
+.up-dl i{display:block;flex:1;max-width:7rem;height:.4rem;border-radius:999px;background:var(--line)}
+.up-dl u{display:block;height:100%;border-radius:999px;background:var(--green);text-decoration:none}
 </style>
 </head>
 <body>
@@ -5064,6 +5101,10 @@ function pwCheckStrength(el){
 }
 
 /* uploads / contribution credits — SRS §2.2.2.1 */
+/* My Uploads - type and status looks */
+const UP_TYPE={Dataset:{ic:'i-db',tc:'var(--c-browse)'},Map:{ic:'i-map',tc:'var(--c-mapstudio)'},Story:{ic:'i-book',tc:'var(--c-gallery)'},Dashboard:{ic:'i-trend',tc:'var(--c-analytics)'}};
+const UP_STATUS={Published:'var(--green-d)',Pending:'var(--amber-d)','Revision requested':'var(--t-cultural)',Rejected:'var(--red)'};
+function upPill(st){return `<span class="up-pill" style="--sc:${UP_STATUS[st]||'var(--muted)'}"><i></i>${st}</span>`;}
 screens.uploads=(p)=>{
   if(!isAuthed()) return gateScreen('My Uploads & Credits','Sign in to see your upload history, review status and contribution credits.','#/uploads');
   const all=myUploadRows().concat(MY_UPLOADS);
@@ -5071,22 +5112,25 @@ screens.uploads=(p)=>{
   const counts=s=>all.filter(r=>r[4]===s).length;
   const tabs=[["All",all.length],["Published",counts('Published')],["Pending",counts('Pending')],["Revision requested",counts('Revision requested')],["Rejected",counts('Rejected')]];
   const rows=all.filter(r=>tab==='All'||r[4]===tab);
+  const kpis=[["Total contributions",all.length,"all types","i-folder","var(--ink)"],["Published",counts('Published'),"live on the platform","i-checkcircle","var(--green-d)"],["In review",counts('Pending'),"awaiting a moderator","i-clock","var(--amber-d)"],["Credited downloads","2,418","against your uploads","i-download","var(--c-analytics)"]];
+  const credits=[["Water harvesting structures — Bhilwara","Dataset",803,"1,204","3 stories"],["Commons of Mandalgarh block","Map",192,"640","1 dashboard"],["A pond, a panchayat and a plan","Story",0,"318","—"]];
+  const maxDl=Math.max.apply(null,credits.map(c=>c[2]).concat([1]));
   return accountShell('uploads',[{label:"Home",href:"#/home"},{label:"My Uploads &amp; Credits"}],`
-    <div class="between"><div><h2 class="mb0" style="margin-top:0;font-size:20px">My Uploads &amp; Credits</h2><p class="muted" style="margin:4px 0 0">A record of everything you have contributed, with attribution and review status.</p></div>
+    <div class="between up-head"><div><h2 class="mb0" style="margin-top:0;font-size:22px">My Uploads &amp; Credits</h2><p class="muted" style="margin:6px 0 0">A record of everything you have contributed, with attribution and review status.</p></div>
       <a class="btn primary" onclick="go('#/upload')">＋ Upload dataset</a></div>
-    <div class="grid g4 mt16">${[["Total contributions",all.length,"all types"],["Published",counts('Published'),"live on the platform"],["In review",counts('Pending'),"awaiting a moderator"],["Credited downloads","2,418","against your uploads"]].map(k=>`<div class="kpi"><div class="k">${k[0]}</div><b>${k[1]}</b><div class="d">${k[2]}</div></div>`).join("")}</div>
+    <div class="up-kpis">${kpis.map(k=>`<div class="up-kpi" style="--kc:${k[4]}"><span class="ic"><svg class=svgi><use href=#${k[3]} /></svg></span><div><span class="k">${k[0]}</span><b>${k[1]}</b><span class="d">${k[2]}</span></div></div>`).join("")}</div>
     <div class="tabs-c">${tabs.map(t=>`<span class="tab-c ${tab===t[0]?'active':''}" onclick="go('#/uploads${t[0]==='All'?'':'?tab='+encodeURIComponent(t[0])}')">${t[0]} <span class="cnt">${t[1]}</span></span>`).join("")}</div>
-    <div class="panel" style="padding:4px 6px">
-      ${rows.length?rows.map((r,i)=>`<div class="sub-row" style="${i?'border-top:1px solid var(--line-2);':''}display:flex;justify-content:space-between;align-items:center;gap:12px;padding:13px 8px" onclick="toast('Submission detail')">
-        <div class="row" style="gap:10px;align-items:center"><span class="ds-ic">${r[0]==='Dataset'?'<svg class=svgi><use href=#i-map /></svg>':r[0]==='Story'?'<svg class=svgi><use href=#i-book /></svg>':'<svg class=svgi><use href=#i-trend /></svg>'}</span>
-          <div><b style="font-size:14px">${r[1]}</b><div class="wf-note" style="text-transform:none;letter-spacing:0">${r[0]} · ${r[2]} · ${r[3]}</div></div></div>
-        <div class="row" style="gap:12px;align-items:center">${statusPill(r[4])}<span class="btn sm">View →</span></div></div>`).join("")
-      :'<div class="wf-note" style="padding:18px;text-transform:none;letter-spacing:0">Nothing in this status.</div>'}
+    <div class="up-list">
+      ${rows.length?rows.map(r=>{const ty=UP_TYPE[r[0]]||UP_TYPE.Dataset; return `<div class="up-row" onclick="toast('Submission detail')">
+        <span class="up-ic" style="--tc:${ty.tc}"><svg class=svgi><use href=#${ty.ic} /></svg></span>
+        <div class="up-main"><b>${r[1]}</b><span><em style="--tc:${ty.tc}">${r[0]}</em>${r[2]}<i></i>${r[3]}</span></div>
+        <div class="up-end">${upPill(r[4])}<span class="btn sm">View →</span></div></div>`;}).join("")
+      :'<div class="up-empty"><svg class=svgi><use href=#i-folder /></svg><b>Nothing here yet</b><span>No contributions have this status.</span></div>'}
     </div>
-    <div class="panel mt16"><div class="eyebrow">Contribution credits</div>
-      <p class="muted" style="margin:6px 0 12px">Attribution appears on every dataset page and in downloaded reports.</p>
+    <div class="up-credits">
+      <p class="muted">Attribution appears on every dataset page and in downloaded reports.</p>
       <div class="tblwrap"><table class="mtable"><thead><tr><th>Resource</th><th>Type</th><th>Downloads</th><th>Views</th><th>Cited in</th></tr></thead><tbody>
-        ${[["Water harvesting structures — Bhilwara","Dataset","803","1,204","3 stories"],["Commons of Mandalgarh block","Map","192","640","1 dashboard"],["A pond, a panchayat and a plan","Story","—","318","—"]].map(r=>`<tr><td><b>${r[0]}</b></td><td>${r[1]}</td><td>${r[2]}</td><td>${r[3]}</td><td>${r[4]}</td></tr>`).join("")}
+        ${credits.map(r=>{const ty=UP_TYPE[r[1]]||UP_TYPE.Dataset; return `<tr><td><b>${r[0]}</b></td><td><span class="up-type" style="--tc:${ty.tc}">${r[1]}</span></td><td>${r[2]?`<span class="up-dl"><b>${r[2].toLocaleString('en-IN')}</b><i><u style="width:${Math.round(r[2]/maxDl*100)}%"></u></i></span>`:'—'}</td><td>${r[3]}</td><td>${r[4]}</td></tr>`;}).join("")}
       </tbody></table></div>
     </div>
   `);
