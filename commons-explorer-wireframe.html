@@ -2912,6 +2912,17 @@ footer.site .bar{display:flex;align-items:center;justify-content:space-between;g
 .up-note-h{gap:.2rem 1rem}
 .up-note-h b{display:inline;font-size:.72rem}
 .up-row.has-note .up-note p{margin:.35rem 0 0;font-size:.92rem;line-height:1.6}
+/* Edit profile popup */
+#meta-modal .mm-card.pe-modal{max-width:38rem}
+.pe-modal .pe-sec{margin:1.3rem 0 .7rem;font-size:.7rem;font-weight:800;letter-spacing:.09em;text-transform:uppercase;color:var(--muted-2)}
+.pe-modal .pe-sec:first-child{margin-top:0}
+.pe-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.9rem 1.1rem}
+.pe-f.full{grid-column:1 / -1}
+.pe-f .wf-label{margin:0 0 .35rem;font-size:.78rem;font-weight:700;color:var(--muted)}
+.pe-f .wf-in{height:2.75rem;padding:.55rem .9rem}
+.pe-f select.wf-in{font-weight:500;padding-right:2.4rem}
+.pe-foot{display:flex;justify-content:flex-end;gap:.7rem;margin-top:1.6rem;padding-top:1.2rem;border-top:1px solid var(--line-2)}
+@media(max-width:560px){.pe-grid{grid-template-columns:1fr}.pe-foot .btn{flex:1}}
 </style>
 </head>
 <body>
@@ -3618,21 +3629,20 @@ function closeMetaModal(){const m=document.getElementById('meta-modal');if(m){m.
 function saveProfileModal(){toast('Profile saved');closeMetaModal();}
 function openEditProfileModal(){
   const m=document.getElementById('meta-modal');
+  const f=(l,v,full)=>`<div class="pe-f${full?' full':''}"><label class="wf-label">${l}</label><input class="wf-in" value="${v}"></div>`;
   m.innerHTML=`<div class="mm-back" onclick="closeMetaModal()"></div>
-   <div class="mm-card" style="max-width:34rem">
+   <div class="mm-card pw-modal pe-modal" role="dialog" aria-label="Edit profile">
     <button class="mm-x" onclick="closeMetaModal()" aria-label="Close"><svg class=svgi><use href=#i-x /></svg></button>
-    <h2 style="font-size:1.3rem">Edit profile</h2>
-    <div class="grid g2">
-      <div class="field-block"><label class="wf-label">Full name</label><input class="wf-in" value="Priya Sharma"></div>
-      <div class="field-block"><label class="wf-label">Email</label><input class="wf-in" value="priya.sharma@fes.org.in"></div>
-      <div class="field-block"><label class="wf-label">Phone</label><input class="wf-in" value="+91 98765 43210"></div>
-      <div class="field-block"><label class="wf-label">Location</label><input class="wf-in" value="Udaipur, India"></div>
-      <div class="field-block"><label class="wf-label">Organization</label><input class="wf-in" value="Foundation for Ecological Security"></div>
-      <div class="field-block"><label class="wf-label">Designation</label><input class="wf-in" value="GIS Analyst"></div>
-      <div class="field-block"><label class="wf-label">State</label><select class="wf-in">${STATES.map(s=>`<option>${s}</option>`).join("")}</select></div>
-      <div class="field-block"><label class="wf-label">Interface language</label><select class="wf-in"><option>English</option><option>हिन्दी</option></select></div>
+    <div class="pw-card-h"><span class="ic"><svg class=svgi><use href=#i-user /></svg></span><div><b>Edit profile</b><span>Update the details shown on your profile and next to your contributions.</span></div></div>
+    <div class="pw-card-b">
+      <div class="pe-sec">Personal</div>
+      <div class="pe-grid">${f('Full name','Priya Sharma')}${f('Email','priya.sharma@fes.org.in')}${f('Phone','+91 98765 43210')}${f('Location','Udaipur, India')}</div>
+      <div class="pe-sec">Work</div>
+      <div class="pe-grid">${f('Organization','Foundation for Ecological Security',true)}${f('Designation','GIS Analyst')}<div class="pe-f"><label class="wf-label">State</label><select class="wf-in">${STATES.map(s=>`<option>${s}</option>`).join("")}</select></div></div>
+      <div class="pe-sec">Preferences</div>
+      <div class="pe-grid"><div class="pe-f"><label class="wf-label">Interface language</label><select class="wf-in"><option>English</option><option>हिन्दी</option></select></div></div>
+      <div class="pe-foot"><a class="btn" onclick="closeMetaModal()">Cancel</a><a class="btn primary" onclick="saveProfileModal()">Save changes</a></div>
     </div>
-    <div class="row mt8"><a class="btn primary" onclick="saveProfileModal()">Save changes</a><a class="btn" onclick="closeMetaModal()">Cancel</a></div>
    </div>`;
   m.classList.add('open');
 }
