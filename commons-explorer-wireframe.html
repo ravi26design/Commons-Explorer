@@ -2736,6 +2736,10 @@ footer.site .bar{display:flex;align-items:center;justify-content:space-between;g
 .appsw-menu .app-ic .svgi{width:1.9rem;height:1.9rem}
 .appsw-menu .app-nm{font-size:.98rem;font-weight:500;line-height:1.3;color:var(--ink)}
 @media(max-width:560px){.appsw-menu{width:min(31rem,92vw)}.appsw-menu .app-ic{width:3.6rem;height:3.6rem}.appsw-menu .app-nm{font-size:.88rem}}
+/* Change Password popup */
+#meta-modal .mm-card.pw-modal{max-width:34rem;padding:0;overflow:auto}
+.pw-modal .pw-card-h{padding-right:3.4rem}
+.pw-modal .pw-card-b{padding:1.4rem 1.6rem 1.6rem}
 </style>
 </head>
 <body>
@@ -3108,7 +3112,7 @@ function header(active){
       +`<button class="pw-item" onclick="pwClose();go('#/uploads')"><span class="pw-ic"><svg class=svgi><use href=#i-upload /></svg></span> My Uploads</button>`
       +(roleCan('moderate')?`<button class="pw-item" onclick="pwClose();go('#/approvals')"><span class="pw-ic"><svg class=svgi><use href=#i-check /></svg></span> Approvals</button>`:'')
       +(roleCan('orgAdmin')||roleCan('platform')||roleCan('superAdmin')?`<button class="pw-item" onclick="pwClose();go('#/admin')"><span class="pw-ic"><svg class=svgi><use href=#i-wrench /></svg></span> Users &amp; Roles</button>`:'')
-      +`<button class="pw-item" onclick="pwClose();go('#/password')"><span class="pw-ic"><svg class=svgi><use href=#i-key /></svg></span> Change Password</button>`
+      +`<button class="pw-item" onclick="pwClose();openPasswordModal()"><span class="pw-ic"><svg class=svgi><use href=#i-key /></svg></span> Change Password</button>`
       +`<div class="pw-div"></div><button class="pw-item danger" onclick="confirmLogout()"><span class="pw-ic"><svg class=svgi><use href=#i-logout /></svg></span> Logout</button></div></div>`;
   }
   return `<a class="skip" href="#main">Skip to content</a>
@@ -5106,7 +5110,7 @@ screens.bookmarks=()=>{
 
 /* ---- Account area ---- */
 function accountNav(active){
-  const item=i=>`<a class="acct-item ${i[0]===active?'active':''}" onclick="go('${i[3]}')"><span class="acct-ic">${i[1]}</span><span class="acct-lb">${i[2]}</span></a>`;
+  const item=i=>`<a class="acct-item ${i[0]===active?'active':''}" onclick="${i[0]==='password'?'openPasswordModal()':`go('${i[3]}')`}"><span class="acct-ic">${i[1]}</span><span class="acct-lb">${i[2]}</span></a>`;
   const account=[
     ["profile","<svg class=svgi><use href=#i-user /></svg>","My Profile","#/profile",1],
     ["uploads","<svg class=svgi><use href=#i-upload /></svg>","My Uploads","#/uploads",1],
@@ -5193,29 +5197,39 @@ screens.profile=()=>{
   `);
 };
 
-screens.password=()=>{
-  if(!isAuthed()) return gateScreen('Change password','Sign in to manage your account.','#/password');
+/* Change Password - opens as a popup window */
+function pwFormHTML(){
   const pwField=(id,label,placeholder,hint)=>`<div class="pwf"><div class="pwf-l"><label for="${id}">${label}</label>${hint||''}</div>
     <div class="pwf-in"><svg class="svgi pwf-lock"><use href=#i-lock /></svg><input id="${id}" class="wf-in" type="password" ${placeholder?`placeholder="${placeholder}"`:''} oninput="pwRefresh()" autocomplete="${id==='pwCur'?'current-password':'new-password'}">
       <button class="lg-eye pwf-eye" type="button" aria-label="Show password" onclick="togglePw(this)"><svg class=svgi><use href=#i-eyeoff /></svg></button></div></div>`;
   const req=(id,label)=>`<li id="req-${id}"><span class="req-ic"></span>${label}</li>`;
-  return accountShell('password',[{label:"Home",href:"#/home"},{label:"Change Password"}],`
-    <h2 class="mb0" style="font-size:22px">Change Password</h2>
-    <p class="sub" style="margin:4px 0 18px">Update your password to keep your account secure.</p>
-    <div class="pw-card">
-      <div class="pw-card-h"><span class="ic"><svg class=svgi><use href=#i-key /></svg></span><div><b>Choose a new password</b><span>Passwords follow the platform's OWASP-aligned policy. Use one you do not use anywhere else.</span></div></div>
-      <div class="pw-card-b">
-        ${pwField('pwCur','Current password','')}
+  return `${pwField('pwCur','Current password','')}
         ${pwField('pwNew','New password','At least 12 characters','<span class="pwf-st" id="pwStrengthLabel">Enter a new password</span>')}
         <div class="pw-meter" id="pwMeter"><i></i><i></i><i></i><i></i></div>
         ${pwField('pwConf','Confirm new password','Re-enter the new password')}
         <div class="pw-match" id="pwMatch"></div>
         <ul class="pw-reqs">${req('len','12 or more characters')}${req('up','One uppercase letter')}${req('num','One number')}${req('sym','One symbol')}</ul>
         <div class="pw-msg" id="pwMsg" hidden></div>
-        <div class="row" style="gap:.6rem;margin-top:1.3rem"><a class="btn primary pw-go is-off" id="pwGo" onclick="pwUpdate()">Update password</a><a class="btn" onclick="go('#/profile')">Cancel</a></div>
-      </div>
-    </div>
-  `);
+        <div class="row" style="gap:.6rem;margin-top:1.3rem"><a class="btn primary pw-go is-off" id="pwGo" onclick="pwUpdate()">Update password</a><a class="btn" onclick="closeMetaModal()">Cancel</a></div>`;
+}
+function openPasswordModal(){
+  if(!isAuthed()){ go('#/password'); return; }
+  pwClose();
+  const m=document.getElementById('meta-modal');
+  m.innerHTML=`<div class="mm-back" onclick="closeMetaModal()"></div>
+   <div class="mm-card pw-modal" role="dialog" aria-label="Change password">
+    <button class="mm-x" onclick="closeMetaModal()" aria-label="Close"><svg class=svgi><use href=#i-x /></svg></button>
+    <div class="pw-card-h"><span class="ic"><svg class=svgi><use href=#i-key /></svg></span><div><b>Change password</b><span>Passwords follow the platform's OWASP-aligned policy. Use one you do not use anywhere else.</span></div></div>
+    <div class="pw-card-b">${pwFormHTML()}</div>
+   </div>`;
+  m.classList.add('open');
+  const c=document.getElementById('pwCur'); if(c) c.focus();
+}
+/* the old full page now opens the popup over the profile page */
+screens.password=()=>{
+  if(!isAuthed()) return gateScreen('Change password','Sign in to manage your account.','#/password');
+  setTimeout(()=>{try{history.replaceState(null,'','#/profile');}catch(e){} openPasswordModal();},0);
+  return screens.profile({});
 };
 function pwState(){
   const g=id=>{const e=document.getElementById(id);return e?e.value:'';};
@@ -5247,6 +5261,7 @@ function pwUpdate(){
   pwRefresh();
   msg.className='pw-msg ok'; msg.innerHTML='<svg class=svgi><use href=#i-checkcircle /></svg> Password updated. Use it the next time you sign in.'; msg.hidden=false;
   toast('Password updated');
+  setTimeout(()=>{const mm=document.getElementById('meta-modal'); if(mm&&mm.classList.contains('open')&&document.getElementById('pwGo')) closeMetaModal();},1400);
 }
 
 /* uploads / contribution credits — SRS §2.2.2.1 */
