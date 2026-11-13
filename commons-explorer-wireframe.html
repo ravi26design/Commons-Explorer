@@ -221,8 +221,6 @@ main{min-height:60vh;padding-bottom:3rem;animation:fade .3s ease}
 .acct-item .acct-ic{font-size:.95rem;flex:none}
 .acct-div{height:1px;background:var(--line);margin:.6rem .2rem}
 .tag.met{background:var(--green-soft);color:var(--green-d);border-color:var(--green-line)}
-.pw-strength-track{height:6px;background:var(--line-2);overflow:hidden}
-.pw-strength-fill{height:100%;width:0;background:var(--line-2);transition:width .2s,background .2s}
 .acct-item.danger{color:var(--red)}
 .acct-item.danger:hover{background:var(--red-soft);color:var(--red)}
 .acct-split{display:flex;align-items:stretch;min-height:calc(100vh - 4.7rem);margin:0 calc(-1*var(--gutter))}
@@ -2691,6 +2689,42 @@ footer.site .bar{display:flex;align-items:center;justify-content:space-between;g
 .up-row[hidden]{display:none}
 .up-hint{display:block;margin-top:.3rem;font-size:.78rem;font-style:italic;color:var(--muted-2)}
 #up-nomatch[hidden]{display:none}
+/* Change Password */
+.pw-card{max-width:40rem;background:#fff;border:1px solid var(--line);box-shadow:var(--shadow-card)}
+.pw-card-h{display:flex;align-items:flex-start;gap:1rem;padding:1.25rem 1.5rem;border-bottom:1px solid var(--line);background:var(--bg-soft)}
+.pw-card-h .ic{width:2.8rem;height:2.8rem;border-radius:.85rem;display:grid;place-items:center;flex:none;background:var(--green);color:#fff}
+.pw-card-h .ic .svgi{width:1.3rem;height:1.3rem}
+.pw-card-h b{display:block;font-size:1.05rem;color:var(--ink)}
+.pw-card-h span{display:block;margin-top:.2rem;font-size:.86rem;line-height:1.5;color:var(--muted-2)}
+.pw-card-b{padding:1.4rem 1.5rem 1.6rem}
+.pwf{margin-bottom:1.1rem}
+.pwf-l{display:flex;align-items:baseline;justify-content:space-between;gap:1rem;margin-bottom:.4rem}
+.pwf-l label{font-size:.85rem;font-weight:700;color:var(--ink);margin:0}
+.pwf-st{font-size:.8rem;font-weight:700;color:var(--muted-2)}
+.pwf-in{position:relative}
+.pwf-in input.wf-in{width:100%;padding:.8rem 2.8rem .8rem 2.7rem;margin:0}
+.pwf-in input.wf-in:focus{border-color:var(--green);box-shadow:0 0 0 3px rgba(78,124,89,.12)}
+.pwf-lock{position:absolute;left:.9rem;top:50%;transform:translateY(-50%);width:1.05rem;height:1.05rem;color:var(--muted-2);pointer-events:none}
+.pwf-eye{position:absolute;right:.7rem;top:50%;transform:translateY(-50%)}
+.pw-meter{display:flex;gap:.35rem;margin:-.55rem 0 1.15rem}
+.pw-meter i{flex:1;height:.4rem;border-radius:999px;background:var(--line);transition:background .2s}
+.pw-match{display:flex;align-items:center;gap:.45rem;min-height:1.2rem;margin:-.55rem 0 1rem;font-size:.82rem;font-weight:700}
+.pw-match .svgi{width:.95rem;height:.95rem}
+.pw-match.ok{color:var(--green-d)}
+.pw-match.bad{color:var(--red)}
+.pw-reqs{list-style:none;margin:0;padding:1rem 1.1rem;display:grid;grid-template-columns:1fr 1fr;gap:.6rem 1rem;background:var(--bg-soft);border:1px solid var(--line)}
+@media(max-width:520px){.pw-reqs{grid-template-columns:1fr}}
+.pw-reqs li{display:flex;align-items:center;gap:.6rem;font-size:.86rem;color:var(--muted-2);transition:color .15s}
+.pw-reqs .req-ic{width:1.3rem;height:1.3rem;border-radius:50%;border:1.5px solid var(--line-2);background:#fff;display:grid;place-items:center;flex:none;transition:background .15s,border-color .15s}
+.pw-reqs .req-ic .svgi{width:.72rem;height:.72rem;color:#fff}
+.pw-reqs li.met{color:var(--ink);font-weight:600}
+.pw-reqs li.met .req-ic{background:var(--green);border-color:var(--green)}
+.pw-msg{display:flex;align-items:center;gap:.5rem;margin-top:1.1rem;padding:.7rem .95rem;font-size:.86rem;font-weight:600}
+.pw-msg[hidden]{display:none}
+.pw-msg .svgi{width:1rem;height:1rem;flex:none}
+.pw-msg.err{background:var(--red-soft);border-left:3px solid var(--red);color:var(--ink)}
+.pw-msg.ok{background:var(--green-soft);border-left:3px solid var(--green);color:var(--green-d)}
+.pw-go.is-off{opacity:.55;box-shadow:none}
 </style>
 </head>
 <body>
@@ -5151,44 +5185,58 @@ screens.profile=()=>{
 
 screens.password=()=>{
   if(!isAuthed()) return gateScreen('Change password','Sign in to manage your account.','#/password');
-  const pwField=(label,placeholder,extra)=>`<div class="field-block"><label class="wf-label">${label}</label>
-    <div style="position:relative"><input class="wf-in" style="padding-right:2.6rem" type="password" ${placeholder?`placeholder="${placeholder}"`:''} ${extra||''}>
-      <button class="lg-eye" type="button" style="position:absolute;right:.8rem;top:50%;transform:translateY(-50%)" aria-label="Show password" onclick="togglePw(this)"><svg class=svgi><use href=#i-eyeoff /></svg></button>
-    </div></div>`;
-  const req=(id,label)=>`<span class="tag" id="req-${id}"><span class="req-ic">○</span> ${label}</span>`;
+  const pwField=(id,label,placeholder,hint)=>`<div class="pwf"><div class="pwf-l"><label for="${id}">${label}</label>${hint||''}</div>
+    <div class="pwf-in"><svg class="svgi pwf-lock"><use href=#i-lock /></svg><input id="${id}" class="wf-in" type="password" ${placeholder?`placeholder="${placeholder}"`:''} oninput="pwRefresh()" autocomplete="${id==='pwCur'?'current-password':'new-password'}">
+      <button class="lg-eye pwf-eye" type="button" aria-label="Show password" onclick="togglePw(this)"><svg class=svgi><use href=#i-eyeoff /></svg></button></div></div>`;
+  const req=(id,label)=>`<li id="req-${id}"><span class="req-ic"></span>${label}</li>`;
   return accountShell('password',[{label:"Home",href:"#/home"},{label:"Change Password"}],`
     <h2 class="mb0" style="font-size:22px">Change Password</h2>
-    <p class="sub" style="margin:2px 0 16px">Update your password to keep your account secure.</p>
-    <div class="panel" style="max-width:520px;border-top:3px solid var(--green)">
-      <p class="muted" style="margin:0 0 18px">Passwords follow the platform's OWASP-aligned policy.</p>
-      ${pwField('Current password')}
-      ${pwField('New password','At least 12 characters','id="pwNew" oninput="pwCheckStrength(this)"')}
-      <div class="pw-strength-track mt8"><div class="pw-strength-fill" id="pwStrengthFill"></div></div>
-      <div class="wf-note mt4" id="pwStrengthLabel" style="text-transform:none;letter-spacing:0;font-weight:600">Enter a new password</div>
-      ${pwField('Confirm new password')}
-      <div class="row" style="gap:6px;flex-wrap:wrap;margin:.9rem 0 1.3rem">${req('len','12+ characters')}${req('up','1 uppercase letter')}${req('num','1 number')}${req('sym','1 symbol')}</div>
-      <div class="row"><a class="btn primary" onclick="toast('Password updated')">Update password</a><a class="btn" onclick="go('#/profile')">Cancel</a></div>
+    <p class="sub" style="margin:4px 0 18px">Update your password to keep your account secure.</p>
+    <div class="pw-card">
+      <div class="pw-card-h"><span class="ic"><svg class=svgi><use href=#i-key /></svg></span><div><b>Choose a new password</b><span>Passwords follow the platform's OWASP-aligned policy. Use one you do not use anywhere else.</span></div></div>
+      <div class="pw-card-b">
+        ${pwField('pwCur','Current password','')}
+        ${pwField('pwNew','New password','At least 12 characters','<span class="pwf-st" id="pwStrengthLabel">Enter a new password</span>')}
+        <div class="pw-meter" id="pwMeter"><i></i><i></i><i></i><i></i></div>
+        ${pwField('pwConf','Confirm new password','Re-enter the new password')}
+        <div class="pw-match" id="pwMatch"></div>
+        <ul class="pw-reqs">${req('len','12 or more characters')}${req('up','One uppercase letter')}${req('num','One number')}${req('sym','One symbol')}</ul>
+        <div class="pw-msg" id="pwMsg" hidden></div>
+        <div class="row" style="gap:.6rem;margin-top:1.3rem"><a class="btn primary pw-go is-off" id="pwGo" onclick="pwUpdate()">Update password</a><a class="btn" onclick="go('#/profile')">Cancel</a></div>
+      </div>
     </div>
   `);
 };
-function pwCheckStrength(el){
-  const v=el.value;
+function pwState(){
+  const g=id=>{const e=document.getElementById(id);return e?e.value:'';};
+  const cur=g('pwCur'), v=g('pwNew'), conf=g('pwConf');
   const checks={len:v.length>=12,up:/[A-Z]/.test(v),num:/[0-9]/.test(v),sym:/[^A-Za-z0-9]/.test(v)};
-  let met=0;
-  Object.keys(checks).forEach(k=>{
-    const chip=document.getElementById('req-'+k); if(!chip) return;
-    const on=checks[k]; if(on)met++;
-    chip.classList.toggle('met',on);
-    chip.querySelector('.req-ic').innerHTML=on?'<svg class=svgi style="width:12px;height:12px"><use href=#i-check /></svg>':'○';
-  });
-  const fill=document.getElementById('pwStrengthFill'), label=document.getElementById('pwStrengthLabel');
-  if(!fill)return;
+  const met=Object.keys(checks).filter(k=>checks[k]).length;
+  return {cur:cur,v:v,conf:conf,checks:checks,met:met,match:!!v&&v===conf,ok:!!cur&&met===4&&!!v&&v===conf};
+}
+function pwRefresh(){
+  const st=pwState();
+  Object.keys(st.checks).forEach(k=>{const li=document.getElementById('req-'+k); if(!li) return; li.classList.toggle('met',st.checks[k]); li.querySelector('.req-ic').innerHTML=st.checks[k]?'<svg class=svgi><use href=#i-check /></svg>':'';});
   const labels=['Enter a new password','Weak','Fair','Good','Strong'];
   const colors=['var(--line-2)','var(--red)','var(--amber)','var(--c-water)','var(--green)'];
-  fill.style.width=(v?[10,25,50,75,100][met]:0)+'%';
-  fill.style.background=colors[met];
-  label.textContent=v?labels[met]:labels[0];
-  label.style.color=v?colors[met]:'var(--muted-2)';
+  const lvl=st.v?Math.max(1,st.met):0;
+  const meter=document.getElementById('pwMeter'); if(meter) meter.querySelectorAll('i').forEach((b,n)=>{b.style.background=n<lvl?colors[lvl]:'';});
+  const lab=document.getElementById('pwStrengthLabel'); if(lab){lab.textContent=st.v?labels[lvl]:labels[0]; lab.style.color=st.v?colors[lvl]:'';}
+  const mt=document.getElementById('pwMatch'); if(mt){ if(!st.conf){mt.textContent='';mt.className='pw-match';} else if(st.match){mt.innerHTML='<svg class=svgi><use href=#i-checkcircle /></svg> Passwords match';mt.className='pw-match ok';} else {mt.innerHTML='<svg class=svgi><use href=#i-x /></svg> Passwords do not match yet';mt.className='pw-match bad';} }
+  const go=document.getElementById('pwGo'); if(go) go.classList.toggle('is-off',!st.ok);
+  const msg=document.getElementById('pwMsg'); if(msg&&!msg.hidden&&msg.classList.contains('err')) msg.hidden=true;
+}
+function pwCheckStrength(){pwRefresh();}
+function pwUpdate(){
+  const st=pwState(), msg=document.getElementById('pwMsg'); if(!msg) return;
+  if(!st.ok){
+    const need=[]; if(!st.cur) need.push('enter your current password'); if(st.met<4) need.push('meet every rule in the checklist'); if(!st.match) need.push('confirm the new password');
+    msg.className='pw-msg err'; msg.textContent='Please '+need.join(', ').replace(/, ([^,]*)$/,' and $1')+'.'; msg.hidden=false; return;
+  }
+  ['pwCur','pwNew','pwConf'].forEach(id=>{const e=document.getElementById(id); if(e) e.value='';});
+  pwRefresh();
+  msg.className='pw-msg ok'; msg.innerHTML='<svg class=svgi><use href=#i-checkcircle /></svg> Password updated. Use it the next time you sign in.'; msg.hidden=false;
+  toast('Password updated');
 }
 
 /* uploads / contribution credits — SRS §2.2.2.1 */
