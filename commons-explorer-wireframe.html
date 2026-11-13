@@ -2846,56 +2846,55 @@ footer.site .bar{display:flex;align-items:center;justify-content:space-between;g
   .acct-badge{margin-left:.1rem}
 }
 
-/* approval details page */
+/* approval details page - same flat style as My Uploads */
 .ap-row:hover{background:var(--bg-soft)}
 .ap-back{display:inline-flex;margin-bottom:1rem;font-size:.88rem;font-weight:600;color:var(--muted);cursor:pointer}
 .ap-back:hover{color:var(--green-d)}
-.ap-hero{display:flex;align-items:center;gap:1.2rem;padding:1.4rem 1.5rem;margin-bottom:1.3rem;border-radius:1.1rem!important;border:1px solid color-mix(in srgb,var(--tc) 22%,#fff);background:linear-gradient(135deg,color-mix(in srgb,var(--tc) 11%,#fff),color-mix(in srgb,var(--tc) 3%,#fff))}
-.ap-hero-ic{flex:0 0 auto;width:4rem;height:4rem;display:flex;align-items:center;justify-content:center;border-radius:1.1rem!important;background:#fff;color:var(--tc);box-shadow:0 6px 16px -8px color-mix(in srgb,var(--tc) 60%,transparent),0 0 0 1px color-mix(in srgb,var(--tc) 18%,#fff)}
-.ap-hero-ic .svgi{width:1.8rem;height:1.8rem}
+.ap-hero{display:flex;align-items:flex-start;gap:1rem;padding:0 0 1.25rem;margin-bottom:1.25rem;border-bottom:1px solid var(--line)}
+.ap-hero-ic{flex:0 0 auto;width:2.75rem;height:2.75rem;display:grid;place-items:center;border-radius:.8rem;background:color-mix(in srgb,var(--tc) 12%,#fff);color:var(--tc)}
+.ap-hero-ic .svgi{width:1.2rem;height:1.2rem}
 .ap-hero-main{flex:1;min-width:0}
-.ap-kicker{display:block;font-size:.72rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--tc)}
-.ap-hero h2{margin:.25rem 0 .6rem;border:0;padding:0;font-size:1.6rem;line-height:1.2}
-.ap-by{display:flex;align-items:center;flex-wrap:wrap;gap:.5rem;font-size:.88rem;color:var(--muted)}
+.ap-kicker{display:block;font-size:.72rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--tc);margin-bottom:.15rem}
+.ap-hero h2{margin:0 0 .45rem;border:0;padding:0;font-size:22px;line-height:1.3}
+.ap-by{display:flex;align-items:center;flex-wrap:wrap;gap:.5rem;font-size:.86rem;color:var(--muted-2)}
 .ap-by b{color:var(--ink);font-weight:600}
-.ap-by i{width:3px;height:3px;border-radius:50%!important;background:var(--muted-2)}
-.ap-av{width:1.7rem;height:1.7rem;border-radius:50%!important;background:var(--green);color:#fff!important;font-size:.64rem;font-weight:800;display:inline-flex;align-items:center;justify-content:center}
-.ap-state{flex:0 0 auto;align-self:flex-start}
-.ap-grid{display:grid;grid-template-columns:minmax(0,1fr) 19.5rem;gap:1.3rem;align-items:start}
-.ap-main,.ap-side{display:flex;flex-direction:column;gap:1.1rem}
+.ap-by i{width:3px;height:3px;border-radius:50%;background:var(--line-2)}
+.ap-av{width:1.5rem;height:1.5rem;border-radius:50%;background:var(--green);color:#fff!important;font-size:.6rem;font-weight:800;display:inline-flex;align-items:center;justify-content:center}
+.ap-state{flex:0 0 auto}
+.ap-grid{display:grid;grid-template-columns:minmax(0,1fr) 19.5rem;gap:1.25rem;align-items:start}
+.ap-main,.ap-side{display:flex;flex-direction:column;gap:1.25rem}
 .ap-side{position:sticky;top:1rem}
-.ap-card{background:#fff;border:1px solid var(--line-2);border-radius:1rem!important;padding:1.25rem 1.4rem}
-.ap-card h3{margin:0 0 .8rem;font-family:inherit;font-size:1rem;font-weight:700;letter-spacing:0;text-transform:none;color:var(--ink)}
+.ap-card{background:#fff;border:1px solid var(--line);box-shadow:var(--shadow-card);padding:1.15rem 1.3rem}
+.ap-card h3{margin:0 0 .75rem;padding:0 0 .7rem;border-bottom:1px solid var(--line-2);font-family:inherit;font-size:.78rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
 .ap-card p{margin:0}
-.ap-about{font-size:1.02rem;line-height:1.7;color:var(--ink)}
-.ap-dl{display:grid;grid-template-columns:repeat(auto-fit,minmax(7.5rem,1fr));gap:.7rem;margin:0}
-.ap-dl>div{padding:.75rem .9rem;background:var(--bg-soft);border-radius:.75rem!important}
-.ap-dl dt{font-size:.72rem;font-weight:600;color:var(--muted-2);margin-bottom:.2rem}
-.ap-dl dd{margin:0;font-weight:700;font-size:.93rem;overflow-wrap:anywhere}
-.ap-sample{margin-top:.9rem!important;font-size:.76rem;color:var(--muted-2)}
-.ap-cm{background:color-mix(in srgb,var(--t-cultural) 7%,#fff);border-color:color-mix(in srgb,var(--t-cultural) 25%,#fff)}
-.ap-cm blockquote{margin:0;padding:0;font-size:1rem;line-height:1.65;font-style:italic;color:var(--ink)}
-.ap-cm span{display:block;margin-top:.7rem;font-size:.8rem;color:var(--muted-2)}
+.ap-about{font-size:.96rem;line-height:1.7;color:var(--ink)}
+.ap-dl{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));margin:0;border:1px solid var(--line-2)}
+.ap-dl>div{display:flex;flex-direction:column;gap:.15rem;padding:.7rem .9rem;border-top:1px solid var(--line-2)}
+.ap-dl>div:nth-child(-n+2){border-top:0}
+.ap-dl>div:nth-child(odd){border-right:1px solid var(--line-2)}
+.ap-dl dt{font-size:.74rem;color:var(--muted-2)}
+.ap-dl dd{margin:0;font-weight:600;font-size:.9rem;overflow-wrap:anywhere}
+.ap-sample{margin-top:.8rem!important;font-size:.76rem;color:var(--muted-2)}
 .ap-msg{font-size:.9rem;line-height:1.55;color:var(--muted)}
 .ap-actions{display:flex;flex-direction:column;gap:.55rem;margin-top:1rem}
-.ap-actions .btn{justify-content:center;text-align:center;border-radius:.7rem!important;padding:.65rem 1rem}
+.ap-actions .btn{justify-content:center;text-align:center}
 .ap-actions .btn.ap-rej{color:var(--red)}
-.ap-review{border-top:3px solid var(--line)}
-.ap-review.ap-st-pending{border-top-color:var(--amber-d)}
-.ap-review.ap-st-approved{border-top-color:var(--green)}
-.ap-review.ap-st-rejected{border-top-color:var(--red)}
-.ap-review.ap-st-revision-requested{border-top-color:var(--t-cultural)}
+.ap-note{margin-top:1rem;padding:.75rem 1rem .8rem;background:color-mix(in srgb,var(--t-cultural) 7%,#fff);border-left:3px solid var(--t-cultural)}
+.ap-note>b{display:block;margin-bottom:.35rem;font-size:.7rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--t-cultural)}
+.ap-note blockquote{margin:0;padding:0;font-size:.9rem;line-height:1.6;color:var(--ink)}
+.ap-note span{display:block;margin-top:.5rem;font-size:.76rem;color:var(--muted-2)}
+.ap-note.empty p{font-size:.86rem;color:var(--muted)}
 .ap-steps{list-style:none;margin:0;padding:0}
 .ap-steps li{position:relative;padding:0 0 1.1rem 1.6rem;display:flex;flex-direction:column;gap:.1rem}
 .ap-steps li:last-child{padding-bottom:0}
 .ap-steps li::after{content:"";position:absolute;left:.3rem;top:1rem;bottom:.1rem;width:2px;background:var(--line-2)}
 .ap-steps li:last-child::after{display:none}
-.ap-steps li::before{content:"";position:absolute;left:0;top:.25rem;width:.8rem;height:.8rem;border-radius:50%!important;border:2px solid var(--line);background:#fff;box-sizing:border-box}
+.ap-steps li::before{content:"";position:absolute;left:0;top:.25rem;width:.8rem;height:.8rem;border-radius:50%;border:2px solid var(--line);background:#fff;box-sizing:border-box}
 .ap-steps li.done::before{background:var(--green);border-color:var(--green)}
 .ap-steps li b{font-size:.9rem}
 .ap-steps li span{font-size:.78rem;color:var(--muted-2)}
 @media(max-width:900px){.ap-grid{grid-template-columns:1fr}.ap-side{position:static}}
-@media(max-width:640px){.ap-hero{flex-wrap:wrap;padding:1.1rem}.ap-hero h2{font-size:1.3rem}.ap-state{order:3}}
+@media(max-width:640px){.ap-hero{flex-wrap:wrap}.ap-hero h2{font-size:19px}.ap-state{order:3}.ap-dl{grid-template-columns:1fr}.ap-dl>div:nth-child(2){border-top:1px solid var(--line-2)}.ap-dl>div:nth-child(odd){border-right:0}}
 </style>
 </head>
 <body>
@@ -3225,7 +3224,7 @@ function openRevisionModal(id){
     <div class="between mt16"><a class="btn" onclick="closeMetaModal()">Cancel</a><a class="btn primary" onclick="revSend()">Send revision request</a></div>
    </div>`;
   m.classList.add('open');
-  const t=document.getElementById('rev-text'); if(t) t.focus();
+  const t=document.getElementById('rev-text'); if(t){ if(r[6]&&r[6].text){t.value=r[6].text; revCount();} t.focus(); }
 }
 function revCount(){const t=document.getElementById('rev-text'), c=document.getElementById('rev-count'), e=document.getElementById('rev-err'); if(c&&t) c.textContent=t.value.length+' / 1000'; if(e&&t&&t.value.trim().length>=5) e.hidden=true;}
 function revQuick(text){const t=document.getElementById('rev-text'); if(!t) return; t.value=(t.value.trim()?t.value.trim().replace(/[.]?$/,'. '):'')+text+'.'; t.focus(); revCount();}
@@ -5622,11 +5621,12 @@ function approvalDetail(p){
           <dl class="ap-dl">${facts.map(f=>`<div><dt>${f[0]}</dt><dd>${storyEsc(f[1])}</dd></div>`).join("")}</dl>
           <p class="ap-sample">Sample details for this prototype.</p>
         </section>
-        ${cm?`<section class="ap-card ap-cm"><h3>Comment sent to the contributor</h3><blockquote>${storyEsc(cm.text)}</blockquote><span>${storyEsc(cm.by)} · ${cm.date}</span></section>`:''}
       </div>
       <aside class="ap-side">
         <section class="ap-card ap-review ap-st-${st.replace(/ /g,'-').toLowerCase()}"><h3>Review</h3>
           <p class="ap-msg">${msg}</p>
+          ${st==='Revision requested'?`<div class="ap-note${cm?'':' empty'}"><b>Comment for the contributor</b>${cm?`<blockquote>${storyEsc(cm.text)}</blockquote><span>${storyEsc(cm.by)} · ${cm.date}</span>`:`<p>No comment was recorded for this request.</p>`}</div>
+          <div class="ap-actions"><a class="btn" onclick="openRevisionModal('${r[5]}')">${cm?'Edit comment':'Add a comment'}</a></div>`:''}
           ${pend?`<div class="ap-actions"><a class="btn primary" onclick="decide('${r[5]}','Approved')"><svg class=svgi><use href=#i-check /></svg> Approve</a><a class="btn" onclick="openRevisionModal('${r[5]}')">Request revision</a><a class="btn ap-rej" onclick="decide('${r[5]}','Rejected')">Reject</a></div>`:''}
         </section>
         <section class="ap-card"><h3>Activity</h3>
