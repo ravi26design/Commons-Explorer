@@ -2924,17 +2924,6 @@ footer.site .bar{display:flex;align-items:center;justify-content:space-between;g
 .pe-foot{display:flex;justify-content:flex-end;gap:.7rem;margin-top:1.6rem;padding-top:1.2rem;border-top:1px solid var(--line-2)}
 @media(max-width:560px){.pe-grid{grid-template-columns:1fr}.pe-foot .btn{flex:1}}
 /* Header search */
-body.srch-lock{overflow:hidden}
-#srch{position:fixed;inset:0;z-index:97;display:none}
-#srch.open{display:block}
-.srch-back{position:absolute;inset:0;background:rgba(20,28,60,.5);backdrop-filter:blur(2px)}
-.srch-card{position:relative;z-index:2;width:min(46rem,calc(100% - 2rem));margin:5.5rem auto 0;max-height:calc(100vh - 8rem);display:flex;flex-direction:column;background:#fff;border:1px solid var(--line);box-shadow:var(--shadow-lg)}
-.srch-bar{display:flex;align-items:center;gap:.8rem;padding:1rem 1.2rem;border-bottom:1px solid var(--line-2);color:var(--muted)}
-.srch-bar>.svgi{width:1.3rem;height:1.3rem;flex:none}
-.srch-bar input{flex:1;min-width:0;border:0;outline:0;background:transparent;font:inherit;font-size:1.1rem;color:var(--ink);padding:.3rem 0}
-.srch-bar input::-webkit-search-cancel-button{display:none}
-.srch-x{flex:none;width:2rem;height:2rem;display:grid;place-items:center;border:1px solid var(--line-2);background:#fff;color:var(--muted);cursor:pointer}
-.srch-x:hover{background:var(--bg-soft);color:var(--ink)}
 .srch-res{overflow:auto;padding:.4rem 0 .6rem;flex:1}
 .srch-g{padding:.5rem 0}
 .srch-gh{display:flex;justify-content:space-between;padding:.4rem 1.2rem;font-size:.7rem;font-weight:800;letter-spacing:.09em;text-transform:uppercase;color:var(--muted-2)}
@@ -2959,7 +2948,6 @@ body.srch-lock{overflow:hidden}
 .srch-none span{color:var(--muted-2);font-size:.88rem}
 .srch-foot{display:flex;gap:1.2rem;padding:.65rem 1.2rem;border-top:1px solid var(--line-2);font-size:.76rem;color:var(--muted-2);background:var(--bg-soft)}
 .srch-foot kbd{font:inherit;font-size:.72rem;font-weight:700;border:1px solid var(--line-2);background:#fff;padding:0 .35rem;margin-right:.2rem}
-@media(max-width:640px){.srch-card{margin-top:4.2rem;max-height:calc(100vh - 5rem)}.srch-foot{display:none}}
 /* account sidebar - Logout sits right under Change Password */
 @media(min-width:761px){
   .acct-nav{min-height:0}
@@ -2985,6 +2973,23 @@ body.srch-lock{overflow:hidden}
   .ap-list .up-row.has-note .up-note{grid-column:2 / -1}
 }
 @media(max-width:640px){.ap-list .up-row.has-note .up-note,.ap-list .up-end{grid-column:1 / -1}}
+/* Header search - expands inside the header, results drop below */
+.hs{display:none;position:absolute;left:15rem;right:0;top:50%;transform:translateY(-50%);align-items:center;gap:1.1rem;z-index:3}
+header.site.searching .hs{display:flex}
+header.site.searching .nav>ul,header.site.searching .navright,header.site.searching .nav-toggle{visibility:hidden}
+.nav{position:relative}
+.hs-field{position:relative;flex:1;min-width:0;padding:.3rem;background:var(--green-soft);border-radius:0}
+.hs-field input{display:block;width:100%;border:1px solid var(--green);background:#fff;font:inherit;font-size:1.05rem;color:var(--ink);padding:.8rem 3.2rem .8rem 1rem;outline:0;border-radius:0}
+.hs-field input::-webkit-search-cancel-button{display:none}
+.hs-field input::placeholder{color:var(--faint)}
+.hs-field>.svgi{position:absolute;right:1.2rem;top:1.4rem;width:1.3rem;height:1.3rem;color:var(--muted);pointer-events:none}
+.hs-x{flex:none;width:2.2rem;height:2.2rem;display:grid;place-items:center;border:0;background:none;color:var(--ink);cursor:pointer}
+.hs-x .svgi{width:1.4rem;height:1.4rem}
+.hs-x:hover{color:var(--green-d)}
+.hs-panel{position:absolute;left:0;right:0;top:calc(100% + .7rem);display:flex;flex-direction:column;max-height:calc(100vh - 8.5rem);background:#fff;border:1px solid var(--line);box-shadow:var(--shadow-lg)}
+#hs-back{position:fixed;left:0;right:0;bottom:0;top:5rem;z-index:35;background:rgba(20,28,60,.42);backdrop-filter:blur(2px)}
+.srch-res{overflow:auto}
+@media(max-width:900px){.hs{left:0;background:#fff}header.site.searching .logo{visibility:hidden}.hs-panel .srch-foot{display:none}}
 </style>
 </head>
 <body>
@@ -3439,6 +3444,14 @@ function header(active){
       <span class="navdiv"></span>
       ${langMenu()}
     </div>
+    <div class="hs" id="hs" role="search">
+      <div class="hs-field">
+        <input id="srch-in" type="search" autocomplete="off" placeholder="Search datasets, maps, stories, tools and blogs..." oninput="searchRun()" onkeydown="searchKey(event)">
+        <svg class=svgi><use href=#i-search /></svg>
+        <div class="hs-panel"><div class="srch-res" id="srch-res"></div><div class="srch-foot"><span><kbd>↑</kbd><kbd>↓</kbd> to move</span><span><kbd>Enter</kbd> to open</span><span><kbd>Esc</kbd> to close</span></div></div>
+      </div>
+      <button type="button" class="hs-x" onclick="closeSearch()" aria-label="Close search"><svg class=svgi><use href=#i-x /></svg></button>
+    </div>
   </nav></div></header>`;
 }
 function crumbs(items){
@@ -3734,17 +3747,17 @@ function searchData(q){
 }
 function openSearch(){
   appsClose(); langClose(); pwClose();
-  let m=document.getElementById('srch'); if(!m){m=document.createElement('div'); m.id='srch'; document.body.appendChild(m);}
-  m.innerHTML=`<div class="srch-back" onclick="closeSearch()"></div>
-   <div class="srch-card" role="dialog" aria-label="Search">
-    <div class="srch-bar"><svg class=svgi><use href=#i-search /></svg><input id="srch-in" type="search" autocomplete="off" placeholder="Search datasets, maps, stories and tools" oninput="searchRun()" onkeydown="searchKey(event)"><button type="button" class="srch-x" onclick="closeSearch()" aria-label="Close search"><svg class=svgi><use href=#i-x /></svg></button></div>
-    <div class="srch-res" id="srch-res"></div>
-    <div class="srch-foot"><span><kbd>↑</kbd><kbd>↓</kbd> to move</span><span><kbd>Enter</kbd> to open</span><span><kbd>Esc</kbd> to close</span></div>
-   </div>`;
-  m.classList.add('open'); document.body.classList.add('srch-lock');
-  searchRun(); const i=document.getElementById('srch-in'); if(i) i.focus();
+  const h=document.getElementById('sitehdr'); if(!h) return;
+  if(h.classList.contains('searching')){closeSearch(); return;}
+  h.classList.add('searching');
+  let bk=document.getElementById('hs-back'); if(!bk){bk=document.createElement('div'); bk.id='hs-back'; bk.onclick=closeSearch; document.body.appendChild(bk);}
+  const i=document.getElementById('srch-in'); if(i) i.value='';
+  searchRun(); if(i) i.focus();
 }
-function closeSearch(){const m=document.getElementById('srch'); if(m){m.classList.remove('open'); m.innerHTML='';} document.body.classList.remove('srch-lock');}
+function closeSearch(){
+  const h=document.getElementById('sitehdr'); if(h) h.classList.remove('searching');
+  const bk=document.getElementById('hs-back'); if(bk) bk.remove();
+}
 function searchGo(href){closeSearch(); go(href);}
 function searchRun(){
   const inp=document.getElementById('srch-in'), box=document.getElementById('srch-res'); if(!inp||!box) return;
