@@ -2990,6 +2990,21 @@ header.site.searching .nav>ul,header.site.searching .navright,header.site.search
 #hs-back{position:fixed;left:0;right:0;bottom:0;top:5rem;z-index:35;background:rgba(20,28,60,.42);backdrop-filter:blur(2px)}
 .srch-res{overflow:auto}
 @media(max-width:900px){.hs{left:0;background:#fff}header.site.searching .logo{visibility:hidden}.hs-panel .srch-foot{display:none}}
+/* Header search - smaller: narrower field, shorter results */
+.hs{justify-content:flex-end}
+.hs-field{flex:0 1 36rem;padding:.25rem}
+.hs-field input{font-size:.98rem;padding:.6rem 2.8rem .6rem .9rem}
+.hs-field>.svgi{top:1.05rem;right:1rem;width:1.15rem;height:1.15rem}
+.hs-panel{max-height:min(25rem,calc(100vh - 8rem))}
+.hs-panel .srch-g{padding:.3rem 0}
+.hs-panel .srch-gh{padding:.3rem 1rem}
+.hs-panel .srch-it{padding:.4rem 1rem;gap:.75rem}
+.hs-panel .srch-ic{width:1.9rem;height:1.9rem;border-radius:.55rem}
+.hs-panel .srch-t b{font-size:.88rem}
+.hs-panel .srch-t small{font-size:.74rem}
+.hs-panel .srch-chips{padding:.1rem 1rem .3rem}
+.hs-panel .srch-chips button{padding:.3rem .75rem;font-size:.8rem}
+.hs-panel .srch-foot{padding:.5rem 1rem}
 </style>
 </head>
 <body>
@@ -3768,9 +3783,9 @@ function searchRun(){
   const inp=document.getElementById('srch-in'), box=document.getElementById('srch-res'); if(!inp||!box) return;
   const q=inp.value.trim(); SRCH_SEL=-1;
   if(!q){
-    const sug=["Water","Forest cover","Groundwater","Sacred groves","Panchayat","Grazing"];
+    const sug=["Water","Forest cover","Groundwater","Sacred groves","Panchayat"];
     box.innerHTML=`<div class="srch-g"><div class="srch-gh">Try searching for</div><div class="srch-chips">${sug.map(x=>`<button type="button" onclick="searchSet('${x}')">${x}</button>`).join("")}</div></div>
-     <div class="srch-g"><div class="srch-gh">Jump to</div>${SEARCH_PAGES.slice(0,7).map(x=>`<a class="srch-it" data-href="${x[1]}" onclick="searchGo('${x[1]}')"><span class="srch-ic"><svg class=svgi><use href=#i-search /></svg></span><span class="srch-t"><b>${x[0]}</b><small>${x[2]}</small></span><em>→</em></a>`).join("")}</div>`;
+     <div class="srch-g"><div class="srch-gh">Jump to</div>${SEARCH_PAGES.slice(0,4).map(x=>`<a class="srch-it" data-href="${x[1]}" onclick="searchGo('${x[1]}')"><span class="srch-ic"><svg class=svgi><use href=#i-search /></svg></span><span class="srch-t"><b>${x[0]}</b><small>${x[2]}</small></span><em>→</em></a>`).join("")}</div>`;
     return;
   }
   const groups=searchData(q);
