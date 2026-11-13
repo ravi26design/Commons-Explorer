@@ -2614,10 +2614,10 @@ const WHATS_NEW=[
 
 /* Home — Latest Update (sample items) */
 const LATEST_UPDATES=[
-  {kind:"New tool",ic:"<svg class=svgi><use href=#i-sparkles /></svg>",t:"Waterbody performance tool is now live",note:"Check how water bodies perform across seasons and see where restoration is needed most.",when:"12 Nov 2026",who:"Commons Explorer team",href:"#/dss",img:"assets/water-checkdam.jpg"},
-  {kind:"New tool",ic:"<svg class=svgi><use href=#i-sparkles /></svg>",t:"Ground Water Monitoring - village status added",note:"Village-level groundwater status with well observations, now part of Decision Support.",when:"05 Nov 2026",who:"Commons Explorer team",href:"#/dss",img:"assets/photo-4.jpg"},
-  {kind:"New tool",ic:"<svg class=svgi><use href=#i-sparkles /></svg>",t:"Vegetation disturbance and recovery mapping released",note:"Track where vegetation has been disturbed and how quickly it is recovering.",when:"29 Oct 2026",who:"Commons Explorer team",href:"#/dss",img:"assets/type-forest.jpg"},
-  {kind:"Platform update",ic:"<svg class=svgi><use href=#i-sparkles /></svg>",t:"Data Repository now sits with Thematic Datasets",note:"Browse the themes and the full catalogue of datasets together on one page.",when:"22 Oct 2026",who:"Commons Explorer team",href:"#/thematic",img:"assets/photo-7.jpg"}
+  {kind:"New tool",ic:"<svg class=svgi><use href=#i-sparkles /></svg>",t:"Waterbody performance tool is now live",note:"Check how water bodies perform across seasons and see where restoration is needed most.",when:"12 Nov 2026",who:"Commons Explorer team",href:"https://mahesh89pr.users.earthengine.app/view/waterbody-performance",img:"assets/water-checkdam.jpg"},
+  {kind:"New tool",ic:"<svg class=svgi><use href=#i-sparkles /></svg>",t:"Ground Water Monitoring - village status added",note:"Village-level groundwater status with well observations, now part of Decision Support.",when:"05 Nov 2026",who:"Commons Explorer team",href:"https://di.indiaobservatory.org.in/agportal/apps/experiencebuilder/experience/?id=01a0045f73fe427d97418febfb776a3c",img:"assets/photo-4.jpg"},
+  {kind:"New tool",ic:"<svg class=svgi><use href=#i-sparkles /></svg>",t:"Vegetation disturbance and recovery mapping released",note:"Track where vegetation has been disturbed and how quickly it is recovering.",when:"29 Oct 2026",who:"Commons Explorer team",href:"https://mahesh89pr.users.earthengine.app/view/disturbance-recovery-mapping",img:"assets/type-forest.jpg"},
+  {kind:"Platform update",ic:"<svg class=svgi><use href=#i-sparkles /></svg>",t:"Data Repository now sits with Thematic Datasets",note:"Browse the themes and the full catalogue of datasets together on one page.",when:"22 Oct 2026",who:"Commons Explorer team",href:"#/repository",img:"assets/photo-7.jpg"}
 ];
 
 /* SRS §2.2.4 — DSS reference geography */
@@ -3232,7 +3232,7 @@ function whatsNewRow(n){
 }
 function whatsNewCard(n){
   const ini=n.who.split(/[·\u00b7—\u2014]/)[0].trim().split(' ').map(w=>w[0]).join('').slice(0,2).toUpperCase();
-  return `<article class="wn-card" style="--tc:${WN_TC[n.kind]||'var(--green)'}" onclick="go('${n.href}')">
+  return `<article class="wn-card" style="--tc:${WN_TC[n.kind]||'var(--green)'}" onclick="${/^https?:/.test(n.href)?`window.open('${n.href}','_blank','noopener')`:`go('${n.href}')`}">
     <div class="wn-media" style="background-image:url('${n.img}')"><span class="wn-kind">${n.ic} ${n.kind}</span></div>
     <div class="wn-body">
       <h4>${n.t}</h4>
