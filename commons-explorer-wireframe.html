@@ -2869,6 +2869,14 @@ footer.site .bar{display:flex;align-items:center;justify-content:space-between;g
 .ap-steps li b{font-size:.9rem}
 .ap-steps li span{font-size:.78rem;color:var(--muted-2)}
 @media(max-width:900px){.ap-grid{grid-template-columns:1fr}.ap-prev{min-height:240px}.ap-prev .ph-img{min-height:240px!important}}
+/* My Uploads - moderator comment card */
+.up-row.has-note .up-note{grid-column:2 / -1;display:flex;align-items:flex-start;gap:.85rem;margin:.85rem 0 .1rem;padding:.9rem 1.05rem;max-width:none;border:1px solid color-mix(in srgb,var(--t-cultural) 24%,#fff);border-left:1px solid color-mix(in srgb,var(--t-cultural) 24%,#fff);border-radius:.8rem;background:color-mix(in srgb,var(--t-cultural) 6%,#fff)}
+.up-note-ic{flex:0 0 auto;width:2rem;height:2rem;border-radius:50%;display:grid;place-items:center;background:color-mix(in srgb,var(--t-cultural) 15%,#fff);color:var(--t-cultural);font-style:normal}
+.up-note-ic .svgi{width:1rem;height:1rem}
+.up-note-body{flex:1;min-width:0}
+.up-note-h{gap:.2rem 1rem}
+.up-note-h b{display:inline;font-size:.72rem}
+.up-row.has-note .up-note p{margin:.35rem 0 0;font-size:.92rem;line-height:1.6}
 </style>
 </head>
 <body>
@@ -5516,7 +5524,7 @@ screens.uploads=(p)=>{
         <div class="up-main"><b>${r[1]}</b><span class="up-meta"><em style="--tc:${ty.tc}">${r[0]}</em>${r[2]}<i class="up-dot"></i><span class="up-din">${r[3]}</span></span>${!cm&&UP_HINT[r[4]]?`<small class="up-hint">${UP_HINT[r[4]]}</small>`:''}</div>
         <span class="up-date">${r[3]}</span>
         <div class="up-end">${upPill(r[4])}<span class="btn sm">View →</span></div>
-        ${cm?`<div class="up-note"><div class="up-note-h"><b>Moderator comment</b><span>${storyEsc(cm.by)} · ${cm.date}</span></div><p>${storyEsc(cm.text)}</p></div>`:''}
+        ${cm?`<div class="up-note"><i class="up-note-ic"><svg class=svgi><use href=#i-message /></svg></i><div class="up-note-body"><div class="up-note-h"><b>Moderator comment</b><span>${storyEsc(cm.by)} · ${cm.date}</span></div><p>${storyEsc(cm.text)}</p></div></div>`:''}
       </div>`;}).join("")
       :'<div class="up-empty"><svg class=svgi><use href=#i-folder /></svg><b>Nothing here yet</b><span>No contributions have this status.</span></div>'}
       <div class="up-empty" id="up-nomatch" hidden><svg class=svgi><use href=#i-search /></svg><b>No matches</b><span>Try a different search or type.</span></div>
