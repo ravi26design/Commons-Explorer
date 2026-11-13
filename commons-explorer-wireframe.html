@@ -2612,23 +2612,22 @@ footer.site .bar{display:flex;align-items:center;justify-content:space-between;g
 .gnv.gnv-plain .gnc-grid{background:none;padding:0;grid-template-columns:repeat(4,minmax(0,1fr))}
 @media(max-width:1000px){.gnv.gnv-plain .gnc-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:620px){.gnv.gnv-plain .gnc-grid{grid-template-columns:1fr}}
-/* Create a story - block editor */
-.sb{border:1px solid var(--line-2);background:#fff;padding:.8rem .95rem}
-.sb-h{display:flex;align-items:center;justify-content:space-between;gap:.6rem;margin-bottom:.55rem}
-.sb-h b{font-size:.74rem;font-weight:800;letter-spacing:.07em;text-transform:uppercase;color:var(--faint)}
-.sb-acts{display:flex;gap:.25rem}
-.sb-acts button{width:1.7rem;height:1.7rem;border:1px solid var(--line-2);border-radius:.4rem;background:#fff;color:var(--muted);font-size:.95rem;line-height:1;cursor:pointer}
-.sb-acts button:hover:not(:disabled){background:var(--green-soft);border-color:var(--green-line);color:var(--green-d)}
-.sb-acts button:last-child:hover:not(:disabled){background:var(--red-soft);border-color:var(--red);color:var(--red)}
-.sb-acts button:disabled{opacity:.35;cursor:default}
-.sb textarea.wf-in{width:100%;min-height:4.5rem;resize:vertical}
-.st-res{margin:0;font-size:.92rem;color:var(--ink)}
-.st-res span{display:block;font-size:.78rem;color:var(--muted-2);margin-top:.15rem}
-.st-img{display:flex;gap:.9rem;align-items:center}
-.st-img img,.st-ph{width:6.5rem;height:4.5rem;object-fit:cover;flex:none;border:1px solid var(--line-2)}
-.st-ph{display:grid;place-items:center;background:var(--bg-soft);font-size:.72rem;color:var(--muted-2);text-align:center;padding:.3rem}
-.st-img-f{flex:1;display:flex;flex-direction:column;gap:.5rem;min-width:0}
-.st-file{cursor:pointer;align-self:flex-start}
+/* Create a story - block editor (same card look as before, controls appear on hover) */
+.sb{position:relative}
+.sb-acts{position:absolute;top:.5rem;right:.6rem;display:flex;gap:.1rem;opacity:0;transition:opacity .15s}
+.sb:hover .sb-acts,.sb:focus-within .sb-acts{opacity:1}
+.sb-acts button{width:1.6rem;height:1.6rem;border:0;border-radius:.35rem;background:none;color:var(--muted-2);font-size:1rem;line-height:1;cursor:pointer}
+.sb-acts button:hover:not(:disabled){background:var(--bg-soft);color:var(--ink)}
+.sb-acts button:last-child:hover:not(:disabled){background:var(--red-soft);color:var(--red)}
+.sb-acts button:disabled{opacity:.3;cursor:default}
+.sb-text{display:block;width:100%;border:0;outline:0;background:transparent;resize:none;overflow:hidden;padding:0;margin:0;font:inherit;font-size:.88rem;line-height:1.5;color:var(--muted)}
+.sb-text::placeholder{color:var(--muted);opacity:1}
+.sb-text:focus{color:var(--ink)}
+.sb-imgrow{display:flex;align-items:center;gap:.8rem}
+.sb-imgrow .sb-text{flex:1;min-width:0}
+.sb-thumb{width:3.6rem;height:2.6rem;object-fit:cover;flex:none;border:1px solid var(--line-2)}
+.sb-link{flex:none;font-size:.82rem;font-weight:700;color:var(--cta);cursor:pointer;white-space:nowrap}
+.sb-link:hover{color:var(--green-d)}
 .st-pick{margin-top:.7rem;border:1px solid var(--line-2);background:#fff}
 .st-pick[hidden]{display:none}
 .st-pick .wf-in{border:0;border-bottom:1px solid var(--line);margin:0;width:100%}
@@ -3980,28 +3979,31 @@ const STORY_RES=GALLERY.filter(g=>g.kind!=='Story').map(g=>({title:g.t,kind:g.ki
   .concat(DATASETS.map(d=>({title:d.t,kind:'Dataset',src:d.fmt+' · '+d.geo})));
 function storyDefaults(){return [
   {type:'text',value:''},
-  {type:'map',title:'Grazing corridors of Kutch - GeoNode map',src:'GeoNode'},
-  {type:'chart',title:'Common land per 1,000 population - Superset chart',src:'Apache Superset'},
+  {type:'map',title:'Grazing corridors of Kutch — GeoNode map (embedded resource)'},
+  {type:'chart',title:'Common land per 1,000 population — Superset chart'},
   {type:'image',src:'',caption:''}
 ];}
 const storyEsc=t=>String(t==null?'':t).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 const STORY_LABEL={text:'Text',map:'Map',chart:'Chart',dataset:'Dataset',analysis:'Analysis',image:'Image'};
 function storyBlockHTML(b,i,n){
   let body;
-  if(b.type==='text') body=`<textarea class="wf-in" rows="3" placeholder="Write the narrative paragraph..." oninput="storyEdit(${i},'value',this.value)">${storyEsc(b.value)}</textarea>`;
-  else if(b.type==='image') body=`<div class="st-img">${b.src?`<img src="${b.src}" alt="">`:'<div class="st-ph">No image chosen</div>'}<div class="st-img-f"><label class="btn sm st-file">${b.src?'Change image':'Choose image'}<input type="file" accept="image/*" hidden onchange="storyImage(${i},this)"></label><input class="wf-in" placeholder="Caption" value="${storyEsc(b.caption)}" oninput="storyEdit(${i},'caption',this.value)"></div></div>`;
-  else body=`<p class="st-res">${storyEsc(b.title)}<span>${storyEsc(b.src||'embedded resource')}</span></p>`;
-  return `<div class="sb"><div class="sb-h"><b>Block ${i+1} · ${STORY_LABEL[b.type]||b.type}</b><span class="sb-acts">
+  if(b.type==='text') body=`<textarea class="sb-text" rows="1" placeholder="Narrative paragraph." oninput="storyEdit(${i},'value',this.value);storyGrow(this)">${storyEsc(b.value)}</textarea>`;
+  else if(b.type==='image') body=`<div class="sb-imgrow">${b.src?`<img class="sb-thumb" src="${b.src}" alt="">`:''}<input class="sb-text" placeholder="Photo with caption" value="${storyEsc(b.caption)}" oninput="storyEdit(${i},'caption',this.value)"><label class="sb-link">${b.src?'Change image':'Choose image'}<input type="file" accept="image/*" hidden onchange="storyImage(${i},this)"></label></div>`;
+  else body=`<p>${storyEsc(b.title)}</p>`;
+  return `<div class="ctx-row sb"><span class="sb-acts">
     <button type="button" title="Move up" ${i===0?'disabled':''} onclick="storyMove(${i},-1)">↑</button>
     <button type="button" title="Move down" ${i===n-1?'disabled':''} onclick="storyMove(${i},1)">↓</button>
-    <button type="button" title="Remove block" onclick="storyRemove(${i})">×</button></span></div>${body}</div>`;
+    <button type="button" title="Remove block" onclick="storyRemove(${i})">×</button></span>
+    <h5>Block ${i+1} · ${STORY_LABEL[b.type]||b.type}</h5>${body}</div>`;
 }
+function storyGrow(t){t.style.height='auto'; t.style.height=t.scrollHeight+'px';}
 function storyRender(){
   const el=document.getElementById('st-blocks'); if(!el) return;
   el.innerHTML=STORY_BLOCKS.length?STORY_BLOCKS.map((b,i)=>storyBlockHTML(b,i,STORY_BLOCKS.length)).join(''):'<div class="wf-note" style="text-transform:none;letter-spacing:0;padding:.6rem 0">No blocks yet. Add a text, resource or image block below.</div>';
+  el.querySelectorAll('textarea.sb-text').forEach(storyGrow);
 }
 function storyAdd(type,res){
-  const b=type==='image'?{type:'image',src:'',caption:''}:type==='text'?{type:'text',value:''}:{type:(res.kind||'map').toLowerCase(),title:res.title,src:res.src};
+  const b=type==='image'?{type:'image',src:'',caption:''}:type==='text'?{type:'text',value:''}:{type:(res.kind||'map').toLowerCase(),title:res.title+' — '+res.src+' (embedded resource)'};
   STORY_BLOCKS.push(b); STORY_DIRTY=true; storyRender();
   const el=document.getElementById('st-blocks'); const last=el&&el.lastElementChild; if(last){last.scrollIntoView({block:'nearest'}); const f=last.querySelector('textarea'); if(f) f.focus();}
 }
