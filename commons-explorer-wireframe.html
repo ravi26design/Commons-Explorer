@@ -2806,6 +2806,24 @@ footer.site .bar{display:flex;align-items:center;justify-content:space-between;g
 .acct-nav .acct-logout:hover{background:var(--red-soft);border-top-color:var(--line)}
 .acct-nav .acct-logout .svgi{width:1.15rem;height:1.15rem;margin-left:.45rem}
 @media(max-width:760px){.acct-nav{min-height:0}.acct-nav .acct-logout{margin-top:.4rem;border-top:0;border:1px solid color-mix(in srgb,var(--red) 30%,#fff);border-radius:.7rem;width:auto}}
+/* My Uploads - list refinement */
+.up-row{display:grid;grid-template-columns:auto minmax(0,1fr) 6.5rem auto;column-gap:1.1rem;align-items:center;padding:1rem 1.3rem}
+.up-row:hover{background:color-mix(in srgb,var(--green-soft) 55%,#fff)}
+.up-ic{width:2.75rem;height:2.75rem;border-radius:.8rem}
+.up-main b{font-size:1rem;font-weight:700;line-height:1.3}
+.up-main .up-meta{margin-top:.35rem;gap:.55rem;font-size:.83rem}
+.up-main em{padding:.12rem .6rem;border-radius:999px;font-size:.74rem;font-weight:700;background:color-mix(in srgb,var(--tc) 12%,#fff)}
+.up-main .up-din{display:none}
+.up-main .up-dot{display:none}
+.up-date{text-align:right;font-size:.84rem;color:var(--muted-2);white-space:nowrap}
+.up-end .btn.sm{background:#fff}
+.up-row.has-note .up-note{grid-column:2 / -1;margin:.7rem 0 .1rem;max-width:none;padding:.75rem 1rem .8rem;border-radius:0;background:color-mix(in srgb,var(--t-cultural) 7%,#fff);border-left:3px solid var(--t-cultural)}
+.up-note-h{display:flex;align-items:baseline;justify-content:space-between;gap:1rem;flex-wrap:wrap}
+.up-note-h b{font-size:.7rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--t-cultural)}
+.up-note-h span{font-size:.76rem;color:var(--muted-2)}
+.up-row.has-note .up-note p{margin:.3rem 0 0;font-size:.9rem;line-height:1.6;color:var(--ink)}
+@media(max-width:900px){.up-row{grid-template-columns:auto minmax(0,1fr) auto}.up-date{display:none}.up-main .up-din{display:inline}.up-main .up-dot{display:block}}
+@media(max-width:640px){.up-row{grid-template-columns:auto minmax(0,1fr);row-gap:.7rem}.up-end{grid-column:1 / -1;width:auto;justify-content:space-between;padding-left:0}.up-row.has-note .up-note{grid-column:1 / -1}}
 </style>
 </head>
 <body>
@@ -5448,10 +5466,13 @@ screens.uploads=(p)=>{
       <div class="up-types" id="up-types">${["All","Dataset","Map","Dashboard","Story"].map((t,i)=>`<button type="button" class="${i?'':'on'}" data-t="${t}" onclick="upType(this)">${t}</button>`).join("")}</div>
     </div>
     <div class="up-list" id="up-list">
-      ${rows.length?(UP_ROWS=rows,rows).map((r,ri)=>{const ty=UP_TYPE[r[0]]||UP_TYPE.Dataset; const cm=r[4]==='Revision requested'?(r[6]||seedComment(r[1])):null; return `<div class="up-row" data-title="${storyEsc(r[1].toLowerCase())}" data-type="${r[0]}" onclick="openUploadDetail(${ri})">
+      ${rows.length?(UP_ROWS=rows,rows).map((r,ri)=>{const ty=UP_TYPE[r[0]]||UP_TYPE.Dataset; const cm=r[4]==='Revision requested'?(r[6]||seedComment(r[1])):null; return `<div class="up-row${cm?' has-note':''}" data-title="${storyEsc(r[1].toLowerCase())}" data-type="${r[0]}" onclick="openUploadDetail(${ri})">
         <span class="up-ic" style="--tc:${ty.tc}"><svg class=svgi><use href=#${ty.ic} /></svg></span>
-        <div class="up-main"><b>${r[1]}</b><span><em style="--tc:${ty.tc}">${r[0]}</em>${r[2]}<i></i>${r[3]}</span>${cm?`<div class="up-note"><b>Moderator comment</b><p>${storyEsc(cm.text)}</p><span>${storyEsc(cm.by)} · ${cm.date}</span></div>`:(UP_HINT[r[4]]?`<small class="up-hint">${UP_HINT[r[4]]}</small>`:'')}</div>
-        <div class="up-end">${upPill(r[4])}<span class="btn sm">View →</span></div></div>`;}).join("")
+        <div class="up-main"><b>${r[1]}</b><span class="up-meta"><em style="--tc:${ty.tc}">${r[0]}</em>${r[2]}<i class="up-dot"></i><span class="up-din">${r[3]}</span></span>${!cm&&UP_HINT[r[4]]?`<small class="up-hint">${UP_HINT[r[4]]}</small>`:''}</div>
+        <span class="up-date">${r[3]}</span>
+        <div class="up-end">${upPill(r[4])}<span class="btn sm">View →</span></div>
+        ${cm?`<div class="up-note"><div class="up-note-h"><b>Moderator comment</b><span>${storyEsc(cm.by)} · ${cm.date}</span></div><p>${storyEsc(cm.text)}</p></div>`:''}
+      </div>`;}).join("")
       :'<div class="up-empty"><svg class=svgi><use href=#i-folder /></svg><b>Nothing here yet</b><span>No contributions have this status.</span></div>'}
       <div class="up-empty" id="up-nomatch" hidden><svg class=svgi><use href=#i-search /></svg><b>No matches</b><span>Try a different search or type.</span></div>
     </div>
