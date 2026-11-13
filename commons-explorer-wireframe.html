@@ -3638,7 +3638,8 @@ function mapKindFor(name,sub){return /clart/i.test(name+' '+sub)?'clart':/ground
 function mapImgFor(name,sub){return /clart/i.test(name+' '+sub)?'assets/water-clart':/groundwater/i.test(name)?'assets/water-groundwater':/water body/i.test(name)?'assets/water-bodies':'';}
 screens.mapview=(p)=>{
   const t=themeById(p.id); const i=Math.min(+(p.i||0),t.maps.length-1); const m=t.maps[i];
-  return shell("#/thematic",null,`
+  const fromG=p.from==='gallery', fq=fromG?'?from=gallery':'';
+  return shell(fromG?"#/insights":"#/thematic",fromG?galleryCrumbs(m[0]):null,`
   <div class="mapfull">
     ${m[2]
       ? `<div class="geo-embed"><iframe src="${m[2]}" title="${m[0].replace(/"/g,'')}" loading="lazy"></iframe></div>`
@@ -3648,7 +3649,7 @@ screens.mapview=(p)=>{
       <div class="mf-tx"><span class="mf-kicker">${t.name} theme · map ${i+1} of ${t.maps.length}</span><b>${m[0]}</b><span class="mf-sub">${m[1]}</span></div>
       <div class="mf-acts"><button class="nav-ic" title="Bookmark" onclick="bookmarkIt('${m[0].replace(/'/g,'')}')"><svg class=svgi><use href=#i-bookmark /></svg></button><button class="nav-ic" title="Share" onclick="toast('Share link')"><svg class=svgi><use href=#i-external /></svg></button><button class="nav-ic" title="Print" onclick="toast('Print map')"><svg class=svgi><use href=#i-print /></svg></button></div>
     </div>
-    <div class="mf-nav">${t.maps.map((mm,j)=>`<a class="mf-dot ${j===i?'on':''}" onclick="go('#/mapview/${t.id}/${j}')" title="${mm[0].replace(/"/g,'')}"></a>`).join("")}</div>
+    <div class="mf-nav">${t.maps.map((mm,j)=>`<a class="mf-dot ${j===i?'on':''}" onclick="go('#/mapview/${t.id}/${j}${fq}')" title="${mm[0].replace(/"/g,'')}"></a>`).join("")}</div>
   </div>
 `);};
 
@@ -3808,7 +3809,8 @@ screens.dataset=(p)=>{
   const attrs=[["gid","N/A","N/A"],["objectid","N/A","N/A"],["shape_leng","N/A","N/A"],["shape_area","N/A","N/A"],["area_ha","Area in Hectare","N/A"],["area_sqkm","Area in Square Kilometer","N/A"],["district","District name","N/A"],["state","State name","N/A"],["year","Reference year","N/A"],["source","Source dataset","N/A"]];
   const bbox=[["Min Lat","16.469154"],["Min Lon","73.178459"],["Max Lat","19.641401"],["Max Lon","76.883209"]];
   const centre=[["Lat","18.055278"],["Lon","75.030834"]];
-  return shell("#/thematic",[{label:"Home",href:"#/home"},{label:"Thematic Datasets",href:"#/thematic"},{label:"Data Repository",href:"#/repository"},{label:d.t}],`
+  const fromG=p.from==='gallery';
+  return shell(fromG?"#/insights":"#/thematic",fromG?galleryCrumbs(d.t):[{label:"Home",href:"#/home"},{label:"Thematic Datasets",href:"#/thematic"},{label:"Data Repository",href:"#/repository"},{label:d.t}],`
   <section class="section">
     <div class="grid" style="grid-template-columns:minmax(0,1.1fr) 380px;gap:24px;align-items:stretch">
       <!-- LEFT: map fills the full column height -->
@@ -4343,6 +4345,8 @@ screens.analytics=()=>{
 `);};
 
 /* ---- SRS §2.2.3.2.3 Gallery of User generated Content ---- */
+/* breadcrumb for pages opened from a Gallery card */
+function galleryCrumbs(label){return [{label:"Home",href:"#/home"},{label:"Commons Insights",href:"#/insights"},{label:"Gallery of User generated Content",href:"#/gallery"},{label:label}];}
 const GNC_RES=[
   ["Landuse change","map","No abstract provided","admin","#/mapview/forest"],
   ["Citations","data","This map is designed to be used as a basemap by GIS…","admin","#/dataset/ds-09"],
@@ -4401,11 +4405,11 @@ screens.gallery=(p)=>{
   <section class="section" style="padding-top:6px">
     <div class="gnv gnv-plain">
       <div class="gnc-grid">
-        ${GNC_RES.map(r=>`<div class="gnc" onclick="go('${r[4]}')">
+        ${GNC_RES.map(r=>`<div class="gnc" onclick="go('${r[4]}?from=gallery')">
           <div class="big">${gncIcon(r[1])}</div>
           <div class="t"><span>${gncIcon(r[1])}</span>${r[0]}</div>
           <div class="ab">${r[2]}</div>
-          <div class="f"><span class="tag">${gncSource(r[1])}</span><span>◎ ${r[3]}</span><span class="btn sm primary" onclick="event.stopPropagation();go('${r[4]}')">View</span></div>
+          <div class="f"><span class="tag">${gncSource(r[1])}</span><span>◎ ${r[3]}</span><span class="btn sm primary" onclick="event.stopPropagation();go('${r[4]}?from=gallery')">View</span></div>
         </div>`).join("")}
       </div>
     </div>
@@ -4415,7 +4419,7 @@ screens.gallery=(p)=>{
 
 screens['gallery-item']=(p)=>{
   const g=galById(p.id);
-  return shell("#/insights",[{label:"Home",href:"#/home"},{label:"Commons Insights",href:"#/insights"},{label:"Gallery",href:"#/gallery"},{label:g.kind}],`
+  return shell("#/insights",galleryCrumbs(g.t),`
   <section class="section">
     <div class="grid" style="grid-template-columns:1fr 310px;gap:24px;align-items:start">
       <div class="stack">
