@@ -2884,25 +2884,25 @@ footer.site .bar{display:flex;align-items:center;justify-content:space-between;g
 .ap-cmeta em{font-style:normal;margin-left:.4rem;padding:.1rem .55rem;border-radius:999px;font-size:.7rem;font-weight:700;color:var(--t-cultural);background:color-mix(in srgb,var(--t-cultural) 10%,#fff)}
 .ap-citem p{margin:.25rem 0 0;font-size:.95rem;line-height:1.6;color:var(--ink)}
 .ap-cnone{margin:1rem .4rem 0;color:var(--muted-2);font-size:.9rem}
-.ap-wf{list-style:none;margin:.5rem 0 0;padding:0;display:grid;grid-template-columns:repeat(3,1fr);gap:0}
-.ap-wf li{position:relative;display:flex;flex-direction:column;align-items:center;text-align:center;gap:.25rem;padding:0 .8rem}
-.ap-wf li::before{content:"";position:absolute;top:1.1rem;left:-50%;width:100%;height:2px;background:var(--line-2);z-index:0}
-.ap-wf li:first-child::before{display:none}
-.ap-wf li.done::before,.ap-wf li.now::before,.ap-wf li.warn::before,.ap-wf li.bad::before{background:var(--green)}
-.ap-wf li i{position:relative;z-index:1;width:2.2rem;height:2.2rem;border-radius:50%;display:grid;place-items:center;font-style:normal;font-weight:800;font-size:.85rem;background:#fff;border:2px solid var(--line);color:var(--muted-2)}
-.ap-wf li.done i{background:var(--green);border-color:var(--green);color:#fff}
-.ap-wf li.now i{border-color:var(--amber-d);color:var(--amber-d)}
-.ap-wf li.warn i{background:var(--t-cultural);border-color:var(--t-cultural);color:#fff}
-.ap-wf li.bad i{background:var(--red);border-color:var(--red);color:#fff}
-.ap-wf li b{margin-top:.3rem;font-size:.92rem}
-.ap-wf li span{font-size:.8rem;color:var(--muted-2)}
+.ap-wf{list-style:none;margin:.4rem 0 0;padding:0}
+.ap-wf li{position:relative;display:flex;align-items:center;gap:1rem;padding:.55rem 0 1.1rem}
+.ap-wf li:last-child{padding-bottom:.4rem}
+.ap-wf li::after{content:"";position:absolute;left:1.2rem;top:2.95rem;bottom:-.55rem;width:2px;margin-left:-1px;background:var(--line)}
+.ap-wf li:last-child::after{display:none}
+.ap-wf li i{position:relative;z-index:1;flex:0 0 auto;width:2.4rem;height:2.4rem;border-radius:50%;display:grid;place-items:center;background:var(--green);color:#fff}
+.ap-wf li i .svgi{width:1.1rem;height:1.1rem}
+.ap-wf li.wait i{background:#fff;border:2px dashed var(--amber-d);color:var(--amber-d)}
+.ap-wf li.bad i{background:var(--red)}
+.ap-wf-t{flex:1;min-width:0;font-size:1rem;color:var(--muted)}
+.ap-wf-t b{color:var(--ink);font-weight:700}
+.ap-wf li time{flex:0 0 auto;font-size:.9rem;color:var(--muted-2)}
 .ap-log{display:flex;flex-direction:column}
 .ap-lrow{display:flex;gap:.9rem;padding:.85rem .2rem;border-top:1px solid var(--line-2)}
 .ap-lrow:first-child{border-top:0}
 .ap-ldot{flex:0 0 auto;width:.6rem;height:.6rem;margin-top:.45rem;border-radius:50%;background:var(--green)}
 .ap-lrow b{display:block;font-size:.92rem}
 .ap-lrow span:not(.ap-ldot){font-size:.8rem;color:var(--muted-2)}
-@media(max-width:640px){.ap-hist-b{padding:1rem}.ap-wf{grid-template-columns:1fr;gap:1rem}.ap-wf li{flex-direction:row;text-align:left;gap:.7rem;padding:0}.ap-wf li::before{display:none}.ap-wf li b{margin-top:0}}
+@media(max-width:640px){.ap-hist-b{padding:1rem}.ap-wf li{flex-wrap:wrap;gap:.2rem .8rem}.ap-wf li time{flex-basis:100%;padding-left:3.4rem}}
 @media(max-width:900px){.ap-grid{grid-template-columns:1fr}.ap-prev{min-height:240px}.ap-prev .ph-img{min-height:240px!important}}
 /* My Uploads - moderator comment card */
 .up-row.has-note .up-note{grid-column:2 / -1;display:flex;align-items:flex-start;gap:.85rem;margin:.85rem 0 .1rem;padding:.9rem 1.05rem;max-width:none;border:1px solid color-mix(in srgb,var(--t-cultural) 24%,#fff);border-left:1px solid color-mix(in srgb,var(--t-cultural) 24%,#fff);border-radius:.8rem;background:color-mix(in srgb,var(--t-cultural) 6%,#fff)}
@@ -3216,6 +3216,7 @@ function decide(id,status,comment){
   const note=comment?{text:comment,by:roleName(),date:todayStr()}:null;
   if(x){x.status=status; if(note) x.comment=note; else if(status!=='Revision requested') delete x.comment;}
   else{QUEUE_DECISIONS[id]=status; if(note) QUEUE_COMMENTS[id]=note; else if(status!=='Revision requested') delete QUEUE_COMMENTS[id];}
+  try{AP_DEC[id]={by:roleName(),at:todayStr()};localStorage.setItem('ce_apdec',JSON.stringify(AP_DEC));}catch(e){}
   saveSubs();
   toast(status==='Approved'?'Approved & published':status==='Rejected'?'Rejected':'Revision requested - your comment was sent');
   go(location.hash);
@@ -5620,7 +5621,7 @@ function approvalDetail(p){
   const facts=[["Title",r[1]],["Type",r[0]],["Contributor",name],["Organization",org],["Submitted on",r[3]],["Status",st],["Format",sm.fmt],["Category",sm.theme],["Licence","CC BY 4.0"],["Attribution",org]];
   const prev={Dataset:"Data preview — table",Map:"Layer preview — GeoNode map",Story:"Story preview — field photos",Dashboard:"Dashboard preview — charts"}[r[0]]||"Preview";
   const note=st==='Revision requested'?`<div class="ap-note${cm?'':' empty'}"><b>Comment for the contributor</b>${cm?`<p>${storyEsc(cm.text)}</p><span>${storyEsc(cm.by)} · ${cm.date}</span>`:`<p>No comment was recorded for this request.</p>`}</div>`:'';
-  AP_CUR={id:r[5],name:name,org:org,date:r[3],st:st,cm:cm};
+  AP_CUR={id:r[5],name:name,org:org,date:r[3],st:st,cm:cm,type:r[0]};
   setTimeout(()=>apHTab(document.querySelector('.ap-htabs button.on'),'comments'),0);
   return shell("",crumbs,`
     <section class="section ap-page"><a class="ap-back" onclick="go('#/approvals')">← Back to Approvals</a>
@@ -5652,7 +5653,8 @@ function approvalDetail(p){
     </div></section>`);
 }
 /* Activity & history panel under the details - comments, submission workflow and activity log */
-let AP_CUR=null, AP_COM={};
+let AP_CUR=null, AP_COM={}, AP_DEC={};
+try{const _d2=localStorage.getItem('ce_apdec'); if(_d2) AP_DEC=JSON.parse(_d2);}catch(e){}
 try{const _a=localStorage.getItem('ce_apcom'); if(_a) AP_COM=JSON.parse(_a);}catch(e){}
 function apStamp(){const d=new Date(), p=n=>String(n).padStart(2,'0'); let h=d.getHours(); const ap=h>=12?'PM':'AM'; h=h%12||12; return `${d.getFullYear()}-${p(d.getMonth()+1)}-${p(d.getDate())} · ${p(h)}:${p(d.getMinutes())} ${ap}`;}
 function apInitials(n){return String(n).split(' ').map(w=>w[0]).join('').slice(0,2).toUpperCase();}
@@ -5677,15 +5679,14 @@ function apPost(){
   apHTab(document.querySelector('.ap-htabs button.on'),'comments'); toast('Comment posted');
 }
 function apWorkflowHtml(){
-  const c=AP_CUR, st=c.st;
-  const decided=st!=='Pending';
-  const dec=st==='Pending'?'Decision':st;
-  const steps=[
-    {t:'Submitted',d:c.date+' · '+c.name,s:'done'},
-    {t:'Under review',d:decided?'Reviewed by a moderator':'Waiting for a moderator',s:decided?'done':'now'},
-    {t:dec,d:decided?(c.cm&&st==='Revision requested'?c.cm.date:'Moderator decision'):'Not decided yet',s:decided?(st==='Approved'?'done':st==='Rejected'?'bad':'warn'):''}
-  ];
-  return `<ol class="ap-wf">${steps.map((x,i)=>`<li class="${x.s}"><i>${x.s==='done'?'✓':i+1}</i><b>${storyEsc(x.t)}</b><span>${storyEsc(x.d)}</span></li>`).join("")}</ol>`;
+  const c=AP_CUR, st=c.st, d=AP_DEC[c.id]||{};
+  const ev=[]; /* newest first */
+  if(st==='Pending') ev.push({ic:'i-clock',who:'',what:'Waiting for a moderator to review',at:'',wait:true});
+  if(st==='Approved') ev.push({ic:'i-check',who:d.by||'A moderator',what:'approved and published',at:d.at||''});
+  if(st==='Rejected') ev.push({ic:'i-x',who:d.by||'A moderator',what:'rejected the submission',at:d.at||'',bad:true});
+  if(st==='Revision requested') ev.push({ic:'i-message',who:c.cm?c.cm.by:(d.by||'A moderator'),what:'requested a revision',at:c.cm?c.cm.date:(d.at||'')});
+  ev.push({ic:'i-upload',who:c.name,what:'submitted this '+c.type.toLowerCase(),at:c.date});
+  return `<ol class="ap-wf">${ev.map(e=>`<li class="${e.wait?'wait':''}${e.bad?' bad':''}"><i><svg class=svgi><use href=#${e.ic} /></svg></i><div class="ap-wf-t">${e.who?`<b>${storyEsc(e.who)}</b> `:''}<span>${storyEsc(e.what)}</span></div><time>${storyEsc(e.at)}</time></li>`).join("")}</ol>`;
 }
 function apLogHtml(){
   const c=AP_CUR, rows=[[c.date,'Submitted for review',c.name]];
