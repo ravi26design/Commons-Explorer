@@ -2510,6 +2510,9 @@ footer.site .bar{display:flex;align-items:center;justify-content:space-between;g
 .lu-scroll .wn-card{flex:0 0 calc((100% - 3*1.1rem)/4);min-width:0;scroll-snap-align:start}
 @media(max-width:1000px){.lu-scroll .wn-card{flex-basis:calc((100% - 1.1rem)/2)}}
 @media(max-width:560px){.lu-scroll .wn-card{flex-basis:84%}.lu-arrows{display:none}}
+/* Commons Insights banner — same height as the home hero slider */
+.page-photo.hero-h{height:clamp(22rem,58vh,34rem)}
+@media(max-width:700px){.page-photo.hero-h{height:46vh;height:46dvh}}
 </style>
 </head>
 <body>
@@ -3778,7 +3781,7 @@ screens.insights=()=>shell("#/insights",[{label:"Home",href:"#/home"},{label:"Co
       <p>A powerful suite of geospatial analytical tools designed to help communities, researchers, and policymakers understand and manage common resources through state-of-the-art satellite data. Analyze commons using built-in tools or upload your data and share insights.</p>
     </div>
   </div>
-  <div class="page-photo"><img src="assets/photo-9.jpg" alt=""></div>
+  <div class="page-photo hero-h"><img src="assets/photo-9.jpg" alt=""></div>
   <section class="section" style="padding-top:3rem">
     <div class="grid g2 mod-grid">
       ${lensCard({tc:"var(--c-mapstudio)",img:"assets/photo-3.jpg",tag:"",name:"Map Studio",meta:"GeoNode · GeoServer tools · sign-in for AI reports",desc:"Create, style, manage and publish geospatial data and maps — filters, area calculation, thematic comparison, zonal statistics and AI-assisted reports.",cta:"Open Map Studio",click:"goGated('#/mapstudio','Map Studio')"})}
