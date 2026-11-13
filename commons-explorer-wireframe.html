@@ -3976,10 +3976,10 @@ screens.upload=()=>{
   if(!isAuthed()) return gateScreen('Upload','Only registered users can upload datasets and supporting documentation. Sign in to continue.','#/upload',[{label:'Data Repository',href:'#/repository'}]);
   return shell("#/thematic",[{label:"Home",href:"#/home"},{label:"Thematic Datasets",href:"#/thematic"},{label:"Data Repository",href:"#/repository"},{label:"Upload"}],`
   <section class="section">
-    <div class="eyebrow">Contribute</div><h2 style="font-size:22px">Upload a dataset</h2>
+    <h2 style="font-size:22px">Upload a dataset</h2>
     <p class="sub">Supported formats: KML, SHP (zipped), GeoJSON, GeoTIFF and CSV. ${roleCan('moderate')?'As a moderator, your uploads are published straight away - no approval needed.':'Uploads are reviewed by a moderator before publication.'}</p>
     <div class="stepbar"><i class="on"></i><i class="on"></i><i></i><i></i></div>
-    <div class="grid" style="grid-template-columns:1fr 300px;gap:24px;align-items:start">
+    <div class="grid" style="grid-template-columns:minmax(0,1fr);gap:24px;align-items:start">
       <div class="panel">
         <div class="field-block"><label class="wf-label">File</label>
           <div class="ph-img" style="min-height:130px;flex-direction:column;gap:8px" onclick="toast('File picker')">
@@ -4003,13 +4003,6 @@ screens.upload=()=>{
         </div>
         <div class="field-block"><label class="wf-label">Supporting documentation</label><div class="wf-field area"><svg class=svgi><use href=#i-paperclip /></svg> Attach a methodology note, data dictionary or source document</div></div>
         <div class="between mt16"><a class="btn" onclick="go('#/repository')">Cancel</a><a class="btn primary" onclick="submitUpload()">${roleCan('moderate')?'Publish →':'Submit for review →'}</a></div>
-      </div>
-      <div class="stack">
-        <div class="panel"><div class="eyebrow">What happens next</div>
-          <div class="wf-tl mt12">
-            ${[["done","1","Upload","You submit the file and metadata"],["pending","2","Moderator review","Organization Moderator approves, rejects or requests revisions"],["pending","3","Publication","Layer is published to GeoNode and the repository"],["pending","4","Credit","Attribution appears on the dataset and your profile"]].filter(e=>!(roleCan('moderate')&&e[1]==='2')).map((e,i)=>roleCan('moderate')?[e[0],String(i+1),e[2],e[3]]:e).map(e=>`<div class="wf-ev ${e[0]}"><div class="wf-ic">${e[0]==='done'?'<svg class=svgi><use href=#i-check /></svg>':e[1]}</div><div><div class="wf-lb">${e[2]}</div><div class="wf-mt">${e[3]}</div></div></div>`).join("")}
-          </div></div>
-        <div class="panel"><div class="eyebrow">Reminder</div><p class="muted" style="margin:6px 0 0">${roleCan('moderate')?'Moderators and admins publish without approval.':'Registered users cannot publish content without approval.'} Uploads appear in <a onclick="go('#/uploads')" style="text-decoration:underline;cursor:pointer">My Uploads</a>${roleCan('moderate')?' as <i>Published</i>.':' as <i>Pending</i> until reviewed.'}</p></div>
       </div>
     </div>
   </section>
