@@ -3037,8 +3037,11 @@ const MODULES=[
    desc:"Get conservation action plans based on status, needs and potential interventions.",
    links:[["Panchayat Atlas","#/atlas"],["Village Explorer","#/village"],["+ 2 planned (V2)","#/dss"]]},
   {id:"thematic",ic:"<svg class=svgi><use href=#i-compass /></svg>",name:"Thematic Datasets",sub:"",href:"#/thematic",
-   desc:"Explore curated data layers across key themes like water, biodiversity, land and governance, and browse the full data repository.",
-   links:[["Water","#/theme/water"],["Land","#/theme/forest"],["Biodiversity","#/theme/biodiversity"],["Data Repository","#/repository"]]},
+   desc:"Explore curated data layers across key themes like water, biodiversity, land and governance.",
+   links:[["Water","#/theme/water"],["Land","#/theme/forest"],["Biodiversity","#/theme/biodiversity"]]},
+  {id:"repository",ic:"<svg class=svgi><use href=#i-db /></svg>",name:"Data Repository",sub:"",href:"#/repository",
+   desc:"Access spatial and non-spatial datasets across geographies and common types.",
+   links:[["Browse datasets","#/repository"],["Upload","#/upload"]]},
   {id:"insights",ic:"<svg class=svgi><use href=#i-barchart /></svg>",name:"Commons Insights",sub:"",href:"#/insights",
    desc:"Analyse commons using built-in tools or upload your data and share insights.",
    links:[["Map Studio","#/mapstudio"],["Data Analytics","#/analytics"],["Gallery","#/gallery"]]}
@@ -3897,11 +3900,11 @@ const MOD_TC={thematic:"var(--green)",repository:"var(--t-water)",dss:"var(--t-c
 const MOD_TAG={thematic:"Curated themes",repository:"Open data",dss:"Planning tools",insights:"Build & share"};
 const MOD_IMG={thematic:"assets/photo-8.jpg",repository:"assets/photo-3.jpg",dss:"assets/hero-participatory.jpg",insights:"assets/photo-9.jpg"};
 const MOD_FIT={};
-const MOD_STAT={thematic:"3 themes · full data repository",dss:"6 planning tools",insights:"Map Studio · Superset"};
+const MOD_STAT={thematic:"3 themes · 20+ layers",repository:"12 datasets · 5 formats",dss:"6 planning tools",insights:"Map Studio · Superset"};
 function moduleTiles(){
   const go_=LANDING_ONLY?"toast('Coming soon')":null;
   const act=href=>go_||`go('${href}')`;
-  return `<div class="grid g3 mod-grid">${MODULES.map((m,i)=>`
+  return `<div class="grid g2 mod-grid">${MODULES.map((m,i)=>`
     <article class="mod-tile comp pw-card${LANDING_ONLY?' soon':''}" style="--tc:${MOD_TC[m.id]||'var(--green)'}" onclick="${act(m.href)}">
       <div class="mc-media">
         <div class="pw-img" style="background-image:url('${MOD_IMG[m.id]}')"></div>
@@ -4042,7 +4045,7 @@ screens.home=()=>shell("#/home",null,`
   <div class="ehero-after"><div class="container">
 
   <section class="section">
-    <h2>Three pathways to explore</h2>
+    <h2>Four pathways to explore</h2>
     <p class="sub">Each pathway opens an intermediate navigation page before its detailed views.</p>
     ${moduleTiles()}
   </section>
