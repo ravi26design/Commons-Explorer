@@ -5236,16 +5236,6 @@ screens.approvals=(p)=>{
           <span class="btn sm" onclick="decide('${r[5]}','Rejected')">Reject</span>
           <span class="btn sm primary" onclick="decide('${r[5]}','Approved')">Approve</span>`:''}</div></div>`).join("")||'<div class="wf-note" style="padding:18px;text-transform:none;letter-spacing:0">Nothing in this status.</div>'}
     </div>
-    <div class="panel mt16"><div class="eyebrow">Review workflow</div>
-      <div class="flow mt8">
-        <div class="node">Submitted<span class="sub2">registered user</span></div><div class="arw">→</div>
-        <div class="node">Under review<span class="sub2">org moderator</span></div><div class="arw">→</div>
-        <div class="node">Revisions<span class="sub2">optional</span></div><div class="arw">→</div>
-        <div class="node strong">Published<span class="sub2">gallery + repository</span></div>
-      </div>
-      <div class="wf-note mt12" style="text-transform:none;letter-spacing:0">Submissions by moderators and admins are published straight away and do not appear in this queue.</div>
-      ${roleCan('superAdmin')?'<div class="wf-note mt12">As Platform Super Admin you may override moderation and approval decisions.</div>':''}
-    </div>
   `);
 };
 
