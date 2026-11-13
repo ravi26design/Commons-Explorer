@@ -913,7 +913,8 @@ footer .bar{border-top:1px solid var(--line-2);padding:1.35rem 0 1.75rem;font-si
 .sheet-title{text-align:center}
 .sheet-title b{display:block;font-family:var(--serif);font-weight:400;font-size:.9rem;line-height:1.3;color:var(--ink)}
 .sheet-title span{display:block;font-size:9px;color:var(--faint);margin-top:3px;line-height:1.4}
-.sheet-n{display:grid;place-items:center;font-size:9px;color:var(--green-d);border:1px solid var(--green-line);background:var(--green-soft);border-radius:50%;width:34px;height:34px;margin-left:auto}
+.sheet-n{display:flex;flex-direction:column;align-items:center;gap:3px;width:34px;margin-left:auto;font-size:11px;font-weight:800;line-height:1;color:var(--green-d)}
+.sheet-n svg{width:22px;height:28px;display:block}
 .sheet-tab{width:62%;margin-left:auto;border:1px solid var(--line-2);font-size:7.5px;border-collapse:collapse}
 .sheet-tab th,.sheet-tab td{border:1px solid var(--line-2);padding:2px 3px;text-align:left;white-space:nowrap;overflow:hidden}
 .sheet-tab th{background:var(--bg-soft);font-weight:700;color:var(--ink)}
@@ -4302,7 +4303,7 @@ function atlasSheet(sh,idx){
     <div class="sheet-head">
       <div class="sheet-inset"><svg class=svgi><use href=#i-pin /></svg><span>Dolpura GP</span></div>
       <div class="sheet-title"><b>${sh.t}</b><span>Dolpura GP, Sub-District: Mandalgarh, Block: Mandalgarh, Bhilwara, Rajasthan</span></div>
-      <div class="sheet-n"><svg class=svgi><use href=#i-chevup /></svg><br>N</div>
+      <div class="sheet-n" title="North"><span>N</span><svg viewBox="0 0 24 30" aria-hidden="true"><path d="M12 1 L21.5 28 L12 22.5 Z" fill="currentColor"/><path d="M12 1 L2.5 28 L12 22.5 Z" fill="#fff" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M12 1 L21.5 28 L12 22.5 Z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg></div>
     </div>
     <table class="sheet-tab"><thead><tr>${sh.cols.map(c=>`<th>${c}</th>`).join("")}</tr></thead>
       <tbody>${GP_VILLAGES.map((v,i)=>`<tr><td>${i+1}</td><td>${v}</td>${sh.cols.slice(2).map((c,k)=>`<td>${(120+i*37+k*19)%900}</td>`).join("")}</tr>`).join("")}</tbody>
