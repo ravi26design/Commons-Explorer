@@ -2725,6 +2725,17 @@ footer.site .bar{display:flex;align-items:center;justify-content:space-between;g
 .pw-msg.err{background:var(--red-soft);border-left:3px solid var(--red);color:var(--ink)}
 .pw-msg.ok{background:var(--green-soft);border-left:3px solid var(--green);color:var(--green-d)}
 .pw-go.is-off{opacity:.55;box-shadow:none}
+/* Apps menu - Commons Platform Components */
+.appsw-menu{width:31rem;padding:1.7rem 1.5rem 1.6rem;border-radius:1.5rem!important;box-shadow:0 24px 60px -24px rgba(40,36,34,.35)}
+.appsw-menu .appsw-h{text-align:center;font-size:.82rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:1.35rem}
+.appsw-menu .app-grid2{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:.7rem .5rem}
+.appsw-menu .app-tile{display:flex;flex-direction:column;align-items:center;justify-content:flex-start;gap:.6rem;padding:.85rem .4rem .8rem;border:1px solid transparent;border-radius:1.1rem!important;cursor:pointer;text-align:center;transition:background .15s,border-color .15s}
+.appsw-menu .app-tile:hover,.appsw-menu .app-tile.here{background:var(--green-soft);border-color:var(--green-line)}
+.appsw-menu .app-tile.here{cursor:default}
+.appsw-menu .app-ic{width:4.4rem;height:4.4rem;border-radius:1.15rem!important;background:#fff!important;border:1px solid var(--line-2);box-shadow:0 2px 6px -2px rgba(40,36,34,.14)!important;color:var(--green-d)!important;display:grid;place-items:center}
+.appsw-menu .app-ic .svgi{width:1.9rem;height:1.9rem}
+.appsw-menu .app-nm{font-size:.98rem;font-weight:500;line-height:1.3;color:var(--ink)}
+@media(max-width:560px){.appsw-menu{width:min(31rem,92vw)}.appsw-menu .app-ic{width:3.6rem;height:3.6rem}.appsw-menu .app-nm{font-size:.88rem}}
 </style>
 </head>
 <body>
@@ -3061,24 +3072,23 @@ const NAV=[
 function appsMenu(){
   const grid=`<svg width="15" height="15" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><circle cx="3" cy="3" r="1.5"/><circle cx="8" cy="3" r="1.5"/><circle cx="13" cy="3" r="1.5"/><circle cx="3" cy="8" r="1.5"/><circle cx="8" cy="8" r="1.5"/><circle cx="13" cy="8" r="1.5"/><circle cx="3" cy="13" r="1.5"/><circle cx="8" cy="13" r="1.5"/><circle cx="13" cy="13" r="1.5"/></svg>`;
   const PLATFORM_COMPONENTS=[
-  ["Understanding Commons","<svg class=svgi><use href=#i-users /></svg>","https://introduction.commonsplatform.in/"],
-  ["Commons Stories","<svg class=svgi><use href=#i-book /></svg>","https://stories.commonsplatform.in/"],
-  ["Village Institutions","<svg class=svgi><use href=#i-home /></svg>","https://villageinstitutions.commonsplatform.in/"],
-  ["Commons Explorer","<svg class=svgi><use href=#i-compass /></svg>","#/home"],
+  ["Understanding of Commons","<svg class=svgi><use href=#i-users /></svg>","https://introduction.commonsplatform.in/"],
   ["Facilitating Commoning","<svg class=svgi><use href=#i-hand /></svg>","https://learning.commonsplatform.in/"],
+  ["Village Institutions","<svg class=svgi><use href=#i-home /></svg>","https://villageinstitutions.commonsplatform.in/"],
+  ["Common Stories","<svg class=svgi><use href=#i-book /></svg>","https://stories.commonsplatform.in/"],
   ["Legal Repository","<svg class=svgi><use href=#i-shield /></svg>","https://legalrepository.commonsplatform.in/"],
-  ["Making Expertise Visible","<svg class=svgi><use href=#i-star /></svg>","https://skills.commonsplatform.in/"],
-  ["Form Builder","<svg class=svgi><use href=#i-clipboard /></svg>","https://formbuilder.commonsplatform.in/"]
+  ["Commons Explorer","<svg class=svgi><use href=#i-compass /></svg>","#/home"],
+  ["Making Expertise Visible","<svg class=svgi><use href=#i-star /></svg>","https://skills.commonsplatform.in/"]
 ];
-  
+
   const tile=a=>{
     const here=a[2]==='#/home';
-    const act=here?`appsClose();go('#/home')`:`window.open('${a[2]}','_blank')`;
-    return `<div class="app-tile ${here?'here':''}" onclick="${act}"><div class="app-ic">${a[1]}</div><div class="app-nm">${a[0]}${here?' <span class=\'app-here\'>· you are here</span>':''}</div></div>`;
+    const act=here?`appsClose();go('#/home')`:`window.open('${a[2]}','_blank','noopener')`;
+    return `<div class="app-tile ${here?'here':''}" ${here?'aria-current="true"':''} onclick="${act}"><div class="app-ic">${a[1]}</div><div class="app-nm">${a[0]}</div></div>`;
   };
   return `<div class="appsw" id="appsw"><button class="btn sm btn-icon" onclick="toggleAppsW(event)" title="Apps" aria-label="Apps">${grid}</button>
     <div class="appsw-menu"><div class="appsw-cols one">
-      <div><div class="appsw-h">Commons Platform</div><div class="app-grid2">${PLATFORM_COMPONENTS.map(tile).join("")}</div></div>
+      <div><div class="appsw-h">Commons Platform Components</div><div class="app-grid2">${PLATFORM_COMPONENTS.map(tile).join("")}</div></div>
     </div></div></div>`;
 }
 function langMenu(){
