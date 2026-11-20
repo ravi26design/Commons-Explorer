@@ -4,6 +4,8 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Commons Explorer — UI Design</title>
+<meta name="description" content="Commons Explorer: open-access data, maps and analytics on India's commons - water, forests, land and biodiversity.">
+<meta name="keywords" content="commons data, natural commons, water bodies, land cover, groundwater, biodiversity, decision support, geospatial maps, village data, open data">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,300;0,400;0,700;0,900;1,400;1,700&display=swap" rel="stylesheet">
@@ -1552,11 +1554,15 @@ body{overflow-x:clip}
 .hero-comps a:hover{border-color:var(--green-line);box-shadow:0 14px 28px -18px rgba(74,66,62,.45);transform:translateY(-3px);color:var(--green-d)}
 .hc-ic{display:grid;place-items:center;width:4.4rem;height:4.4rem;border-radius:1.2rem;flex:none;background:color-mix(in srgb,var(--tc,var(--green)) 12%,#fff);color:var(--tc,var(--green));box-shadow:inset 0 0 0 1px color-mix(in srgb,var(--tc,var(--green)) 24%,#fff)}
 .hc-ic .svgi{width:2rem;height:2rem;stroke-width:1.6}
-.hero-photo{position:relative;z-index:0;height:clamp(22rem,58vh,34rem);overflow:hidden;background:#efe9df}
+.hero-photo{position:relative;z-index:0;height:clamp(25rem,66vh,38rem);overflow:hidden;background:#efe9df}
 .hero-photo img{width:100%;height:100%;object-fit:cover;object-position:center 40%;display:block}
 .hs-track{display:flex;height:100%;transition:transform .6s ease}
 .hs-slide{position:relative;flex:0 0 100%;height:100%}
 .hs-slide img{width:100%;height:100%;object-fit:cover;object-position:center center;display:block}
+.hs-slide::after{content:'';position:absolute;inset:0;background:linear-gradient(to top,rgba(16,20,16,.78) 0%,rgba(16,20,16,.5) 38%,rgba(16,20,16,.08) 72%),linear-gradient(to right,rgba(16,20,16,.45) 0%,rgba(16,20,16,0) 60%);pointer-events:none}
+.hero-photo .hs-cap{left:max(var(--gutter),calc((100% - var(--maxw))/2 + var(--gutter)));bottom:clamp(2.75rem,5vw,3.75rem);text-align:left}
+.hero-photo .hs-cap span{margin-bottom:0}
+.hs-cap b{font-weight:600}
 .hs-cap{position:absolute;left:clamp(1rem,5vw,4.5rem);bottom:clamp(1.25rem,4vw,2.75rem);z-index:2;max-width:34rem;color:#fff;text-shadow:0 2px 14px rgba(0,0,0,.45)}
 .hs-cap em{display:block;font-style:normal;font-size:.72rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.85);margin-bottom:.35rem}
 .hs-cap b{display:block;font-size:clamp(1.6rem,3vw,2.4rem);line-height:1.15;margin-bottom:.45rem;color:#fff}
@@ -1567,7 +1573,26 @@ body{overflow-x:clip}
 .hs-dots{position:absolute;left:50%;right:auto;transform:translateX(-50%);bottom:clamp(1rem,3vw,1.75rem);z-index:3;display:flex;gap:.45rem}
 .hs-dots .car-dot{width:.7rem;height:.7rem;border-radius:50%;border:0;background:rgba(255,255,255,.6);padding:0;cursor:pointer;box-shadow:0 1px 4px rgba(0,0,0,.4)}
 .hs-dots .car-dot.on{background:#fff;width:1.8rem;border-radius:999px}
-@media(max-width:700px){.hs-cap{max-width:none;right:1rem;bottom:3.4rem}.hs-cap b{font-size:1.4rem}.hs-cap span{display:none}.hs-nav{width:2.4rem;height:2.4rem}.hs-dots{left:50%;right:auto;transform:translateX(-50%);bottom:1rem}}
+@media(max-width:700px){.hs-cap{max-width:none;right:var(--gutter);bottom:3.4rem}.hero-photo .hs-cap{bottom:3rem}.hs-cap b{font-size:1.4rem}.hs-cap span{display:none}.hs-nav{width:2.4rem;height:2.4rem}.hs-dots{left:50%;right:auto;transform:translateX(-50%);bottom:1rem}}
+/* hero banner — editorial style: accent kicker, serif underlined title, progress line, follow rail */
+.hero-photo .hs-cap{max-width:36rem;text-shadow:0 2px 18px rgba(0,0,0,.4)}
+.hero-photo .hs-cap em{display:flex;align-items:center;gap:.65rem;font-size:.82rem;letter-spacing:.06em;color:#fff;margin-bottom:1.1rem}
+.hero-photo .hs-cap em::before{content:'';width:4px;height:.95rem;background:var(--cta);flex:none}
+.hero-photo .hs-cap em svg{width:1rem;height:1rem;margin-left:.15rem}
+.hero-photo .hs-cap b{font-family:var(--serif);font-weight:400;font-size:clamp(2.1rem,4.4vw,3.5rem);line-height:1.1;letter-spacing:-.01em;margin-bottom:1.1rem;text-decoration:underline;text-decoration-thickness:3px;text-underline-offset:.5rem;text-decoration-skip-ink:none}
+.hero-photo .hs-cap span{font-size:1.02rem;line-height:1.65;max-width:28rem;color:#fff}
+.hero-photo .hs-slide .hs-cap>*{opacity:0;transform:translateY(14px);transition:opacity .6s ease,transform .6s ease}
+.hero-photo .hs-slide.on .hs-cap>*{opacity:1;transform:none}
+.hero-photo .hs-slide.on .hs-cap>*:nth-child(2){transition-delay:.12s}
+.hero-photo .hs-slide.on .hs-cap>*:nth-child(3){transition-delay:.24s}
+.hs-prog{position:absolute;left:0;right:0;top:0;height:3px;z-index:4;pointer-events:none}
+.hs-prog i{display:block;height:100%;width:0;background:var(--cta)}
+.pb .hs-cap{max-width:38rem}
+.pb .hs-cap span{max-width:34rem}
+.pb.pb-lift .hs-cap{bottom:clamp(5rem,8vw,6.5rem)}
+@media(max-width:700px){.pb.pb-lift .hs-cap{bottom:4.5rem}.pb .hs-cap b{font-size:1.7rem}}
+@keyframes hsProg{from{width:0}to{width:100%}}
+@media(max-width:700px){.hero-photo .hs-cap b{font-size:1.9rem}.hero-photo .hs-cap span{display:block;font-size:.92rem}}
 .photo-credit{position:absolute;right:1rem;bottom:.8rem;z-index:2;font-size:.7rem;color:rgba(255,255,255,.85);background:rgba(59,53,49,.55);padding:.3rem .6rem}
 .ehero-after{z-index:1;background:#fff;box-shadow:0 -18px 40px -22px rgba(20,30,50,.35);padding-top:.5rem}
 .rise{animation:up .5s ease both}
@@ -1577,6 +1602,7 @@ body{overflow-x:clip}
 @media(max-width:700px){.hero-photo{height:46vh;height:46dvh}.ehero .in{padding:2rem 1.15rem 1.75rem}.ehero .stand p{font-size:1rem}.hero-comps{gap:.6rem;margin-top:1.75rem}.hero-comps a{padding:.85rem .4rem .8rem;font-size:.78rem;border-radius:12px}}
 @media(max-width:560px){.hero-comps{grid-template-columns:repeat(2,1fr)}}
 @media(prefers-reduced-motion:reduce){.rise{animation:none}}
+
 
 /* ---------- home: what are commons (photo beside the argument, pillars under it) ---------- */
 .section.need{padding:64px 0 56px}
@@ -1629,6 +1655,9 @@ body{overflow-x:clip}
 
 /* ---------- home: module cards v2 — image banner, overlapping icon, chips ---------- */
 .mod-tile.comp{border-color:var(--line-2)}
+.mod-tile .mc-kw+.pw-foot{margin-top:.55rem}
+.mc-kw{display:flex;flex-wrap:wrap;gap:.4rem;cursor:default;margin:.15rem 0 .25rem}
+.mc-kw span{font-size:.74rem;font-weight:600;line-height:1;color:var(--muted);background:var(--panel-2,#f6f3ee);border:1px solid var(--line);padding:.38rem .6rem;cursor:default;user-select:none;pointer-events:auto}
 .mc-media{position:relative;height:11.5rem;background-size:cover;background-position:center;cursor:pointer;overflow:hidden}
 .mc-media::after{content:'';position:absolute;inset:0;background:linear-gradient(to top,rgba(59,53,49,.62),rgba(59,53,49,.05) 55%);transition:opacity .2s}
 .mod-tile.comp:hover .mc-media::after{opacity:.85}
@@ -2575,7 +2604,7 @@ footer.site .bar{display:flex;align-items:center;justify-content:space-between;g
 @media(max-width:1000px){.lu-scroll .wn-card{flex-basis:calc((100% - 1.1rem)/2)}}
 @media(max-width:560px){.lu-scroll .wn-card{flex-basis:84%}.lu-arrows{display:none}}
 /* Commons Insights banner — same height as the home hero slider */
-.page-photo.hero-h{height:clamp(22rem,58vh,34rem)}
+.page-photo.hero-h{height:clamp(25rem,66vh,38rem)}
 @media(max-width:700px){.page-photo.hero-h{height:46vh;height:46dvh}}
 /* Manage featured picker */
 /* account sidebar refresh */
@@ -3008,6 +3037,8 @@ header.site.searching .nav>ul,header.site.searching .navright,header.site.search
 /* Home pathways - cards fill their column (the .pw-card width cap is for the password card) and use the same gap as Featured */
 .mod-tile.pw-card{max-width:none;width:100%}
 .mod-grid{gap:1.1rem}
+.mod-home>.mod-tile:last-child:nth-child(odd){grid-column:1/-1}
+@media(min-width:1000px){.mod-home{grid-template-columns:repeat(3,minmax(0,1fr))!important}.mod-home>.mod-tile:last-child:nth-child(odd){grid-column:auto}}
 /* Responsive - pages that set their columns inline collapse to one column on tablets and phones */
 @media(max-width:900px){
   .grid[style*="grid-template-columns"]{grid-template-columns:minmax(0,1fr)!important}
@@ -3029,6 +3060,77 @@ header.site.searching .nav>ul,header.site.searching .navright,header.site.search
 .full-bleed{width:calc(100vw - var(--sbw));margin-left:calc(50% - 50vw + var(--sbw)/2);margin-right:calc(50% - 50vw + var(--sbw)/2)}
 @media(max-width:640px){.up-main .up-dot{display:none!important}}
 @media(max-width:900px){.acct-side-panel{width:auto!important;flex:0 0 auto}.acct-content-panel{width:100%}}
+/* Featured page — visual refresh */
+.ft-sel{border:0;background:none;box-shadow:none;padding:0}
+.ft-sel-h b{font-size:.74rem}
+.ft-slot{gap:1rem;padding:.8rem;background:#fff;border:1px solid var(--green-line);box-shadow:inset 3px 0 0 var(--green)}
+.ft-slot .ft-th{width:8.5rem;height:5.6rem}
+.ft-slot em{display:flex;align-items:center;gap:.5rem}
+.ft-n{display:inline-grid;place-items:center;width:1.35rem;height:1.35rem;border-radius:50%;background:var(--green);color:#fff;font-style:normal;font-size:.72rem;font-weight:800;letter-spacing:0}
+.ft-slot b{font-size:1rem;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.ft-slot button{position:static;width:auto;height:auto;margin-left:auto;align-self:flex-start;border:1px solid var(--line-2);border-radius:0;background:#fff;padding:.3rem .65rem;font:inherit;font-size:.78rem;font-weight:600;color:var(--muted-2);cursor:pointer;flex:none}
+.ft-slot button:hover{border-color:var(--red);color:var(--red);background:#fff}
+.ft-slot.empty{flex-direction:row;align-items:center;gap:.9rem;min-height:6.6rem;box-shadow:none}
+.ft-slot.empty .ft-n{width:2rem;height:2rem;background:var(--line-2);color:var(--muted-2);font-size:.85rem}
+.ft-slot.empty b{display:block;font-weight:700;color:var(--ink)}
+.ft-slot.empty small{display:block;margin-top:.15rem}
+.ft-tabs button{display:inline-flex;align-items:center;gap:.4rem}
+.ft-tabs button i{font-style:normal;font-size:.7rem;font-weight:700;min-width:1.3rem;padding:.1rem .35rem;border-radius:999px;background:var(--line);color:var(--muted-2)}
+.ft-tabs button.on i{background:rgba(255,255,255,.25);color:#fff}
+.ft-hint{display:flex;align-items:center;gap:.45rem;margin:.5rem 0 1rem}
+.ft-hint .svgi{width:1rem;height:1rem;color:var(--green)}
+.ft-grid{grid-template-columns:repeat(auto-fill,minmax(19rem,1fr));gap:1.1rem}
+.ft-card{overflow:hidden}
+.ft-card:hover{transform:translateY(-3px);box-shadow:0 14px 28px -20px rgba(74,66,62,.55)}
+.ft-card .ft-th{position:relative;height:9.5rem;background-position:center 35%}
+.ft-card .ft-th::after{content:'';position:absolute;inset:0;background:linear-gradient(to top,rgba(20,24,20,.35),rgba(20,24,20,0) 55%);pointer-events:none}
+.ft-kind{position:absolute;left:.7rem;top:.7rem;z-index:1;display:inline-flex;align-items:center;gap:.35rem;padding:.28rem .6rem;border-radius:999px;background:rgba(255,255,255,.95);color:var(--tc,var(--green));font-size:.68rem;font-weight:800;letter-spacing:.06em;text-transform:uppercase}
+.ft-kind .svgi{width:.85rem;height:.85rem}
+.ft-kind{box-shadow:0 1px 5px rgba(0,0,0,.2)}
+.ft-card .ft-b{display:flex;flex-direction:column;gap:.4rem;padding:.95rem 1.05rem .6rem;flex:1}
+.ft-card b{margin:0;font-family:var(--serif);font-weight:400;font-size:1.08rem;line-height:1.3;color:var(--ink)}
+.ft-note{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;font-size:.84rem;line-height:1.5;color:var(--muted)}
+.ft-meta{display:flex;align-items:center;gap:.55rem;margin:0 1.05rem;padding:.7rem 0 .85rem;border-top:1px solid var(--line);font-size:.78rem;color:var(--muted-2)}
+.ft-who{font-weight:600;color:var(--ink);min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.ft-when{margin-left:auto;white-space:nowrap}
+.ft-ck{top:.65rem;right:.65rem;z-index:2;width:1.9rem;height:1.9rem;gap:.35rem;background:rgba(255,255,255,.92);border:1.5px solid rgba(255,255,255,.95);box-shadow:0 2px 8px rgba(0,0,0,.18);color:#fff;font-weight:700}
+.ft-ck .svgi{width:1rem;height:1rem;opacity:0}
+.ft-ck i{display:none;font-style:normal;font-size:.74rem;font-weight:800;letter-spacing:.03em}
+.ft-card:hover .ft-ck{border-color:var(--green)}
+.ft-card.sel{border-color:var(--green);box-shadow:0 0 0 2px var(--green) inset}
+.ft-card.sel .ft-ck{width:auto;height:1.9rem;padding:0 .7rem 0 .55rem;border-radius:999px;background:var(--green);border-color:var(--green);display:inline-flex;align-items:center;justify-content:center}
+.ft-card.sel .ft-ck .svgi{opacity:1;stroke-width:3}
+.ft-card.sel .ft-ck i{display:inline}
+.ft-bar{position:sticky;bottom:1rem;z-index:20;display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap;margin-top:1.25rem;padding:.8rem 1.1rem;background:var(--ink);color:#fff;box-shadow:0 18px 40px -18px rgba(20,24,20,.6)}
+.ft-bar[hidden]{display:none}
+.ft-bar span{font-size:.9rem;color:rgba(255,255,255,.85)}
+.ft-bar span b{color:#fff}
+.ft-bar .btn{min-height:2.4rem}
+#ft-save .svgi{width:1rem;height:1rem;margin-right:.2rem}
+@media(max-width:640px){.ft-slot{flex-wrap:wrap}.ft-slot .ft-th{width:100%;height:8rem}.ft-slot button{margin-left:0}}
+.ft-slots{grid-template-columns:repeat(2,minmax(0,1fr))}
+@media(max-width:760px){.ft-slots{grid-template-columns:minmax(0,1fr)}}
+.ft-tools>*{min-width:0}
+@media(max-width:640px){.ft-tabs{max-width:100%;overflow-x:auto;scrollbar-width:none}.ft-tabs::-webkit-scrollbar{display:none}.ft-tabs button{flex:none}.ft-tools .up-search{flex:1 1 100%}.ft-grid{grid-template-columns:minmax(0,1fr)}}
+
+/* Featured page — selected cards shown exactly as on the home page */
+.ft-slots{gap:1.1rem;align-items:stretch}
+.ft-slot2{position:relative;display:flex;flex-direction:column}
+.ft-prev{flex:1;display:flex;pointer-events:none}
+.ft-prev .wn-card{flex:1;cursor:default;transform:none!important;box-shadow:none!important}
+.ft-prev .wn-media{aspect-ratio:2/1;height:auto}
+.ft-n2{position:absolute;left:.75rem;top:.75rem;z-index:3;padding:.3rem .7rem;border-radius:999px;background:var(--green);color:#fff;font-size:.72rem;font-weight:800;letter-spacing:.06em;text-transform:uppercase;box-shadow:0 2px 8px rgba(0,0,0,.25)}
+.ft-rm{position:absolute;right:.75rem;top:.75rem;z-index:3;padding:.4rem .8rem;border:0;border-radius:0;background:rgba(255,255,255,.95);color:var(--ink);font:inherit;font-size:.78rem;font-weight:700;cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,.25)}
+.ft-rm:hover{background:var(--red);color:#fff}
+.ft-slot2.empty{min-height:18rem;border:1.5px dashed var(--line-2);background:var(--bg-soft)}
+.ft-ph{margin:auto;display:flex;flex-direction:column;align-items:center;gap:.3rem;text-align:center;padding:1.5rem}
+.ft-ph .ft-n{width:2.2rem;height:2.2rem;background:var(--line-2);color:var(--muted-2)}
+.ft-ph b{color:var(--ink);font-size:1rem}
+.ft-ph small{color:var(--muted-2)}
+.ft-head{margin-bottom:.75rem}
+.ft-head h2{line-height:1.2}
+.ft-head p{margin:.2rem 0 0!important;line-height:1.4;font-size:.95rem}
+.ft-sel{margin-top:.5rem}
 </style>
 </head>
 <body>
@@ -3089,6 +3191,7 @@ const MODULES=[
 ];
 
 /* SRS §2.2.1 — thematic lenses */
+const THEME_KW={water:["Water resources","Groundwater","Water bodies"],forest:["Forests","Land cover","Land use"],biodiversity:["Biodiversity","Habitats","Species"]};
 const THEMES=[
   {id:"water",num:"01",ic:"<svg class=svgi><use href=#i-droplet /></svg>",name:"Water",tag:"Groundwater, water body performance & conservation planning",
    desc:"The map below contains numerous datasets pertaining to water resources in the country. The source of the data is the Bhuvan Portal. Explore various water resource datasets and make your own maps by combining layers of interest to you.",
@@ -3139,10 +3242,10 @@ function galById(id){return GALLERY.find(g=>g.id===id)||GALLERY[0];}
 
 /* What's New — latest additions and updates across the platform (homepage feed) */
 const WHATS_NEW=[
-  {kind:"New dataset",ic:"<svg class=svgi><use href=#i-map /></svg>",t:"Common lands of Bhilwara district - parcel boundaries",note:"12,340 parcels mapped at 1:10,000, published to the repository.",when:"31 Aug 2025",who:"FES \u2014 Land Vertical",href:"#/dataset/ds-01",img:"assets/photo-2.jpg"},
-  {kind:"New dashboard",ic:"<svg class=svgi><use href=#i-trend /></svg>",t:"Common land pressure index - district dashboard",note:"Compare pressure on commons across 18 districts, refreshed nightly.",when:"28 Aug 2025",who:"Aditi Joshi \u00b7 Partner CSO",href:"#/gallery-item/g-02",img:"assets/photo-3.jpg"},
-  {kind:"New story",ic:"<svg class=svgi><use href=#i-book /></svg>",t:"Where the tanks went \u2014 30 years of water bodies in Anantapur",note:"A narrative built from map views and Superset charts.",when:"24 Aug 2025",who:"Kavita Menon \u00b7 FES",href:"#/gallery-item/g-01",img:"assets/type-water.jpg"},
-  {kind:"Platform update",ic:"<svg class=svgi><use href=#i-sparkles /></svg>",t:"Zonal statistics now available in Map Studio",note:"Compute raster statistics by zone and export the results table.",when:"21 Aug 2025",who:"Commons Explorer team",href:"#/mapstudio",img:"assets/hero-participatory.jpg"}
+  {kind:"New dataset",ic:"<svg class=svgi><use href=#i-map /></svg>",kw:["Common lands","Parcel boundaries","Bhilwara"],t:"Common lands of Bhilwara district - parcel boundaries",note:"12,340 parcels mapped at 1:10,000, published to the repository.",when:"31 Aug 2025",who:"FES \u2014 Land Vertical",href:"#/dataset/ds-01",img:"assets/photo-2.jpg"},
+  {kind:"New dashboard",ic:"<svg class=svgi><use href=#i-trend /></svg>",kw:["Land pressure","District dashboard","Common lands"],t:"Common land pressure index - district dashboard",note:"Compare pressure on commons across 18 districts, refreshed nightly.",when:"28 Aug 2025",who:"Aditi Joshi \u00b7 Partner CSO",href:"#/gallery-item/g-02",img:"assets/photo-3.jpg"},
+  {kind:"New story",ic:"<svg class=svgi><use href=#i-book /></svg>",kw:["Water bodies","Anantapur","Data story"],t:"Where the tanks went \u2014 30 years of water bodies in Anantapur",note:"A narrative built from map views and Superset charts.",when:"24 Aug 2025",who:"Kavita Menon \u00b7 FES",href:"#/gallery-item/g-01",img:"assets/type-water.jpg"},
+  {kind:"Platform update",ic:"<svg class=svgi><use href=#i-sparkles /></svg>",kw:["Zonal statistics","Map Studio","Raster analysis"],t:"Zonal statistics now available in Map Studio",note:"Compute raster statistics by zone and export the results table.",when:"21 Aug 2025",who:"Commons Explorer team",href:"#/mapstudio",img:"assets/hero-participatory.jpg"}
 ];
 
 /* Featured section — moderators and admins choose which cards appear (up to 4) */
@@ -3160,7 +3263,7 @@ function featuredSection(){
   const items=featuredItems(), n=items.length;
   const cols=n>=4?'g4':n===3?'g3':'g2';
   return `<div class="between wn-head"><div><h2 class="mb0">Featured</h2><p class="sub">New datasets, maps, dashboards and stories as they are published, alongside platform updates.</p></div>${roleCan('moderate')?'<a class="btn sm" onclick="go(\'#/featured\')">Manage featured</a>':''}</div>
-      <div class="grid ${cols} wn-grid wn-nokind">${items.map(whatsNewCard).join("")}</div>`;
+      <div class="grid ${cols} wn-grid wn-nokind">${items.map(n=>whatsNewCard(n,true)).join("")}</div>`;
 }
 /* Featured page - moderators and admins choose the two cards shown in the home page Featured section */
 let FT_DRAFT=[], FT_TAB='All', FT_Q='';
@@ -3171,29 +3274,32 @@ function featuredScreen(){
   setTimeout(ftRefresh,0);
   const tabs=['All','Updates','Datasets','Gallery'];
   return accountShell('featured',[{label:"Home",href:"#/home"},{label:"Featured"}],`
-    <div class="between up-head"><div><h2 class="mb0" style="margin-top:0;font-size:22px">Featured</h2><p class="muted" style="margin:6px 0 0">Choose the two cards shown in the Featured section on the home page.</p></div>
-      <div class="row" style="gap:.6rem;flex-wrap:wrap"><a class="btn" onclick="go('#/home')">View home page</a><a class="btn primary" id="ft-save" onclick="ftSave()">Save changes</a></div></div>
+    <div class="between up-head ft-head"><div><h2 class="mb0" style="margin-top:0;font-size:22px">Featured</h2><p class="muted" style="margin:6px 0 0">Choose the two cards shown in the Featured section on the home page. Changes go live when you save.</p></div>
+      <div class="row" style="gap:.6rem;flex-wrap:wrap"><a class="btn" onclick="go('#/home')">View home page</a><a class="btn primary" id="ft-save" onclick="ftSave()"><svg class=svgi><use href=#i-check /></svg> Save changes</a></div></div>
     <div class="ft-sel"><div class="ft-sel-h"><b>On the home page</b><span id="ft-count">2 of 2 selected</span></div><div class="ft-slots" id="ft-slots"></div></div>
     <div class="ft-tools">
-      <div class="ft-tabs" id="ft-tabs">${tabs.map((t,n)=>`<button type="button" class="${n?'':'on'}" data-t="${t}" onclick="ftTab(this)">${t}</button>`).join('')}</div>
+      <div class="ft-tabs" id="ft-tabs">${tabs.map((t,n)=>`<button type="button" class="${n?'':'on'}" data-t="${t}" onclick="ftTab(this)">${t}<i>${t==='All'?FEATURE_POOL.length:FEATURE_POOL.filter(x=>x.group===t).length}</i></button>`).join('')}</div>
       <label class="up-search"><svg class=svgi><use href=#i-search /></svg><input id="ft-q" type="search" placeholder="Search cards" oninput="ftFilter()" autocomplete="off"></label>
     </div>
-    <p class="ft-hint">Click a card to select it. When two are selected, choosing another replaces the one you picked first.</p>
-    <div class="ft-grid" id="ft-grid">${FEATURE_POOL.map(x=>`<button type="button" class="ft-card" data-id="${x.id}" data-g="${x.group}" data-s="${storyEsc((x.t+' '+x.kind+' '+x.who).toLowerCase())}" onclick="ftToggle('${x.id}')">
-      <span class="ft-th" style="background-image:url('${x.img}')"></span>
-      <span class="ft-b"><em>${x.kind}</em><b>${x.t}</b><small>${storyEsc(x.who)} · ${x.when}</small></span>
-      <span class="ft-ck"></span></button>`).join('')}
+    <p class="ft-hint"><svg class=svgi><use href=#i-pointer /></svg> Click a card to select it. When two are selected, choosing another replaces the one you picked first.</p>
+    <div class="ft-grid" id="ft-grid">${FEATURE_POOL.map(x=>`<button type="button" class="ft-card" style="--tc:${WN_TC[x.kind]||'var(--green)'}" data-id="${x.id}" data-g="${x.group}" data-s="${storyEsc((x.t+' '+x.kind+' '+x.who).toLowerCase())}" onclick="ftToggle('${x.id}')">
+      <span class="ft-th" style="background-image:url('${x.img}')"><span class="ft-kind">${x.ic||''}${x.kind}</span><span class="ft-ck"><svg class=svgi><use href=#i-check /></svg><i></i></span></span>
+      <span class="ft-b"><b>${x.t}</b><span class="ft-note">${storyEsc(x.note||'')}</span></span>
+      <span class="ft-meta"><span class="pw-av wn-av">${wnIni(x.who)}</span><span class="ft-who">${storyEsc(x.who)}</span><span class="ft-when">${x.when}</span></span></button>`).join('')}
       <div class="up-empty" id="ft-nomatch" hidden><svg class=svgi><use href=#i-search /></svg><b>No matches</b><span>Try a different search or tab.</span></div></div>
+    <div class="ft-bar" id="ft-bar" hidden><span><b id="ft-bar-n"></b> · Unsaved changes</span><div class="row" style="gap:.6rem"><a class="btn" onclick="ftDiscard()">Discard</a><a class="btn primary" onclick="ftSave()">Save changes</a></div></div>
   `);
 }
 function ftRefresh(){
   const slots=document.getElementById('ft-slots'); if(!slots) return;
   const items=FT_DRAFT.map(id=>FEATURE_POOL.find(x=>x.id===id)).filter(Boolean);
-  slots.innerHTML=[0,1].map(n=>{const x=items[n]; return x?`<div class="ft-slot"><span class="ft-th" style="background-image:url('${x.img}')"></span><div><em>Card ${n+1} · ${x.kind}</em><b>${x.t}</b><small>${storyEsc(x.who)} · ${x.when}</small></div><button type="button" title="Remove" onclick="ftToggle('${x.id}')">×</button></div>`:`<div class="ft-slot empty"><span>Card ${n+1}</span><b>Choose a card below</b></div>`;}).join('');
-  document.querySelectorAll('#ft-grid .ft-card').forEach(c=>{const pos=FT_DRAFT.indexOf(c.dataset.id); c.classList.toggle('sel',pos>=0); c.querySelector('.ft-ck').textContent=pos>=0?String(pos+1):'';});
+  slots.innerHTML=[0,1].map(n=>{const x=items[n]; return x?`<div class="ft-slot2"><span class="ft-n2">Card ${n+1}</span><button type="button" class="ft-rm" onclick="ftToggle('${x.id}')">Remove</button><div class="ft-prev wn-nokind">${whatsNewCard(x,true)}</div></div>`:`<div class="ft-slot2 empty"><div class="ft-ph"><span class="ft-n">${n+1}</span><b>Card ${n+1} is empty</b><small>Choose a card below</small></div></div>`;}).join('');
+  document.querySelectorAll('#ft-grid .ft-card').forEach(c=>{const pos=FT_DRAFT.indexOf(c.dataset.id); c.classList.toggle('sel',pos>=0); c.querySelector('.ft-ck i').textContent=pos>=0?'Card '+(pos+1):'';});
   const cnt=document.getElementById('ft-count'); if(cnt) cnt.textContent=FT_DRAFT.length+' of '+FEATURED_MAX+' selected';
+  const bar=document.getElementById('ft-bar'); if(bar){bar.hidden=!ftDirty(); const bn=document.getElementById('ft-bar-n'); if(bn) bn.textContent=FT_DRAFT.length+' of '+FEATURED_MAX+' selected';}
   const sv=document.getElementById('ft-save'); if(sv) sv.classList.toggle('is-off',!(FT_DRAFT.length===FEATURED_MAX&&ftDirty()));
 }
+function ftDiscard(){FT_DRAFT=FEATURED_IDS.slice(); ftRefresh();}
 function ftToggle(id){
   const i=FT_DRAFT.indexOf(id);
   if(i>=0) FT_DRAFT.splice(i,1);
@@ -3567,6 +3673,11 @@ function carRender(id){
   tr.style.transform='translateX(-'+(c.i*100)+'%)';
   const dots=document.querySelectorAll('#'+id+' .car-dot');
   dots.forEach((d,i)=>d.classList.toggle('on',i===c.i));
+  if(id==='hero-car'){
+    document.querySelectorAll('#hero-car .hs-slide').forEach((el,i)=>el.classList.toggle('on',i===c.i));
+    const pi=document.querySelector('#hero-car .hs-prog i');
+    if(pi){pi.style.animation='none';void pi.offsetWidth;pi.style.animation='hsProg '+c.ms+'ms linear forwards';}
+  }
 }
 function carGo(id,d){const c=CAROUSELS[id];if(!c)return;c.i=(c.i+d+c.n)%c.n;carRender(id);carArm(id);}
 function carSet(id,i){const c=CAROUSELS[id];if(!c)return;c.i=i;carRender(id);carArm(id);}
@@ -3939,21 +4050,28 @@ const CHIP_TC={"Zonal statistics":"var(--c-mapstudio)","Thematic comparison":"va
 };
 const MOD_TC={thematic:"var(--green)",repository:"var(--t-water)",dss:"var(--t-cultural)",insights:"var(--t-pasture)"};
 const MOD_TAG={thematic:"Curated themes",repository:"Open data",dss:"Planning tools",insights:"Build & share"};
-const MOD_IMG={thematic:"assets/photo-8.jpg",repository:"assets/photo-3.jpg",dss:"assets/hero-participatory.jpg",insights:"assets/photo-9.jpg"};
+const MOD_IMG={thematic:"assets/photo-8.jpg",repository:"assets/photo-8.jpg",dss:"assets/hero-participatory.jpg",insights:"assets/hero-aerial-wetland.webp"};
 const MOD_FIT={};
-const MOD_STAT={thematic:"3 themes · 20+ layers",repository:"12 datasets · 5 formats",dss:"6 planning tools",insights:"Map Studio · Superset"};
+const MOD_KW={dss:["Action plans","Waterbodies","Land cover"],thematic:["Water","Land","Biodiversity"],repository:["Spatial data","Tabular data","Metadata"],insights:["Map Studio","Superset","Upload data"]};
+const MOD_STAT={thematic:"3 themes · 20+ layers",repository:"12 datasets · 5 formats",dss:"4 planning tools",insights:"Map Studio · Superset"};
+/* pathway cards reuse the home slider photos (slide 2 = Thematic/Data Repository) so card and slide match */
+function heroBg(id){
+  const h=HERO_SLIDES.find(x=>x[0]===(id==='repository'?'thematic':id));
+  return h?`background-image:url('${h[1]}');background-position:${h[3]||'center'}`:`background-image:url('${MOD_IMG[id]}')`;
+}
 function moduleTiles(){
   const go_=LANDING_ONLY?"toast('Coming soon')":null;
   const act=href=>go_||`go('${href}')`;
-  return `<div class="grid g2 mod-grid">${MODULES.map((m,i)=>`
+  return `<div class="grid g2 mod-grid mod-home">${MODULES.filter(m=>m.id!=='thematic').map((m,i)=>`
     <article class="mod-tile comp pw-card${LANDING_ONLY?' soon':''}" style="--tc:${MOD_TC[m.id]||'var(--green)'}" onclick="${act(m.href)}">
       <div class="mc-media">
-        <div class="pw-img" style="background-image:url('${MOD_IMG[m.id]}')"></div>
+        <div class="pw-img" style="${heroBg(m.id)}"></div>
       </div>
       <div class="mc-body">
         <span class="pw-stat">${MOD_STAT[m.id]||''}</span>
         <h3>${m.name}</h3>
         <p>${m.desc}</p>
+        <div class="mc-kw" aria-label="Key topics" onclick="event.stopPropagation()">${(MOD_KW[m.id]||[]).slice(0,3).map(k=>`<span>${k}</span>`).join('')}</div>
         <div class="pw-foot"><a class="pw-cta" onclick="event.stopPropagation();${act(m.href)}">Open ${m.name} <span class="mc-arrow">→</span></a></div>
       </div>
     </article>`).join("")}</div>`;
@@ -4021,13 +4139,31 @@ function whatsNewRow(n){
     <span class="wn-go">→</span>
   </a>`;
 }
-function whatsNewCard(n){
+/* Featured-card keywords: curated (n.kw) or derived from the title; max 3 per card, max 3 words each */
+const KW_RULES=[
+ [/ground ?water|\bwell/i,"Groundwater"],[/water ?bod|waterbody|\btank/i,"Water bodies"],[/watershed|drainage/i,"Watersheds"],
+ [/land ?use|land ?cover|lulc/i,"Land cover"],[/boundar|panchayat/i,"Administrative boundaries"],[/census|population|household/i,"Census data"],
+ [/\bFRA\b|forest rights/i,"Forest rights"],[/vegetation|forest|tree/i,"Forest cover"],[/biodiversity|species/i,"Biodiversity"],
+ [/restor|recover|disturb/i,"Restoration"],[/pressure|common land|our commons/i,"Common lands"],[/zonal|raster stat/i,"Zonal statistics"],
+ [/story|narrative/i,"Data story"],[/dashboard|index/i,"Dashboard"]
+];
+function featKw(n){
+  if(n.kw&&n.kw.length)return n.kw.slice(0,3);
+  const out=[],text=n.t+' '+(n.note||'');
+  KW_RULES.forEach(r=>{if(out.length<3&&r[0].test(text)&&out.indexOf(r[1])<0)out.push(r[1]);});
+  const k=(n.kind||'').toLowerCase();
+  const kk=/vector/.test(k)?'Vector data':/raster/.test(k)?'Raster data':/dashboard/.test(k)?'Dashboard':/story/.test(k)?'Data story':/map/.test(k)?'Map layer':/dataset/.test(k)?'Dataset':/update/.test(k)?'Platform update':'';
+  if(kk&&out.length<3&&out.indexOf(kk)<0)out.push(kk);
+  return out.slice(0,3);
+}
+function whatsNewCard(n,withKw){
   const ini=n.who.split(/[·\u00b7—\u2014]/)[0].trim().split(' ').map(w=>w[0]).join('').slice(0,2).toUpperCase();
   return `<article class="wn-card" style="--tc:${WN_TC[n.kind]||'var(--green)'}" onclick="${/^https?:/.test(n.href)?`window.open('${n.href}','_blank','noopener')`:`go('${n.href}')`}">
     <div class="wn-media" style="background-image:url('${n.img}')"><span class="wn-kind">${n.ic} ${n.kind}</span></div>
     <div class="wn-body">
       <h4>${n.t}</h4>
       <p>${n.note}</p>
+      ${withKw===true?`<div class="mc-kw" aria-label="Key topics" onclick="event.stopPropagation()">${featKw(n).map(k=>`<span>${k}</span>`).join('')}</div>`:''}
       <div class="wn-meta"><span class="pw-av wn-av">${ini}</span><span class="wn-who">${n.who}</span><span class="wn-when">${n.when}</span></div>
     </div>
   </article>`;
@@ -4062,15 +4198,22 @@ const HERO_SLIDES=[
   ["thematic","assets/water-checkdam.jpg","Explore curated data layers across key themes like water, biodiversity, land and governance.","center 60%"],
   ["insights","assets/photo-7.jpg","Analyse commons using built-in tools or upload your data and share insights.","center 78%"]
 ];
+/* page banner — same editorial style as the home slider (kicker, serif underlined title, description over a dark overlay) */
+function pageBanner(o){
+  return `<div class="page-photo hero-h hero-photo pb${o.lift?' pb-lift':''}"><div class="hs-slide on">
+    <img src="${o.img}" alt="${o.alt||''}" style="object-position:${o.pos||'center 50%'}">
+    <div class="hs-cap"><b role="heading" aria-level="1">${o.title}</b><span>${o.desc}</span></div>
+  </div></div>`;
+}
 function heroSlider(){
   const id='hero-car';
   CAROUSELS[id]={i:0,n:HERO_SLIDES.length,timer:null,ms:5000};
   return `<div class="hero-photo" id="${id}">
     <div class="hs-track" id="${id}-track">${HERO_SLIDES.map(h=>{const m=MODULES.find(x=>x.id===h[0]);return `<div class="hs-slide">
       <img src="${h[1]}" alt="${m.name}" style="object-position:${h[3]||'center 40%'}">
+      <div class="hs-cap"><b>${m.name}</b><span>${h[2]}</span></div>
     </div>`;}).join("")}</div>
-    <button class="hs-nav prev" onclick="carGo('${id}',-1)" aria-label="Previous slide">‹</button>
-    <button class="hs-nav next" onclick="carGo('${id}',1)" aria-label="Next slide">›</button>
+    <div class="hs-prog" aria-hidden="true"><i></i></div>
     <div class="hs-dots">${HERO_SLIDES.map((h,i)=>`<button class="car-dot ${i?'':'on'}" onclick="carSet('${id}',${i})" aria-label="Slide ${i+1}"></button>`).join("")}</div>
   </div>`;
 }
@@ -4086,7 +4229,7 @@ screens.home=()=>shell("#/home",null,`
   <div class="ehero-after"><div class="container">
 
   <section class="section">
-    <h2>Four pathways to explore</h2>
+    <h2>Pathways to explore</h2>
     <p class="sub">Each pathway opens an intermediate navigation page before its detailed views.</p>
     ${moduleTiles()}
   </section>
@@ -4113,6 +4256,7 @@ function lensCard(o){
     <div class="mc-body">
       <div class="mc-head" onclick="${click}"><div class="mod-ic">${o.ic||''}</div><div class="mc-title"><h3>${o.name}</h3><span class="mc-meta">${o.meta||''}</span></div></div>
       <p onclick="${click}">${o.desc}</p>
+      ${(o.kw||[]).length?`<div class="mc-kw" aria-label="Key topics" onclick="event.stopPropagation()">${o.kw.slice(0,3).map(k=>`<span>${k}</span>`).join('')}</div>`:''}
       ${(o.chips||[]).length?`<div class="mc-chips">${o.chips.map(c=>`<a class="mc-chip" ${CHIP_TC[c]?`style="--tc:${CHIP_TC[c]}"`:''} onclick="${click}">${c}</a>`).join("")}</div>`:''}
     </div>
     <a class="mc-foot" onclick="${click}"><span>${o.cta}</span><span class="mc-arrow">→</span></a>
@@ -4127,7 +4271,7 @@ screens.thematic=(p)=>shell("#/thematic",[{label:"Home",href:"#/home"},{label:"T
   </div>
   <section class="section" style="padding-top:2rem">
     <div class="grid g3 mod-grid lens-grid3" id="thm-grid">
-      ${THEMES.map(t=>lensCard({tc:LENS_TC[t.id],img:LENS_IMG[t.id],href:'#/theme/'+t.id,tag:'',ic:t.ic,name:t.name,meta:t.tag,desc:t.desc,cta:'Open the '+t.name+' theme'})).join("")}
+      ${THEMES.map(t=>lensCard({tc:LENS_TC[t.id],img:LENS_IMG[t.id],href:'#/theme/'+t.id,tag:'',ic:t.ic,name:t.name,kw:THEME_KW[t.id],meta:t.tag,desc:t.desc,cta:'Open the '+t.name+' theme'})).join("")}
     </div>
   </section>
   ${repositorySection(p)}
@@ -4682,17 +4826,11 @@ function submitUpload(){
 
 /* ---- SRS §2.2.3.1 Commons Insights — intermediate navigation ---- */
 screens.insights=()=>shell("#/insights",[{label:"Home",href:"#/home"},{label:"Commons Insights"}],`
-  <div class="pagehero bare">
-    <div class="ph-copy">
-      <h1>Commons <em>Insights</em></h1>
-      <p>A powerful suite of geospatial analytical tools designed to help communities, researchers, and policymakers understand and manage common resources through state-of-the-art satellite data. Analyze commons using built-in tools or upload your data and share insights.</p>
-    </div>
-  </div>
-  <div class="page-photo hero-h"><img src="assets/hero-aerial-wetland.webp" alt="Aerial view of a village wetland with analysis callouts" style="object-position:center 74%"></div>
+  ${pageBanner({img:"assets/photo-4.jpg",alt:"A farmer ploughing a flooded field with bullocks",pos:"center 55%",title:"Commons Insights",desc:"Geospatial analytical tools to understand and manage common resources through satellite data. Analyse commons using built-in tools or upload your data and share insights."})}
   <section class="section" style="padding-top:3rem">
     <div class="grid g2 mod-grid">
-      ${lensCard({tc:"var(--c-mapstudio)",img:"assets/photo-3.jpg",tag:"",name:"Map Studio",meta:"GeoNode · GeoServer tools · sign-in for AI reports",desc:"Create, style, manage and publish geospatial data and maps — filters, area calculation, thematic comparison, zonal statistics and AI-assisted reports.",cta:"Open Map Studio",click:"goGated('#/mapstudio','Map Studio')"})}
-      ${lensCard({tc:"var(--c-gallery)",img:"assets/ill-hero.jpg",tag:"",name:"Gallery of User generated Content",meta:"Sign-in required",desc:"Browse and publish maps, dashboards and narrative stories contributed by the community, in one interpretable format.",cta:"Browse the Gallery",click:"goGated('#/gallery','Gallery')"})}
+      ${lensCard({tc:"var(--c-mapstudio)",img:"assets/photo-3.jpg",tag:"",name:"Map Studio",kw:["Map creation","Geospatial layers","Publish maps"],meta:"GeoNode · GeoServer tools · sign-in for AI reports",desc:"Create, style, manage and publish geospatial data and maps — filters, area calculation, thematic comparison, zonal statistics and AI-assisted reports.",cta:"Open Map Studio",click:"goGated('#/mapstudio','Map Studio')"})}
+      ${lensCard({tc:"var(--c-gallery)",img:"assets/ill-hero.jpg",tag:"",name:"Gallery of User generated Content",kw:["User maps","Dashboards","Data stories"],meta:"Sign-in required",desc:"Browse and publish maps, dashboards and narrative stories contributed by the community, in one interpretable format.",cta:"Browse the Gallery",click:"goGated('#/gallery','Gallery')"})}
     </div>
   </section>
 `);
@@ -5076,21 +5214,13 @@ screens['gallery-item']=(p)=>{
 
 /* ---- SRS §2.2.4 Decision Support System — intermediate navigation ---- */
 screens.dss=()=>shell("#/dss",[{label:"Home",href:"#/home"},{label:"Decision Support System"}],`
-  <div class="pagehero bare">
-    <div class="ph-copy">
-      <h1>Decision Support <em>System</em></h1>
-      <p>Decision Support turns commons data into planning guidance: Get conservation action plans based on status, needs, and potential interventions.</p>
-    </div>
-  </div>
-  <div class="page-photo hero-h"><img src="assets/photo-2.jpg" alt=""></div>
+  ${pageBanner({img:"assets/photo-2.jpg",pos:"center 48%",title:"Decision Support System",desc:"Get conservation action plans based on status, needs and potential interventions."})}
   <section class="section" style="padding-top:3rem">
     <div class="grid g2 mod-grid">
-      ${lensCard({tc:"var(--c-forest)",img:"assets/photo-8.jpg",tag:"",name:"Landscape conservation action plan",meta:"Foundation for Ecological Security",desc:"Landscape-scale action plans — a map workspace, a 14-step LCAP tracker and the resources behind the initiative.",cta:"Preview the LCAP module",click:"window.open('https://land-cover-analysis.streamlit.app/','_blank','noopener')"})}
-      ${lensCard({tc:"var(--c-waterbody)",img:"assets/photo-4.jpg",tag:"",name:"Waterbody performance",meta:"Foundation for Ecological Security",desc:"Good / moderate / poor performance of water bodies, to prioritise which ones need repair or restoration first.",cta:"Open the Waterbody performance tool",click:"window.open('https://mahesh89pr.users.earthengine.app/view/waterbody-performance','_blank','noopener')"})}
-      ${lensCard({tc:"var(--c-lulc)",img:"assets/photo-7.jpg",tag:"",name:"Landcover analysis",meta:"Foundation for Ecological Security",desc:"Land-use / land-cover change detection across forests and revenue lands, to track what's shifting and where.",cta:"Open the Landcover analysis tool",click:"window.open('https://land-cover-analysis.streamlit.app/','_blank','noopener')"})}
-      ${lensCard({tc:"var(--c-groundwater)",img:"assets/water-groundwater.jpg",tag:"",name:"Ground Water Monitoring — Village Status",meta:"Foundation for Ecological Security",desc:"Village-level groundwater monitoring status, to see where wells are holding up and where levels are falling.",cta:"Open the Ground Water Monitoring tool",click:"window.open('https://di.indiaobservatory.org.in/agportal/apps/experiencebuilder/experience/?id=01a0045f73fe427d97418febfb776a3c','_blank','noopener')"})}
-      ${lensCard({tc:"var(--c-biomass)",img:"assets/type-forest.jpg",tag:"",name:"Vegetation Disturbance and Recovery Mapping",meta:"Foundation for Ecological Security",desc:"Maps where vegetation has been disturbed and how it is recovering over time.",cta:"Open the Vegetation Disturbance tool",click:"window.open('https://mahesh89pr.users.earthengine.app/view/disturbance-recovery-mapping','_blank','noopener')"})}
-      ${lensCard({tc:"var(--c-atlas)",img:"assets/photo-3.jpg",tag:"",name:"Panchayat Atlas",meta:"Foundation for Ecological Security",desc:"Map-based decision support at Gram Panchayat level — administrative boundaries with multi-sectoral layers, indicator dashboards and temporal comparison.",cta:"Open the Panchayat Atlas",href:"#/atlas"})}
+      ${lensCard({tc:"var(--c-waterbody)",img:"assets/photo-4.jpg",tag:"",name:"Waterbody performance",kw:["Water bodies","Performance rating","Water conservation"],meta:"Foundation for Ecological Security",desc:"Good / moderate / poor performance of water bodies, to prioritise which ones need repair or restoration first.",cta:"Open the Waterbody performance tool",click:"window.open('https://mahesh89pr.users.earthengine.app/view/waterbody-performance','_blank','noopener')"})}
+      ${lensCard({tc:"var(--c-lulc)",img:"assets/photo-7.jpg",tag:"",name:"Landcover analysis",kw:["Land cover","Change detection","Forest cover"],meta:"Foundation for Ecological Security",desc:"Land-use / land-cover change detection across forests and revenue lands, to track what's shifting and where.",cta:"Open the Landcover analysis tool",click:"window.open('https://land-cover-analysis.streamlit.app/','_blank','noopener')"})}
+      ${lensCard({tc:"var(--c-groundwater)",img:"assets/water-groundwater.jpg",tag:"",name:"Ground Water Monitoring — Village Status",kw:["Groundwater","Well observations","Village status"],meta:"Foundation for Ecological Security",desc:"Village-level groundwater monitoring status, to see where wells are holding up and where levels are falling.",cta:"Open the Ground Water Monitoring tool",click:"window.open('https://di.indiaobservatory.org.in/agportal/apps/experiencebuilder/experience/?id=01a0045f73fe427d97418febfb776a3c','_blank','noopener')"})}
+      ${lensCard({tc:"var(--c-biomass)",img:"assets/type-forest.jpg",tag:"",name:"Vegetation Disturbance and Recovery Mapping",kw:["Vegetation recovery","Disturbance mapping","Forest health"],meta:"Foundation for Ecological Security",desc:"Maps where vegetation has been disturbed and how it is recovering over time.",cta:"Open the Vegetation Disturbance tool",click:"window.open('https://mahesh89pr.users.earthengine.app/view/disturbance-recovery-mapping','_blank','noopener')"})}
     </div>
   </section>
 `);
@@ -6047,13 +6177,7 @@ screens.roles=()=>{
 
 /* about / blogs / architecture / site map */
 screens.about=()=>shell("#/about",[{label:"Home",href:"#/home"},{label:"About"}],`
-  <div class="pagehero bare">
-    <div class="ph-copy">
-      <h1>About Commons <em>Explorer</em></h1>
-      <p>A digital, open-access module of the Commons Platform for accessing and visualising spatial and non-spatial data in support of the conservation and sustainable management of natural commons - for communities, practitioners, planners and researchers.</p>
-    </div>
-  </div>
-  <div class="page-photo"><img src="assets/ill-hero.jpg" alt="" style="object-position:center 60%"></div>
+  ${pageBanner({img:"assets/ill-hero.jpg",pos:"center 60%",lift:1,title:"About Commons Explorer",desc:"A digital, open-access module of the Commons Platform for accessing and visualising spatial and non-spatial data on natural commons - for communities, practitioners, planners and researchers."})}
   <div class="hstats hstats4">
     <div class="hstat"><span class="ic-tile"><svg class=svgi><use href=#i-map /></svg></span><div><b>2.6<em> L</em></b><span>Gram Panchayats mapped</span></div></div>
     <div class="hstat"><span class="ic-tile"><svg class=svgi><use href=#i-layers /></svg></span><div><b>20+</b><span>curated data layers</span></div></div>
