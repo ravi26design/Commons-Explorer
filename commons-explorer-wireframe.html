@@ -3131,6 +3131,15 @@ header.site.searching .nav>ul,header.site.searching .navright,header.site.search
 .ft-head h2{line-height:1.2}
 .ft-head p{margin:.2rem 0 0!important;line-height:1.4;font-size:.95rem}
 .ft-sel{margin-top:.5rem}
+
+/* ---- footer: Commons Platform logo (links to commonsplatform.in) ---- */
+footer.site .cols{grid-template-columns:minmax(0,1.4fr) repeat(2,minmax(0,1fr)) minmax(0,1.1fr)}
+.f-plat{display:block;justify-self:end;width:100%}
+.f-plat a{display:block;width:min(100%,14rem);margin-left:auto;transition:opacity .15s,transform .15s}
+.f-plat a:hover{opacity:.85;transform:translateY(-1px)}
+.f-plat img{display:block;width:100%;height:auto}
+@media(max-width:1000px){footer.site .cols{grid-template-columns:1fr 1fr}.f-plat a{margin-left:0}}
+@media(max-width:640px){footer.site .cols{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
@@ -3616,7 +3625,9 @@ function footer(){
       <div><div class="f-brand"><span class="mk"><svg class=svgi><use href=#i-compass /></svg></span><h5 class="fname">Commons<br>Explorer</h5></div>
         <p class="muted mt12" style="max-width:280px">An open-access module of the Commons Platform for exploring spatial and non-spatial data on natural commons.</p></div>
       <div><h5>Modules</h5><ul><li onclick="go('#/dss')">Decision Support System</li><li onclick="go('#/thematic')">Thematic Datasets</li><li onclick="go('#/insights')">Commons Insights</li></ul></div>
-      <div><h5>Tools</h5><ul><li onclick="goGated('#/mapstudio','Map Studio')">Map Studio</li><li onclick="goGated('#/analytics','Data Analytics')">Data Analytics</li></ul></div>    </div>
+      <div><h5>Tools</h5><ul><li onclick="goGated('#/mapstudio','Map Studio')">Map Studio</li><li onclick="goGated('#/analytics','Data Analytics')">Data Analytics</li></ul></div>
+      <div class="f-plat"><a href="https://commonsplatform.in/" target="_blank" rel="noopener" title="Commons Platform" aria-label="Commons Platform (opens commonsplatform.in)"><img src="assets/commons-platform-logo.png" alt="Commons Platform" width="900" height="268" loading="lazy"></a></div>
+    </div>
     <div class="bar">
       <span>CC-BY 4.0 License. Commons Platform.</span>
       <div class="f-social">
